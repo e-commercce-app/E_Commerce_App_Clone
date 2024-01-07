@@ -5,6 +5,7 @@ class AppColors {
   Color allAppColor = const Color.fromARGB(255, 248, 249, 250);
   Color errorRedColors = Colors.red;
   Color white = Colors.white;
+  Color grey = Colors.grey;
   // ! All App Use this Button Colors
   Color buttonColor = const Color.fromARGB(255, 51, 160, 255);
   // ! Different Text Colors .
