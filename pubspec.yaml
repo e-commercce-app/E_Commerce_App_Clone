@@ -37,9 +37,12 @@ dependencies:
   cupertino_icons: ^1.0.2
   # ! Connect to Flutter and Firebase and other purpose .
   firebase_core: ^2.24.2
-  # handle this text fonts style .
+  # ! handle this text fonts style .
   google_fonts: ^6.1.0
+  # ! animated Text Kit multiple Text Animation 
   animated_text_kit: ^4.2.2
+  # ! Show Page Indicator 
+  smooth_page_indicator: ^1.1.0
 
 dev_dependencies:
   flutter_test:

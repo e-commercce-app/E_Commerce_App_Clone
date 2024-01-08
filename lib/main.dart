@@ -8,9 +8,10 @@ import 'firebase_options.dart';
 void main() async {
   runApp(const MyApp());
   // hide this status Bar and SystemNavigationBar .
-  SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarColor: Colors.white,
+      statusBarColor: Colors.transparent,
+      statusBarIconBrightness: Brightness.dark,
       statusBarBrightness: Brightness.light,
       systemNavigationBarIconBrightness: Brightness.dark,
       systemNavigationBarColor: Resources.colors.white));
