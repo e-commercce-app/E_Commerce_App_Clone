@@ -1,3 +1,4 @@
+import 'package:e_commerce/Controller/Routes/routes_method.dart';
 import 'package:e_commerce/View/Screens/OnBoarding_Screen/onboarding_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/services.dart';
@@ -35,7 +36,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Shoes_E_Commerce',
       theme: eCommerceTheme,
-      home: const OnBoardingScreen(),
+      initialRoute: RoutesName.onBoardingScreen,
+      onGenerateRoute: RoutesMethod.onGenerateRoutes,
+      // home: const OnBoardingScreen(),
     );
   }
 }

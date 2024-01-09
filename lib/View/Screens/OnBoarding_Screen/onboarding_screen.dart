@@ -1,6 +1,7 @@
 import 'package:e_commerce/Components/Resources/resources.dart';
 import 'package:e_commerce/Components/Widgets/custom_button.dart';
 import 'package:e_commerce/Components/Widgets/custom_size_box.dart';
+import 'package:e_commerce/Controller/Routes/routes_method.dart';
 import 'package:e_commerce/View/Screens/Splash_Screen/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -108,11 +109,8 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                           duration: const Duration(milliseconds: 400),
                           curve: Curves.easeIn);
                       if (customIndex == pages.length - 0) {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const SplashScreen(),
-                            )).then((value) {
+                        Navigator.pushNamed(context, RoutesName.splashScreen)
+                            .then((value) {
                           customIndex = 2;
                         });
                       }

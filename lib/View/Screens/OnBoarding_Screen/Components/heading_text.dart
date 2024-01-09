@@ -24,49 +24,23 @@ class HeadingsOnboardingScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // !Large Text
-          Text.rich(
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              TextSpan(
-                text: boldText1,
-                style: TextStyle(
-                    fontSize: size.height * 0.05,
-                    fontWeight: FontWeight.w500,
-                    color: Resources.colors.largeTextColor),
-              )),
-          Text.rich(
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              TextSpan(
-                text: boldText2,
-                style: TextStyle(
-                    fontSize: size.height * 0.05,
-                    fontWeight: FontWeight.w500,
-                    color: Resources.colors.largeTextColor),
-              )),
+          Text(
+            boldText1,
+            style: Resources.textStyle.boldText1TextStyle(size),
+          ),
+          Text(
+            boldText2,
+            style: Resources.textStyle.boldText2TextStyle(size),
+          ),
           // ! Small Text
-          Text.rich(
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              TextSpan(
-                text: smallText1,
-                style: TextStyle(
-                    fontSize: size.height * 0.025,
-                    fontWeight: FontWeight.w500,
-                    letterSpacing: 1,
-                    color: Resources.colors.titleTextColors),
-              )),
-          Text.rich(
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              TextSpan(
-                text: smallText2,
-                style: TextStyle(
-                    fontSize: size.height * 0.025,
-                    letterSpacing: 1,
-                    fontWeight: FontWeight.w500,
-                    color: Resources.colors.titleTextColors),
-              )),
+          Text(
+            smallText1,
+            style: Resources.textStyle.smallText1TextStyle(size),
+          ),
+          Text(
+            smallText2,
+            style: Resources.textStyle.smallText2TextStyle(size),
+          ),
         ],
       ),
     );
