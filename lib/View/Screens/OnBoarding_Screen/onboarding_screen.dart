@@ -2,9 +2,12 @@ import 'package:e_commerce/Components/Resources/resources.dart';
 import 'package:e_commerce/Components/Widgets/custom_button.dart';
 import 'package:e_commerce/Components/Widgets/custom_size_box.dart';
 import 'package:e_commerce/Controller/Routes/routes_method.dart';
+import 'package:e_commerce/View/Screens/OnBoarding_Screen/Bloc/page_view_bloc.dart';
+import 'package:e_commerce/View/Screens/OnBoarding_Screen/Bloc/page_view_event.dart';
 import 'package:e_commerce/View/Screens/Splash_Screen/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'Components/heading_text.dart';
 
@@ -24,20 +27,23 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   // Controll this index .
   int customIndex = 0;
   bool changeText = false;
-  // JumpTo Next Page .
-  void jumpToNextPage() {
-    customIndex += 1;
-    pageController.animateToPage(customIndex,
-        duration: const Duration(milliseconds: 400), curve: Curves.easeIn);
-    if (customIndex == 3) {
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const SplashScreen(),
-          ));
-    }
-  }
 
+  /////////////////////////////////////////////////
+  // JumpTo Next Page .
+  // void jumpToNextPage() {
+  //   customIndex += 1;
+  //   pageController.animateToPage(customIndex,
+  //       duration: const Duration(milliseconds: 400), curve: Curves.easeIn);
+  //   if (customIndex == 3) {
+  //     Navigator.push(
+  //         context,
+  //         MaterialPageRoute(
+  //           builder: (context) => const SplashScreen(),
+  //         ));
+  //   }
+  // }
+/////////////////////////////////////////////////
+  ///
   @override
   void initState() {
     super.initState();
@@ -66,10 +72,12 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                 allowImplicitScrolling: false,
                 controller: pageController,
                 onPageChanged: (index) {
-                  setState(() {
-                    customIndex = index;
-                    debugPrint("$customIndex");
-                  });
+                  BlocProvider.of<PageViewBloc>(context)
+                      .add(IndexedPageViewEvent(selectedIndex: index));
+                  // setState(() {
+                  //   customIndex = index;
+                  //   debugPrint("$customIndex");
+                  // });
                 },
                 scrollDirection: Axis.horizontal,
                 children: pages,
@@ -88,9 +96,11 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                       controller: pageController,
                       count: 3,
                       onDotClicked: (index) {
-                        setState(() {
-                          customIndex = index;
-                        });
+                        BlocProvider.of<PageViewBloc>(context)
+                            .add(IndexedPageViewEvent(selectedIndex: index));
+                        // setState(() {
+                        //   customIndex = index;
+                        // });
                       },
                       axisDirection: Axis.horizontal,
                       effect: ExpandingDotsEffect(
