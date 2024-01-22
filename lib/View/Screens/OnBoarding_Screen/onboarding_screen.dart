@@ -4,11 +4,11 @@ import 'package:e_commerce/Components/Widgets/custom_size_box.dart';
 import 'package:e_commerce/Controller/Routes/routes_method.dart';
 import 'package:e_commerce/View/Screens/OnBoarding_Screen/Bloc/page_view_bloc.dart';
 import 'package:e_commerce/View/Screens/OnBoarding_Screen/Bloc/page_view_event.dart';
-import 'package:e_commerce/View/Screens/Splash_Screen/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'Bloc/page_view_state.dart';
 import 'Components/heading_text.dart';
 
 class OnBoardingScreen extends StatefulWidget {
@@ -24,26 +24,8 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
 
   //Pixel of the Screen .
   late Size size;
-  // Controll this index .
-  int customIndex = 0;
   bool changeText = false;
 
-  /////////////////////////////////////////////////
-  // JumpTo Next Page .
-  // void jumpToNextPage() {
-  //   customIndex += 1;
-  //   pageController.animateToPage(customIndex,
-  //       duration: const Duration(milliseconds: 400), curve: Curves.easeIn);
-  //   if (customIndex == 3) {
-  //     Navigator.push(
-  //         context,
-  //         MaterialPageRoute(
-  //           builder: (context) => const SplashScreen(),
-  //         ));
-  //   }
-  // }
-/////////////////////////////////////////////////
-  ///
   @override
   void initState() {
     super.initState();
@@ -62,81 +44,78 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   @override
   Widget build(BuildContext context) {
     size = MediaQuery.sizeOf(context);
-    return Scaffold(
-      body: SafeArea(
-        // ! Page View .
-        child: Column(
-          children: [
-            Expanded(
-              child: PageView(
-                allowImplicitScrolling: false,
-                controller: pageController,
-                onPageChanged: (index) {
-                  BlocProvider.of<PageViewBloc>(context)
-                      .add(IndexedPageViewEvent(selectedIndex: index));
-                  // setState(() {
-                  //   customIndex = index;
-                  //   debugPrint("$customIndex");
-                  // });
-                },
-                scrollDirection: Axis.horizontal,
-                children: pages,
+    return Scaffold(body: BlocBuilder<PageViewBloc, PageViewState>(
+      builder: (context, state) {
+        return SafeArea(
+          // ! Page View .
+          child: Column(
+            children: [
+              Expanded(
+                child: PageView(
+                  allowImplicitScrolling: false,
+                  controller: pageController,
+                  onPageChanged: (index) {
+                    state.selectedIndex = index;
+                    BlocProvider.of<PageViewBloc>(context).add(PageViewEvent());
+                  },
+                  scrollDirection: Axis.horizontal,
+                  // Define 3 pages .
+                  children: pages,
+                ),
               ),
-            ),
 
-            // ! Handle this
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: size.width * 0.03),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  ColoredBox(
-                    color: Colors.transparent,
-                    child: SmoothPageIndicator(
-                      controller: pageController,
-                      count: 3,
-                      onDotClicked: (index) {
-                        BlocProvider.of<PageViewBloc>(context)
-                            .add(IndexedPageViewEvent(selectedIndex: index));
-                        // setState(() {
-                        //   customIndex = index;
-                        // });
-                      },
-                      axisDirection: Axis.horizontal,
-                      effect: ExpandingDotsEffect(
-                        dotColor: Resources.colors.grey,
-                        activeDotColor: Resources.colors.buttonColor,
+              // ! Handle this
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: size.width * 0.03),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    ColoredBox(
+                      color: Colors.transparent,
+                      child: SmoothPageIndicator(
+                        controller: pageController,
+                        count: 3,
+                        onDotClicked: (index) {
+                          state.selectedIndex = index;
+                          // BlocProvider.of<PageViewBloc>(context)
+                          //     .add(PageViewEvent());
+                        },
+                        axisDirection: Axis.horizontal,
+                        effect: ExpandingDotsEffect(
+                          dotColor: Resources.colors.grey,
+                          activeDotColor: Resources.colors.buttonColor,
+                        ),
                       ),
                     ),
-                  ),
-                  //  ! Custom Button Section .
-                  CustomButton(
-                    size: size,
-                    buttonText: customIndex == 2 ? "Get Started" : "Next Page",
-                    onPressed: () {
-                      customIndex += 1;
-                      pageController.animateToPage(customIndex,
-                          duration: const Duration(milliseconds: 400),
-                          curve: Curves.easeIn);
-                      if (customIndex == pages.length - 0) {
-                        Navigator.pushNamed(context, RoutesName.splashScreen)
-                            .then((value) {
-                          customIndex = 2;
-                        });
-                      }
-                    },
-                  ),
-                ],
+                    //  ! Custom Button Section .
+                    CustomButton(
+                      size: size,
+                      buttonText: state.selectedIndex == 2,
+                      onPressed: () {
+                        state.selectedIndex += 1;
+                        pageController.animateToPage(state.selectedIndex,
+                            duration: const Duration(milliseconds: 400),
+                            curve: Curves.easeIn);
+                        if (state.selectedIndex == pages.length - 0) {
+                          Navigator.pushNamed(context, RoutesName.splashScreen)
+                              .then((value) {
+                            state.selectedIndex = 2;
+                          });
+                        }
+                      },
+                    ),
+                  ],
+                ),
               ),
-            ),
-            // Some Space .
-            const CustomSizedBox(
-              heightRatio: 0.03,
-            )
-          ],
-        ),
-      ),
-    );
+              // Some Space .
+              const CustomSizedBox(
+                heightRatio: 0.03,
+              )
+            ],
+          ),
+        );
+      },
+    ));
   }
 
   List<Widget> get pages {

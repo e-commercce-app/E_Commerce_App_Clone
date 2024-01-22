@@ -8,7 +8,7 @@ class CustomButton extends StatelessWidget {
       required this.buttonText});
   final Size size;
   final VoidCallback onPressed;
-  final String buttonText;
+  final bool buttonText;
   @override
   Widget build(BuildContext context) {
     return MaterialButton(
@@ -21,8 +21,10 @@ class CustomButton extends StatelessWidget {
       splashColor: Colors.transparent,
       focusElevation: 8,
       child: Center(
-        child: Text(buttonText,
-            style: Resources.textStyle.customButtonTextStyle()),
+        child: buttonText
+            ? const Text("Next Page")
+            : Text("GetStarted",
+                style: Resources.textStyle.customButtonTextStyle()),
       ),
     );
   }

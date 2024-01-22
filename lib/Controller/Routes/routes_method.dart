@@ -1,7 +1,9 @@
 import 'package:e_commerce/Export/e_commerce_export.dart';
 import 'package:e_commerce/View/Screens/Home/home_screen.dart';
+import 'package:e_commerce/View/Screens/OnBoarding_Screen/Bloc/page_view_bloc.dart';
 import 'package:e_commerce/View/Screens/OnBoarding_Screen/onboarding_screen.dart';
 import 'package:e_commerce/View/Screens/Splash_Screen/splash_screen.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 // ! Routes Name
 abstract class RoutesName {
@@ -22,7 +24,12 @@ class RoutesMethod {
     }
     // 2
     else if (settings.name == RoutesName.onBoardingScreen) {
-      return CustomPageTransition(child: const OnBoardingScreen());
+      return CustomPageTransition(
+          child: BlocProvider(
+        lazy: true,
+        create: (context) => PageViewBloc(),
+        child: const OnBoardingScreen(),
+      ));
     }
     // 3
     else if (settings.name == RoutesName.homeScreen) {

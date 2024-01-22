@@ -8,7 +8,7 @@ import 'Export/e_commerce_export.dart';
 import 'firebase_options.dart';
 
 void main() async {
-  runApp(const MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
   // hide this status Bar and SystemNavigationBar .
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
@@ -26,10 +26,11 @@ void main() async {
       options: DefaultFirebaseOptions.currentPlatform,
     );
   });
+  runApp(const ECommerce());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class ECommerce extends StatelessWidget {
+  const ECommerce({super.key});
 
   @override
   Widget build(BuildContext context) {
