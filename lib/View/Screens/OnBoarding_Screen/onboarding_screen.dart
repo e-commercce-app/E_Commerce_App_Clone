@@ -1,13 +1,10 @@
-import 'package:e_commerce/Components/Resources/resources.dart';
-import 'package:e_commerce/Components/Widgets/custom_button.dart';
-import 'package:e_commerce/Components/Widgets/custom_size_box.dart';
 import 'package:e_commerce/Controller/Routes/routes_method.dart';
 import 'package:e_commerce/View/Screens/OnBoarding_Screen/Bloc/page_view_bloc.dart';
 import 'package:e_commerce/View/Screens/OnBoarding_Screen/Bloc/page_view_event.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import '../../../Export/e_commerce_export.dart';
 import 'Bloc/page_view_state.dart';
 import 'Components/heading_text.dart';
 
@@ -59,7 +56,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                     BlocProvider.of<PageViewBloc>(context).add(PageViewEvent());
                   },
                   scrollDirection: Axis.horizontal,
-                  // Define 3 pages .
+                  // Todo => Define 3 pages .
                   children: pages,
                 ),
               ),
@@ -90,7 +87,9 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                     //  ! Custom Button Section .
                     CustomButton(
                       size: size,
-                      buttonText: state.selectedIndex == 2,
+                      buttonText: state.selectedIndex == 2
+                          ? "Get Started"
+                          : "Next Page",
                       onPressed: () {
                         state.selectedIndex += 1;
                         pageController.animateToPage(state.selectedIndex,

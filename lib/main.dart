@@ -3,7 +3,6 @@ import 'package:e_commerce/View/Screens/OnBoarding_Screen/Bloc/page_view_bloc.da
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'Components/Resources/e_commerce_theme.dart';
 import 'Export/e_commerce_export.dart';
 import 'firebase_options.dart';
 
