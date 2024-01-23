@@ -17,6 +17,12 @@ TextTheme _getTextTheme() {
       fontSize: 40.0,
       fontWeight: FontWeight.w600,
     ),
+    // displayMedium: TextStyle(
+    //   color: colorScheme.primaryContainer,
+    //   fontSize: 40,
+    //   fontFamily: 'Airbnb Cereal App',
+    //   fontWeight: FontWeight.w500,
+    // ),
     headlineSmall: GoogleFonts.poppins(
       color: Resources.colors.titleTextColors,
       fontSize: 18.0,

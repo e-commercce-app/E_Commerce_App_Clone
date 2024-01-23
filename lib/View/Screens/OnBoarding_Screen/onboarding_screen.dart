@@ -44,6 +44,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
     return Scaffold(body: BlocBuilder<PageViewBloc, PageViewState>(
       builder: (context, state) {
         return SafeArea(
+          top: false,
           // ! Page View .
           child: Column(
             children: [

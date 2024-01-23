@@ -55,3 +55,69 @@ class AppTextStyle {
     );
   }
 }
+
+/// Class containing the supported text theme styles.
+class TextThemes {
+  static TextTheme textTheme(ColorScheme colorScheme) => TextTheme(
+        bodyLarge: TextStyle(
+          color: Colors.grey.shade600,
+          fontSize: 16,
+          fontFamily: 'Airbnb Cereal App',
+          fontWeight: FontWeight.w400,
+        ),
+        bodyMedium: TextStyle(
+          color: colorScheme.primaryContainer,
+          fontSize: 14,
+          fontFamily: 'Airbnb Cereal App',
+          fontWeight: FontWeight.w400,
+        ),
+        bodySmall: TextStyle(
+          color: colorScheme.primary,
+          fontSize: 12,
+          fontFamily: 'Airbnb Cereal App',
+          fontWeight: FontWeight.w400,
+        ),
+        displayMedium: TextStyle(
+          color: colorScheme.primaryContainer,
+          fontSize: 40,
+          fontFamily: 'Airbnb Cereal App',
+          fontWeight: FontWeight.w500,
+        ),
+        headlineMedium: TextStyle(
+          color: colorScheme.primaryContainer,
+          fontSize: 28,
+          fontFamily: 'Airbnb Cereal App',
+          fontWeight: FontWeight.w500,
+        ),
+        headlineSmall: TextStyle(
+          color: colorScheme.primaryContainer,
+          fontSize: 24,
+          fontFamily: 'Airbnb Cereal App',
+          fontWeight: FontWeight.w500,
+        ),
+        labelLarge: TextStyle(
+          color: colorScheme.primaryContainer,
+          fontSize: 12,
+          fontFamily: 'Airbnb Cereal App',
+          fontWeight: FontWeight.w500,
+        ),
+        titleLarge: TextStyle(
+          color: colorScheme.primaryContainer,
+          fontSize: 20,
+          fontFamily: 'Airbnb Cereal App',
+          fontWeight: FontWeight.w500,
+        ),
+        titleMedium: TextStyle(
+          color: colorScheme.primaryContainer,
+          fontSize: 16,
+          fontFamily: 'Airbnb Cereal App',
+          fontWeight: FontWeight.w500,
+        ),
+        titleSmall: TextStyle(
+          color: colorScheme.primaryContainer,
+          fontSize: 14,
+          fontFamily: 'Airbnb Cereal App',
+          fontWeight: FontWeight.w500,
+        ),
+      );
+}

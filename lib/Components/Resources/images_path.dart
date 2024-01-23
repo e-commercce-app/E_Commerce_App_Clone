@@ -1,14 +1,16 @@
 class ImagePath {
-  static String assestPath = "assets/images/";
+  static String imagePath = "assets/images/";
 
   // images Path
-  String nikeBoots = "${assestPath}cloud2.jpg";
-  String nikeBoots1 = "${assestPath}nike_boot1.jpg";
-  String sneaker1 = "${assestPath}sneaker1.png";
-  String sneaker2 = "${assestPath}sneaker2.png";
-  String sneaker3 = "${assestPath}sneaker3.png";
-  String sneaker4 = "${assestPath}sneaker4.png";
-  String sneaker5 = "${assestPath}sneaker5.png";
-  String sneaker6 = "${assestPath}sneaker6.png";
-  String sneaker7 = "${assestPath}sneaker7.png";
+  // ! Splash images
+  String imgSplash = '${imagePath}img_splash.png';
+  String nikeBoots = "${imagePath}cloud2.jpg";
+  String nikeBoots1 = "${imagePath}nike_boot1.jpg";
+  String sneaker1 = "${imagePath}sneaker1.png";
+  String sneaker2 = "${imagePath}sneaker2.png";
+  String sneaker3 = "${imagePath}sneaker3.png";
+  String sneaker4 = "${imagePath}sneaker4.png";
+  String sneaker5 = "${imagePath}sneaker5.png";
+  String sneaker6 = "${imagePath}sneaker6.png";
+  String sneaker7 = "${imagePath}sneaker7.png";
 }
