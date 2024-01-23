@@ -1,7 +1,7 @@
 class ImagePath {
   static String imagePath = "assets/images/";
 
-  // images Path
+  /// images Path ///
   // ! Splash images
   String imgSplash = '${imagePath}img_splash.png';
   String nikeBoots = "${imagePath}cloud2.jpg";

@@ -1,4 +1,5 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:e_commerce/Components/Localization/app_strings.dart';
 import 'package:e_commerce/Components/Resources/resources.dart';
 import 'package:flutter/material.dart';
 
@@ -20,7 +21,7 @@ class CustomTextKit extends StatelessWidget {
       child: AnimatedTextKit(
         animatedTexts: [
           WavyAnimatedText(
-            'NIKE SHOES',
+            oxyBoots,
           ),
         ],
         isRepeatingAnimation: true,

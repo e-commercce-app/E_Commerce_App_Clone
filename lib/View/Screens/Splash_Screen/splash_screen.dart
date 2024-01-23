@@ -1,5 +1,3 @@
-import 'package:flutter/services.dart';
-
 import '../../../Export/e_commerce_export.dart';
 import 'Components/custom_text.dart';
 

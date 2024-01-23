@@ -24,7 +24,7 @@ TextTheme _getTextTheme() {
     //   fontWeight: FontWeight.w500,
     // ),
     headlineSmall: GoogleFonts.poppins(
-      color: Resources.colors.titleTextColors,
+      color: Resources.colors.titleTextColor,
       fontSize: 18.0,
       height: 0.0,
       fontWeight: FontWeight.w500,
@@ -37,7 +37,7 @@ ColorScheme _getCustomColorScheme() {
     brightness: Brightness.light,
     primary: Resources.colors.white,
     onPrimary: Resources.colors.white,
-    onError: Resources.colors.errorRedColors,
+    onError: Resources.colors.errorRedColor,
     background: Resources.colors.white,
   );
 }

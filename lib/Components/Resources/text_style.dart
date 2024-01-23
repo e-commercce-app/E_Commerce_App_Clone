@@ -34,7 +34,7 @@ class AppTextStyle {
         fontSize: size.height * 0.025,
         fontWeight: FontWeight.w500,
         letterSpacing: 1,
-        color: Resources.colors.titleTextColors);
+        color: Resources.colors.titleTextColor);
   }
 
   //  ** OnBoarding Small Text 2
@@ -43,7 +43,7 @@ class AppTextStyle {
         fontSize: size.height * 0.025,
         letterSpacing: 1,
         fontWeight: FontWeight.w500,
-        color: Resources.colors.titleTextColors);
+        color: Resources.colors.titleTextColor);
   }
 
   //!  Custom Button File Text Style

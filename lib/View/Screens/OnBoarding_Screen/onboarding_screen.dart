@@ -1,7 +1,7 @@
+import 'package:e_commerce/Components/Localization/app_strings.dart';
 import 'package:e_commerce/Controller/Routes/routes_method.dart';
 import 'package:e_commerce/View/Screens/OnBoarding_Screen/Bloc/page_view_bloc.dart';
 import 'package:e_commerce/View/Screens/OnBoarding_Screen/Bloc/page_view_event.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../../../Export/e_commerce_export.dart';
@@ -27,8 +27,8 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   void initState() {
     super.initState();
     pageController = PageController(initialPage: 0);
-    SystemChrome.setSystemUIOverlayStyle(
-        const SystemUiOverlayStyle(statusBarColor: Color.fromARGB(0, 0, 0, 0)));
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+        statusBarColor: Resources.colors.transparentColor));
   }
 
   @override
@@ -118,6 +118,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
     ));
   }
 
+  // Define Pages
   List<Widget> get pages {
     return [
       // 1 Page .
@@ -134,10 +135,10 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
               // ! Sneaker App Description in OnBoarding Screens .
               HeadingsOnboardingScreen(
                 size: size,
-                boldText1: "Start Journey\t",
-                boldText2: "With Nike\t",
-                smallText1: "Smart, Gorgeous & Fashionable\t",
-                smallText2: "Collection\t",
+                boldText1: "$msgStartJourneyWith\t",
+                boldText2: "$msgWithNike\t",
+                smallText1: "$msgSmartGorgeous\t",
+                smallText2: "$msgCollection\t",
               ),
             ],
           )),
@@ -155,10 +156,10 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
               // ! Sneaker App Description in OnBoarding Screens .
               HeadingsOnboardingScreen(
                 size: size,
-                boldText1: "Follow Latest\t",
-                boldText2: "Style Shes\t",
-                smallText1: "They Are Many Beautiful And\t",
-                smallText2: "Attractive Plants To Your Room\t",
+                boldText1: "$msgFollowLatest\t",
+                boldText2: "$msgStyle\t",
+                smallText1: "$msgThereAreManyBeautiful\t",
+                smallText2: "$msgAttractivePlants\t",
               ),
             ],
           )),
@@ -176,10 +177,10 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
               // ! Sneaker App Description in OnBoarding Screens .
               HeadingsOnboardingScreen(
                 size: size,
-                boldText1: "Summer Shoes\t",
-                boldText2: "Nike 2024\t",
-                smallText1: "Amet Minim Lit Nodeseru Saku\t",
-                smallText2: "Nandu Sit Alique Dolor\t",
+                boldText1: "$msgSummerShoes\t",
+                boldText2: "$msgNike2024\t",
+                smallText1: "$msgAmetMinimLit\t",
+                smallText2: "$msgNodeseru\t",
               ),
             ],
           )),
