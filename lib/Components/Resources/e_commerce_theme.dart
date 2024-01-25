@@ -8,6 +8,24 @@ final ThemeData eCommerceTheme = ThemeData(
   colorScheme: _getCustomColorScheme(),
   textTheme: _getTextTheme(),
   scaffoldBackgroundColor: Resources.colors.allAppColor,
+  dividerTheme: DividerThemeData(
+    thickness: 1,
+    space: 1,
+    color: Resources.colors.blueGray50,
+  ),
+  elevatedButtonTheme: ElevatedButtonThemeData(
+    style: ElevatedButton.styleFrom(
+      // backgroundColor: colorScheme.primary,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(27),
+      ),
+      visualDensity: const VisualDensity(
+        vertical: -4,
+        horizontal: -4,
+      ),
+      padding: EdgeInsets.zero,
+    ),
+  ),
 );
 
 TextTheme _getTextTheme() {
@@ -17,14 +35,8 @@ TextTheme _getTextTheme() {
       fontSize: 40.0,
       fontWeight: FontWeight.w600,
     ),
-    // displayMedium: TextStyle(
-    //   color: colorScheme.primaryContainer,
-    //   fontSize: 40,
-    //   fontFamily: 'Airbnb Cereal App',
-    //   fontWeight: FontWeight.w500,
-    // ),
     headlineSmall: GoogleFonts.poppins(
-      color: Resources.colors.titleTextColor,
+      color: Resources.colors.titleTextColors,
       fontSize: 18.0,
       height: 0.0,
       fontWeight: FontWeight.w500,
@@ -37,7 +49,7 @@ ColorScheme _getCustomColorScheme() {
     brightness: Brightness.light,
     primary: Resources.colors.white,
     onPrimary: Resources.colors.white,
-    onError: Resources.colors.errorRedColor,
+    onError: Resources.colors.errorRedColors,
     background: Resources.colors.white,
   );
 }
