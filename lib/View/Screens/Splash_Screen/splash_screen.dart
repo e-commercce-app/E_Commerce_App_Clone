@@ -1,3 +1,5 @@
+import 'package:e_commerce/Components/Navigator_Service/navigator_services.dart';
+
 import '../../../Export/e_commerce_export.dart';
 import 'Components/custom_text.dart';
 
@@ -21,25 +23,28 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     size = MediaQuery.sizeOf(context);
     return Scaffold(
-      body: SafeArea(
-        top: false,
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            // ! Image Section
-            SizedBox(
-              height: size.height,
-              child: Image(
-                image: AssetImage(
-                  Resources.imagePath.imgSplash,
+      body: GestureDetector(
+        onTap: () => NavigatorService.goBack(),
+        child: SafeArea(
+          top: false,
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              // ! Image Section
+              SizedBox(
+                height: size.height,
+                child: Image(
+                  image: AssetImage(
+                    Resources.imagePath.imgSplash,
+                  ),
+                  fit: BoxFit.cover,
                 ),
-                fit: BoxFit.cover,
               ),
-            ),
-            // const CustomSizedBox(heightRatio: 0.01,),
-            // ! Text Sections .
-            const CustomTextKit(),
-          ],
+              // const CustomSizedBox(heightRatio: 0.01,),
+              // ! Text Sections .
+              const CustomTextKit(),
+            ],
+          ),
         ),
       ),
     );

@@ -10,6 +10,7 @@ class AppColors {
   // ! Grey
   Color grey = Colors.grey;
   Color lightGrey = const Color.fromARGB(255, 242, 242, 242);
+  Color gray600 = const Color(0XFF707B81);
   // ! All App Use this Button Colors
   Color blue = Colors.blue;
   Color buttonColor = const Color.fromARGB(255, 51, 160, 255);
