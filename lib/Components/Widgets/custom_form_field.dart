@@ -16,9 +16,9 @@ class CustomTextFormField extends StatelessWidget {
     this.maxLines,
     this.hintText,
     this.hintStyle,
-    this.prefix,
+    this.prefixIcon,
     this.prefixConstraints,
-    this.suffix,
+    this.suffixIcon,
     this.suffixConstraints,
     this.contentPadding,
     this.borderDecoration,
@@ -53,11 +53,11 @@ class CustomTextFormField extends StatelessWidget {
 
   final TextStyle? hintStyle;
 
-  final Widget? prefix;
+  final Widget? prefixIcon;
 
   final BoxConstraints? prefixConstraints;
 
-  final Widget? suffix;
+  final Widget? suffixIcon;
 
   final BoxConstraints? suffixConstraints;
 
@@ -96,9 +96,9 @@ class CustomTextFormField extends StatelessWidget {
   InputDecoration get decoration => InputDecoration(
         hintText: hintText ?? "",
         hintStyle: hintStyle ?? const TextStyle(fontWeight: FontWeight.w400),
-        prefixIcon: prefix,
+        prefixIcon: prefixIcon,
         prefixIconConstraints: prefixConstraints,
-        suffixIcon: suffix,
+        suffixIcon: suffixIcon,
         suffixIconConstraints: suffixConstraints,
         isDense: true,
         contentPadding: contentPadding ?? const EdgeInsets.all(14),

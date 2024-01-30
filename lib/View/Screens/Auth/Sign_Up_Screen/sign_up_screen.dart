@@ -1,6 +1,8 @@
 import 'package:e_commerce/Components/Widgets/custom_form_field.dart';
+import 'package:e_commerce/Components/Widgets/validation_function.dart';
 import 'package:e_commerce/Export/e_commerce_export.dart';
 import 'package:e_commerce/View/Screens/Auth/Sign_Up_Screen/bloc/sign_up_bloc.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -105,15 +107,20 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         ),
                       ),
                       const CustomSizedBox(heightRatio: 0.008),
-                      const CustomTextFormField(
-                        hintText: "Enter Your Password",
-                      ),
+                      // Password TextField .
+                      _passwordTextField(),
 
                       // some space
                       const CustomSizedBox(heightRatio: 0.05),
                       // !SignUp Button Sections
                       CustomButton(
-                          size: size, onPressed: () {}, buttonText: "Sign In"),
+                          size: size,
+                          onPressed: () {
+                            if (formKey.currentState!.validate()) {
+                              print("object");
+                            }
+                          },
+                          buttonText: "Sign In"),
                       // some space
                       const CustomSizedBox(heightRatio: 0.05),
                       // ! Google Button Sections .
@@ -161,6 +168,39 @@ class _SignUpScreenState extends State<SignUpScreen> {
     );
   }
 
+  // password Methods
+  Widget _passwordTextField() {
+    return BlocBuilder<SignUpBloc, SignUpState>(builder: (context, state) {
+      return CustomTextFormField(
+        controller: state.passwordController,
+        hintText: "Enter Your Password",
+        textInputAction: TextInputAction.done,
+        obscureText: state.passwordChangeIcons,
+        suffixIcon: InkWell(
+            onTap: () {
+              if (kDebugMode) {
+                print("gsg");
+              }
+              BlocProvider.of<SignUpBloc>(context).add(
+                  ChangePasswordVisibilityEvent(
+                      value: state.passwordChangeIcons));
+            },
+            child: state.passwordChangeIcons
+                ? const Icon(Icons.energy_savings_leaf)
+                : const Icon(Icons.remove_red_eye)),
+        validator: (value) {
+          if (value!.isEmpty) {
+            return "Please Enter a Password.";
+          } else if (value.length <= 6) {
+            return "Minimum Six Number.";
+          }
+          return null;
+        },
+      );
+    });
+  }
+
+  // email methods
   Widget _emailAddressTextField() {
     return BlocSelector<SignUpBloc, SignUpState, TextEditingController?>(
       selector: (state) {
@@ -170,11 +210,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
         return CustomTextFormField(
           controller: emailAddressController,
           hintText: "Enter Email",
+          validator: (value) {
+            if (value == null || !isValidEmail(value, isRequired: true)) {
+              return "Please Enter Valid Email";
+            }
+            return null;
+          },
         );
       },
     );
   }
 
+  // userName Methods .
   Widget _createUserNameTextField() {
     return BlocSelector<SignUpBloc, SignUpState, TextEditingController?>(
       selector: (state) {
@@ -184,6 +231,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
         return CustomTextFormField(
           controller: state,
           hintText: "Jawad",
+          validator: (value) {
+            if (value!.isEmpty) {
+              return "Please Enter A Name";
+            } else if (value.length <= 4) {
+              return "Username should be less than 4 characters.";
+            }
+            return null;
+          },
         );
       },
     );

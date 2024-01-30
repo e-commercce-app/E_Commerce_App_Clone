@@ -28,6 +28,7 @@ dependencies:
   smooth_page_indicator: ^1.1.0
   # ! state Management Using Bloc
   flutter_bloc: ^8.1.3
+  # ! Maintain this Bloc and uses this Class Instance and member check this (hashCode and ==)
   equatable: ^2.0.5
   
 

@@ -12,7 +12,7 @@ class SignUpState extends Equatable {
       {this.userNameController,
       this.emailAddressController,
       this.passwordController,
-      this.passwordChangeIcons = true});
+      this.passwordChangeIcons = false});
   @override
   List<Object?> get props => [
         userNameController,

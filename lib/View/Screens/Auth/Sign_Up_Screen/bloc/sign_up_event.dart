@@ -20,7 +20,7 @@ class SignUpInitialEvent extends SignUpEvent {
 
 ///Event for changing password visibility
 class ChangePasswordVisibilityEvent extends SignUpEvent {
-  bool value;
+  bool value = true;
   ChangePasswordVisibilityEvent({required this.value});
 
   @override
