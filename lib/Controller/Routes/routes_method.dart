@@ -1,10 +1,13 @@
+import 'package:e_commerce/View/Screens/Auth/Sign_in_Screen/sign_in_screen.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:e_commerce/View/Screens/Auth/Sign_Up_Screen/bloc/sign_up_bloc.dart';
 import 'package:e_commerce/View/Screens/Home/home_screen.dart';
 import 'package:e_commerce/View/Screens/OnBoarding_Screen/Bloc/page_view_bloc.dart';
 import 'package:e_commerce/View/Screens/OnBoarding_Screen/Bloc/page_view_event.dart';
 import 'package:e_commerce/View/Screens/OnBoarding_Screen/onboarding_screen.dart';
 import 'package:e_commerce/View/Screens/Splash_Screen/splash_screen.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../../Export/e_commerce_export.dart';
 import '../../View/Screens/Auth/Sign_Up_Screen/sign_up_screen.dart';
 
@@ -42,9 +45,13 @@ class RoutesMethod {
     else if (settings.name == RoutesName.signUpScreen) {
       return CustomPageTransition(
           child: BlocProvider(
-        create: (context) => SignUpBloc(SignUpState()),
+        create: (context) => SignUpBloc(),
         child: const SignUpScreen(),
       ));
+    }
+    // 5
+    else if (settings.name == RoutesName.signInScreen) {
+      return CustomPageTransition(child: const SignInScreen());
     }
     // NOT FOUND
     else {

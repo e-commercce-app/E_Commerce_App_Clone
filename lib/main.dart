@@ -7,7 +7,10 @@ import 'Export/e_commerce_export.dart';
 import 'firebase_options.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized(); // connect of the Firebase .
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   // hide this status Bar and SystemNavigationBar .
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
@@ -19,12 +22,7 @@ void main() async {
   // set this PreferredOrientations .
   SystemChrome.setPreferredOrientations(
           [DeviceOrientation.portraitDown, DeviceOrientation.portraitUp])
-      .then((value) async {
-    // connect of the Firebase .
-    await Firebase.initializeApp(
-      options: DefaultFirebaseOptions.currentPlatform,
-    );
-  });
+      .then((value) async {});
   runApp(const ECommerce());
 }
 
@@ -40,7 +38,7 @@ class ECommerce extends StatelessWidget {
         navigatorKey: NavigatorService.navigatorKey,
         title: 'Shoes_E_Commerce',
         theme: eCommerceTheme,
-        initialRoute: RoutesName.signUpScreen,
+        initialRoute: RoutesName.signInScreen,
         onGenerateRoute: RoutesMethod.onGenerateRoutes,
         // home: const OnBoardingScreen(),
       ),
