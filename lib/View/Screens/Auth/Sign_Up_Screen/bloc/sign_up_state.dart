@@ -10,7 +10,7 @@ class SignUpClickState extends SignUpState {
   TextEditingController nameController;
   TextEditingController emailController;
   TextEditingController passwordController;
-  GlobalKey key;
+  GlobalKey<FormState> key;
 
   SignUpClickState(
       {required this.nameController,

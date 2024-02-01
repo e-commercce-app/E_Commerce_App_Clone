@@ -14,8 +14,6 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
-  //  TextFormField Global Key .
-  GlobalKey<FormState> formKey = GlobalKey<FormState>();
   // Screen Size .
   late Size size;
   @override
@@ -79,6 +77,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           //  User Name Input Field
                           CustomTextFormField(
                             controller: (state).nameController,
+                            textInputAction: TextInputAction.next,
+                            textInputType: TextInputType.name,
                             hintText: "Jawad",
                             validator: (value) {
                               if (value!.isEmpty) {
@@ -106,6 +106,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           // Email Address Input Field
                           CustomTextFormField(
                             controller: (state).emailController,
+                            textInputAction: TextInputAction.next,
+                            textInputType: TextInputType.emailAddress,
                             hintText: "Enter Email",
                             validator: (value) {
                               if (value == null ||
@@ -132,6 +134,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           // Password TextField .
                           CustomTextFormField(
                             controller: (state).passwordController,
+                            textInputType: TextInputType.visiblePassword,
                             hintText: "Enter Your Password",
                             textInputAction: TextInputAction.done,
                             validator: (value) {
@@ -151,7 +154,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           CustomButton(
                               size: size,
                               onPressed: () {
-                                BlocProvider.of<SignUpBloc>(context)
+                                BlocProvider.of<SignUpBloc>(context,
+                                        listen: false)
                                     .add(SignUpClickEvent());
                               },
                               buttonText: "Sign In"),

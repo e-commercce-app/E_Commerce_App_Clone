@@ -1,3 +1,6 @@
+import 'package:e_commerce/View/Screens/Auth/Forget_Password/bloc/recovery_password_bloc.dart';
+import 'package:e_commerce/View/Screens/Auth/Forget_Password/rercovery_password.dart';
+import 'package:e_commerce/View/Screens/Auth/Sign_in_Screen/bloc/sign_in_bloc.dart';
 import 'package:e_commerce/View/Screens/Auth/Sign_in_Screen/sign_in_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -18,6 +21,7 @@ abstract class RoutesName {
   static const String onBoardingScreen = "OnBoardingScreen";
   static const String signUpScreen = "signUpScreen";
   static const String signInScreen = "signInScreen";
+  static const String forgetPasswordScreen = "ForgetPasswordScreen";
   // Screens
   static const String homeScreen = "HomeScreen";
 }
@@ -51,7 +55,19 @@ class RoutesMethod {
     }
     // 5
     else if (settings.name == RoutesName.signInScreen) {
-      return CustomPageTransition(child: const SignInScreen());
+      return CustomPageTransition(
+          child: BlocProvider(
+        create: (context) => SignInBloc(),
+        child: const SignInScreen(),
+      ));
+    }
+    // 6
+    else if (settings.name == RoutesName.forgetPasswordScreen) {
+      return CustomPageTransition(
+          child: BlocProvider(
+        create: (context) => RecoveryPasswordBloc(),
+        child: const ForgetPassword(),
+      ));
     }
     // NOT FOUND
     else {

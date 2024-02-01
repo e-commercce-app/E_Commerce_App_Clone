@@ -10,5 +10,5 @@ Future<bool?> toastMessage({required String message}) {
       timeInSecForIosWeb: 1,
       backgroundColor: Resources.colors.buttonColor,
       textColor: Colors.white,
-      fontSize: 16.0);
+      fontSize: 10.0);
 }
