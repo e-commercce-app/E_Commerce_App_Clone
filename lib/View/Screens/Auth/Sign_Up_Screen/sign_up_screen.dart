@@ -1,6 +1,7 @@
 import 'package:e_commerce/Components/Widgets/custom_form_field.dart';
 import 'package:e_commerce/Components/Widgets/validation_function.dart';
 import 'package:e_commerce/Export/e_commerce_export.dart';
+import 'package:e_commerce/View/Screens/Auth/Sign_Up_Screen/Components/google_authentication.dart';
 import 'package:e_commerce/View/Screens/Auth/Sign_Up_Screen/bloc/sign_up_bloc.dart';
 import 'package:e_commerce/View/Screens/Auth/Sign_Up_Screen/bloc/sign_up_event.dart';
 import 'package:e_commerce/View/Screens/Auth/Sign_Up_Screen/bloc/sign_up_state.dart';
@@ -151,30 +152,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           const CustomSizedBox(heightRatio: 0.05),
                           // !SignUp Button Sections
                           // _signInButton(),
-                          CustomButton(
-                              size: size,
-                              onPressed: () {
-                                BlocProvider.of<SignUpBloc>(context,
-                                        listen: false)
-                                    .add(SignUpClickEvent());
-                              },
-                              buttonText: "Sign In"),
+                          _signInButton(context),
                           const CustomSizedBox(heightRatio: 0.05),
                           // ! Google Button Sections .
-                          CustomButton(
-                              background: Resources.colors.white,
-                              textColor: Resources.colors.black,
-                              size: size,
-                              onPressed: () {},
-                              buttonText: "Sign In With Google"),
-                          const CustomSizedBox(heightRatio: 0.04),
+                          _googleAuthButton(),
+                          const CustomSizedBox(heightRatio: 0.03),
                           Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text("Already have an account?",
                                     style: TextStyle(
                                       // color: colorScheme.primary,
-                                      fontSize: size.height * 0.012,
+                                      fontSize: size.height * 0.015,
                                       fontFamily: 'Airbnb Cereal App',
                                       fontWeight: FontWeight.w400,
                                     )
@@ -185,8 +174,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     padding: const EdgeInsets.only(left: 2),
                                     child: Text("Sign In",
                                         style: TextStyle(
-                                          // color: colorScheme.primaryContainer,
-                                          fontSize: size.height * 0.012,
+                                          fontSize: size.height * 0.02,
                                           fontFamily: 'Airbnb Cereal App',
                                           fontWeight: FontWeight.w500,
                                         )
@@ -207,8 +195,27 @@ class _SignUpScreenState extends State<SignUpScreen> {
     );
   }
 
-  Widget _signInButton() {
-    return CustomButton(size: size, onPressed: () {}, buttonText: "Sign In");
+  // Press this Button process Open Google Dialog Box .
+  CustomButton _googleAuthButton() {
+    return CustomButton(
+        background: Resources.colors.white,
+        textColor: Resources.colors.black,
+        size: size,
+        onPressed: () {
+          signInWithGoogle();
+        },
+        buttonText: "Sign In With Google");
+  }
+
+  // Press Button process this Sign Create User .
+  CustomButton _signInButton(BuildContext context) {
+    return CustomButton(
+        size: size,
+        onPressed: () {
+          BlocProvider.of<SignUpBloc>(context, listen: false)
+              .add(SignUpClickEvent());
+        },
+        buttonText: "Sign In");
   }
 
   // password Methods

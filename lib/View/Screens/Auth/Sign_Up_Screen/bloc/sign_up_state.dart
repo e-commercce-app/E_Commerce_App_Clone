@@ -19,6 +19,8 @@ class SignUpClickState extends SignUpState {
       required this.key});
 }
 
+class SignUpGoogleState extends SignUpState {}
+
 
 
 // class SignUpState extends Equatable {

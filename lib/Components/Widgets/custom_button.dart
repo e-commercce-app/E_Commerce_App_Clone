@@ -20,7 +20,7 @@ class CustomButton extends StatelessWidget {
       color: background ?? Resources.colors.buttonColor,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(54)),
       textColor: Resources.colors.white,
-      elevation: 0,
+      elevation: 1,
       height: size.height * 0.06,
       splashColor: Colors.transparent,
       focusElevation: 8,

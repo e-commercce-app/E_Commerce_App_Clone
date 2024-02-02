@@ -36,8 +36,10 @@ dependencies:
   equatable: ^2.0.5
   # ! auto size text package
   auto_size_text: ^3.0.0
-  # ! Flutter Toast 
+  # ! Flutter Toast using short time message .
   fluttertoast: ^8.2.4
+  # ! Google authentication
+  google_sign_in: ^6.2.1
   
 
 dev_dependencies:

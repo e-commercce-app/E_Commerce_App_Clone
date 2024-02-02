@@ -4,7 +4,7 @@ abstract class SignUpBlocEvent {}
 
 class SignUpClickEvent extends SignUpBlocEvent {}
 
-
+class SignUpGoogleEvent extends SignUpBlocEvent {}
 
 
 
