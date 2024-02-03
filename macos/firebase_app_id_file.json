@@ -1,7 +1,7 @@
 {
   "file_generated_by": "FlutterFire CLI",
   "purpose": "FirebaseAppID & ProjectID for this Firebase app in this directory",
-  "GOOGLE_APP_ID": "1:974969582396:ios:a2a8e0c9cf4342bc71e439",
-  "FIREBASE_PROJECT_ID": "e-commerce-flutter-79f30",
-  "GCM_SENDER_ID": "974969582396"
+  "GOOGLE_APP_ID": "1:218715767603:ios:afcabb315b0f0c4a253446",
+  "FIREBASE_PROJECT_ID": "flutter-e-commerce-14c75",
+  "GCM_SENDER_ID": "218715767603"
 }

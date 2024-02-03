@@ -72,7 +72,14 @@ class SignUpBloc extends Bloc<SignUpBlocEvent, SignUpState> {
     });
 
     on<SignUpGoogleEvent>((event, emit) {
-      signInWithGoogle().then((value) async {});
+      GoogleSignInMethod.signInWithGoogle().then((value) async {
+        NavigatorService.pushNamed(RoutesName.homeScreen);
+        debugPrint("Successfully Google SignUp");
+        toastMessage(message: "Successfully Google SignUp");
+      }).onError((error, stackTrace) {
+        debugPrint("Show Error Google SignUp : $error");
+        toastMessage(message: "Error Google SignUp : $error");
+      });
     });
   }
   get loadedState => emit(SignUpClickState(

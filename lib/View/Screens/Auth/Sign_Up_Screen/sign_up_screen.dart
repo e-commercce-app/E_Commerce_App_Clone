@@ -155,7 +155,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           _signInButton(context),
                           const CustomSizedBox(heightRatio: 0.05),
                           // ! Google Button Sections .
-                          _googleAuthButton(),
+                          CustomButton(
+                              background: Resources.colors.white,
+                              textColor: Resources.colors.black,
+                              size: size,
+                              onPressed: () {
+                                (state is SignUpGoogleState);
+                                BlocProvider.of<SignUpBloc>(context)
+                                    .add(SignUpGoogleEvent());
+                              },
+                              buttonText: "Sign In With Google"),
                           const CustomSizedBox(heightRatio: 0.03),
                           Row(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -196,16 +205,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
   }
 
   // Press this Button process Open Google Dialog Box .
-  CustomButton _googleAuthButton() {
-    return CustomButton(
-        background: Resources.colors.white,
-        textColor: Resources.colors.black,
-        size: size,
-        onPressed: () {
-          signInWithGoogle();
-        },
-        buttonText: "Sign In With Google");
-  }
+  // CustomButton _googleAuthButton() {
+  //   return CustomButton(
+  //       background: Resources.colors.white,
+  //       textColor: Resources.colors.black,
+  //       size: size,
+  //       onPressed: () {
+  //         GoogleSignInMethod.signInWithGoogle();
+  //       },
+  //       buttonText: "Sign In With Google");
+  // }
 
   // Press Button process this Sign Create User .
   CustomButton _signInButton(BuildContext context) {

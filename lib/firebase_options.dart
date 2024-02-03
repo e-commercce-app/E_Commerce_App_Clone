@@ -44,38 +44,38 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyAo5LbKeFyBNaenm0B9eoS9vTwJMPH_rfo',
-    appId: '1:974969582396:web:4f0c4e34154d9dd771e439',
-    messagingSenderId: '974969582396',
-    projectId: 'e-commerce-flutter-79f30',
-    authDomain: 'e-commerce-flutter-79f30.firebaseapp.com',
-    storageBucket: 'e-commerce-flutter-79f30.appspot.com',
-    measurementId: 'G-MZQPP7F4RQ',
+    apiKey: 'AIzaSyBER1cLp2xU1wcQ35aoBiKHJocWeCzBk4I',
+    appId: '1:218715767603:web:ce1f1a091bb1e108253446',
+    messagingSenderId: '218715767603',
+    projectId: 'flutter-e-commerce-14c75',
+    authDomain: 'flutter-e-commerce-14c75.firebaseapp.com',
+    storageBucket: 'flutter-e-commerce-14c75.appspot.com',
+    measurementId: 'G-HDNVWPPP8N',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBapqh1BsXWeNq8lOmZRyVNVtVkFhDZ5WI',
-    appId: '1:974969582396:android:46fa5b279b81607471e439',
-    messagingSenderId: '974969582396',
-    projectId: 'e-commerce-flutter-79f30',
-    storageBucket: 'e-commerce-flutter-79f30.appspot.com',
+    apiKey: 'AIzaSyChM140deROl6JR5mlCfAWK1sYizYbGAwQ',
+    appId: '1:218715767603:android:f1a38b39d73cb286253446',
+    messagingSenderId: '218715767603',
+    projectId: 'flutter-e-commerce-14c75',
+    storageBucket: 'flutter-e-commerce-14c75.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyDKGV2ksufvyPCsZ2wG4thHTOt9FHLONkI',
-    appId: '1:974969582396:ios:253592cbec0af78071e439',
-    messagingSenderId: '974969582396',
-    projectId: 'e-commerce-flutter-79f30',
-    storageBucket: 'e-commerce-flutter-79f30.appspot.com',
+    apiKey: 'AIzaSyBivkOZpEiWBEo6oIwi0Z4GADknoT3GSrs',
+    appId: '1:218715767603:ios:24d65b043b467e18253446',
+    messagingSenderId: '218715767603',
+    projectId: 'flutter-e-commerce-14c75',
+    storageBucket: 'flutter-e-commerce-14c75.appspot.com',
     iosBundleId: 'com.example.eCommerence',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyDKGV2ksufvyPCsZ2wG4thHTOt9FHLONkI',
-    appId: '1:974969582396:ios:a2a8e0c9cf4342bc71e439',
-    messagingSenderId: '974969582396',
-    projectId: 'e-commerce-flutter-79f30',
-    storageBucket: 'e-commerce-flutter-79f30.appspot.com',
+    apiKey: 'AIzaSyBivkOZpEiWBEo6oIwi0Z4GADknoT3GSrs',
+    appId: '1:218715767603:ios:afcabb315b0f0c4a253446',
+    messagingSenderId: '218715767603',
+    projectId: 'flutter-e-commerce-14c75',
+    storageBucket: 'flutter-e-commerce-14c75.appspot.com',
     iosBundleId: 'com.example.eCommerence.RunnerTests',
   );
 }
