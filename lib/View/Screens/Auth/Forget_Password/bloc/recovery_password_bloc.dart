@@ -3,7 +3,9 @@
 import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
-import 'package:e_commerce/Components/Widgets/custom_toast.dart';
+import 'package:e_commerce/Components/Navigator_Service/navigator_services.dart';
+import 'package:e_commerce/Controller/Routes/routes_method.dart';
+import 'package:e_commerce/Controller/Services/firebase_services.dart';
 import 'package:e_commerce/Export/e_commerce_export.dart';
 
 part 'recovery_password_event.dart';
@@ -18,11 +20,20 @@ class RecoveryPasswordBloc
   RecoveryPasswordBloc() : super(RecoveryPasswordInitial()) {
     //  initial state .
     loadingState;
+    // ForgetPasswordClickEvent .
     on<ForgetPasswordClickEvent>((event, emit) {
       loadingState;
       if (formKey.currentState!.validate()) {
-        log("Successfully Work");
-        toastMessage(message: "Successfully Work");
+        FirebaseServices.auth
+            .sendPasswordResetEmail(email: emailAddress.text.toString())
+            .then((value) {
+          NavigatorService.pushNamed(RoutesName.signInScreen);
+          log("Successfully Work");
+          CustomDialog.toastMessage(message: "Successfully Work");
+        }).onError((error, stackTrace) {
+          log("Error : $error");
+          CustomDialog.toastMessage(message: "Error : $error");
+        });
       }
     });
   }

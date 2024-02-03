@@ -1,5 +1,4 @@
 import 'package:e_commerce/Components/Widgets/custom_form_field.dart';
-import 'package:e_commerce/Components/Widgets/validation_function.dart';
 import 'package:e_commerce/Export/e_commerce_export.dart';
 import 'package:e_commerce/View/Screens/Auth/Forget_Password/bloc/recovery_password_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -102,7 +101,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                                   BlocProvider.of<RecoveryPasswordBloc>(context)
                                       .add(ForgetPasswordClickEvent());
                                 },
-                                buttonText: "Sign In"),
+                                buttonText: "Continuo"),
                             const CustomSizedBox(heightRatio: 0.04),
                             const SizedBox(height: 5)
                           ],

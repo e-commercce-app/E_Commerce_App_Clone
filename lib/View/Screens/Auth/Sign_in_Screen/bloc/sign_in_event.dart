@@ -5,3 +5,5 @@ sealed class SignInEvent {
 }
 
 class SignInClickEvent extends SignInEvent {}
+
+class SignInGoogleEvent extends SignInEvent {}

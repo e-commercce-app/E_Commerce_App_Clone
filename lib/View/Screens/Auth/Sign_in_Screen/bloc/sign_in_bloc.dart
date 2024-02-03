@@ -1,11 +1,11 @@
-// ignore_for_file: depend_on_referenced_packages
+// ignore_for_file: depend_on_referenced_packages, invalid_use_of_visible_for_testing_member
 
 import 'package:bloc/bloc.dart';
 import 'package:e_commerce/Components/Navigator_Service/navigator_services.dart';
-import 'package:e_commerce/Components/Widgets/custom_toast.dart';
 import 'package:e_commerce/Controller/Services/firebase_services.dart';
 import 'package:e_commerce/Controller/Routes/routes_method.dart';
 import 'package:e_commerce/Export/e_commerce_export.dart';
+import 'package:e_commerce/View/Screens/Auth/Sign_Up_Screen/Components/google_authentication.dart';
 
 part 'sign_in_event.dart';
 part 'sign_in_state.dart';
@@ -28,14 +28,22 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
                 email: emailAddress.text.toString(),
                 password: password.text.toString())
             .then((value) {
-          toastMessage(message: "SignIn Successfully");
+          CustomDialog.toastMessage(message: "SignIn Successfully");
           NavigatorService.pushNamed(RoutesName.splashScreen);
+          // clear TextEditingController .
+          emailAddress.clear();
+          password.clear();
         }).onError((error, stackTrace) {
           debugPrint("Error SignIn : $error");
           // show toast
-          toastMessage(message: "Error SignIn : $error");
+          CustomDialog.toastMessage(message: "Error SignIn : $error");
         });
       }
+    });
+
+    // Google Button .
+    on<SignInGoogleEvent>((event, emit) {
+      GoogleSignInMethod.signInWithGoogle();
     });
   }
 

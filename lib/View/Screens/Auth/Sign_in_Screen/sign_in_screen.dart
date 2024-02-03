@@ -1,5 +1,6 @@
+import 'package:e_commerce/Components/Navigator_Service/navigator_services.dart';
 import 'package:e_commerce/Components/Widgets/custom_form_field.dart';
-import 'package:e_commerce/Components/Widgets/validation_function.dart';
+import 'package:e_commerce/Controller/Routes/routes_method.dart';
 import 'package:e_commerce/Export/e_commerce_export.dart';
 import 'package:e_commerce/View/Screens/Auth/Sign_in_Screen/bloc/sign_in_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -120,26 +121,23 @@ class _SignInScreenState extends State<SignInScreen> {
                                 return null;
                               },
                             ),
-
+                            const CustomSizedBox(heightRatio: 0.02),
+                            Align(
+                                alignment: Alignment.bottomRight,
+                                child: InkWell(
+                                    splashColor:
+                                        Resources.colors.blue.withOpacity(0.5),
+                                    onTap: () => NavigatorService.pushNamed(
+                                        RoutesName.forgetPasswordScreen),
+                                    child: const Text("Recovery Password"))),
                             // some space
                             const CustomSizedBox(heightRatio: 0.05),
                             // !SignUp Button Sections
-                            CustomButton(
-                                size: size,
-                                onPressed: () {
-                                  BlocProvider.of<SignInBloc>(context)
-                                      .add(SignInClickEvent());
-                                },
-                                buttonText: "Sign In"),
+                            _signInButton(context),
                             // some space
                             const CustomSizedBox(heightRatio: 0.05),
                             // ! Google Button Sections .
-                            CustomButton(
-                                background: Resources.colors.white,
-                                textColor: Resources.colors.black,
-                                size: size,
-                                onPressed: () {},
-                                buttonText: "Sign In With Google"),
+                            _googleAuthButton(state, context),
                             const CustomSizedBox(heightRatio: 0.04),
                             Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -156,15 +154,19 @@ class _SignInScreenState extends State<SignInScreen> {
                                       ),
                                   Padding(
                                       padding: const EdgeInsets.only(left: 2),
-                                      child: Text("Sign Up",
-                                          style: TextStyle(
-                                            // color: colorScheme.primaryContainer,
-                                            fontSize: size.height * 0.02,
-                                            fontFamily: 'Airbnb Cereal App',
-                                            fontWeight: FontWeight.w500,
-                                          )
-                                          // style: theme.textTheme.labelLarge
-                                          ))
+                                      child: InkWell(
+                                        onTap: () => NavigatorService.pushNamed(
+                                            RoutesName.signUpScreen),
+                                        child: Text("Sign Up",
+                                            style: TextStyle(
+                                              // color: colorScheme.primaryContainer,
+                                              fontSize: size.height * 0.02,
+                                              fontFamily: 'Airbnb Cereal App',
+                                              fontWeight: FontWeight.w500,
+                                            )
+                                            // style: theme.textTheme.labelLarge
+                                            ),
+                                      ))
                                 ]),
                             const SizedBox(height: 5)
                           ],
@@ -180,5 +182,28 @@ class _SignInScreenState extends State<SignInScreen> {
           // )
           ),
     );
+  }
+
+  // Press SignIn Button trigger this state and initial value TextEditingController
+  CustomButton _signInButton(BuildContext context) {
+    return CustomButton(
+        size: size,
+        onPressed: () {
+          BlocProvider.of<SignInBloc>(context).add(SignInClickEvent());
+        },
+        buttonText: "Sign In");
+  }
+
+  // Press Google Button trigger event and implement this state .
+  CustomButton _googleAuthButton(SignInState state, BuildContext context) {
+    return CustomButton(
+        background: Resources.colors.white,
+        textColor: Resources.colors.black,
+        size: size,
+        onPressed: () {
+          (state is SignInGoogleState);
+          BlocProvider.of<SignInBloc>(context).add(SignInGoogleEvent());
+        },
+        buttonText: "Sign In With Google");
   }
 }

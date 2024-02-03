@@ -27,7 +27,7 @@ class SignUpBloc extends Bloc<SignUpBlocEvent, SignUpState> {
   SignUpBloc() : super(SignUpInitialState()) {
     // ! Call this Initial Value .
     loadedState;
-    //  Process this button Click .
+    //  Process this button Click and TextEditingController.
     on<SignUpClickEvent>((event, emit) {
       if (_key.currentState!.validate()) {
         loadedState;
@@ -37,7 +37,7 @@ class SignUpBloc extends Bloc<SignUpBlocEvent, SignUpState> {
                 email: emailController.text.toString(),
                 password: passwordController.text.toString())
             .then((value) {
-          toastMessage(message: "Successfully Sign Up");
+          CustomDialog.toastMessage(message: "Successfully Sign Up");
 
           userInfo.id = FirebaseServices.currentUser.uid;
           userInfo.name = nameController.text.toString();
@@ -50,10 +50,11 @@ class SignUpBloc extends Bloc<SignUpBlocEvent, SignUpState> {
               .set(userInfo.toJson())
               .then((value) {
             log("Store successfully");
-            toastMessage(message: "Successfully UserDetails Data .");
+            CustomDialog.toastMessage(
+                message: "Successfully UserDetails Data .");
           }).onError((error, stackTrace) {
             log("Error : $error");
-            toastMessage(message: "Error : $error");
+            CustomDialog.toastMessage(message: "Error : $error");
           });
 
           // clear TextEditing Controller .
@@ -66,22 +67,17 @@ class SignUpBloc extends Bloc<SignUpBlocEvent, SignUpState> {
           );
         }).onError((error, stackTrace) {
           debugPrint("Error : $error");
-          toastMessage(message: "Error : $error");
+          CustomDialog.toastMessage(message: "Error : $error");
         });
       }
     });
 
+    // Google Button
     on<SignUpGoogleEvent>((event, emit) {
-      GoogleSignInMethod.signInWithGoogle().then((value) async {
-        NavigatorService.pushNamed(RoutesName.homeScreen);
-        debugPrint("Successfully Google SignUp");
-        toastMessage(message: "Successfully Google SignUp");
-      }).onError((error, stackTrace) {
-        debugPrint("Show Error Google SignUp : $error");
-        toastMessage(message: "Error Google SignUp : $error");
-      });
+      GoogleSignInMethod.signInWithGoogle();
     });
   }
+  //
   get loadedState => emit(SignUpClickState(
       nameController: nameController,
       emailController: emailController,

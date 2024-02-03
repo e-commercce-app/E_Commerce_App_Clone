@@ -1,5 +1,5 @@
 import 'package:e_commerce/View/Screens/Auth/Forget_Password/bloc/recovery_password_bloc.dart';
-import 'package:e_commerce/View/Screens/Auth/Forget_Password/rercovery_password.dart';
+import 'package:e_commerce/View/Screens/Auth/Forget_Password/recovery_password.dart';
 import 'package:e_commerce/View/Screens/Auth/Sign_in_Screen/bloc/sign_in_bloc.dart';
 import 'package:e_commerce/View/Screens/Auth/Sign_in_Screen/sign_in_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

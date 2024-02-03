@@ -38,7 +38,7 @@ dependencies:
   auto_size_text: ^3.0.0
   # ! Flutter Toast using short time message .
   fluttertoast: ^8.2.4
-  # ! Google authentication
+  # ! Google authentication Using Helping Google SignUp
   google_sign_in: ^6.2.1
   
 

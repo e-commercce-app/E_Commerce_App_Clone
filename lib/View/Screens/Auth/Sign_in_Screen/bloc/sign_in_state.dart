@@ -17,3 +17,5 @@ final class SignInClickState extends SignInState {
       required this.password,
       required this.formKey});
 }
+
+class SignInGoogleState extends SignInState {}
