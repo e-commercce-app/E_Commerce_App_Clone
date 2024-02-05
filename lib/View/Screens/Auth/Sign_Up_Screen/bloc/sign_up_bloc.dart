@@ -76,12 +76,23 @@ class SignUpBloc extends Bloc<SignUpBlocEvent, SignUpState> {
     on<SignUpGoogleEvent>((event, emit) {
       GoogleSignInMethod.signInWithGoogle();
     });
+
+    // password Obscure Check Bool Value.
+    on<PasswordCheckObscureEvent>((event, emit) {
+      emit(CheckPasswordState(isChecked: !event.obscure));
+      // if (event.obscure == false) {
+      //   emit(CheckPasswordState(isChecked: event.obscure));
+      // } else if (event.obscure == true) {
+      //   emit(CheckPasswordState(isChecked: event.obscure));
+      // }
+    });
   }
   //
   get loadedState => emit(SignUpClickState(
       nameController: nameController,
       emailController: emailController,
       passwordController: passwordController,
+      // checkPassword: true,
       key: _key));
 }
 

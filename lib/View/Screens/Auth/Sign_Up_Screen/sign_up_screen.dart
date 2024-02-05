@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:e_commerce/Components/Widgets/custom_form_field.dart';
@@ -5,6 +6,10 @@ import 'package:e_commerce/Export/e_commerce_export.dart';
 import 'package:e_commerce/View/Screens/Auth/Sign_Up_Screen/bloc/sign_up_bloc.dart';
 import 'package:e_commerce/View/Screens/Auth/Sign_Up_Screen/bloc/sign_up_event.dart';
 import 'package:e_commerce/View/Screens/Auth/Sign_Up_Screen/bloc/sign_up_state.dart';
+
+import '../../../../Components/Navigator_Service/navigator_services.dart';
+import '../../../../Controller/Routes/routes_method.dart';
+import 'Components/sign_up_app_bar.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -23,9 +28,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
       onTap: () => FocusManager.instance.primaryFocus!.unfocus(),
       child: Scaffold(
         resizeToAvoidBottomInset: false,
+        appBar: SignUpAppBar(size: size),
         body: BlocBuilder<SignUpBloc, SignUpState>(
           builder: (context, state) {
             state as SignUpClickState;
+            // state as CheckPasswordState;
             return SafeArea(
               top: false,
               child: SingleChildScrollView(
@@ -39,12 +46,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       horizontal: size.width * 0.04,
                     ),
                     child: Form(
-                      key: state.key,
+                      key: (state).key,
                       child: Column(
                         children: [
                           // Some Space
                           const CustomSizedBox(
-                            heightRatio: 0.15,
+                            heightRatio: 0.04,
                           ),
                           Text(
                             "Create Account",
@@ -132,25 +139,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           ),
                           const CustomSizedBox(heightRatio: 0.008),
                           // Password TextField .
-                          CustomTextFormField(
-                            controller: (state).passwordController,
-                            textInputType: TextInputType.visiblePassword,
-                            hintText: "Enter Your Password",
-                            textInputAction: TextInputAction.done,
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return "Please Enter a Password.";
-                              } else if (value.length <= 6) {
-                                return "Minimum Six Number.";
-                              }
-                              return null;
-                            },
-                          ),
+                          _passwordButton(state, context),
 
                           // some space
                           const CustomSizedBox(heightRatio: 0.05),
                           // !SignUp Button Sections
-                          // _signInButton(),
                           _signUpButton(context),
                           const CustomSizedBox(heightRatio: 0.05),
                           // ! Google Button Sections .
@@ -171,14 +164,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     ),
                                 Padding(
                                     padding: const EdgeInsets.only(left: 2),
-                                    child: Text("Sign In",
-                                        style: TextStyle(
-                                          fontSize: size.height * 0.02,
-                                          fontFamily: 'Airbnb Cereal App',
-                                          fontWeight: FontWeight.w500,
-                                        )
-                                        // style: theme.textTheme.labelLarge
-                                        ))
+                                    child: InkWell(
+                                      onTap: () => NavigatorService.pushNamed(
+                                          RoutesName.signInScreen),
+                                      child: Text("Sign In",
+                                          style: TextStyle(
+                                            fontSize: size.height * 0.02,
+                                            fontFamily: 'Airbnb Cereal App',
+                                            fontWeight: FontWeight.w500,
+                                          )
+                                          // style: theme.textTheme.labelLarge
+                                          ),
+                                    ))
                               ]),
                           const SizedBox(height: 5)
                         ],
@@ -194,6 +191,37 @@ class _SignUpScreenState extends State<SignUpScreen> {
     );
   }
 
+  Widget _passwordButton(SignUpClickState state, BuildContext context) {
+    return BlocBuilder<SignUpBloc, SignUpState>(builder: (context, state) {
+      return CustomTextFormField(
+        controller: (state as SignUpClickState).passwordController,
+        textInputType: TextInputType.visiblePassword,
+        hintText: "Enter Your Password",
+        textInputAction: TextInputAction.done,
+        obscureText: true,
+        // ! Visible and UnVisible .
+        // suffixIcon: IconButton(
+        //     onPressed: () {
+        //       // (state is CheckPasswordState);
+        //       BlocProvider.of<SignUpBloc>(context).add(
+        //           PasswordCheckObscureEvent(
+        //               obscure: (state as CheckPasswordState).isChecked));
+        //     },
+        //     icon: (state as CheckPasswordState).isChecked
+        //         ? const Icon(Icons.add)
+        //         : const Icon(Icons.remove_red_eye)),
+        validator: (value) {
+          if (value!.isEmpty) {
+            return "Please Enter a Password.";
+          } else if (value.length <= 6) {
+            return "Minimum Six Number.";
+          }
+          return null;
+        },
+      );
+    });
+  }
+
   // Press this Button process Open Google Dialog Box .
   CustomButton _googleAuthButton(SignUpState state, BuildContext context) {
     return CustomButton(
@@ -202,7 +230,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
         size: size,
         onPressed: () {
           (state is SignUpGoogleState);
-          BlocProvider.of<SignUpBloc>(context).add(SignUpGoogleEvent());
+          BlocProvider.of<SignUpBloc>(context, listen: false)
+              .add(SignUpGoogleEvent());
         },
         buttonText: "Sign In With Google");
   }

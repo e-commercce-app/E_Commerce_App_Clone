@@ -7,7 +7,8 @@ import 'Export/e_commerce_export.dart';
 import 'firebase_options.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized(); // connect of the Firebase .
+  WidgetsFlutterBinding.ensureInitialized();
+  // connect of the Firebase .
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -31,16 +32,19 @@ class ECommerce extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => PageViewBloc(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => PageViewBloc(),
+        )
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         navigatorKey: NavigatorService.navigatorKey,
         title: 'Shoes_E_Commerce',
         theme: eCommerceTheme,
-        initialRoute: RoutesName.signInScreen,
+        initialRoute: RoutesName.signUpScreen,
         onGenerateRoute: RoutesMethod.onGenerateRoutes,
-        // home: const OnBoardingScreen(),
       ),
     );
   }

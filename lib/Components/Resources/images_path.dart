@@ -13,4 +13,5 @@ class ImagePath {
   String sneaker5 = "${imagePath}sneaker5.png";
   String sneaker6 = "${imagePath}sneaker6.png";
   String sneaker7 = "${imagePath}sneaker7.png";
+  String imgAppsCircle = '${imagePath}img_apps_circle.svg';
 }

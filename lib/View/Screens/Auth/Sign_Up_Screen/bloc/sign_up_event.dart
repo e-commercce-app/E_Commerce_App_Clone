@@ -6,6 +6,10 @@ class SignUpClickEvent extends SignUpBlocEvent {}
 
 class SignUpGoogleEvent extends SignUpBlocEvent {}
 
+class PasswordCheckObscureEvent extends SignUpBlocEvent {
+  bool obscure = false;
+  PasswordCheckObscureEvent({required this.obscure});
+}
 
 
 

@@ -1,3 +1,4 @@
+import 'package:e_commerce/View/Check/password_main.dart';
 import 'package:e_commerce/View/Screens/Auth/Forget_Password/bloc/recovery_password_bloc.dart';
 import 'package:e_commerce/View/Screens/Auth/Forget_Password/recovery_password.dart';
 import 'package:e_commerce/View/Screens/Auth/Sign_in_Screen/bloc/sign_in_bloc.dart';
@@ -22,6 +23,7 @@ abstract class RoutesName {
   static const String signUpScreen = "signUpScreen";
   static const String signInScreen = "signInScreen";
   static const String forgetPasswordScreen = "ForgetPasswordScreen";
+  static const String password = "Password";
   // Screens
   static const String homeScreen = "HomeScreen";
 }
@@ -68,6 +70,8 @@ class RoutesMethod {
         create: (context) => RecoveryPasswordBloc(),
         child: const ForgetPassword(),
       ));
+    } else if (settings.name == RoutesName.password) {
+      return CustomPageTransition(child: const PasswordPage());
     }
     // NOT FOUND
     else {

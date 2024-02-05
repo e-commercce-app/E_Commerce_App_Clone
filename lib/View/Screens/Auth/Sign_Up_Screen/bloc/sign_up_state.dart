@@ -11,17 +11,22 @@ class SignUpClickState extends SignUpState {
   TextEditingController emailController;
   TextEditingController passwordController;
   GlobalKey<FormState> key;
-
+  // bool checkPassword = false;
   SignUpClickState(
       {required this.nameController,
       required this.emailController,
       required this.passwordController,
+      // required this.checkPassword,
       required this.key});
 }
 
+//  Google Button State .
 class SignUpGoogleState extends SignUpState {}
 
-
+class CheckPasswordState extends SignUpState {
+  bool isChecked = false;
+  CheckPasswordState({required this.isChecked});
+}
 
 // class SignUpState extends Equatable {
 //   TextEditingController? userNameController;
