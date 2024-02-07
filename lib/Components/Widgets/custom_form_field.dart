@@ -28,47 +28,26 @@ class CustomTextFormField extends StatelessWidget {
   }) : super(key: key);
 
   final Alignment? alignment;
-
   final double? width;
-
   final TextEditingController? scrollPadding;
-
   final TextEditingController? controller;
-
   final FocusNode? focusNode;
-
   final bool? autofocus;
-
   final TextStyle? textStyle;
-
   final bool? obscureText;
-
   final TextInputAction? textInputAction;
-
   final TextInputType? textInputType;
-
   final int? maxLines;
-
   final String? hintText;
-
   final TextStyle? hintStyle;
-
   final Widget? prefixIcon;
-
   final BoxConstraints? prefixConstraints;
-
   final Widget? suffixIcon;
-
   final BoxConstraints? suffixConstraints;
-
   final EdgeInsets? contentPadding;
-
   final InputBorder? borderDecoration;
-
   final Color? fillColor;
-
   final bool? filled;
-
   final FormFieldValidator<String>? validator;
 
   @override
@@ -76,23 +55,30 @@ class CustomTextFormField extends StatelessWidget {
     return textFormFieldWidget(context);
   }
 
-  Widget textFormFieldWidget(BuildContext context) => SizedBox(
-        width: width ?? double.maxFinite,
-        child: TextFormField(
-          scrollPadding:
-              EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
-          controller: controller,
-          focusNode: focusNode ?? FocusNode(),
-          autofocus: autofocus!,
-          style: textStyle, // ?? theme.textTheme.bodyMedium,
-          obscureText: obscureText!,
-          textInputAction: textInputAction,
-          keyboardType: textInputType,
-          maxLines: maxLines ?? 1,
-          decoration: decoration,
-          validator: validator,
-        ),
-      );
+  Widget textFormFieldWidget(BuildContext context) {
+    // var mediaQueryWidth = MediaQuery.sizeOf(context).width;
+    var mediaQueryHHeight = MediaQuery.sizeOf(context).height;
+    return SizedBox(
+      width: width ?? double.maxFinite,
+      child: TextFormField(
+        cursorColor: Resources.colors.buttonColor,
+        cursorHeight: mediaQueryHHeight * 0.03,
+        scrollPadding:
+            EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+        controller: controller,
+        focusNode: focusNode ?? FocusNode(),
+        autofocus: autofocus!,
+        style: textStyle, // ?? theme.textTheme.bodyMedium,
+        obscureText: obscureText!,
+        textInputAction: textInputAction,
+        keyboardType: textInputType,
+        maxLines: maxLines ?? 1,
+        decoration: decoration,
+        validator: validator,
+      ),
+    );
+  }
+
   InputDecoration get decoration => InputDecoration(
         hintText: hintText ?? "",
         hintStyle: hintStyle ?? const TextStyle(fontWeight: FontWeight.w400),

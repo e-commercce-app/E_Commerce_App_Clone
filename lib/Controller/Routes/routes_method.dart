@@ -1,11 +1,11 @@
-import 'package:e_commerce/View/Check/password_main.dart';
-import 'package:e_commerce/View/Screens/Auth/Forget_Password/bloc/recovery_password_bloc.dart';
-import 'package:e_commerce/View/Screens/Auth/Forget_Password/recovery_password.dart';
-import 'package:e_commerce/View/Screens/Auth/Sign_in_Screen/bloc/sign_in_bloc.dart';
-import 'package:e_commerce/View/Screens/Auth/Sign_in_Screen/sign_in_screen.dart';
+import 'package:e_commerce/View/Screens/Home/bloc/search_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'package:e_commerce/View/Screens/Auth/Forget_Password/bloc/recovery_password_bloc.dart';
+import 'package:e_commerce/View/Screens/Auth/Forget_Password/recovery_password.dart';
 import 'package:e_commerce/View/Screens/Auth/Sign_Up_Screen/bloc/sign_up_bloc.dart';
+import 'package:e_commerce/View/Screens/Auth/Sign_in_Screen/bloc/sign_in_bloc.dart';
+import 'package:e_commerce/View/Screens/Auth/Sign_in_Screen/sign_in_screen.dart';
 import 'package:e_commerce/View/Screens/Home/home_screen.dart';
 import 'package:e_commerce/View/Screens/OnBoarding_Screen/Bloc/page_view_bloc.dart';
 import 'package:e_commerce/View/Screens/OnBoarding_Screen/Bloc/page_view_event.dart';
@@ -45,7 +45,11 @@ class RoutesMethod {
     }
     // 3
     else if (settings.name == RoutesName.homeScreen) {
-      return CustomPageTransition(child: const HomeScreen());
+      return CustomPageTransition(
+          child: BlocProvider(
+        create: (context) => SearchBloc(),
+        child: const HomeScreen(),
+      ));
     }
     // 4
     else if (settings.name == RoutesName.signUpScreen) {
@@ -70,8 +74,6 @@ class RoutesMethod {
         create: (context) => RecoveryPasswordBloc(),
         child: const ForgetPassword(),
       ));
-    } else if (settings.name == RoutesName.password) {
-      return CustomPageTransition(child: const PasswordPage());
     }
     // NOT FOUND
     else {

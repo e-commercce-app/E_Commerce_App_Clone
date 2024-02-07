@@ -21,10 +21,12 @@ void main() async {
       systemNavigationBarIconBrightness: Brightness.dark,
       systemNavigationBarColor: Resources.colors.white));
   // set this PreferredOrientations .
-  SystemChrome.setPreferredOrientations(
-          [DeviceOrientation.portraitDown, DeviceOrientation.portraitUp])
-      .then((value) async {});
-  runApp(const ECommerce());
+  Future.wait([
+    SystemChrome.setPreferredOrientations(
+        [DeviceOrientation.portraitDown, DeviceOrientation.portraitUp])
+  ]).then((value) {
+    runApp(const ECommerce());
+  });
 }
 
 class ECommerce extends StatelessWidget {

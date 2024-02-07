@@ -1,17 +1,21 @@
 import '../../Export/e_commerce_export.dart';
 
 class AppColors {
-  // ! Complete All Background Colors .
+  // ! Background Screen Colors .
   Color allAppColor = const Color.fromARGB(255, 248, 249, 250);
 
   Color errorRedColors = Colors.red;
-  Color white = Colors.white;
   Color black = Colors.black;
-  // ! Grey
+  // ! Grey .
   Color grey = Colors.grey;
   Color lightGrey = const Color.fromARGB(255, 242, 242, 242);
   Color gray600 = const Color(0XFF707B81);
-  // ! All App Use this Button Colors
+
+  // ! White .
+  Color white = Colors.white;
+  Color whiteA700 = const Color(0XFFFFFFFF);
+
+  // ! Blue Shades Colors .
   Color blue = Colors.blue;
   Color buttonColor = const Color.fromARGB(255, 51, 160, 255);
   // Blue grey shade

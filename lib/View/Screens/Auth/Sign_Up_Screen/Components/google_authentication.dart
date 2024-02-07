@@ -36,10 +36,10 @@ class GoogleSignInMethod {
         accessToken: googleAuth?.accessToken,
         idToken: googleAuth?.idToken,
       );
-      debugPrint("Google User : $googleUser");
-      debugPrint("Google User : ${googleUser?.id.toString()}");
-      debugPrint("Google User Email : ${googleUser!.email.toString()}");
-      debugPrint("Google User DisPlayName : ${googleUser.displayName}");
+      log("Google User : $googleUser");
+      log("Google User : ${googleUser?.id.toString()}");
+      log("Google User Email : ${googleUser!.email.toString()}");
+      log("Google User DisPlayName : ${googleUser.displayName}");
       log("Google User : ${googleUser.photoUrl.toString()}");
       // Once signed in, return the UserCredential
       return await FirebaseServices.auth
@@ -49,10 +49,10 @@ class GoogleSignInMethod {
         CustomDialog.toastMessage(message: "Successfully Google SignUp");
         debugPrint("Successfully ");
         // ** pass this current user data .
-        userInfo.id = googleUser.id.toString();
-        userInfo.name = googleUser.displayName.toString();
-        userInfo.emailAddress = googleUser.email.toString();
-        userInfo.userImage = googleUser.photoUrl.toString();
+        userInfo.id = FirebaseServices.currentUser.uid;
+        userInfo.name = FirebaseServices.currentUser.displayName.toString();
+        userInfo.emailAddress = FirebaseServices.currentUser.email.toString();
+        userInfo.userImage = FirebaseServices.currentUser.photoURL.toString();
         // !create user help of Using Google process store data fireStore Database .
         await FirebaseServices.fireStore
             .collection("UserDetails")

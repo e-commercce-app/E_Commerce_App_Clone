@@ -35,10 +35,31 @@ TextTheme _getTextTheme() {
       fontSize: 40.0,
       fontWeight: FontWeight.w600,
     ),
+    bodyMedium: const TextStyle(
+      fontSize: 14,
+      fontFamily: 'Airbnb Cereal App',
+      fontWeight: FontWeight.w400,
+    ),
+    bodySmall: const TextStyle(
+      fontSize: 12.0,
+      fontFamily: 'Airbnb Cereal App',
+      fontWeight: FontWeight.w400,
+    ),
     headlineSmall: GoogleFonts.poppins(
       color: Resources.colors.titleTextColors,
       fontSize: 18.0,
       height: 0.0,
+      fontWeight: FontWeight.w500,
+    ),
+    titleMedium: const TextStyle(
+      fontSize: 16.0,
+      fontFamily: 'Airbnb Cereal App',
+      fontWeight: FontWeight.w500,
+    ),
+    titleSmall: TextStyle(
+      color: Resources.colors.black,
+      fontSize: 14,
+      fontFamily: 'Airbnb Cereal App',
       fontWeight: FontWeight.w500,
     ),
   );
