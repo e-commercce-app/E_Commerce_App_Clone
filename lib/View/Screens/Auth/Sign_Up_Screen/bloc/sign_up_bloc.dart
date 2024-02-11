@@ -43,7 +43,7 @@ class SignUpBloc extends Bloc<SignUpBlocEvent, SignUpState> {
           userInfo.name = nameController.text.toString();
           userInfo.emailAddress = emailController.text.toString();
           userInfo.userImage = "xyz";
-          // ! store Data .
+          // ! store Data on Firebase Firestore .
           FirebaseServices.fireStore
               .collection("UserDetails")
               .doc(FirebaseServices.currentUser.uid)
@@ -57,13 +57,13 @@ class SignUpBloc extends Bloc<SignUpBlocEvent, SignUpState> {
             CustomDialog.toastMessage(message: "Error : $error");
           });
 
-          // clear TextEditing Controller .
+          // ! clear TextEditing Controller .
           nameController.clear();
           emailController.clear();
           passwordController.clear();
-
+          // Next Screen Implements .
           NavigatorService.pushNamed(
-            RoutesName.splashScreen,
+            RoutesName.bottomBarScreen,
           );
         }).onError((error, stackTrace) {
           debugPrint("Error : $error");
@@ -78,14 +78,14 @@ class SignUpBloc extends Bloc<SignUpBlocEvent, SignUpState> {
     });
 
     // password Obscure Check Bool Value.
-    on<PasswordCheckObscureEvent>((event, emit) {
-      emit(CheckPasswordState(isChecked: !event.obscure));
-      // if (event.obscure == false) {
-      //   emit(CheckPasswordState(isChecked: event.obscure));
-      // } else if (event.obscure == true) {
-      //   emit(CheckPasswordState(isChecked: event.obscure));
-      // }
-    });
+    // on<PasswordCheckObscureEvent>((event, emit) {
+    //   emit(CheckPasswordState(isChecked: !event.obscure));
+    //   // if (event.obscure == false) {
+    //   //   emit(CheckPasswordState(isChecked: event.obscure));
+    //   // } else if (event.obscure == true) {
+    //   //   emit(CheckPasswordState(isChecked: event.obscure));
+    //   // }
+    // });
   }
   //
   get loadedState => emit(SignUpClickState(

@@ -1,5 +1,4 @@
 import 'package:e_commerce/Components/Localization/app_strings.dart';
-import 'package:e_commerce/Components/Navigator_Service/navigator_services.dart';
 import 'package:e_commerce/Controller/Routes/routes_method.dart';
 import 'package:e_commerce/View/Screens/OnBoarding_Screen/Bloc/page_view_bloc.dart';
 import 'package:e_commerce/View/Screens/OnBoarding_Screen/Bloc/page_view_event.dart';
@@ -98,8 +97,9 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                             duration: const Duration(milliseconds: 400),
                             curve: Curves.easeIn);
                         if (state.selectedIndex == pages.length - 0) {
-                          NavigatorService.pushNamed(
-                            RoutesName.splashScreen,
+                          Navigator.pushReplacementNamed(
+                            context,
+                            RoutesName.signInScreen,
                           ).then((value) {
                             state.selectedIndex = 2;
                           });

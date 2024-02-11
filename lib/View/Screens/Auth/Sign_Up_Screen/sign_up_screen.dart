@@ -192,7 +192,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     return CustomAppBar(
       size: size,
       leading: AppBarLeadingIconButtonOne(
-        onTap: () => NavigatorService.pushNamed(RoutesName.homeScreen),
+        onTap: () => NavigatorService.pushNamed(RoutesName.signInScreen),
         child: Icon(
           CupertinoIcons.arrow_left,
           color: Resources.colors.black,
@@ -213,7 +213,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         // ! Visible and UnVisible .
         // suffixIcon: IconButton(
         //     onPressed: () {
-        //       // (state is CheckPasswordState);
+        //       (state as CheckPasswordState);
         //       BlocProvider.of<SignUpBloc>(context).add(
         //           PasswordCheckObscureEvent(
         //               obscure: (state as CheckPasswordState).isChecked));

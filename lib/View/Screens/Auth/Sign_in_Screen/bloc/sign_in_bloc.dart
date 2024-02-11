@@ -29,13 +29,13 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
                 password: password.text.toString())
             .then((value) {
           CustomDialog.toastMessage(message: "SignIn Successfully");
-          NavigatorService.pushNamed(RoutesName.splashScreen);
+          NavigatorService.pushNamed(RoutesName.bottomBarScreen);
           // clear TextEditingController .
           emailAddress.clear();
           password.clear();
         }).onError((error, stackTrace) {
           debugPrint("Error SignIn : $error");
-          // show toast
+          // ** show toast
           CustomDialog.toastMessage(message: "Error SignIn : $error");
         });
       }

@@ -12,6 +12,8 @@ import '../../../../../Components/Navigator_Service/navigator_services.dart';
 import '../../../../../Controller/Routes/routes_method.dart';
 import '../../../../../Export/e_commerce_export.dart';
 
+FirebaseAuth auth = FirebaseAuth.instance;
+
 class GoogleSignInMethod {
   static UserDetails userInfo = UserDetails();
 // ! Google Sign In All Process .
@@ -36,15 +38,13 @@ class GoogleSignInMethod {
         accessToken: googleAuth?.accessToken,
         idToken: googleAuth?.idToken,
       );
-      log("Google User : $googleUser");
-      log("Google User : ${googleUser?.id.toString()}");
-      log("Google User Email : ${googleUser!.email.toString()}");
-      log("Google User DisPlayName : ${googleUser.displayName}");
-      log("Google User : ${googleUser.photoUrl.toString()}");
+      // log("Google User : $googleUser");
+      // log("Google User : ${googleUser?.id.toString()}");
+      // log("Google User Email : ${googleUser!.email.toString()}");
+      // log("Google User DisPlayName : ${FirebaseServices.currentUser.displayName.toString()}");
+      // log("Google User : ${googleUser.photoUrl.toString()}");
       // Once signed in, return the UserCredential
-      return await FirebaseServices.auth
-          .signInWithCredential(credential)
-          .then((value) async {
+      return await auth.signInWithCredential(credential).then((value) async {
         log("Successfully Google SignUp");
         CustomDialog.toastMessage(message: "Successfully Google SignUp");
         debugPrint("Successfully ");

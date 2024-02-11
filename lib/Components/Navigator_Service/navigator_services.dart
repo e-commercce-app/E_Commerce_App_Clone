@@ -23,4 +23,10 @@ class NavigatorService {
       route,
     );
   }
+
+  // static Future<dynamic> pushReplacementsNamed(String route) {
+  //   return navigatorKey.currentState!.pushReplacementNamed(
+  //     route,
+  //   );
+  // }
 }

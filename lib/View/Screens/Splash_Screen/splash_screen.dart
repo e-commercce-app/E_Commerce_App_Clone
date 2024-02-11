@@ -1,4 +1,9 @@
+import 'dart:async';
+
 import 'package:e_commerce/Components/Navigator_Service/navigator_services.dart';
+import 'package:e_commerce/Controller/Routes/routes_method.dart';
+import 'package:e_commerce/Controller/Services/firebase_services.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../../Export/e_commerce_export.dart';
 import 'Components/custom_text.dart';
@@ -11,11 +16,29 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  User? currentUserDefine = FirebaseServices.auth.currentUser;
+  Timer? timer;
   @override
   void initState() {
     super.initState();
+    currentScreenLoaded();
     // Full Screen .
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
+  }
+
+  void currentScreenLoaded() {
+    if (currentUserDefine != null) {
+      timer = Timer.periodic(const Duration(seconds: 6), (timer) {
+        SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+
+        Navigator.pushReplacementNamed(context, RoutesName.bottomBarScreen);
+      });
+    } else {
+      timer = Timer.periodic(const Duration(seconds: 3), (timer) {
+        SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+        Navigator.pushReplacementNamed(context, RoutesName.onBoardingScreen);
+      });
+    }
   }
 
   late Size size;

@@ -1,5 +1,6 @@
+import 'package:e_commerce/Controller/Routes/routes_method.dart';
+import 'package:e_commerce/Controller/Services/firebase_services.dart';
 import 'package:flutter/cupertino.dart';
-
 import '../../../../Components/Widgets/AppBar/app_bar_leading_icon_button.dart';
 import '../../../../Components/Widgets/AppBar/app_bar_subtitle_one.dart';
 import '../../../../Components/Widgets/AppBar/app_bar_subtitle_two.dart';
@@ -36,9 +37,15 @@ PreferredSizeWidget homePageAppBar(BuildContext context, {Size? size}) {
     ),
     actions: [
       AppBarLeadingIconButtonOne(
-          onTap: () {},
+          onTap: () {
+            // ! LogOut Button
+            FirebaseServices.auth.signOut().then((value) {
+              Navigator.pushReplacementNamed(context, RoutesName.signInScreen);
+              // Navigator.pop(context);
+            });
+          },
           child: Icon(
-            CupertinoIcons.person_2_alt,
+            Icons.logout,
             color: Resources.colors.gray600,
           )),
       // Some Space
