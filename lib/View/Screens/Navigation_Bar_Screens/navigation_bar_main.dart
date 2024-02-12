@@ -2,9 +2,8 @@
 
 import 'package:e_commerce/View/Screens/Navigation_Bar_Screens/bloc/bottom_navigation_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../../Export/e_commerce_export.dart';
-import '../Home/home_screen.dart';
+import 'Home/home_screen.dart';
 
 class BottomBarScreen extends StatefulWidget {
   const BottomBarScreen({super.key});
@@ -21,75 +20,59 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
   void initState() {
     _pages = [
       const HomeScreen(),
-      const Feeds(),
+      const FavoriteScreen(),
       const Search(),
       const Cart(),
-      const UserInfo(),
+      const Profile(),
     ];
     super.initState();
   }
-
-  // void _selectPage(int index) {
-  //   setState(() {
-  //     _selectedPageIndex = index;
-  //   });
-  // }
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<BottomNavigationBloc, BottomNavigationState>(
       builder: (context, state) {
-        (state as BottomNavigationInitial);
         return Scaffold(
           resizeToAvoidBottomInset: true,
-          body: _pages![state.index],
-          bottomNavigationBar: BottomAppBar(
-            color: Colors.transparent,
-            padding: const EdgeInsets.all(5),
-            shape: const CircularNotchedRectangle(),
-            notchMargin: 0.01,
-            clipBehavior: Clip.antiAlias,
-            child: SizedBox(
-              height: kBottomNavigationBarHeight * 0.15,
-              child: BottomNavigationBar(
-                onTap: (int index) {
-                  BlocProvider.of<BottomNavigationBloc>(context)
-                      .add(BottomNavigationEvent(currentIndex: index));
-                },
-                elevation: 0,
-                backgroundColor: Colors.transparent,
-                selectedLabelStyle: GoogleFonts.adamina(color: Colors.blue),
-                unselectedItemColor: Colors.grey,
-                selectedItemColor: Resources.colors.buttonColor,
-                currentIndex: state.index,
-                items: const [
-                  BottomNavigationBarItem(
-                    icon: Icon(Icons.home),
-                    label: 'Home',
-                  ),
-                  BottomNavigationBarItem(
-                    icon: Icon(Icons.rss_feed),
-                    label: 'Feeds',
-                  ),
-                  BottomNavigationBarItem(
-                    activeIcon: null,
-                    icon: Icon(null),
-                    label: 'Search',
-                  ),
-                  BottomNavigationBarItem(
-                    icon: Icon(
-                      Icons.shopping_bag,
-                    ),
-                    label: 'Cart',
-                  ),
-                  BottomNavigationBarItem(
-                    icon: Icon(Icons.person),
-                    label: 'User',
-                  ),
-                ],
+          // BottomNavigationBar
+          bottomNavigationBar: BottomNavigationBar(
+            onTap: (int index) {
+              BlocProvider.of<BottomNavigationBloc>(context)
+                  .add(BottomNavigationEvent(currentIndex: index));
+            },
+            elevation: 0,
+            backgroundColor: Colors.transparent,
+            selectedLabelStyle: GoogleFonts.adamina(color: Colors.blue),
+            unselectedItemColor: Resources.colors.grey,
+            selectedItemColor: Resources.colors.buttonColor,
+            currentIndex: (state as BottomNavigationInitial).index,
+            items: const [
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home),
+                label: 'Home',
               ),
-            ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.favorite_border),
+                label: 'Favorite',
+              ),
+              BottomNavigationBarItem(
+                activeIcon: null,
+                icon: Icon(null),
+                label: 'Search',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.shopping_bag,
+                ),
+                label: 'Cart',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.person),
+                label: 'Profile',
+              ),
+            ],
           ),
+          // floatingActionButton notch .
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerDocked,
           floatingActionButton: Padding(
@@ -97,11 +80,13 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
             child: FloatingActionButton(
                 backgroundColor: Resources.colors.buttonColor,
                 hoverElevation: 10,
-                splashColor: Colors.white.withOpacity(0.3),
+                splashColor: Resources.colors.white.withOpacity(0.3),
                 elevation: 8,
                 child: const Icon(Icons.shopify_rounded, size: 35),
                 onPressed: () => state.index = 2),
           ),
+          // Generate Widgets List .
+          body: _pages![(state).index],
         );
       },
     );
@@ -119,8 +104,8 @@ class Cart extends StatelessWidget {
   }
 }
 
-class Feeds extends StatelessWidget {
-  const Feeds({super.key});
+class FavoriteScreen extends StatelessWidget {
+  const FavoriteScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -152,8 +137,8 @@ class Search extends StatelessWidget {
   }
 }
 
-class UserInfo extends StatelessWidget {
-  const UserInfo({super.key});
+class Profile extends StatelessWidget {
+  const Profile({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -162,3 +147,79 @@ class UserInfo extends StatelessWidget {
     );
   }
 }
+
+
+
+
+//**
+//  @override
+  // Widget build(BuildContext context) {
+  //   return BlocBuilder<BottomNavigationBloc, BottomNavigationState>(
+  //     builder: (context, state) {
+  //       return Scaffold(
+  //         resizeToAvoidBottomInset: true,
+  //         body: _pages![(state as BottomNavigationInitial).index],
+  //         bottomNavigationBar: BottomAppBar(
+  //           color: Colors.transparent,
+  //           padding: const EdgeInsets.all(5),
+  //           shape: const CircularNotchedRectangle(),
+  //           notchMargin: 0.01,
+  //           clipBehavior: Clip.antiAlias,
+  //           child: SizedBox(
+  //             height: kBottomNavigationBarHeight * 0.15,
+  //             child: BottomNavigationBar(
+  //               onTap: (int index) {
+  //                 BlocProvider.of<BottomNavigationBloc>(context)
+  //                     .add(BottomNavigationEvent(currentIndex: index));
+  //               },
+  //               elevation: 0,
+  //               backgroundColor: Colors.transparent,
+  //               selectedLabelStyle: GoogleFonts.adamina(color: Colors.blue),
+  //               unselectedItemColor: Resources.colors.grey,
+  //               selectedItemColor: Resources.colors.buttonColor,
+  //               currentIndex: state.index,
+  //               items: const [
+  //                 BottomNavigationBarItem(
+  //                   icon: Icon(Icons.home),
+  //                   label: 'Home',
+  //                 ),
+  //                 BottomNavigationBarItem(
+  //                   icon: Icon(Icons.favorite_border),
+  //                   label: 'Favorite',
+  //                 ),
+  //                 BottomNavigationBarItem(
+  //                   activeIcon: null,
+  //                   icon: Icon(null),
+  //                   label: 'Search',
+  //                 ),
+  //                 BottomNavigationBarItem(
+  //                   icon: Icon(
+  //                     Icons.shopping_bag,
+  //                   ),
+  //                   label: 'Cart',
+  //                 ),
+  //                 BottomNavigationBarItem(
+  //                   icon: Icon(Icons.person),
+  //                   label: 'Profile',
+  //                 ),
+  //               ],
+  //             ),
+  //           ),
+  //         ),
+  //         floatingActionButtonLocation:
+  //             FloatingActionButtonLocation.centerDocked,
+  //         floatingActionButton: Padding(
+  //           padding: const EdgeInsets.all(8.0),
+  //           child: FloatingActionButton(
+  //               backgroundColor: Resources.colors.buttonColor,
+  //               hoverElevation: 10,
+  //               splashColor: Resources.colors.white.withOpacity(0.3),
+  //               elevation: 8,
+  //               child: const Icon(Icons.shopify_rounded, size: 35),
+  //               onPressed: () => state.index = 2),
+  //         ),
+  //       );
+  //     },
+  //   );
+  // }
+// */

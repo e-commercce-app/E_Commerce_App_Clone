@@ -5,7 +5,6 @@ import 'package:e_commerce/View/Screens/Auth/Forget_Password/recovery_password.d
 import 'package:e_commerce/View/Screens/Auth/Sign_Up_Screen/bloc/sign_up_bloc.dart';
 import 'package:e_commerce/View/Screens/Auth/Sign_in_Screen/bloc/sign_in_bloc.dart';
 import 'package:e_commerce/View/Screens/Auth/Sign_in_Screen/sign_in_screen.dart';
-import 'package:e_commerce/View/Screens/Home/home_screen.dart';
 import 'package:e_commerce/View/Screens/OnBoarding_Screen/Bloc/page_view_bloc.dart';
 import 'package:e_commerce/View/Screens/OnBoarding_Screen/Bloc/page_view_event.dart';
 import 'package:e_commerce/View/Screens/OnBoarding_Screen/onboarding_screen.dart';
@@ -13,6 +12,7 @@ import 'package:e_commerce/View/Screens/Splash_Screen/splash_screen.dart';
 
 import '../../Export/e_commerce_export.dart';
 import '../../View/Screens/Auth/Sign_Up_Screen/sign_up_screen.dart';
+import '../../View/Screens/Navigation_Bar_Screens/Home/home_screen.dart';
 import '../../View/Screens/Navigation_Bar_Screens/bloc/bottom_navigation_bloc.dart';
 import '../../View/Screens/Navigation_Bar_Screens/navigation_bar_main.dart';
 

@@ -94,6 +94,14 @@ class SignUpBloc extends Bloc<SignUpBlocEvent, SignUpState> {
       passwordController: passwordController,
       // checkPassword: true,
       key: _key));
+
+  @override
+  Future<void> close() {
+    nameController.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+    return super.close();
+  }
 }
 
 // import 'package:e_commerce/Export/e_commerce_export.dart';

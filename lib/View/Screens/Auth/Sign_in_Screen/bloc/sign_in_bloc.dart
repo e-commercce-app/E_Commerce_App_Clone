@@ -49,4 +49,12 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
 
   get loadingState => emit(SignInClickState(
       emailAddress: emailAddress, password: password, formKey: formKey));
+
+  @override
+  Future<void> close() {
+    // Clean up the controller when this widget is disposed of.
+    emailAddress.dispose();
+    password.dispose();
+    return super.close();
+  }
 }

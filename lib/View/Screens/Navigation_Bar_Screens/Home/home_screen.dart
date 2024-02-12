@@ -1,7 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../Components/Widgets/custom_search_bar_text_field.dart';
-import '../../../Export/e_commerce_export.dart';
+import '../../../../Components/Widgets/custom_image_view.dart';
+import '../../../../Components/Widgets/custom_search_bar_text_field.dart';
+import '../../../../Export/e_commerce_export.dart';
 import '../Home/bloc/search_bloc.dart';
 import '../Home/bloc/search_state.dart';
 import '../Home/Components/home_page_app_bar.dart';
@@ -18,7 +19,6 @@ class _HomeScreenState extends State<HomeScreen>
   // All Screen Size .
   late Size size;
   late TabController tabController;
-  int curentIndex = 0;
 
   @override
   void initState() {
@@ -91,68 +91,22 @@ class _HomeScreenState extends State<HomeScreen>
                                     // ! Tabs
                                     tabs: [
                                       Tab(
-                                        child: Container(
-                                          height: 35,
-                                          width: 70,
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(30),
-                                              border: Border.all(
-                                                  color: Resources
-                                                      .colors.buttonColor,
-                                                  width: 1)),
-                                          child: const Align(
-                                              alignment: Alignment.center,
-                                              child: Text("Nike")),
-                                        ),
+                                        child: _customTabBarItem(
+                                            tabBarImage:
+                                                Resources.imagePath.nikeShoes),
                                       ),
                                       Tab(
-                                        child: Container(
-                                          height: 35,
-                                          width: 70,
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(30),
-                                              border: Border.all(
-                                                  color: Resources
-                                                      .colors.buttonColor,
-                                                  width: 1)),
-                                          child: const Align(
-                                              alignment: Alignment.center,
-                                              child: Text("Bata")),
-                                        ),
-                                      ),
+                                          child: _customTabBarItem(
+                                              tabBarImage: Resources
+                                                  .imagePath.pumaShoes)),
                                       Tab(
-                                        child: Container(
-                                          height: 35,
-                                          width: 70,
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(30),
-                                              border: Border.all(
-                                                  color: Resources
-                                                      .colors.buttonColor,
-                                                  width: 1)),
-                                          child: const Align(
-                                              alignment: Alignment.center,
-                                              child: Text("Classic")),
-                                        ),
-                                      ),
+                                          child: _customTabBarItem(
+                                              tabBarImage: Resources
+                                                  .imagePath.adidasShoes)),
                                       Tab(
-                                        child: Container(
-                                          height: 35,
-                                          width: 70,
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(30),
-                                              border: Border.all(
-                                                  color: Resources
-                                                      .colors.buttonColor,
-                                                  width: 1)),
-                                          child: const Align(
-                                              alignment: Alignment.center,
-                                              child: Text("Boats")),
-                                        ),
+                                        child: _customTabBarItem(
+                                            tabBarImage: Resources
+                                                .imagePath.rebookShoes),
                                       ),
                                     ]),
                               ),
@@ -173,6 +127,23 @@ class _HomeScreenState extends State<HomeScreen>
                 ),
               );
             },
+          )),
+    );
+  }
+
+  // TabBar itemView Image function !
+  Widget _customTabBarItem({required String tabBarImage}) {
+    return Container(
+      height: 35,
+      width: 70,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(30),
+          border: Border.all(color: Resources.colors.buttonColor, width: 1)),
+      child: Align(
+          alignment: Alignment.center,
+          child: CustomImageView(
+            fit: BoxFit.cover,
+            imagePath: tabBarImage,
           )),
     );
   }
