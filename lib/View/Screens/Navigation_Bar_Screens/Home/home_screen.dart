@@ -1,11 +1,17 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'package:e_commerce/View/Screens/Home_Page_Tabs/Bata_Shoes/bata_shoes_main.dart';
+import 'package:e_commerce/View/Screens/Home_Page_Tabs/Nike_Shoes/nike_shoes_main.dart';
+import 'package:e_commerce/View/Screens/Home_Page_Tabs/Puma_Shoes/puma_shoes_main.dart';
+import 'package:e_commerce/View/Screens/Home_Page_Tabs/Reebok_Shoes/reebok_shoes_main.dart';
 
 import '../../../../Components/Widgets/custom_image_view.dart';
 import '../../../../Components/Widgets/custom_search_bar_text_field.dart';
 import '../../../../Export/e_commerce_export.dart';
+import '../Home/Components/home_page_app_bar.dart';
 import '../Home/bloc/search_bloc.dart';
 import '../Home/bloc/search_state.dart';
-import '../Home/Components/home_page_app_bar.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -65,6 +71,7 @@ class _HomeScreenState extends State<HomeScreen>
                       ),
                     ),
                     const CustomSizedBox(heightRatio: 0.02),
+                    // ! TabBar Sections .
                     DefaultTabController(
                         length: 4,
                         child: Column(
@@ -113,16 +120,20 @@ class _HomeScreenState extends State<HomeScreen>
                             ),
                           ],
                         )),
-
+                    //  ! _Build New Arrivals .
+                    _buildNewArrivals(context,
+                        newArrivalsText: "Popular Shoes",
+                        seeAllText: "See All"),
                     Expanded(
                         child: TabBarView(
                             controller: tabController,
+                            // ! TabBar Screen List .
                             children: const [
-                          Center(child: Icon(Icons.add)),
-                          Center(child: Icon(Icons.safety_check)),
-                          Center(child: Icon(Icons.one_x_mobiledata)),
-                          Center(child: Icon(Icons.e_mobiledata)),
-                        ]))
+                          NikeShoesScreen(),
+                          PumaShoesScreen(),
+                          BataShoesScreen(),
+                          ReebokShoesScreen(),
+                        ])),
                   ],
                 ),
               );
@@ -131,7 +142,7 @@ class _HomeScreenState extends State<HomeScreen>
     );
   }
 
-  // TabBar itemView Image function !
+  // ** TabBar itemView Image function !
   Widget _customTabBarItem({required String tabBarImage}) {
     return Container(
       height: 35,
@@ -145,6 +156,34 @@ class _HomeScreenState extends State<HomeScreen>
             fit: BoxFit.cover,
             imagePath: tabBarImage,
           )),
+    );
+  }
+
+  /// ** Common Popular see all widget
+  Widget _buildNewArrivals(
+    BuildContext context, {
+    required String newArrivalsText,
+    required String seeAllText,
+  }) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        AutoSizeText(
+          newArrivalsText,
+          presetFontSizes: const [16.0, 12.0, 8.0, 5.0],
+          style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                color: Resources.colors.black,
+              ),
+        ),
+        AutoSizeText(
+          seeAllText,
+          presetFontSizes: const [14.0, 10.0, 7.0, 4.0],
+          style: Theme.of(context)
+              .textTheme
+              .bodyMedium
+              ?.copyWith(color: Resources.colors.buttonColor, fontSize: 14),
+        ),
+      ],
     );
   }
 }

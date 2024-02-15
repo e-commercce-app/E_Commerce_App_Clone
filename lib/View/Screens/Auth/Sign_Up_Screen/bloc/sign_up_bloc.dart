@@ -39,14 +39,14 @@ class SignUpBloc extends Bloc<SignUpBlocEvent, SignUpState> {
             .then((value) {
           CustomDialog.toastMessage(message: "Successfully Sign Up");
 
-          userInfo.id = FirebaseServices.currentUser.uid;
+          userInfo.id = FirebaseServices.currentUser?.uid;
           userInfo.name = nameController.text.toString();
           userInfo.emailAddress = emailController.text.toString();
           userInfo.userImage = "xyz";
           // ! store Data on Firebase Firestore .
           FirebaseServices.fireStore
               .collection("UserDetails")
-              .doc(FirebaseServices.currentUser.uid)
+              .doc(FirebaseServices.currentUser?.uid)
               .set(userInfo.toJson())
               .then((value) {
             log("Store successfully");

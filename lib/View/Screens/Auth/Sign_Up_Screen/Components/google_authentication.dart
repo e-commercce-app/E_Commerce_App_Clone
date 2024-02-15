@@ -49,14 +49,14 @@ class GoogleSignInMethod {
         CustomDialog.toastMessage(message: "Successfully Google SignUp");
         debugPrint("Successfully ");
         // ** pass this current user data .
-        userInfo.id = FirebaseServices.currentUser.uid;
-        userInfo.name = FirebaseServices.currentUser.displayName.toString();
-        userInfo.emailAddress = FirebaseServices.currentUser.email.toString();
-        userInfo.userImage = FirebaseServices.currentUser.photoURL.toString();
+        userInfo.id = FirebaseServices.currentUser?.uid;
+        userInfo.name = FirebaseServices.currentUser?.displayName.toString();
+        userInfo.emailAddress = FirebaseServices.currentUser?.email.toString();
+        userInfo.userImage = FirebaseServices.currentUser?.photoURL.toString();
         // !create user help of Using Google process store data fireStore Database .
         await FirebaseServices.fireStore
             .collection("UserDetails")
-            .doc(FirebaseServices.currentUser.uid)
+            .doc(FirebaseServices.currentUser?.uid)
             .set(userInfo.toJson())
             .then((value) {
           log("store data");
