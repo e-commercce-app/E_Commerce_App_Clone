@@ -48,8 +48,8 @@ class _HomeScreenState extends State<HomeScreen>
                 // color: Resources.colors.blue,
                 width: double.maxFinite,
                 padding: const EdgeInsets.symmetric(
-                  horizontal: 20,
-                  vertical: 13,
+                  horizontal: 15,
+                  vertical: 5,
                 ),
                 child: Column(
                   children: [

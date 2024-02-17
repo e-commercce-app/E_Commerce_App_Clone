@@ -33,15 +33,20 @@ TextTheme _getTextTheme() {
     displayLarge: GoogleFonts.poppins(
       color: Resources.colors.largeTextColor,
       fontSize: 40.0,
+      textStyle: const TextStyle(
+        overflow: TextOverflow.ellipsis,
+      ),
       fontWeight: FontWeight.w600,
     ),
     bodyMedium: const TextStyle(
       fontSize: 14,
+      overflow: TextOverflow.ellipsis,
       fontFamily: 'Airbnb Cereal App',
       fontWeight: FontWeight.w400,
     ),
     bodySmall: const TextStyle(
       fontSize: 12.0,
+      overflow: TextOverflow.ellipsis,
       fontFamily: 'Airbnb Cereal App',
       fontWeight: FontWeight.w400,
     ),
@@ -49,17 +54,22 @@ TextTheme _getTextTheme() {
       color: Resources.colors.titleTextColors,
       fontSize: 18.0,
       height: 0.0,
+      textStyle: const TextStyle(
+        overflow: TextOverflow.ellipsis,
+      ),
       fontWeight: FontWeight.w500,
     ),
     titleMedium: const TextStyle(
       fontSize: 16.0,
       fontFamily: 'Airbnb Cereal App',
       fontWeight: FontWeight.w500,
+      overflow: TextOverflow.ellipsis,
     ),
     titleSmall: TextStyle(
       color: Resources.colors.black,
       fontSize: 14,
       fontFamily: 'Airbnb Cereal App',
+      overflow: TextOverflow.ellipsis,
       fontWeight: FontWeight.w500,
     ),
   );
