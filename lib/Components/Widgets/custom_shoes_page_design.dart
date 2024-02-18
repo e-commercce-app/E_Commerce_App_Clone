@@ -6,9 +6,14 @@ import 'package:e_commerce/Export/e_commerce_export.dart';
 import 'package:e_commerce/Models/shoes_product_home_page.dart';
 
 class CustomProductShoesDesign extends StatefulWidget {
-  CustomProductShoesDesign({super.key, required this.productShoes});
+  CustomProductShoesDesign(
+      {super.key,
+      required this.productShoes,
+      required this.heroTag,
+      required this.onTap});
   ProductShoesHomePage productShoes = ProductShoesHomePage();
-
+  final String heroTag;
+  final VoidCallback onTap;
   @override
   State<CustomProductShoesDesign> createState() =>
       _CustomProductShoesDesignState();
@@ -17,53 +22,70 @@ class CustomProductShoesDesign extends StatefulWidget {
 class _CustomProductShoesDesignState extends State<CustomProductShoesDesign> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 100,
-      width: 100,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        color: Resources.colors.white,
-        boxShadow: const [BoxShadow(blurRadius: 1, spreadRadius: 1)],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          // ! Product Image .
-          Expanded(
-            flex: 5,
-            child: CustomImageView(
-              imagePath: widget.productShoes.productImage.toString(),
-              fit: BoxFit.cover,
-            ),
+    return InkWell(
+      borderRadius: BorderRadius.circular(10),
+      onTap: widget.onTap,
+      splashColor: Colors.grey,
+      child: Card(
+        color: Resources.colors.grey,
+        elevation: 8,
+        child: Container(
+          // height: 100,
+          // width: 100,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            color: Resources.colors.white,
+            boxShadow: [
+              BoxShadow(
+                  blurRadius: 0.7,
+                  spreadRadius: 0.1,
+                  color: Resources.colors.grey)
+            ],
           ),
-          // ! Product Best Seller .
-          _customProductShoesInfoText(
-              context: context,
-              messageText: "Best Seller".toUpperCase(),
-              style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                  color: Resources.colors.buttonColor,
-                  fontWeight: FontWeight.w300)),
-          // ! Product Name .
-          _customProductShoesInfoText(
-              context: context,
-              messageText: widget.productShoes.productName.toString(),
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    fontWeight: FontWeight.w900,
-                    fontSize: 20,
-                  )),
-          // ! Product Price .
-          _customProductShoesInfoText(
-              context: context,
-              messageText: widget.productShoes.productPrice.toString(),
-              style: GoogleFonts.almendraSc(
-                  textStyle: Theme.of(context)
-                      .textTheme
-                      .bodySmall
-                      ?.copyWith(overflow: TextOverflow.ellipsis),
-                  fontSize: 25,
-                  fontWeight: FontWeight.w500))
-        ],
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              // ! Product Image .
+              Expanded(
+                flex: 5,
+                child: Hero(
+                  tag: widget.heroTag.toString(),
+                  child: CustomImageView(
+                    imagePath: widget.productShoes.productImage.toString(),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+              // ! Product Best Seller .
+              _customProductShoesInfoText(
+                  context: context,
+                  messageText: "Best Seller".toUpperCase(),
+                  style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                      color: Resources.colors.buttonColor,
+                      fontWeight: FontWeight.w300)),
+              // ! Product Name .
+              _customProductShoesInfoText(
+                  context: context,
+                  messageText: widget.productShoes.productName.toString(),
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        fontWeight: FontWeight.w900,
+                        fontSize: 20,
+                      )),
+              // ! Product Price .
+              _customProductShoesInfoText(
+                  context: context,
+                  messageText: widget.productShoes.productPrice.toString(),
+                  style: GoogleFonts.almendraSc(
+                      textStyle: Theme.of(context)
+                          .textTheme
+                          .bodySmall
+                          ?.copyWith(overflow: TextOverflow.ellipsis),
+                      fontSize: 25,
+                      fontWeight: FontWeight.w500))
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -75,14 +97,13 @@ class _CustomProductShoesDesignState extends State<CustomProductShoesDesign> {
       required TextStyle? style}) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
-      child: Expanded(
-          child: AutoSizeText(
+      child: AutoSizeText(
         messageText ?? "Nike Shoes".toLowerCase(),
         style: style ??
             Theme.of(context).textTheme.titleSmall?.copyWith(
                 color: Resources.colors.buttonColor,
                 fontWeight: FontWeight.w300),
-      )),
+      ),
     );
   }
 }

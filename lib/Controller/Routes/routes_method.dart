@@ -1,3 +1,5 @@
+import 'package:e_commerce/Models/shoes_product_home_page.dart';
+import 'package:e_commerce/View/Screens/Detail_Screen/detail_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:e_commerce/View/Screens/Auth/Forget_Password/bloc/recovery_password_bloc.dart';
@@ -28,6 +30,7 @@ abstract class RoutesName {
   // Screens
   static const String bottomBarScreen = "BottomBarScreen";
   static const String homeScreen = "HomeScreen";
+  static const String detailScreen = "DetailScreen";
 }
 
 //  ! All Pages Controll  (onGenerateRoutes)
@@ -79,6 +82,13 @@ class RoutesMethod {
           child: BlocProvider(
         create: (context) => BottomNavigationBloc(),
         child: const BottomBarScreen(),
+      ));
+    }
+    // 3
+    else if (settings.name == RoutesName.detailScreen) {
+      return CustomPageTransition(
+          child: DetailsScreen(
+        productHomeScreen: settings.arguments as ProductShoesHomePage,
       ));
     }
     // NOT FOUND

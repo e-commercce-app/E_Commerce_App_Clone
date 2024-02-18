@@ -202,7 +202,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     );
   }
 
-  Widget _passwordButton(SignUpClickState state, BuildContext context) {
+  Widget _passwordButton(SignUpState state, BuildContext context) {
     return BlocBuilder<SignUpBloc, SignUpState>(builder: (context, state) {
       return CustomTextFormField(
         controller: (state as SignUpClickState).passwordController,

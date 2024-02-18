@@ -33,7 +33,7 @@ dependencies:
   #  ! Provide a simple way to add rounded corners to any widgets.
   animated_bottom_navigation_bar: ^1.3.3
   # ! state Management Using Bloc
-  flutter_bloc: ^8.1.3
+  flutter_bloc: ^8.1.4
   # ! Maintain this Bloc and uses this Class Instance and member check this (hashCode and ==)
   equatable: ^2.0.5
   # ! auto size text package

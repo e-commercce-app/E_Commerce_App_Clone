@@ -21,14 +21,11 @@ class AppbarSubtitleOne extends StatelessWidget {
         onTap: () {
           onTap!.call();
         },
-        child: Padding(
-          padding: margin ?? EdgeInsets.zero,
-          child: AutoSizeText(text,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              presetFontSizes: const [14, 11, 8],
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.titleSmall),
-        ));
+        child: AutoSizeText(text,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            presetFontSizes: const [14, 11, 8],
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.titleMedium));
   }
 }

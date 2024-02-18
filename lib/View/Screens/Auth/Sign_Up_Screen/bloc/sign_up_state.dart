@@ -24,7 +24,7 @@ class SignUpClickState extends SignUpState {
 class SignUpGoogleState extends SignUpState {}
 
 class CheckPasswordState extends SignUpState {
-  bool isChecked = false;
+  bool isChecked = true;
   CheckPasswordState({required this.isChecked});
 }
 

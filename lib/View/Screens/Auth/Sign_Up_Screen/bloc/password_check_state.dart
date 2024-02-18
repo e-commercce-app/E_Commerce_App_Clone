@@ -1,10 +1,12 @@
 part of 'password_check_bloc.dart';
 
-sealed class PasswordCheckState extends Equatable {
+sealed class PasswordCheckState {
   const PasswordCheckState();
-  
-  @override
-  List<Object> get props => [];
 }
 
-final class PasswordCheckInitial extends PasswordCheckState {}
+class PasswordCheckInitial extends PasswordCheckState {}
+
+class PasswordConfirmState extends PasswordCheckState {
+  bool checkPassword = true;
+  PasswordConfirmState({required this.checkPassword});
+}

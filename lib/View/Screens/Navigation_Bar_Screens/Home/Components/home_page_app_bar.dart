@@ -1,5 +1,5 @@
+import 'package:e_commerce/Components/Navigator_Service/navigator_services.dart';
 import 'package:e_commerce/Controller/Routes/routes_method.dart';
-import 'package:e_commerce/Controller/Services/firebase_services.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../../../../Components/Widgets/AppBar/app_bar_leading_icon_button.dart';
@@ -40,10 +40,11 @@ PreferredSizeWidget homePageAppBar(BuildContext context, {Size? size}) {
       AppBarLeadingIconButtonOne(
           onTap: () {
             // ! LogOut Button
-            FirebaseServices.auth.signOut().then((value) {
-              Navigator.pushReplacementNamed(context, RoutesName.signInScreen);
-              // Navigator.pop(context);
-            });
+            // FirebaseServices.auth.signOut().then((value) {
+            //   Navigator.pushReplacementNamed(context, RoutesName.signInScreen);
+            // Navigator.pop(context);
+            // });
+            NavigatorService.pushNamed(RoutesName.detailScreen);
           },
           child: Icon(
             Icons.logout,

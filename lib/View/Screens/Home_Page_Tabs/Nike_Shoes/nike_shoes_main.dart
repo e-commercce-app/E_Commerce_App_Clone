@@ -1,3 +1,5 @@
+import 'package:e_commerce/Components/Navigator_Service/navigator_services.dart';
+import 'package:e_commerce/Controller/Routes/routes_method.dart';
 import 'package:e_commerce/Controller/Services/firebase_services.dart';
 import 'package:flutter/material.dart';
 
@@ -44,6 +46,14 @@ class _NikeShoesScreenState extends State<NikeShoesScreen> {
                       productImage: product.productImage.toString(),
                       productName: product.productName.toString(),
                       productPrice: product.productPrice),
+                  heroTag: product.productImage.toString(),
+                  onTap: () {
+                    NavigatorService.pushNamed(RoutesName.detailScreen,
+                        arguments: ProductShoesHomePage(
+                            productImage: product.productImage.toString(),
+                            productName: product.productName.toString(),
+                            productPrice: product.productPrice));
+                  },
                 );
               },
             );

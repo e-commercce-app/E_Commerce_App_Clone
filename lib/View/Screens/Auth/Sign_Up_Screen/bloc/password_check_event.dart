@@ -1,8 +1,6 @@
 part of 'password_check_bloc.dart';
 
-sealed class PasswordCheckEvent extends Equatable {
-  const PasswordCheckEvent();
-
-  @override
-  List<Object> get props => [];
+class PasswordCheckEvent {
+  bool obscurePassword = false;
+  PasswordCheckEvent({required this.obscurePassword});
 }

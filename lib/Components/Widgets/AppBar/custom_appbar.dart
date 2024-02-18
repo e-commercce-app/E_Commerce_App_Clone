@@ -4,7 +4,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppBar({
     Key? key,
     this.height,
-    this.leadingWidth,
+    // this.leadingWidth,
     this.leading,
     this.title,
     this.centerTitle,
@@ -13,7 +13,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   }) : super(key: key);
 
   final double? height;
-  final double? leadingWidth;
+  // final double? leadingWidth;
   final Widget? leading;
   final Widget? title;
   final bool? centerTitle;
@@ -23,10 +23,10 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       elevation: 0,
-      toolbarHeight: height ?? 56,
+      // toolbarHeight: height ?? 56,
       automaticallyImplyLeading: false,
       backgroundColor: Colors.transparent,
-      leadingWidth: leadingWidth,
+      // leadingWidth: leadingWidth,
       leading: leading,
       title: title,
       titleSpacing: 0,

@@ -1,13 +1,19 @@
-import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
+// ignore_for_file: depend_on_referenced_packages
 
+import 'package:bloc/bloc.dart';
 part 'password_check_event.dart';
 part 'password_check_state.dart';
 
 class PasswordCheckBloc extends Bloc<PasswordCheckEvent, PasswordCheckState> {
-  PasswordCheckBloc() : super(PasswordCheckInitial()) {
+  PasswordCheckBloc() : super(PasswordConfirmState(checkPassword: true)) {
     on<PasswordCheckEvent>((event, emit) {
-      // TODO: implement event handler
+      emit(PasswordConfirmState(checkPassword: event.obscurePassword));
+
+      if (event.obscurePassword == false) {
+        emit(PasswordConfirmState(checkPassword: event.obscurePassword));
+      } else if (event.obscurePassword == true) {
+        emit(PasswordConfirmState(checkPassword: event.obscurePassword));
+      }
     });
   }
 }

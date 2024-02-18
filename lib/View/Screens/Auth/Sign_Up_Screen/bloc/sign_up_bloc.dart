@@ -80,11 +80,11 @@ class SignUpBloc extends Bloc<SignUpBlocEvent, SignUpState> {
     // password Obscure Check Bool Value.
     // on<PasswordCheckObscureEvent>((event, emit) {
     //   emit(CheckPasswordState(isChecked: !event.obscure));
-    //   // if (event.obscure == false) {
-    //   //   emit(CheckPasswordState(isChecked: event.obscure));
-    //   // } else if (event.obscure == true) {
-    //   //   emit(CheckPasswordState(isChecked: event.obscure));
-    //   // }
+    //   if (event.obscure == false) {
+    //     emit(CheckPasswordState(isChecked: event.obscure));
+    //   } else if (event.obscure == true) {
+    //     emit(CheckPasswordState(isChecked: event.obscure));
+    //   }
     // });
   }
   //

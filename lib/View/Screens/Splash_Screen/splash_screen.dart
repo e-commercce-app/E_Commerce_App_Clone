@@ -29,7 +29,12 @@ class _SplashScreenState extends State<SplashScreen> {
   void currentScreenLoaded() {
     if (currentUserDefine != null) {
       timer = Timer.periodic(const Duration(seconds: 6), (timer) {
-        SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+        SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+          statusBarIconBrightness: Brightness.dark,
+        ));
+        SystemChrome.setEnabledSystemUIMode(
+          SystemUiMode.edgeToEdge,
+        );
 
         Navigator.pushReplacementNamed(context, RoutesName.bottomBarScreen);
       });

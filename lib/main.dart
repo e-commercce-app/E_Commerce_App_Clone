@@ -7,7 +7,7 @@ import 'init.dart';
 
 void main() async {
   // On Create initial Data Load .
-  initDataLoad();
+  await initDataLoad();
   // set this PreferredOrientations .
   Future.wait([
     SystemChrome.setPreferredOrientations(
@@ -33,7 +33,7 @@ class ECommerce extends StatelessWidget {
         navigatorKey: NavigatorService.navigatorKey,
         title: 'Shoes_E_Commerce',
         theme: eCommerceTheme,
-        initialRoute: RoutesName.signInScreen,
+        initialRoute: RoutesName.bottomBarScreen,
         onGenerateRoute: RoutesMethod.onGenerateRoutes,
       ),
     );
