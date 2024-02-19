@@ -1,9 +1,9 @@
 import 'dart:async';
 
-import 'package:e_commerce/Components/Navigator_Service/navigator_services.dart';
-import 'package:e_commerce/Controller/Routes/routes_method.dart';
-import 'package:e_commerce/Controller/Services/firebase_services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+
+import 'package:e_commerce/Components/Navigator_Service/navigator_services.dart';
+import 'package:e_commerce/Controller/Services/firebase_services.dart';
 
 import '../../../Export/e_commerce_export.dart';
 import 'Components/custom_text.dart';

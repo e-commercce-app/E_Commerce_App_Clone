@@ -9,7 +9,6 @@ import 'package:e_commerce/Controller/Services/firebase_services.dart';
 import 'package:e_commerce/Models/user_details.dart';
 
 import '../../../../../Components/Navigator_Service/navigator_services.dart';
-import '../../../../../Controller/Routes/routes_method.dart';
 import '../../../../../Export/e_commerce_export.dart';
 
 FirebaseAuth auth = FirebaseAuth.instance;

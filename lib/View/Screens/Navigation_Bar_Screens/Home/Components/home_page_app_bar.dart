@@ -1,6 +1,5 @@
 import 'package:e_commerce/Components/Navigator_Service/navigator_services.dart';
 import 'package:e_commerce/Components/Widgets/custom_image_view.dart';
-import 'package:e_commerce/Controller/Routes/routes_method.dart';
 
 import '../../../../../Components/Widgets/AppBar/app_bar_leading_icon_button.dart';
 import '../../../../../Components/Widgets/AppBar/app_bar_subtitle_one.dart';

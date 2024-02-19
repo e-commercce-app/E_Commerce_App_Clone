@@ -8,7 +8,6 @@ import '../../../../Components/Navigator_Service/navigator_services.dart';
 import '../../../../Components/Widgets/AppBar/app_bar_leading_icon_button.dart';
 import '../../../../Components/Widgets/AppBar/custom_appbar.dart';
 import '../../../../Components/Widgets/custom_form_field.dart';
-import '../../../../Controller/Routes/routes_method.dart';
 import '../Sign_Up_Screen/bloc/sign_up_bloc.dart';
 import '../Sign_Up_Screen/bloc/sign_up_event.dart';
 import '../Sign_Up_Screen/bloc/sign_up_state.dart';

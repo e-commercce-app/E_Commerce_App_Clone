@@ -83,4 +83,17 @@ class AppTextStyle {
       fontWeight: FontWeight.w500,
     );
   }
+
+  // ! Drawer List Tile Text Style
+  TextStyle drawerTextStyle() {
+    return GoogleFonts.alegreya(
+      color: Resources.colors.kWhite,
+      fontSize: 18.0,
+      height: 0.0,
+      textStyle: const TextStyle(
+        overflow: TextOverflow.ellipsis,
+      ),
+      fontWeight: FontWeight.w500,
+    );
+  }
 }

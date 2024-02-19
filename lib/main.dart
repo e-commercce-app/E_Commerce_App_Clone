@@ -1,7 +1,8 @@
-import 'package:e_commerce/Components/Navigator_Service/navigator_services.dart';
-import 'package:e_commerce/Controller/Routes/routes_method.dart';
-import 'package:e_commerce/View/Screens/OnBoarding_Screen/Bloc/page_view_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'package:e_commerce/Components/Navigator_Service/navigator_services.dart';
+import 'package:e_commerce/View/Screens/OnBoarding_Screen/Bloc/page_view_bloc.dart';
+
 import 'Export/e_commerce_export.dart';
 import 'init.dart';
 
@@ -33,7 +34,7 @@ class ECommerce extends StatelessWidget {
         navigatorKey: NavigatorService.navigatorKey,
         title: 'Shoes_E_Commerce',
         theme: eCommerceTheme,
-        initialRoute: RoutesName.bottomBarScreen,
+        initialRoute: RoutesName.signInScreen,
         onGenerateRoute: RoutesMethod.onGenerateRoutes,
       ),
     );

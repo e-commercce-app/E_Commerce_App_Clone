@@ -1,5 +1,3 @@
-import 'package:auto_size_text/auto_size_text.dart';
-import 'package:e_commerce/View/Screens/Navigation_Bar_Screens/Home/Components/custom_drawer_home_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -7,6 +5,7 @@ import 'package:e_commerce/View/Screens/Home_Page_Tabs/Bata_Shoes/bata_shoes_mai
 import 'package:e_commerce/View/Screens/Home_Page_Tabs/Nike_Shoes/nike_shoes_main.dart';
 import 'package:e_commerce/View/Screens/Home_Page_Tabs/Puma_Shoes/puma_shoes_main.dart';
 import 'package:e_commerce/View/Screens/Home_Page_Tabs/Reebok_Shoes/reebok_shoes_main.dart';
+import 'package:e_commerce/View/Screens/Navigation_Bar_Screens/Home/Components/custom_drawer_home_page.dart';
 
 import '../../../../Components/Widgets/custom_image_view.dart';
 import '../../../../Components/Widgets/custom_search_bar_text_field.dart';

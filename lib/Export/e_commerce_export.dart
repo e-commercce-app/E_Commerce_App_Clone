@@ -5,12 +5,16 @@ export 'package:flutter/material.dart';
 export 'package:flutter/services.dart';
 // ! Google Fonts Library .
 export 'package:google_fonts/google_fonts.dart';
+// ! Auto Size Text Library
+export 'package:auto_size_text/auto_size_text.dart';
 //  ! network cached images Library
 export 'package:cached_network_image/cached_network_image.dart';
 // ! Flutter Svg Library .
 export 'package:flutter_svg/flutter_svg.dart';
 // ! flutter toast
 export 'package:fluttertoast/fluttertoast.dart';
+// ! Shimmer Effect
+export 'package:shimmer_effect/shimmer_effect.dart';
 
 // ! Components Inner Folder Libraries  (Resource & Widget)
 export 'package:e_commerce/Components/Resources/resources.dart';
@@ -23,3 +27,6 @@ export '../Components/Widgets/custom_button.dart';
 export '../Components/Widgets/custom_size_box.dart';
 export '../Components/Widgets/custom_toast.dart';
 export '../Components/Widgets/validation_function.dart';
+
+// ! Routes Library
+export 'package:e_commerce/Controller/Routes/routes_method.dart';
