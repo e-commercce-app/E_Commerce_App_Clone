@@ -1,5 +1,6 @@
 import 'package:e_commerce/Models/shoes_product_home_page.dart';
 import 'package:e_commerce/View/Screens/Detail_Screen/detail_screen.dart';
+import 'package:e_commerce/View/Screens/Navigation_Bar_Screens/Home/bloc/search_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:e_commerce/View/Screens/Auth/Forget_Password/bloc/recovery_password_bloc.dart';
@@ -50,7 +51,9 @@ class RoutesMethod {
     }
     // 3
     else if (settings.name == RoutesName.homeScreen) {
-      return CustomPageTransition(child: const HomeScreen());
+      return CustomPageTransition(
+          child: BlocProvider(
+              create: (context) => SearchBloc(), child: const HomeScreen()));
     }
     // 4
     else if (settings.name == RoutesName.signUpScreen) {

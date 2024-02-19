@@ -68,11 +68,11 @@ class CustomSearchView extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(mediaQueryHeight * 0.032),
         boxShadow: [
-          BoxShadow(blurRadius: 0.1, color: Resources.colors.gray600)
+          BoxShadow(blurRadius: 0.1, color: Resources.colors.kGray600)
         ],
       ),
       child: TextFormField(
-        cursorColor: Resources.colors.buttonColor,
+        cursorColor: Resources.colors.kButtonColor,
         cursorHeight: mediaQueryHeight * 0.03,
         scrollPadding:
             EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
@@ -83,7 +83,7 @@ class CustomSearchView extends StatelessWidget {
             Theme.of(context)
                 .textTheme
                 .bodyMedium
-                ?.copyWith(color: Resources.colors.gray600),
+                ?.copyWith(color: Resources.colors.kGray600),
         keyboardType: textInputType,
         maxLines: maxLines ?? 1,
         decoration: decoration(context: context, height: mediaQueryHeight),
@@ -102,7 +102,7 @@ class CustomSearchView extends StatelessWidget {
           Theme.of(context)
               .textTheme
               .bodyMedium
-              ?.copyWith(color: Resources.colors.gray600),
+              ?.copyWith(color: Resources.colors.kGray600),
       prefixIcon: prefix,
       prefixIconConstraints: prefixConstraints ??
           const BoxConstraints(
@@ -118,7 +118,7 @@ class CustomSearchView extends StatelessWidget {
           const EdgeInsets.only(
             left: 20,
           ),
-      fillColor: fillColor ?? Resources.colors.whiteA700,
+      fillColor: fillColor ?? Resources.colors.kWhiteA700,
       filled: filled,
       border: borderDecoration ??
           OutlineInputBorder(

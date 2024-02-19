@@ -42,6 +42,10 @@ dependencies:
   fluttertoast: ^8.2.4
   # ! Google authentication Using Helping Google SignUp
   google_sign_in: ^6.2.1
+  # ! Shimmer Effect in Loading state .
+  shimmer_effect: ^1.0.4
+  # ! Using More and Less text .
+  readmore: ^2.2.0
   flutter_svg: ^2.0.9
   cached_network_image: ^3.3.1
   

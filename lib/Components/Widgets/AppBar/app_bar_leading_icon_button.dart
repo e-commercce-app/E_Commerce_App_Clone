@@ -18,7 +18,7 @@ class AppBarLeadingIconButtonOne extends StatelessWidget {
         width: width * 0.12,
         padding: const EdgeInsets.all(0),
         decoration: BoxDecoration(
-          color: Resources.colors.white,
+          color: Resources.colors.kWhite,
           borderRadius: BorderRadius.circular(32),
         ),
         child: IconButton(

@@ -24,3 +24,7 @@ String get msgSummerShoes => "Summer Shoes";
 String get msgNike2024 => "Nike 2024";
 String get msgAmetMinimLit => "Amet Minim Lit Nodeseru Saku";
 String get msgNodeseru => "Nandu sit Alique Dolor";
+
+// ! Detail Page Shoes details Strings .
+String get shoesDetails => '''
+"Step into style and comfort with our exquisite collection of shoes. Crafted with precision and designed to elevate your every step, our shoes are the perfect blend of fashion and functionality. From casual sneakers to elegant heels, our diverse range caters to every occasion and preference. With attention to detail and quality materials, each pair offers superior comfort and durability."''';

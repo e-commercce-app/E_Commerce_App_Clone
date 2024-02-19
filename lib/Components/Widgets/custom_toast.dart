@@ -7,7 +7,7 @@ class CustomDialog {
         toastLength: Toast.LENGTH_LONG,
         gravity: ToastGravity.BOTTOM,
         timeInSecForIosWeb: 1,
-        backgroundColor: Resources.colors.buttonColor,
+        backgroundColor: Resources.colors.kButtonColor,
         textColor: Colors.white,
         fontSize: 10.0);
   }

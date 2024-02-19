@@ -36,7 +36,7 @@ class AppbarSubtitleTwo extends StatelessWidget {
           style: Theme.of(context)
               .textTheme
               .bodySmall
-              ?.copyWith(color: Resources.colors.gray600),
+              ?.copyWith(color: Resources.colors.kGray600),
         ),
       ),
     );

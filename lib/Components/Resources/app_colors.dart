@@ -2,31 +2,35 @@ import '../../Export/e_commerce_export.dart';
 
 class AppColors {
   // ! Background Screen Colors .
-  Color allAppColor = const Color.fromARGB(255, 248, 249, 250);
+  Color kAllAppColor = const Color.fromARGB(255, 248, 249, 250);
 
-  Color errorRedColors = Colors.red;
-  Color black = Colors.black;
+  // ! Transparent
+  Color kTransparent = Colors.transparent;
+  // ! Red
+  Color kErrorRedColors = Colors.red;
+  Color kRedColor = Colors.red;
+  Color kBlack = Colors.black;
   // ! Grey .
-  Color grey = Colors.grey;
-  Color lightGrey = const Color.fromARGB(255, 242, 242, 242);
-  Color gray600 = const Color(0XFF707B81);
+  Color kGrey = Colors.grey;
+  Color kLightGrey = const Color.fromARGB(255, 242, 242, 242);
+  Color kGray600 = const Color(0XFF707B81);
 
-  // ! White .
-  Color white = Colors.white;
-  Color whiteA700 = const Color(0XFFFFFFFF);
+  // ! white .
+  Color kWhite = Colors.white;
+  Color kWhiteA700 = const Color(0XFFFFFFFF);
 
   // ! Blue Shades Colors .
-  Color blue = Colors.blue;
-  Color buttonColor = const Color.fromARGB(255, 51, 160, 255);
+  Color kBlue = Colors.blue;
+  Color kButtonColor = const Color.fromARGB(255, 51, 160, 255);
   // Blue grey shade
-  Color blueGray50 = const Color(0XFFE9ECEF);
+  Color kBlueGray50 = const Color(0XFFE9ECEF);
   // ! Different Text Colors .
-  Color largeTextColor = const Color.fromARGB(255, 56, 68, 78);
-  Color titleTextColors = const Color.fromARGB(255, 109, 123, 129);
-  Color drawerBackgroundColor = const Color.fromARGB(255, 22, 37, 48);
+  Color kLargeTextColor = const Color.fromARGB(255, 56, 68, 78);
+  Color kTitleTextColors = const Color.fromARGB(255, 109, 123, 129);
+  Color kDrawerBackgroundColor = const Color.fromARGB(255, 22, 37, 48);
 
   // ! Dialog and Bottom Sheet Barrier Colors .
-  Color barrierColor = const Color.fromARGB(255, 144, 151, 157);
+  Color kBarrierColor = const Color.fromARGB(255, 144, 151, 157);
 }
 
 /// Class containing custom colors for a primary theme.

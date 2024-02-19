@@ -61,7 +61,7 @@ class CustomTextFormField extends StatelessWidget {
     return SizedBox(
       width: width ?? double.maxFinite,
       child: TextFormField(
-        cursorColor: Resources.colors.buttonColor,
+        cursorColor: Resources.colors.kButtonColor,
         cursorHeight: mediaQueryHHeight * 0.03,
         scrollPadding:
             EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),

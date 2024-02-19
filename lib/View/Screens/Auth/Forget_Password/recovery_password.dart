@@ -24,7 +24,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
           appBar: AppBar(
             elevation: 0,
             bottomOpacity: 0,
-            backgroundColor: Resources.colors.allAppColor,
+            backgroundColor: Resources.colors.kAllAppColor,
           ),
           body: BlocBuilder<RecoveryPasswordBloc, RecoveryPasswordState>(
             builder: (context, state) {

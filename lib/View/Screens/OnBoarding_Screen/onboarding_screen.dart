@@ -82,8 +82,8 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                         },
                         axisDirection: Axis.horizontal,
                         effect: ExpandingDotsEffect(
-                          dotColor: Resources.colors.grey,
-                          activeDotColor: Resources.colors.buttonColor,
+                          dotColor: Resources.colors.kGrey,
+                          activeDotColor: Resources.colors.kButtonColor,
                         ),
                       ),
                     ),
@@ -129,7 +129,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
       Container(
           height: size.height,
           width: size.width,
-          color: Resources.colors.allAppColor,
+          color: Resources.colors.kAllAppColor,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -150,7 +150,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
       Container(
           height: size.height,
           width: size.width,
-          color: Resources.colors.allAppColor,
+          color: Resources.colors.kAllAppColor,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -171,7 +171,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
       Container(
           height: size.height,
           width: size.width,
-          color: Resources.colors.allAppColor,
+          color: Resources.colors.kAllAppColor,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,

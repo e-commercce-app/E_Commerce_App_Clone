@@ -42,12 +42,13 @@ class _NikeShoesScreenState extends State<NikeShoesScreen> {
                 ProductShoesHomePage product = ProductShoesHomePage.fromJson(
                     snapshot.data!.docs[index].data());
                 return CustomProductShoesDesign(
-                  productShoes: ProductShoesHomePage(
-                      productImage: product.productImage.toString(),
-                      productName: product.productName.toString(),
-                      productPrice: product.productPrice),
+                  // Fetch Images
+                  productImage: product.productImage.toString(),
+                  productName: product.productName.toString(),
+                  productPrice: product.productPrice,
                   heroTag: product.productImage.toString(),
                   onTap: () {
+                    // Detail Page .
                     NavigatorService.pushNamed(RoutesName.detailScreen,
                         arguments: ProductShoesHomePage(
                             productImage: product.productImage.toString(),

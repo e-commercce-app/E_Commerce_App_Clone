@@ -43,8 +43,8 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
             elevation: 0,
             backgroundColor: Colors.transparent,
             selectedLabelStyle: GoogleFonts.adamina(color: Colors.blue),
-            unselectedItemColor: Resources.colors.grey,
-            selectedItemColor: Resources.colors.buttonColor,
+            unselectedItemColor: Resources.colors.kGrey,
+            selectedItemColor: Resources.colors.kButtonColor,
             currentIndex: (state as BottomNavigationInitial).index,
             items: const [
               BottomNavigationBarItem(
@@ -78,9 +78,9 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
           floatingActionButton: Padding(
             padding: const EdgeInsets.all(8.0),
             child: FloatingActionButton(
-                backgroundColor: Resources.colors.buttonColor,
+                backgroundColor: Resources.colors.kButtonColor,
                 hoverElevation: 10,
-                splashColor: Resources.colors.white.withOpacity(0.3),
+                splashColor: Resources.colors.kWhite.withOpacity(0.3),
                 elevation: 8,
                 child: const Icon(Icons.shopify_rounded, size: 35),
                 onPressed: () => state.index = 2),

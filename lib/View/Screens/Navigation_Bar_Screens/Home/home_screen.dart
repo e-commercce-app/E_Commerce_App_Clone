@@ -1,4 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:e_commerce/View/Screens/Navigation_Bar_Screens/Home/Components/custom_drawer_home_page.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:e_commerce/View/Screens/Home_Page_Tabs/Bata_Shoes/bata_shoes_main.dart';
@@ -26,6 +28,9 @@ class _HomeScreenState extends State<HomeScreen>
   late Size size;
   late TabController tabController;
 
+  double xOffset = 0.0;
+  double yOffset = 0.0;
+  bool isDrawerOpen = false;
   @override
   void initState() {
     super.initState();
@@ -40,102 +45,144 @@ class _HomeScreenState extends State<HomeScreen>
       child: Scaffold(
           resizeToAvoidBottomInset: true,
           // ! appBar Section
-          appBar: homePageAppBar(context, size: size),
+          // appBar: homePageAppBar(context, () {}, size: size),
           body: BlocBuilder<SearchBloc, SearchState>(
             builder: (context, state) {
               (state as SearchInitialState);
-              return Container(
-                // color: Resources.colors.blue,
-                width: double.maxFinite,
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 15,
-                  vertical: 5,
-                ),
-                child: Column(
-                  children: [
-                    // ! Search TextField Section .
-                    CustomSearchView(
-                      controller: state.searchController,
-                      hintText: "Looking for shoes",
-                      suffix: Padding(
-                        padding: const EdgeInsets.only(
-                          right: 15,
-                        ),
-                        child: IconButton(
-                          onPressed: () => state.searchController.clear(),
-                          icon: Icon(
-                            Icons.clear,
-                            color: Colors.grey.shade600,
-                          ),
-                        ),
-                      ),
+              return Stack(
+                children: [
+                  // ! Custom Drawer Section
+                  const CustomDrawer(),
+                  // ! Home Screen Section
+                  AnimatedContainer(
+                    color: Resources.colors.kAllAppColor,
+                    transform: Matrix4.translationValues(xOffset, yOffset, 0.0)
+                      ..scale(isDrawerOpen ? 0.85 : 1.0)
+                      ..rotateZ(isDrawerOpen ? -50 : 0.0),
+                    duration: const Duration(seconds: 1),
+                    curve: Curves.fastEaseInToSlowEaseOut,
+                    // color: Resources.colors.blue,
+                    width: double.maxFinite,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 15,
+                      vertical: 5,
                     ),
-                    const CustomSizedBox(heightRatio: 0.02),
-                    // ! TabBar Sections .
-                    DefaultTabController(
-                        length: 4,
-                        child: Column(
-                          children: [
-                            Material(
-                              shadowColor: Colors.transparent,
-                              color: Colors.transparent,
-                              child: Container(
-                                height: 60,
-                                color: Colors.transparent,
-                                child: TabBar(
-                                    controller: tabController,
-                                    physics: const ClampingScrollPhysics(),
-                                    isScrollable: true,
-                                    tabAlignment: TabAlignment.center,
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 10),
-                                    unselectedLabelColor: Colors.black,
-                                    indicatorSize: TabBarIndicatorSize.label,
-                                    dividerColor: Colors.transparent,
-                                    indicator: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(30),
-                                        color: Resources.colors.buttonColor),
-                                    // ! Tabs
-                                    tabs: [
-                                      Tab(
-                                        child: _customTabBarItem(
-                                            tabBarImage:
-                                                Resources.imagePath.nikeShoes),
-                                      ),
-                                      Tab(
-                                          child: _customTabBarItem(
-                                              tabBarImage: Resources
-                                                  .imagePath.pumaShoes)),
-                                      Tab(
-                                          child: _customTabBarItem(
-                                              tabBarImage: Resources
-                                                  .imagePath.adidasShoes)),
-                                      Tab(
-                                        child: _customTabBarItem(
-                                            tabBarImage: Resources
-                                                .imagePath.rebookShoes),
-                                      ),
-                                    ]),
+                    child: Column(
+                      children: [
+                        homePageAppBar(context,
+                            child: isDrawerOpen
+                                ? Icon(
+                                    CupertinoIcons.arrow_left,
+                                    color: Resources.colors.kBlack,
+                                  )
+                                : CustomImageView(
+                                    imagePath: Resources.imagePath.homeDrawer),
+                            onTap: isDrawerOpen
+                                ? () {
+                                    setState(() {
+                                      xOffset = 0.0;
+                                      yOffset = 0.0;
+                                      isDrawerOpen = false;
+                                    });
+                                  }
+                                : () {
+                                    setState(() {
+                                      xOffset = 290.0;
+                                      yOffset = 80.0;
+                                      isDrawerOpen = true;
+                                    });
+                                  },
+                            size: size),
+                        // some Space .
+                        const CustomSizedBox(heightRatio: 0.02),
+                        // ! Search TextField Section .
+                        CustomSearchView(
+                          controller: state.searchController,
+                          hintText: "Looking for shoes",
+                          suffix: Padding(
+                            padding: const EdgeInsets.only(
+                              right: 15,
+                            ),
+                            child: IconButton(
+                              onPressed: () => state.searchController.clear(),
+                              icon: Icon(
+                                Icons.clear,
+                                color: Colors.grey.shade600,
                               ),
                             ),
-                          ],
-                        )),
-                    //  ! _Build New Arrivals .
-                    _buildNewArrivals(context,
-                        newArrivalsText: "Popular Shoes",
-                        seeAllText: "See All"),
-                    Expanded(
-                        child: TabBarView(
-                            controller: tabController,
-                            // ! TabBar Screen List .
-                            children: const [
-                          NikeShoesScreen(),
-                          PumaShoesScreen(),
-                          BataShoesScreen(),
-                          ReebokShoesScreen(),
-                        ])),
-                  ],
-                ),
+                          ),
+                        ),
+                        const CustomSizedBox(heightRatio: 0.02),
+                        // ! TabBar Sections .
+                        DefaultTabController(
+                            length: 4,
+                            child: Column(
+                              children: [
+                                Material(
+                                  shadowColor: Colors.transparent,
+                                  color: Colors.transparent,
+                                  child: Container(
+                                    height: 60,
+                                    color: Colors.transparent,
+                                    child: TabBar(
+                                        controller: tabController,
+                                        physics: const ClampingScrollPhysics(),
+                                        isScrollable: true,
+                                        tabAlignment: TabAlignment.center,
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 10),
+                                        unselectedLabelColor: Colors.black,
+                                        indicatorSize:
+                                            TabBarIndicatorSize.label,
+                                        dividerColor: Colors.transparent,
+                                        indicator: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(30),
+                                            color:
+                                                Resources.colors.kButtonColor),
+                                        // ! Tabs
+                                        tabs: [
+                                          Tab(
+                                            child: _customTabBarItem(
+                                                tabBarImage: Resources
+                                                    .imagePath.nikeShoes),
+                                          ),
+                                          Tab(
+                                              child: _customTabBarItem(
+                                                  tabBarImage: Resources
+                                                      .imagePath.pumaShoes)),
+                                          Tab(
+                                              child: _customTabBarItem(
+                                                  tabBarImage: Resources
+                                                      .imagePath.adidasShoes)),
+                                          Tab(
+                                            child: _customTabBarItem(
+                                                tabBarImage: Resources
+                                                    .imagePath.rebookShoes),
+                                          ),
+                                        ]),
+                                  ),
+                                ),
+                              ],
+                            )),
+                        //  ! _Build New Arrivals .
+                        _buildNewArrivals(context,
+                            newArrivalsText: "Popular Shoes",
+                            seeAllText: "See All"),
+                        Expanded(
+                            child: TabBarView(
+                                controller: tabController,
+                                // ! TabBar Screen List .
+                                children: const [
+                              NikeShoesScreen(),
+                              PumaShoesScreen(),
+                              BataShoesScreen(),
+                              ReebokShoesScreen(),
+                            ])),
+                      ],
+                    ),
+                  ),
+                ],
               );
             },
           )),
@@ -149,7 +196,7 @@ class _HomeScreenState extends State<HomeScreen>
       width: 70,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(30),
-          border: Border.all(color: Resources.colors.buttonColor, width: 1)),
+          border: Border.all(color: Resources.colors.kButtonColor, width: 1)),
       child: Align(
           alignment: Alignment.center,
           child: CustomImageView(
@@ -172,7 +219,7 @@ class _HomeScreenState extends State<HomeScreen>
           newArrivalsText,
           presetFontSizes: const [16.0, 12.0, 8.0, 5.0],
           style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                color: Resources.colors.black,
+                color: Resources.colors.kBlack,
               ),
         ),
         AutoSizeText(
@@ -181,7 +228,7 @@ class _HomeScreenState extends State<HomeScreen>
           style: Theme.of(context)
               .textTheme
               .bodyMedium
-              ?.copyWith(color: Resources.colors.buttonColor, fontSize: 14),
+              ?.copyWith(color: Resources.colors.kButtonColor, fontSize: 14),
         ),
       ],
     );

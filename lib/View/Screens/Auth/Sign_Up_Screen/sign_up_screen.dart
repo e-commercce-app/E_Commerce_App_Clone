@@ -195,7 +195,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         onTap: () => NavigatorService.pushNamed(RoutesName.signInScreen),
         child: Icon(
           CupertinoIcons.arrow_left,
-          color: Resources.colors.black,
+          color: Resources.colors.kBlack,
           size: size.width * 0.07,
         ),
       ),
@@ -236,8 +236,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
   // Press this Button process Open Google Dialog Box .
   CustomButton _googleAuthButton(SignUpState state, BuildContext context) {
     return CustomButton(
-        background: Resources.colors.white,
-        textColor: Resources.colors.black,
+        background: Resources.colors.kWhite,
+        textColor: Resources.colors.kBlack,
         size: size,
         onPressed: () {
           (state is SignUpGoogleState);

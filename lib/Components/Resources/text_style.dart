@@ -9,7 +9,7 @@ class AppTextStyle {
         fontWeight: FontWeight.bold,
         fontSize: size.height * 0.2,
         overflow: TextOverflow.ellipsis,
-        color: Resources.colors.lightGrey);
+        color: Resources.colors.kLightGrey);
   }
 
   //  ** OnBoarding Bold Text 1
@@ -17,7 +17,7 @@ class AppTextStyle {
     return TextStyle(
         fontSize: size.height * 0.05,
         fontWeight: FontWeight.w500,
-        color: Resources.colors.largeTextColor);
+        color: Resources.colors.kLargeTextColor);
   }
 
   //  ** OnBoarding Bold Text 2
@@ -25,7 +25,7 @@ class AppTextStyle {
     return TextStyle(
         fontSize: size.height * 0.05,
         fontWeight: FontWeight.w500,
-        color: Resources.colors.largeTextColor);
+        color: Resources.colors.kLargeTextColor);
   }
 
   // ** OnBoarding Small Text 1
@@ -34,7 +34,7 @@ class AppTextStyle {
         fontSize: size.height * 0.025,
         fontWeight: FontWeight.w500,
         letterSpacing: 1,
-        color: Resources.colors.titleTextColors);
+        color: Resources.colors.kTitleTextColors);
   }
 
   //  ** OnBoarding Small Text 2
@@ -43,7 +43,7 @@ class AppTextStyle {
         fontSize: size.height * 0.025,
         letterSpacing: 1,
         fontWeight: FontWeight.w500,
-        color: Resources.colors.titleTextColors);
+        color: Resources.colors.kTitleTextColors);
   }
 
   //!  Custom Button File Text Style
@@ -52,7 +52,7 @@ class AppTextStyle {
         fontSize: size.height * 0.020,
         overflow: TextOverflow.ellipsis,
         fontWeight: FontWeight.w500,
-        color: textColor ?? Resources.colors.white);
+        color: textColor ?? Resources.colors.kWhite);
   }
 
   // ! SignUp Screen TextStyle .
@@ -68,7 +68,7 @@ class AppTextStyle {
   // ** create Account text style
   TextStyle togetherCreateTextStyle({size}) {
     return TextStyle(
-      color: Resources.colors.gray600,
+      color: Resources.colors.kGray600,
       fontSize: size.height * 0.017,
       fontFamily: 'Airbnb Cereal App',
       fontWeight: FontWeight.w400,

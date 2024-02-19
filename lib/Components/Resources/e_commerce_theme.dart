@@ -4,14 +4,14 @@ final ThemeData eCommerceTheme = ThemeData(
   useMaterial3: true,
   brightness: Brightness.light,
   // colorSchemeSeed: Resources.colors.allAppColor,
-  primaryColor: Resources.colors.white,
+  primaryColor: Resources.colors.kWhite,
   colorScheme: _getCustomColorScheme(),
   textTheme: _getTextTheme(),
-  scaffoldBackgroundColor: Resources.colors.allAppColor,
+  scaffoldBackgroundColor: Resources.colors.kAllAppColor,
   dividerTheme: DividerThemeData(
     thickness: 1,
     space: 1,
-    color: Resources.colors.blueGray50,
+    color: Resources.colors.kBlueGray50,
   ),
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
@@ -31,7 +31,7 @@ final ThemeData eCommerceTheme = ThemeData(
 TextTheme _getTextTheme() {
   return TextTheme(
     displayLarge: GoogleFonts.poppins(
-      color: Resources.colors.largeTextColor,
+      color: Resources.colors.kLargeTextColor,
       fontSize: 40.0,
       textStyle: const TextStyle(
         overflow: TextOverflow.ellipsis,
@@ -51,7 +51,7 @@ TextTheme _getTextTheme() {
       fontWeight: FontWeight.w400,
     ),
     headlineSmall: GoogleFonts.poppins(
-      color: Resources.colors.titleTextColors,
+      color: Resources.colors.kTitleTextColors,
       fontSize: 18.0,
       height: 0.0,
       textStyle: const TextStyle(
@@ -66,7 +66,7 @@ TextTheme _getTextTheme() {
       overflow: TextOverflow.ellipsis,
     ),
     titleSmall: TextStyle(
-      color: Resources.colors.black,
+      color: Resources.colors.kBlack,
       fontSize: 14,
       fontFamily: 'Airbnb Cereal App',
       overflow: TextOverflow.ellipsis,
@@ -78,10 +78,10 @@ TextTheme _getTextTheme() {
 ColorScheme _getCustomColorScheme() {
   return ColorScheme.light(
     brightness: Brightness.light,
-    primary: Resources.colors.white,
-    onPrimary: Resources.colors.white,
-    onError: Resources.colors.errorRedColors,
-    background: Resources.colors.white,
+    primary: Resources.colors.kWhite,
+    onPrimary: Resources.colors.kWhite,
+    onError: Resources.colors.kErrorRedColors,
+    background: Resources.colors.kWhite,
   );
 }
 

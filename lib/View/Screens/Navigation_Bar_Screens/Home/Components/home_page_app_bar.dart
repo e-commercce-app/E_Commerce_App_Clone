@@ -1,6 +1,6 @@
 import 'package:e_commerce/Components/Navigator_Service/navigator_services.dart';
+import 'package:e_commerce/Components/Widgets/custom_image_view.dart';
 import 'package:e_commerce/Controller/Routes/routes_method.dart';
-import 'package:flutter/cupertino.dart';
 
 import '../../../../../Components/Widgets/AppBar/app_bar_leading_icon_button.dart';
 import '../../../../../Components/Widgets/AppBar/app_bar_subtitle_one.dart';
@@ -8,16 +8,13 @@ import '../../../../../Components/Widgets/AppBar/app_bar_subtitle_two.dart';
 import '../../../../../Components/Widgets/AppBar/custom_appbar.dart';
 import '../../../../../Export/e_commerce_export.dart';
 
-PreferredSizeWidget homePageAppBar(BuildContext context, {Size? size}) {
+PreferredSizeWidget homePageAppBar(BuildContext context,
+    {Function()? onTap, required Widget child, Size? size}) {
   return CustomAppBar(
     size: size!,
     leading: AppBarLeadingIconButtonOne(
-      child: Icon(
-        CupertinoIcons.arrow_left,
-        color: Resources.colors.black,
-        size: size.width * 0.07,
-      ),
-      onTap: () {},
+      onTap: onTap,
+      child: child,
     ),
     centerTitle: true,
     title: Column(
@@ -46,9 +43,8 @@ PreferredSizeWidget homePageAppBar(BuildContext context, {Size? size}) {
             // });
             NavigatorService.pushNamed(RoutesName.detailScreen);
           },
-          child: Icon(
-            Icons.logout,
-            color: Resources.colors.gray600,
+          child: CustomImageView(
+            imagePath: Resources.imagePath.trolley,
           )),
       // Some Space
       const CustomSizedBox(

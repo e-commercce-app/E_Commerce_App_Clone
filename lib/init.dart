@@ -16,5 +16,5 @@ Future<void> initDataLoad() async {
       statusBarIconBrightness: Brightness.dark,
       statusBarBrightness: Brightness.light,
       systemNavigationBarIconBrightness: Brightness.dark,
-      systemNavigationBarColor: Resources.colors.white));
+      systemNavigationBarColor: Resources.colors.kWhite));
 }

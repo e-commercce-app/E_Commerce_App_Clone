@@ -12,9 +12,9 @@ class CustomTextKit extends StatelessWidget {
       style: Theme.of(context)
           .textTheme
           .displayLarge!
-          .copyWith(fontSize: 50, color: Resources.colors.white, shadows: [
+          .copyWith(fontSize: 50, color: Resources.colors.kWhite, shadows: [
         Shadow(
-            color: Resources.colors.white,
+            color: Resources.colors.kWhite,
             blurRadius: 3,
             offset: const Offset(1.0, 0.0))
       ]),

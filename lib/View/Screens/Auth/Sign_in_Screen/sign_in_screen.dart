@@ -26,7 +26,7 @@ class _SignInScreenState extends State<SignInScreen> {
           appBar: AppBar(
             elevation: 0,
             bottomOpacity: 0,
-            backgroundColor: Resources.colors.allAppColor,
+            backgroundColor: Resources.colors.kAllAppColor,
           ),
           body: BlocBuilder<SignInBloc, SignInState>(
             builder: (context, state) {
@@ -126,7 +126,7 @@ class _SignInScreenState extends State<SignInScreen> {
                                 alignment: Alignment.bottomRight,
                                 child: InkWell(
                                     splashColor:
-                                        Resources.colors.blue.withOpacity(0.5),
+                                        Resources.colors.kBlue.withOpacity(0.5),
                                     onTap: () => NavigatorService.pushNamed(
                                         RoutesName.forgetPasswordScreen),
                                     child: const Text("Recovery Password"))),
@@ -197,8 +197,8 @@ class _SignInScreenState extends State<SignInScreen> {
   // Press Google Button trigger event and implement this state .
   CustomButton _googleAuthButton(SignInState state, BuildContext context) {
     return CustomButton(
-        background: Resources.colors.white,
-        textColor: Resources.colors.black,
+        background: Resources.colors.kWhite,
+        textColor: Resources.colors.kBlack,
         size: size,
         onPressed: () {
           (state is SignInGoogleState);
