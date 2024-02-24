@@ -11,6 +11,7 @@ import 'Components/detail_screen_app_bar.dart';
 
 class DetailsScreen extends StatefulWidget {
   DetailsScreen({super.key, required this.productHomeScreen});
+
   ProductShoesHomePage productHomeScreen = ProductShoesHomePage();
   @override
   State<DetailsScreen> createState() => _DetailsScreenState();
@@ -48,7 +49,7 @@ class _DetailsScreenState extends State<DetailsScreen>
                 turns: turns,
                 child: CustomImageView(
                   imagePath: widget.productHomeScreen.productImage.toString(),
-                  fit: BoxFit.cover,
+                  fit: BoxFit.fill,
                   height: (size.height * 0.35),
                   width: double.infinity,
                 ),

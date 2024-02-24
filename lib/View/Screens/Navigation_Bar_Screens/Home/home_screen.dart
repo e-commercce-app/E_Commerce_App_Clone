@@ -42,7 +42,7 @@ class _HomeScreenState extends State<HomeScreen>
     return BlocProvider(
       create: (context) => SearchBloc(),
       child: Scaffold(
-          resizeToAvoidBottomInset: true,
+          resizeToAvoidBottomInset: false,
           // ! appBar Section
           // appBar: homePageAppBar(context, () {}, size: size),
           body: BlocBuilder<SearchBloc, SearchState>(

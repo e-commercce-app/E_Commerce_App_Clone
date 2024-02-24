@@ -1,7 +1,6 @@
 // ignore_for_file: depend_on_referenced_packages, invalid_use_of_visible_for_testing_member
 
 import 'package:bloc/bloc.dart';
-import 'package:e_commerce/Components/Navigator_Service/navigator_services.dart';
 import 'package:e_commerce/Controller/Services/firebase_services.dart';
 import 'package:e_commerce/Export/e_commerce_export.dart';
 import 'package:e_commerce/View/Screens/Auth/Sign_Up_Screen/Components/google_authentication.dart';

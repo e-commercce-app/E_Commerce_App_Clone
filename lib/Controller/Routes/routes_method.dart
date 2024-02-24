@@ -1,4 +1,5 @@
 import 'package:e_commerce/Models/shoes_product_home_page.dart';
+import 'package:e_commerce/View/Screens/My_Cart_Screen/my_cart_main.dart';
 import 'package:e_commerce/View/Screens/Detail_Screen/detail_screen.dart';
 import 'package:e_commerce/View/Screens/Navigation_Bar_Screens/Home/bloc/search_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,8 +14,10 @@ import 'package:e_commerce/View/Screens/OnBoarding_Screen/Bloc/page_view_event.d
 import 'package:e_commerce/View/Screens/OnBoarding_Screen/onboarding_screen.dart';
 import 'package:e_commerce/View/Screens/Splash_Screen/splash_screen.dart';
 
+import '../../Components/Error/not_found_page.dart';
 import '../../Export/e_commerce_export.dart';
 import '../../View/Screens/Auth/Sign_Up_Screen/sign_up_screen.dart';
+import '../../View/Screens/Navigation_Bar_Screens/Home/bloc/matrix4_rotation_bloc.dart';
 import '../../View/Screens/Navigation_Bar_Screens/Home/home_screen.dart';
 import '../../View/Screens/Navigation_Bar_Screens/bloc/bottom_navigation_bloc.dart';
 import '../../View/Screens/Navigation_Bar_Screens/navigation_bar_main.dart';
@@ -32,6 +35,8 @@ abstract class RoutesName {
   static const String bottomBarScreen = "BottomBarScreen";
   static const String homeScreen = "HomeScreen";
   static const String detailScreen = "DetailScreen";
+  static const String addToCartScreen = "AddToCartScreen";
+  static const String profile = "profile";
 }
 
 //  ! All Pages Controll  (onGenerateRoutes)
@@ -52,8 +57,10 @@ class RoutesMethod {
     // 3
     else if (settings.name == RoutesName.homeScreen) {
       return CustomPageTransition(
-          child: BlocProvider(
-              create: (context) => SearchBloc(), child: const HomeScreen()));
+          child: MultiBlocProvider(providers: [
+        BlocProvider(create: (context) => SearchBloc()),
+        BlocProvider(create: (context) => Matrix4RotationBloc())
+      ], child: const HomeScreen()));
     }
     // 4
     else if (settings.name == RoutesName.signUpScreen) {
@@ -87,20 +94,22 @@ class RoutesMethod {
         child: const BottomBarScreen(),
       ));
     }
-    // 3
+    // 8
     else if (settings.name == RoutesName.detailScreen) {
       return CustomPageTransition(
           child: DetailsScreen(
         productHomeScreen: settings.arguments as ProductShoesHomePage,
       ));
     }
+    // 8
+    else if (settings.name == RoutesName.addToCartScreen) {
+      return CustomPageTransition(child: const AddToCartScreen());
+    }
     // NOT FOUND
     else {
       return MaterialPageRoute(
-        builder: (context) => const Scaffold(
-          body: Center(
-            child: Text("Page Not Found", overflow: TextOverflow.ellipsis),
-          ),
+        builder: (context) => NotFound404Error(
+          imagePath: Resources.imagePath.notFound,
         ),
       );
     }

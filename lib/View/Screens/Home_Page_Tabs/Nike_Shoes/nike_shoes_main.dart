@@ -32,11 +32,6 @@ class _NikeShoesScreenState extends State<NikeShoesScreen> {
             return CustomGridView(
               // Using Custom GridView
               itemCount: snapshot.data?.docs.length,
-              physics: const BouncingScrollPhysics(
-                  parent: AlwaysScrollableScrollPhysics()),
-              padding: const EdgeInsets.symmetric(vertical: 25.0),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2, crossAxisSpacing: 2, mainAxisExtent: 250),
               itemBuilder: (context, int index) {
                 // Map<String, dynamic> data = snapshot.data!.docs[index].data();
                 ProductShoesHomePage product = ProductShoesHomePage.fromJson(
@@ -48,7 +43,7 @@ class _NikeShoesScreenState extends State<NikeShoesScreen> {
                   productPrice: product.productPrice,
                   heroTag: product.productImage.toString(),
                   onTap: () {
-                    // Detail Page .
+                    // ** Detail Page .
                     NavigatorService.pushNamed(RoutesName.detailScreen,
                         arguments: ProductShoesHomePage(
                             productImage: product.productImage.toString(),

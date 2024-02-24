@@ -19,7 +19,9 @@ class ImagePath {
   String adidasShoes = '${imagePath}adidasTabBar.png';
   String rebookShoes = '${imagePath}rebookTabBar.png';
 
-  // Drawer Images
+  // ! Drawer Images
   String homeDrawer = '${imagePath}home_drawer.png';
   String trolley = '${imagePath}trolley.png';
+  // ! Routes Not Found Pages .
+  String notFound = "${imagePath}404_error.png";
 }

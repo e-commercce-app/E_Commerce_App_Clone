@@ -55,7 +55,8 @@ class _CustomProductShoesDesignState extends State<CustomProductShoesDesign> {
                   tag: widget.heroTag.toString(),
                   child: CustomImageView(
                     imagePath: widget.productImage.toString(),
-                    fit: BoxFit.cover,
+                    fit: BoxFit.fill,
+                    width: double.infinity,
                   ),
                 ),
               ),

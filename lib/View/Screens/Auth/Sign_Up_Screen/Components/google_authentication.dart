@@ -8,7 +8,6 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:e_commerce/Controller/Services/firebase_services.dart';
 import 'package:e_commerce/Models/user_details.dart';
 
-import '../../../../../Components/Navigator_Service/navigator_services.dart';
 import '../../../../../Export/e_commerce_export.dart';
 
 FirebaseAuth auth = FirebaseAuth.instance;
@@ -53,8 +52,7 @@ class GoogleSignInMethod {
         userInfo.emailAddress = FirebaseServices.currentUser?.email.toString();
         userInfo.userImage = FirebaseServices.currentUser?.photoURL.toString();
         // !create user help of Using Google process store data fireStore Database .
-        await FirebaseServices.fireStore
-            .collection("UserDetails")
+        await FirebaseServices.currentUserCollection
             .doc(FirebaseServices.currentUser?.uid)
             .set(userInfo.toJson())
             .then((value) {

@@ -1,14 +1,14 @@
 // ignore_for_file: depend_on_referenced_packages, unnecessary_import, invalid_use_of_visible_for_testing_member
 import 'dart:developer';
 
-import 'package:e_commerce/Components/Widgets/custom_toast.dart';
-import 'package:e_commerce/Models/user_details.dart';
-import 'package:e_commerce/View/Screens/Auth/Sign_Up_Screen/Components/google_authentication.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:e_commerce/Components/Navigator_Service/navigator_services.dart';
+import 'package:e_commerce/Components/Widgets/custom_toast.dart';
 import 'package:e_commerce/Controller/Routes/routes_method.dart';
+import 'package:e_commerce/Models/user_details.dart';
+import 'package:e_commerce/View/Screens/Auth/Sign_Up_Screen/Components/google_authentication.dart';
 import 'package:e_commerce/View/Screens/Auth/Sign_Up_Screen/bloc/sign_up_event.dart';
 import 'package:e_commerce/View/Screens/Auth/Sign_Up_Screen/bloc/sign_up_state.dart';
 
@@ -44,8 +44,7 @@ class SignUpBloc extends Bloc<SignUpBlocEvent, SignUpState> {
           userInfo.emailAddress = emailController.text.toString();
           userInfo.userImage = "xyz";
           // ! store Data on Firebase Firestore .
-          FirebaseServices.fireStore
-              .collection("UserDetails")
+          FirebaseServices.currentUserCollection
               .doc(FirebaseServices.currentUser?.uid)
               .set(userInfo.toJson())
               .then((value) {

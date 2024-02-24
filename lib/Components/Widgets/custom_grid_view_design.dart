@@ -3,14 +3,14 @@ import '../../Export/e_commerce_export.dart';
 class CustomGridView extends StatelessWidget {
   const CustomGridView(
       {super.key,
-      required this.gridDelegate,
       required this.itemBuilder,
       required this.itemCount,
+      this.gridDelegate,
       this.padding,
       this.scrollDirection = Axis.vertical,
-      required this.physics});
+      this.physics});
 
-  final SliverGridDelegate gridDelegate;
+  final SliverGridDelegate? gridDelegate;
   final Widget? Function(BuildContext, int) itemBuilder;
   final int? itemCount;
   final EdgeInsetsGeometry? padding;
@@ -20,10 +20,14 @@ class CustomGridView extends StatelessWidget {
   Widget build(BuildContext context) {
     return GridView.builder(
         itemCount: itemCount,
-        padding: padding,
+        padding: padding ?? const EdgeInsets.symmetric(vertical: 25.0),
         scrollDirection: scrollDirection,
-        gridDelegate: gridDelegate,
-        physics: physics,
+        gridDelegate: gridDelegate ??
+            const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2, crossAxisSpacing: 2, mainAxisExtent: 250),
+        physics: physics ??
+            const BouncingScrollPhysics(
+                parent: AlwaysScrollableScrollPhysics()),
         itemBuilder: itemBuilder);
   }
 }
