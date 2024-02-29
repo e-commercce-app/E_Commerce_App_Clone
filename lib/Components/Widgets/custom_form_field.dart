@@ -25,6 +25,8 @@ class CustomTextFormField extends StatelessWidget {
     this.fillColor,
     this.filled = true,
     this.validator,
+    this.readOnly,
+    // this.initialValue,
   }) : super(key: key);
 
   final Alignment? alignment;
@@ -49,7 +51,8 @@ class CustomTextFormField extends StatelessWidget {
   final Color? fillColor;
   final bool? filled;
   final FormFieldValidator<String>? validator;
-
+  final bool? readOnly;
+  // final String? initialValue;
   @override
   Widget build(BuildContext context) {
     return textFormFieldWidget(context);
@@ -75,6 +78,8 @@ class CustomTextFormField extends StatelessWidget {
         maxLines: maxLines ?? 1,
         decoration: decoration,
         validator: validator,
+        readOnly: readOnly ?? false,
+        // initialValue: initialValue ?? "",
       ),
     );
   }

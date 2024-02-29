@@ -1,4 +1,8 @@
 // ignore_for_file: must_be_immutable
+import 'dart:developer';
+
+import 'package:e_commerce/Controller/Services/firebase_services.dart';
+import 'package:e_commerce/Models/my_cart_model_class.dart';
 import 'package:readmore/readmore.dart';
 
 import 'package:e_commerce/Components/Localization/app_strings.dart';
@@ -96,7 +100,8 @@ class _DetailsScreenState extends State<DetailsScreen>
                                 )),
                         customProductShoesInfoText(
                             context: context,
-                            messageText: "\$8500.00",
+                            messageText:
+                                "\$ ${widget.productHomeScreen.productPrice}",
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyMedium
@@ -106,11 +111,40 @@ class _DetailsScreenState extends State<DetailsScreen>
                                 )),
                       ],
                     ),
+                    // ! My Cart Button Section .
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: CustomButton(
                           size: size,
-                          onPressed: () {},
+                          onPressed: () async {
+                            var dateAndTime = DateTime.now()
+                                .microsecondsSinceEpoch
+                                .toString();
+                            MyCartModelClass myCart = MyCartModelClass();
+
+                            myCart.productUid =
+                                "$dateAndTime${FirebaseServices.currentUser?.uid}";
+                            myCart.productImage = widget
+                                .productHomeScreen.productImage
+                                .toString();
+                            myCart.productName =
+                                widget.productHomeScreen.productName.toString();
+                            myCart.productPrice =
+                                widget.productHomeScreen.productPrice;
+
+                            await FirebaseServices.fireStore
+                                .collection("MyPersonalCart")
+                                .doc(
+                                    "$dateAndTime${FirebaseServices.currentUser?.uid}")
+                                .set(myCart.toJson())
+                                .then((value) {
+                              CustomDialog.toastMessage(message: "Add To Cart");
+                            }).onError((error, stackTrace) {
+                              log("Add To Cart Error : ${error.toString()}");
+                              CustomDialog.toastMessage(
+                                  message: error.toString());
+                            });
+                          },
                           buttonText: "Add To Cart"),
                     )
                   ],

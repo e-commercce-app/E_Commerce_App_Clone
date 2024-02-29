@@ -1,5 +1,6 @@
 // ignore_for_file: library_private_types_in_public_api
 
+import 'package:e_commerce/View/Screens/Navigation_Bar_Screens/Profile_Page/profile_main_screen.dart';
 import 'package:e_commerce/View/Screens/Navigation_Bar_Screens/bloc/bottom_navigation_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../Export/e_commerce_export.dart';
@@ -23,7 +24,7 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
       const FavoriteScreen(),
       const Search(),
       const Cart(),
-      const Profile(),
+      const ProfileScreen(),
     ];
     super.initState();
   }
@@ -115,17 +116,6 @@ class FavoriteScreen extends StatelessWidget {
   }
 }
 
-class Home extends StatelessWidget {
-  const Home({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(child: Text('Home')),
-    );
-  }
-}
-
 class Search extends StatelessWidget {
   const Search({super.key});
 
@@ -137,16 +127,6 @@ class Search extends StatelessWidget {
   }
 }
 
-class Profile extends StatelessWidget {
-  const Profile({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(child: Text('User info')),
-    );
-  }
-}
 
 
 

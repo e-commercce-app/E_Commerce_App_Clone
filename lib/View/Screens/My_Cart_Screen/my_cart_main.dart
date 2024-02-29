@@ -1,8 +1,12 @@
-import 'package:e_commerce/Components/Resources/resources.dart';
-import 'package:e_commerce/Controller/Services/firebase_services.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'package:e_commerce/View/Screens/My_Cart_Screen/Components/custom_my_cart_design.dart';
+import 'package:e_commerce/View/Screens/My_Cart_Screen/bloc/cart_fetch_data_bloc.dart';
+
 import '../../../Components/Widgets/AppBar/app_bar_leading_icon_button.dart';
 import '../../../Components/Widgets/AppBar/custom_appbar.dart';
+import '../../../Controller/Services/get_my_cart_data.dart';
 import '../../../Export/e_commerce_export.dart';
 
 class AddToCartScreen extends StatefulWidget {
@@ -14,83 +18,178 @@ class AddToCartScreen extends StatefulWidget {
 
 class _AddToCartScreenState extends State<AddToCartScreen> {
   late Size size;
+
+  MyCartFetchDataMethod fetchData = MyCartFetchDataMethod();
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // Initial Events Calls .
+    context.read<CartFetchDataBloc>().add(FetchDataEvents());
+  }
+
   @override
   Widget build(BuildContext context) {
     size = MediaQuery.sizeOf(context);
-    return Scaffold(
-      body: FutureBuilder(
-        future: FirebaseServices.bataShoesCollection.get(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(
-              child: CircleAvatar(),
-            );
-          } else if (snapshot.hasData) {
-            return Column(
-              children: [
-                // Custom App Bar
-                myCartAppBar(),
-                Expanded(
-                  child: ListView.builder(
-                    itemCount: 2,
-                    itemBuilder: (context, index) {
-                      return const Text("E_Commerence");
-                    },
+    return BlocProvider(
+      create: (context) => CartFetchDataBloc(),
+      child: Scaffold(
+        body: BlocBuilder<CartFetchDataBloc, CartFetchDataState>(
+          bloc: context.read<CartFetchDataBloc>(),
+          builder: (context, state) {
+            if (state is CartFetchLoadingState ||
+                state is CartFetchDataInitial) {
+              return Center(
+                  child: CircularProgressIndicator.adaptive(
+                backgroundColor: Resources.colors.kButtonColor,
+              ));
+            } else if (state is CartFetchLoadedState) {
+              // ! Load Data .
+              return Column(
+                children: [
+                  // ! My Cart Custom App Bar
+                  customMyCart(state),
+                  Expanded(
+                    child: ListView.builder(
+                      itemCount: state.fetchData.length,
+                      itemBuilder: (context, index) {
+                        return CustomCartDesign(
+                            imagePath:
+                                state.fetchData[index].productImage.toString(),
+                            positionStaggeredList: state.fetchData.length,
+                            productName:
+                                state.fetchData[index].productName.toString(),
+                            productPrice:
+                                state.fetchData[index].productPrice ?? 0);
+                      },
+                    ),
                   ),
-                ),
-                Container(
-                  height: size.height * 0.35,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                      color: Resources.colors.kWhite,
-                      boxShadow: [
-                        BoxShadow(
-                            blurRadius: 0.2,
-                            spreadRadius: 0.2,
-                            color: Resources.colors.kGrey)
-                      ]),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      const Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
+                  Container(
+                    height: size.height * 0.3,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                        color: Resources.colors.kWhite,
+                        boxShadow: [
+                          BoxShadow(
+                              blurRadius: 0.2,
+                              spreadRadius: 0.2,
+                              color: Resources.colors.kGrey)
+                        ]),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: Column(
+                        // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          Text("data"),
-                          Text("data"),
+                          Expanded(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                AutoSizeText(
+                                  "Subtotal",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleMedium!
+                                      .copyWith(
+                                        color: Resources.colors.kGray600,
+                                      ),
+                                ),
+                                AutoSizeText(
+                                  "\$1250.00",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleLarge
+                                      ?.copyWith(
+                                          color: Resources
+                                              .colors.kPrimaryContainer),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Expanded(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                AutoSizeText("Shopping",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleMedium!
+                                        .copyWith(
+                                          color: Resources.colors.kGray600,
+                                        )),
+                                AutoSizeText(
+                                  "\$40.90",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleLarge
+                                      ?.copyWith(
+                                          color: Resources
+                                              .colors.kPrimaryContainer),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Divider(
+                            color: Resources.colors.kGrey200.withOpacity(0.4),
+                          ),
+                          Expanded(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                AutoSizeText(
+                                  "Total Cost",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleMedium!
+                                      .copyWith(
+                                        color: Resources.colors.kGray600,
+                                      ),
+                                ),
+                                AutoSizeText(
+                                  "\$1367.90",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleLarge
+                                      ?.copyWith(
+                                          color: Resources
+                                              .colors.kPrimaryContainer),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Expanded(
+                            child: CustomSizedBox(
+                              widthRatio: 0.9,
+                              heightRatio: 0.06,
+                              child: Align(
+                                alignment: Alignment.center,
+                                child: CustomButton(
+                                    size: size,
+                                    onPressed: () {},
+                                    buttonText: "checkout".toUpperCase()),
+                              ),
+                            ),
+                          )
                         ],
                       ),
-                      const Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text("data"),
-                          Text("data"),
-                        ],
-                      ),
-                      Divider(
-                        color: Resources.colors.kGray600.withOpacity(0.4),
-                      ),
-                      const Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text("data"),
-                          Text("data"),
-                        ],
-                      ),
-                    ],
+                    ),
                   ),
-                )
-              ],
-            );
-          } else {
-            return AutoSizeText("Error ${snapshot.error.toString()}");
-          }
-        },
+                  const CustomSizedBox(
+                    heightRatio: 0.07,
+                  )
+                ],
+              );
+            } else {
+              return Center(
+                  child: Text((state as CartFetchErrorState).errorMessage));
+            }
+          },
+        ),
       ),
     );
   }
 
-  // Sign Up Custom AppBar Section
-  CustomAppBar myCartAppBar() {
+  CustomAppBar customMyCart(CartFetchLoadedState state) {
     return CustomAppBar(
       size: size,
       leading: AppBarLeadingIconButtonOne(
@@ -103,6 +202,49 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
       ),
       centerTitle: true,
       title: const AutoSizeText("My Cart"),
+      actions: [
+        AppBarLeadingIconButtonOne(
+            onTap: () {
+              // ! LogOut Button
+              // FirebaseServices.auth.signOut().then((value) {
+              //   Navigator.pushReplacementNamed(context, RoutesName.signInScreen);
+              // Navigator.pop(context);
+              // });
+              NavigatorService.pushNamed(RoutesName.addToCartScreen);
+            },
+            child: AutoSizeText("${state.fetchData.length}")),
+      ],
     );
   }
 }
+
+  // My Cart Custom AppBar Section
+//   CustomAppBar myCartAppCart(
+//       {AsyncSnapshot<List<MyCartModelClass>>? snapshot}) {
+//     return CustomAppBar(
+//       size: size,
+//       leading: AppBarLeadingIconButtonOne(
+//         onTap: () => NavigatorService.goBack(),
+//         child: Icon(
+//           CupertinoIcons.arrow_left,
+//           color: Resources.colors.kBlack,
+//           size: size.width * 0.07,
+//         ),
+//       ),
+//       centerTitle: true,
+//       title: const AutoSizeText("My Cart"),
+//       actions: [
+//         AppBarLeadingIconButtonOne(
+//             onTap: () {
+//               // ! LogOut Button
+//               // FirebaseServices.auth.signOut().then((value) {
+//               //   Navigator.pushReplacementNamed(context, RoutesName.signInScreen);
+//               // Navigator.pop(context);
+//               // });
+//               NavigatorService.pushNamed(RoutesName.addToCartScreen);
+//             },
+//             child: AutoSizeText("${snapshot?.data?.length}")),
+//       ],
+//     );
+//   }
+// }

@@ -1,3 +1,5 @@
+import 'dart:developer' as developer;
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -6,6 +8,7 @@ import 'package:e_commerce/View/Screens/Home_Page_Tabs/Nike_Shoes/nike_shoes_mai
 import 'package:e_commerce/View/Screens/Home_Page_Tabs/Puma_Shoes/puma_shoes_main.dart';
 import 'package:e_commerce/View/Screens/Home_Page_Tabs/Reebok_Shoes/reebok_shoes_main.dart';
 import 'package:e_commerce/View/Screens/Navigation_Bar_Screens/Home/Components/custom_drawer_home_page.dart';
+import 'package:e_commerce/View/Screens/Navigation_Bar_Screens/Home/bloc/matrix4_rotation_bloc.dart';
 
 import '../../../../Components/Widgets/custom_image_view.dart';
 import '../../../../Components/Widgets/custom_search_bar_text_field.dart';
@@ -27,9 +30,9 @@ class _HomeScreenState extends State<HomeScreen>
   late Size size;
   late TabController tabController;
 
-  double xOffset = 0.0;
-  double yOffset = 0.0;
-  bool isDrawerOpen = false;
+  // double xOffset = 0.0;
+  // double yOffset = 0.0;
+  // bool isDrawerOpen = false;
   @override
   void initState() {
     super.initState();
@@ -39,28 +42,35 @@ class _HomeScreenState extends State<HomeScreen>
   @override
   Widget build(BuildContext context) {
     size = MediaQuery.sizeOf(context);
-    return BlocProvider(
-      create: (context) => SearchBloc(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => SearchBloc(),
+          lazy: false,
+        ),
+        BlocProvider(
+          create: (context) => Matrix4RotationBloc(),
+          lazy: false,
+        ),
+      ],
       child: Scaffold(
           resizeToAvoidBottomInset: false,
-          // ! appBar Section
-          // appBar: homePageAppBar(context, () {}, size: size),
-          body: BlocBuilder<SearchBloc, SearchState>(
-            builder: (context, state) {
-              (state as SearchInitialState);
-              return Stack(
-                children: [
-                  // ! Custom Drawer Section
-                  const CustomDrawer(),
-                  // ! Home Screen Section
-                  AnimatedContainer(
+          body: Stack(
+            children: [
+              // ! Custom Drawer AppBar Section
+              const CustomDrawer(),
+              // ! Home Screen Section
+              BlocBuilder<Matrix4RotationBloc, Matrix4RotationState>(
+                builder: (context, state) {
+                  (state as RotationMatrixState);
+                  return AnimatedContainer(
                     color: Resources.colors.kAllAppColor,
-                    transform: Matrix4.translationValues(xOffset, yOffset, 0.0)
-                      ..scale(isDrawerOpen ? 0.85 : 1.0)
-                      ..rotateZ(isDrawerOpen ? -50 : 0.0),
+                    transform: Matrix4.translationValues(
+                        state.xOffset, state.yOffset, 0.0)
+                      ..scale(state.isDrawerOpen ? 0.85 : 1.0)
+                      ..rotateZ(state.isDrawerOpen ? -50 : 0.0),
                     duration: const Duration(seconds: 1),
                     curve: Curves.fastEaseInToSlowEaseOut,
-                    // color: Resources.colors.blue,
                     width: double.maxFinite,
                     padding: const EdgeInsets.symmetric(
                       horizontal: 15,
@@ -69,47 +79,54 @@ class _HomeScreenState extends State<HomeScreen>
                     child: Column(
                       children: [
                         homePageAppBar(context,
-                            child: isDrawerOpen
+                            child: state.isDrawerOpen
                                 ? Icon(
                                     CupertinoIcons.arrow_left,
                                     color: Resources.colors.kBlack,
                                   )
                                 : CustomImageView(
                                     imagePath: Resources.imagePath.homeDrawer),
-                            onTap: isDrawerOpen
-                                ? () {
-                                    setState(() {
-                                      xOffset = 0.0;
-                                      yOffset = 0.0;
-                                      isDrawerOpen = false;
-                                    });
-                                  }
-                                : () {
-                                    setState(() {
-                                      xOffset = 290.0;
-                                      yOffset = 80.0;
-                                      isDrawerOpen = true;
-                                    });
-                                  },
-                            size: size),
+                            onTap:
+
+                                // state.isDrawerOpen
+                                () {
+                          developer.log("message");
+                          BlocProvider.of<Matrix4RotationBloc>(context)
+                              .add(RotationHomePageEvents());
+                        }
+                            // : () {
+                            // state.xOffset;
+                            // state.yOffset;
+                            // state.isDrawerOpen;
+                            //     BlocProvider.of<Matrix4RotationBloc>(
+                            //             context)
+                            //         .add(RotationHomePageEvents());
+                            //   },
+                            , size: size),
                         // some Space .
                         const CustomSizedBox(heightRatio: 0.02),
                         // ! Search TextField Section .
-                        CustomSearchView(
-                          controller: state.searchController,
-                          hintText: "Looking for shoes",
-                          suffix: Padding(
-                            padding: const EdgeInsets.only(
-                              right: 15,
-                            ),
-                            child: IconButton(
-                              onPressed: () => state.searchController.clear(),
-                              icon: Icon(
-                                Icons.clear,
-                                color: Colors.grey.shade600,
+                        BlocBuilder<SearchBloc, SearchState>(
+                          builder: (context, state) {
+                            (state as SearchInitialState);
+                            return CustomSearchView(
+                              controller: state.searchController,
+                              hintText: "Looking for shoes",
+                              suffix: Padding(
+                                padding: const EdgeInsets.only(
+                                  right: 15,
+                                ),
+                                child: IconButton(
+                                  onPressed: () =>
+                                      state.searchController.clear(),
+                                  icon: Icon(
+                                    Icons.clear,
+                                    color: Colors.grey.shade600,
+                                  ),
+                                ),
                               ),
-                            ),
-                          ),
+                            );
+                          },
                         ),
                         const CustomSizedBox(heightRatio: 0.02),
                         // ! TabBar Sections .
@@ -180,11 +197,14 @@ class _HomeScreenState extends State<HomeScreen>
                             ])),
                       ],
                     ),
-                  ),
-                ],
-              );
-            },
-          )),
+                  );
+                },
+              ),
+            ],
+          )
+          //   },
+          // )
+          ),
     );
   }
 

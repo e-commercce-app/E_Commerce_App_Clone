@@ -7,6 +7,7 @@ final ThemeData eCommerceTheme = ThemeData(
   primaryColor: Resources.colors.kWhite,
   colorScheme: _getCustomColorScheme(),
   textTheme: _getTextTheme(),
+  visualDensity: VisualDensity.adaptivePlatformDensity,
   scaffoldBackgroundColor: Resources.colors.kAllAppColor,
   dividerTheme: DividerThemeData(
     thickness: 1,
@@ -57,6 +58,12 @@ TextTheme _getTextTheme() {
       textStyle: const TextStyle(
         overflow: TextOverflow.ellipsis,
       ),
+      fontWeight: FontWeight.w500,
+    ),
+    titleLarge: TextStyle(
+      color: Resources.colors.kPrimaryContainer,
+      fontSize: 20,
+      fontFamily: 'Airbnb Cereal App',
       fontWeight: FontWeight.w500,
     ),
     titleMedium: const TextStyle(

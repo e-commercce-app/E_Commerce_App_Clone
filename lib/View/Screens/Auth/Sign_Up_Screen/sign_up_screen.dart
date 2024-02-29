@@ -51,7 +51,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         const CustomSizedBox(
                           heightRatio: 0.04,
                         ),
-                        Text(
+                        AutoSizeText(
                           "Create Account",
                           style: Resources.textStyle
                               .createAccountTextStyle(size: size),
@@ -59,7 +59,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           maxLines: 1,
                         ),
                         const CustomSizedBox(heightRatio: 0.003),
-                        Text(
+                        AutoSizeText(
                           "Let's Create Account Together",
                           style: Resources.textStyle
                               .togetherCreateTextStyle(size: size),
@@ -70,7 +70,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         // ! User Name sections
                         Align(
                           alignment: Alignment.centerLeft,
-                          child: Text(
+                          child: AutoSizeText(
                             "Your Name",
                             style: Resources.textStyle
                                 .userNameTextStyle(size: size),
@@ -99,7 +99,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         // ! Email sections
                         Align(
                           alignment: Alignment.centerLeft,
-                          child: Text(
+                          child: AutoSizeText(
                             "Email Address",
                             style: Resources.textStyle
                                 .userNameTextStyle(size: size),
@@ -127,7 +127,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         // ! Password sections
                         Align(
                           alignment: Alignment.centerLeft,
-                          child: Text(
+                          child: AutoSizeText(
                             "Password",
                             style: Resources.textStyle
                                 .userNameTextStyle(size: size),
@@ -150,7 +150,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text("Already have an account?",
+                              AutoSizeText("Already have an account?",
                                   style: TextStyle(
                                     // color: colorScheme.primary,
                                     fontSize: size.height * 0.015,
@@ -162,7 +162,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   child: InkWell(
                                     onTap: () => NavigatorService.pushNamed(
                                         RoutesName.signInScreen),
-                                    child: Text("Sign In",
+                                    child: AutoSizeText("Sign In",
                                         style: TextStyle(
                                           fontSize: size.height * 0.02,
                                           fontFamily: 'Airbnb Cereal App',

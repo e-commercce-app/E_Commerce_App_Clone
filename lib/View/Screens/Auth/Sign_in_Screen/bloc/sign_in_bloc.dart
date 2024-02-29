@@ -1,7 +1,6 @@
 // ignore_for_file: depend_on_referenced_packages, invalid_use_of_visible_for_testing_member
 
 import 'package:bloc/bloc.dart';
-import 'package:e_commerce/Controller/Services/firebase_services.dart';
 import 'package:e_commerce/Export/e_commerce_export.dart';
 import 'package:e_commerce/View/Screens/Auth/Sign_Up_Screen/Components/google_authentication.dart';
 
@@ -21,7 +20,7 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
       if (formKey.currentState!.validate()) {
         loadingState;
         // Already Login Users
-        FirebaseServices.auth
+        auth
             .signInWithEmailAndPassword(
                 email: emailAddress.text.toString(),
                 password: password.text.toString())

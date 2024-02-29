@@ -14,11 +14,13 @@ class AppColors {
   Color kGrey = Colors.grey;
   Color kLightGrey = const Color.fromARGB(255, 242, 242, 242);
   Color kGray600 = const Color(0XFF707B81);
-
+  Color kGrey200 = Colors.grey.shade200;
   // ! white .
   Color kWhite = Colors.white;
   Color kWhiteA700 = const Color(0XFFFFFFFF);
 
+  // ! sky Blue .
+  Color kPrimaryContainer = const Color(0XFF1A242F);
   // ! Blue Shades Colors .
   Color kBlue = Colors.blue;
   Color kButtonColor = const Color.fromARGB(255, 51, 160, 255);

@@ -1,4 +1,3 @@
-import 'package:e_commerce/Components/Navigator_Service/navigator_services.dart';
 import 'package:e_commerce/Components/Widgets/custom_image_view.dart';
 
 import '../../../../../Components/Widgets/AppBar/app_bar_leading_icon_button.dart';
@@ -40,7 +39,7 @@ PreferredSizeWidget homePageAppBar(BuildContext context,
             //   Navigator.pushReplacementNamed(context, RoutesName.signInScreen);
             // Navigator.pop(context);
             // });
-            NavigatorService.pushNamed(RoutesName.detailScreen);
+            NavigatorService.pushNamed(RoutesName.addToCartScreen);
           },
           child: CustomImageView(
             imagePath: Resources.imagePath.trolley,

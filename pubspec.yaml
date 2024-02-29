@@ -30,8 +30,6 @@ dependencies:
   animated_text_kit: ^4.2.2
   # ! Show Page Indicator means dots
   smooth_page_indicator: ^1.1.0
-  #  ! Provide a simple way to add rounded corners to any widgets.
-  animated_bottom_navigation_bar: ^1.3.3
   # ! state Management Using Bloc
   flutter_bloc: ^8.1.4
   # ! Maintain this Bloc and uses this Class Instance and member check this (hashCode and ==)
@@ -46,6 +44,8 @@ dependencies:
   shimmer_effect: ^1.0.4
   # ! Using More and Less text .
   readmore: ^2.2.0
+  # ! flutter Staggered Animations
+  flutter_staggered_animations: ^1.1.1
   flutter_svg: ^2.0.9
   cached_network_image: ^3.3.1
   

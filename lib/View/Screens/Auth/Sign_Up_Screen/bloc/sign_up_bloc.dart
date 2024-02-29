@@ -1,7 +1,6 @@
 // ignore_for_file: depend_on_referenced_packages, unnecessary_import, invalid_use_of_visible_for_testing_member
 import 'dart:developer';
 
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:e_commerce/Components/Navigator_Service/navigator_services.dart';
@@ -13,6 +12,7 @@ import 'package:e_commerce/View/Screens/Auth/Sign_Up_Screen/bloc/sign_up_event.d
 import 'package:e_commerce/View/Screens/Auth/Sign_Up_Screen/bloc/sign_up_state.dart';
 
 import '../../../../../Controller/Services/firebase_services.dart';
+import '../../../../../Export/e_commerce_export.dart';
 
 class SignUpBloc extends Bloc<SignUpBlocEvent, SignUpState> {
   // TextEditingController

@@ -7,6 +7,9 @@ abstract class FirebaseServices {
   static FirebaseFirestore get fireStore => FirebaseFirestore.instance;
   // ! Current User ID .
   static User? get currentUser => auth.currentUser;
+  // ! Date and Time .
+  static String get dateAndTime =>
+      DateTime.now().microsecondsSinceEpoch.toString();
 
   // ! Tab Bar Grid View All Collection and Data Receive Firebase FireStore .
   static CollectionReference<Map<String, dynamic>> get currentUserCollection =>
@@ -19,4 +22,7 @@ abstract class FirebaseServices {
       fireStore.collection("BataShoes"); // BataShoes .
   static CollectionReference<Map<String, dynamic>> get reebokShoesCollection =>
       fireStore.collection("ReebokShoes"); // Rebook Shoes .
+  // ! My Cart Collection .
+  static CollectionReference<Map<String, dynamic>> get myCartCollection =>
+      fireStore.collection("MyPersonalCart"); // My Cart
 }
