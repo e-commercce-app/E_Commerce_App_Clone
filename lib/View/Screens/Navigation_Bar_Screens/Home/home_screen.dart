@@ -86,23 +86,12 @@ class _HomeScreenState extends State<HomeScreen>
                                   )
                                 : CustomImageView(
                                     imagePath: Resources.imagePath.homeDrawer),
-                            onTap:
-
-                                // state.isDrawerOpen
-                                () {
+                            onTap: () {
                           developer.log("message");
-                          BlocProvider.of<Matrix4RotationBloc>(context)
+                          BlocProvider.of<Matrix4RotationBloc>(context,
+                                  listen: false)
                               .add(RotationHomePageEvents());
-                        }
-                            // : () {
-                            // state.xOffset;
-                            // state.yOffset;
-                            // state.isDrawerOpen;
-                            //     BlocProvider.of<Matrix4RotationBloc>(
-                            //             context)
-                            //         .add(RotationHomePageEvents());
-                            //   },
-                            , size: size),
+                        }, size: size),
                         // some Space .
                         const CustomSizedBox(heightRatio: 0.02),
                         // ! Search TextField Section .

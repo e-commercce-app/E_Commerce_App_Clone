@@ -9,7 +9,7 @@ final class Matrix4RotationInitial extends Matrix4RotationState {}
 class RotationMatrixState extends Matrix4RotationState {
   double xOffset;
   double yOffset;
-  bool isDrawerOpen = false;
+  bool isDrawerOpen;
   RotationMatrixState(
       {required this.xOffset,
       required this.yOffset,
