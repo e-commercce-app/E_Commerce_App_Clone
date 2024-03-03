@@ -2,7 +2,6 @@ import 'package:e_commerce/Models/shoes_product_home_page.dart';
 import 'package:e_commerce/View/Screens/My_Cart_Screen/bloc/cart_fetch_data_bloc.dart';
 import 'package:e_commerce/View/Screens/My_Cart_Screen/my_cart_main.dart';
 import 'package:e_commerce/View/Screens/Detail_Screen/detail_screen.dart';
-import 'package:e_commerce/View/Screens/Navigation_Bar_Screens/Profile_Page/bloc/profile_bloc.dart';
 import 'package:e_commerce/View/Screens/Navigation_Bar_Screens/Profile_Page/profile_main_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -119,11 +118,7 @@ class RoutesMethod {
     }
     // 10
     else if (settings.name == RoutesName.profile) {
-      return CustomPageTransition(
-          child: BlocProvider(
-        create: (context) => ProfileBloc(),
-        child: const ProfileScreen(),
-      ));
+      return CustomPageTransition(child: const ProfileScreen());
     }
     // NOT FOUND
     else {

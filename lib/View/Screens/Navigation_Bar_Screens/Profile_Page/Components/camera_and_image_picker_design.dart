@@ -4,10 +4,11 @@ class CustomPickImageView extends StatelessWidget {
   const CustomPickImageView({
     super.key,
     required this.size,
+    required this.imagePath,
   });
 
   final Size size;
-
+  final String imagePath;
   @override
   Widget build(BuildContext context) {
     return Align(
@@ -23,10 +24,7 @@ class CustomPickImageView extends StatelessWidget {
               child: CircleAvatar(
                 backgroundColor: Resources.colors.kGrey,
                 maxRadius: 50,
-                child: const Icon(
-                  Icons.photo,
-                  size: 30,
-                ),
+                child: Image(image: NetworkImage(imagePath)),
               ),
             ),
             Positioned(

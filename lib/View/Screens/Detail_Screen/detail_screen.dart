@@ -132,7 +132,8 @@ class _DetailsScreenState extends State<DetailsScreen>
                             myCart.productPrice =
                                 widget.productHomeScreen.productPrice;
 
-                            await FirebaseServices.fireStore
+                            await FirebaseServices.currentUserCollection
+                                .doc(FirebaseServices.currentUser?.uid)
                                 .collection("MyPersonalCart")
                                 .doc(
                                     "$dateAndTime${FirebaseServices.currentUser?.uid}")

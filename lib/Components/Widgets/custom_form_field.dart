@@ -26,7 +26,7 @@ class CustomTextFormField extends StatelessWidget {
     this.filled = true,
     this.validator,
     this.readOnly,
-    // this.initialValue,
+    this.initialValue,
   }) : super(key: key);
 
   final Alignment? alignment;
@@ -52,7 +52,7 @@ class CustomTextFormField extends StatelessWidget {
   final bool? filled;
   final FormFieldValidator<String>? validator;
   final bool? readOnly;
-  // final String? initialValue;
+  final String? initialValue;
   @override
   Widget build(BuildContext context) {
     return textFormFieldWidget(context);
@@ -79,7 +79,7 @@ class CustomTextFormField extends StatelessWidget {
         decoration: decoration,
         validator: validator,
         readOnly: readOnly ?? false,
-        // initialValue: initialValue ?? "",
+        initialValue: initialValue ?? initialValue,
       ),
     );
   }

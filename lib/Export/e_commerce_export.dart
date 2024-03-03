@@ -27,7 +27,9 @@ export '../Components/Widgets/custom_button.dart';
 export '../Components/Widgets/custom_size_box.dart';
 export '../Components/Widgets/custom_toast.dart';
 export '../Components/Widgets/validation_function.dart';
-// ! Navigator SErvices
+// ! Controller Services Library .
+export 'package:e_commerce/Controller/Services/firebase_services.dart';
+// ! Navigator Services
 export 'package:e_commerce/Components/Navigator_Service/navigator_services.dart';
 // ! Routes Library
 export 'package:e_commerce/Controller/Routes/routes_method.dart';

@@ -42,7 +42,8 @@ class SignUpBloc extends Bloc<SignUpBlocEvent, SignUpState> {
           userInfo.id = FirebaseServices.currentUser?.uid;
           userInfo.name = nameController.text.toString();
           userInfo.emailAddress = emailController.text.toString();
-          userInfo.userImage = "xyz";
+          userInfo.userImage =
+              "https://firebasestorage.googleapis.com/v0/b/flutter-e-commerce-14c75.appspot.com/o/NikeShoes%2Fnike11.png?alt=media&token=bd143004-213f-439c-bfa3-3be73f769193";
           // ! store Data on Firebase Firestore .
           FirebaseServices.currentUserCollection
               .doc(FirebaseServices.currentUser?.uid)
@@ -102,30 +103,3 @@ class SignUpBloc extends Bloc<SignUpBlocEvent, SignUpState> {
     return super.close();
   }
 }
-
-// import 'package:e_commerce/Export/e_commerce_export.dart';
-
-// part 'sign_up_event.dart';
-// part 'sign_up_state.dart';
-
-// class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
-//   SignUpBloc(SignUpState signUpInitialState) : super(signUpInitialState) {
-//     on<ChangePasswordVisibilityEvent>(_changePasswordVisibilityEvent);
-//   }
-
-//   // password Icon Change method
-//   void _changePasswordVisibilityEvent(
-//       ChangePasswordVisibilityEvent event, Emitter<SignUpState> emit) {
-//     emit(state.copyWith(passwordChangeIcons: event.value));
-//   }
-
-//   // initial state of TextEditingController .
-//   void _initialValue(
-//       SignUpInitialEvent event, Emitter<SignUpState> emit) async {
-//     emit(state.copyWith(
-//         emailAddressController: TextEditingController(),
-//         passwordController: TextEditingController(),
-//         userNameController: TextEditingController(),
-//         passwordChangeIcons: state.passwordChangeIcons));
-//   }
-// }

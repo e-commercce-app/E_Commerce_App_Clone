@@ -1,11 +1,9 @@
-import 'package:e_commerce/Components/Widgets/AppBar/app_bar_subtitle_one.dart';
-import 'package:e_commerce/Export/e_commerce_export.dart';
-import 'package:e_commerce/View/Screens/Navigation_Bar_Screens/Profile_Page/bloc/profile_bloc.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:e_commerce/Components/Widgets/custom_profile_container.dart';
 
-import '../../../../Components/Widgets/AppBar/app_bar_leading_icon_button.dart';
-import '../../../../Components/Widgets/AppBar/custom_appbar.dart';
-import '../../../../Components/Widgets/custom_form_field.dart';
+import 'package:e_commerce/Export/e_commerce_export.dart';
+import 'package:e_commerce/Models/user_details.dart';
+import 'package:e_commerce/View/Screens/Navigation_Bar_Screens/Profile_Page/custom_profile_app_bar.dart';
+
 import 'Components/camera_and_image_picker_design.dart';
 import 'Update_User_Info/update_user_main.dart';
 
@@ -17,122 +15,121 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  // Screen Size .
   late Size size;
+  UserDetails userDetails = UserDetails();
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    currentUserData();
+  }
+
+  Future<void> currentUserData() async {
+    await FirebaseServices.currentUserCollection
+        .doc(FirebaseServices.currentUser?.uid)
+        .get()
+        .then((value) {
+      userDetails = UserDetails.fromJson(value.data()!);
+      setState(() {});
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     size = MediaQuery.sizeOf(context);
-
+    String name = userDetails.name ?? "E_Commerence";
+    String email = userDetails.emailAddress ?? "xyz@gmail.com";
+    String imagePath = userDetails.userImage ?? "xyz";
     return Scaffold(
       // ! Custom App Bar Sections .
-      appBar: profileCustomAppBar(),
-      body: BlocProvider(
-        create: (context) => ProfileBloc(),
-        child: SingleChildScrollView(
-          padding:
-              EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
-          child: Container(
+      appBar: profileCustomAppBar(
+        onTap: () {
+          NavigatorService.push(MaterialPageRoute(
+            builder: (context) => UpdateUserInfo(
+              userDetails: UserDetails(
+                emailAddress: email.toString(),
+                name: name.toString(),
+                id: FirebaseServices.currentUser!.uid,
+              ),
+              size: size,
+            ),
+          ));
+        },
+        size: size,
+      ),
+      body: SingleChildScrollView(
+        padding:
+            EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+        child: Container(
             width: double.maxFinite,
             padding: EdgeInsets.symmetric(
               horizontal: size.width * 0.04,
             ),
-            child: BlocBuilder<ProfileBloc, ProfileState>(
-              builder: (context, state) {
-                state as UserClickProfileInfoState;
-                return Column(
-                  children: [
-                    CustomPickImageView(size: size),
-
-                    // Some Space
-                    const CustomSizedBox(
-                      heightRatio: 0.02,
-                    ),
-                    AutoSizeText(
-                      "Jawad Jani",
-                      style: Resources.textStyle
-                          .createAccountTextStyle(size: size)
-                          .copyWith(
-                            fontSize: 17,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 1,
-                    ),
-
-                    const CustomSizedBox(heightRatio: 0.07),
-                    // ! User Name sections
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: AutoSizeText(
-                        "Your Name",
-                        style:
-                            Resources.textStyle.userNameTextStyle(size: size),
+            child: Column(
+              children: [
+                // ! Image Sections .
+                CustomPickImageView(
+                  size: size,
+                  imagePath: imagePath,
+                ),
+                // Some Space
+                const CustomSizedBox(
+                  heightRatio: 0.02,
+                ),
+                AutoSizeText(
+                  "Jawad Jani",
+                  style: Resources.textStyle
+                      .createAccountTextStyle(size: size)
+                      .copyWith(
+                        fontSize: 17,
                         overflow: TextOverflow.ellipsis,
-                        maxLines: 1,
                       ),
-                    ),
-                    const CustomSizedBox(heightRatio: 0.008),
-                    //  User Name Input Field
-                    CustomTextFormField(
-                      controller: (state).nameController,
-                      textInputAction: TextInputAction.next,
-                      textInputType: TextInputType.name,
-                      hintText: "Jawad",
-                      readOnly: true,
-                    ),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                ),
 
-                    // some space
-                    const CustomSizedBox(heightRatio: 0.03),
-                    // ! Email sections
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: AutoSizeText(
-                        "Email Address",
-                        style:
-                            Resources.textStyle.userNameTextStyle(size: size),
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 1,
-                      ),
-                    ),
-                    const CustomSizedBox(heightRatio: 0.008),
-                    // Email Address Input Field
-                    CustomTextFormField(
-                      controller: (state).emailController,
-                      textInputAction: TextInputAction.next,
-                      textInputType: TextInputType.emailAddress,
-                      hintText: "Enter Email",
-                      readOnly: true,
-                    ),
-                  ],
-                );
-              },
-            ),
-          ),
-        ),
+                const CustomSizedBox(heightRatio: 0.07),
+                // ! User Name sections
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: AutoSizeText(
+                    "Your Name",
+                    style: Resources.textStyle.userNameTextStyle(size: size),
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                  ),
+                ),
+                const CustomSizedBox(heightRatio: 0.008),
+                //  ! Email Input Field
+                CustomProfileContainer(
+                  title: name.toString(),
+                  screenHeight: size.height,
+                  screenWidth: size.width,
+                ),
+
+                // some space
+                const CustomSizedBox(heightRatio: 0.03),
+                // ! Email sections
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: AutoSizeText(
+                    "Email Address",
+                    style: Resources.textStyle.userNameTextStyle(size: size),
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                  ),
+                ),
+                const CustomSizedBox(heightRatio: 0.008),
+                // Email Address Input Field
+                CustomProfileContainer(
+                  title: email.toString(),
+                  screenHeight: size.height,
+                  screenWidth: size.width,
+                )
+              ],
+            )),
       ),
-    );
-  }
-
-  // ! Profile Custom AppBar Section
-  PreferredSizeWidget profileCustomAppBar() {
-    return CustomAppBar(
-      size: size,
-      centerTitle: true,
-      title: AppbarSubtitleOne(text: "Profile".toUpperCase()),
-      actions: [
-        AppBarLeadingIconButtonOne(
-            child: InkWell(
-          borderRadius: BorderRadius.circular(20),
-          onTap: () => NavigatorService.push(MaterialPageRoute(
-            builder: (context) => const UpdateUserInfo(),
-          )),
-          child: Icon(Icons.edit_note_rounded,
-              size: 30, color: Resources.colors.kButtonColor),
-        )),
-        // Some Space .
-        const CustomSizedBox(
-          widthRatio: 0.02,
-        ),
-      ],
     );
   }
 }

@@ -30,9 +30,6 @@ class _HomeScreenState extends State<HomeScreen>
   late Size size;
   late TabController tabController;
 
-  // double xOffset = 0.0;
-  // double yOffset = 0.0;
-  // bool isDrawerOpen = false;
   @override
   void initState() {
     super.initState();

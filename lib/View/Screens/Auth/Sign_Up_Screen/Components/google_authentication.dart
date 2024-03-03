@@ -58,7 +58,7 @@ class GoogleSignInMethod {
             .then((value) {
           log("store data");
           // Correctly (Google SignUp) Push HomePage Screen
-          NavigatorService.pushNamed(RoutesName.homeScreen);
+          NavigatorService.pushNamed(RoutesName.bottomBarScreen);
         }).onError((error, stackTrace) {
           log("Error : $error");
         });
