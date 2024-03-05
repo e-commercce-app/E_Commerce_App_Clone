@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:e_commerce/View/Screens/My_Cart_Screen/Components/custom_my_cart_design.dart';
 import 'package:e_commerce/View/Screens/My_Cart_Screen/bloc/cart_fetch_data_bloc.dart';
 
+import '../../../Components/Error/cart_no_item_page.dart';
 import '../../../Components/Widgets/AppBar/app_bar_leading_icon_button.dart';
 import '../../../Components/Widgets/AppBar/custom_appbar.dart';
 import '../../../Controller/Services/get_my_cart_data.dart';
@@ -45,140 +46,149 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
               ));
             } else if (state is CartFetchLoadedState) {
               // ! Load Data .
-              return Column(
-                children: [
-                  // ! My Cart Custom App Bar
-                  customMyCart(state),
-                  Expanded(
-                    child: ListView.builder(
-                      itemCount: state.fetchData.length,
-                      itemBuilder: (context, index) {
-                        return CustomCartDesign(
-                            imagePath:
-                                state.fetchData[index].productImage.toString(),
-                            positionStaggeredList: state.fetchData.length,
-                            productName:
-                                state.fetchData[index].productName.toString(),
-                            productPrice:
-                                state.fetchData[index].productPrice ?? 0);
-                      },
-                    ),
-                  ),
+              return state.fetchData.isEmpty
+                  ? const CartNoItemFound()
+                  : Column(
+                      children: [
+                        // ! My Cart Custom App Bar
+                        customMyCart(state),
+                        Expanded(
+                          child: ListView.builder(
+                            itemCount: state.fetchData.length,
+                            itemBuilder: (context, index) {
+                              return CustomCartDesign(
+                                  imagePath: state.fetchData[index].productImage
+                                      .toString(),
+                                  positionStaggeredList: state.fetchData.length,
+                                  productName: state
+                                      .fetchData[index].productName
+                                      .toString(),
+                                  productPrice:
+                                      state.fetchData[index].productPrice ?? 0);
+                            },
+                          ),
+                        ),
 
-                  Container(
-                    height: size.height * 0.3,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                        color: Resources.colors.kWhite,
-                        boxShadow: [
-                          BoxShadow(
-                              blurRadius: 0.2,
-                              spreadRadius: 0.2,
-                              color: Resources.colors.kGrey)
-                        ]),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      child: Column(
-                        // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Expanded(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        Container(
+                          height: size.height * 0.3,
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                              color: Resources.colors.kWhite,
+                              boxShadow: [
+                                BoxShadow(
+                                    blurRadius: 0.2,
+                                    spreadRadius: 0.2,
+                                    color: Resources.colors.kGrey)
+                              ]),
+                          child: Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 8.0),
+                            child: Column(
+                              // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-                                AutoSizeText(
-                                  "Subtotal",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .titleMedium!
-                                      .copyWith(
-                                        color: Resources.colors.kGray600,
+                                Expanded(
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      AutoSizeText(
+                                        "Subtotal",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleMedium!
+                                            .copyWith(
+                                              color: Resources.colors.kGray600,
+                                            ),
                                       ),
-                                ),
-                                AutoSizeText(
-                                  "\$1250.00",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .titleLarge
-                                      ?.copyWith(
-                                          color: Resources
-                                              .colors.kPrimaryContainer),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Expanded(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                AutoSizeText("Shopping",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .titleMedium!
-                                        .copyWith(
-                                          color: Resources.colors.kGray600,
-                                        )),
-                                AutoSizeText(
-                                  "\$40.90",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .titleLarge
-                                      ?.copyWith(
-                                          color: Resources
-                                              .colors.kPrimaryContainer),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Divider(
-                            color: Resources.colors.kGrey200.withOpacity(0.4),
-                          ),
-                          Expanded(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                AutoSizeText(
-                                  "Total Cost",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .titleMedium!
-                                      .copyWith(
-                                        color: Resources.colors.kGray600,
+                                      AutoSizeText(
+                                        "\$1250.00",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleLarge
+                                            ?.copyWith(
+                                                color: Resources
+                                                    .colors.kPrimaryContainer),
                                       ),
+                                    ],
+                                  ),
                                 ),
-                                AutoSizeText(
-                                  "\$1367.90",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .titleLarge
-                                      ?.copyWith(
-                                          color: Resources
-                                              .colors.kPrimaryContainer),
+                                Expanded(
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      AutoSizeText("Shopping",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleMedium!
+                                              .copyWith(
+                                                color:
+                                                    Resources.colors.kGray600,
+                                              )),
+                                      AutoSizeText(
+                                        "\$40.90",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleLarge
+                                            ?.copyWith(
+                                                color: Resources
+                                                    .colors.kPrimaryContainer),
+                                      ),
+                                    ],
+                                  ),
                                 ),
+                                Divider(
+                                  color: Resources.colors.kGrey200
+                                      .withOpacity(0.4),
+                                ),
+                                Expanded(
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      AutoSizeText(
+                                        "Total Cost",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleMedium!
+                                            .copyWith(
+                                              color: Resources.colors.kGray600,
+                                            ),
+                                      ),
+                                      AutoSizeText(
+                                        "\$1367.90",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleLarge
+                                            ?.copyWith(
+                                                color: Resources
+                                                    .colors.kPrimaryContainer),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Expanded(
+                                  child: CustomSizedBox(
+                                    widthRatio: 0.9,
+                                    heightRatio: 0.06,
+                                    child: Align(
+                                      alignment: Alignment.center,
+                                      child: CustomButton(
+                                          size: size,
+                                          onPressed: () {},
+                                          buttonText: "checkout".toUpperCase()),
+                                    ),
+                                  ),
+                                )
                               ],
                             ),
                           ),
-                          Expanded(
-                            child: CustomSizedBox(
-                              widthRatio: 0.9,
-                              heightRatio: 0.06,
-                              child: Align(
-                                alignment: Alignment.center,
-                                child: CustomButton(
-                                    size: size,
-                                    onPressed: () {},
-                                    buttonText: "checkout".toUpperCase()),
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                  const CustomSizedBox(
-                    heightRatio: 0.07,
-                  )
-                ],
-              );
+                        ),
+                        const CustomSizedBox(
+                          heightRatio: 0.07,
+                        )
+                      ],
+                    );
             } else {
               return Center(
                   child: Text((state as CartFetchErrorState).errorMessage));
@@ -205,11 +215,6 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
       actions: [
         AppBarLeadingIconButtonOne(
             onTap: () {
-              // ! LogOut Button
-              // FirebaseServices.auth.signOut().then((value) {
-              //   Navigator.pushReplacementNamed(context, RoutesName.signInScreen);
-              // Navigator.pop(context);
-              // });
               NavigatorService.pushNamed(RoutesName.addToCartScreen);
             },
             child: AutoSizeText("${state.fetchData.length}")),

@@ -1,5 +1,6 @@
 class ImagePath {
   static String imagePath = "assets/images/";
+  static String lottieAnimation = "animation/";
 
   /// images Path ///
   // ! Splash images
@@ -24,4 +25,7 @@ class ImagePath {
   String trolley = '${imagePath}trolley.png';
   // ! Routes Not Found Pages .
   String notFound = "${imagePath}404_error.png";
+
+  // ! Lottie Animation Path
+  String cartNotFound = "${lottieAnimation}cart_not_found.json";
 }

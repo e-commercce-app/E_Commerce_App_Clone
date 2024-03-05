@@ -15,7 +15,7 @@ import 'package:e_commerce/View/Screens/OnBoarding_Screen/Bloc/page_view_event.d
 import 'package:e_commerce/View/Screens/OnBoarding_Screen/onboarding_screen.dart';
 import 'package:e_commerce/View/Screens/Splash_Screen/splash_screen.dart';
 
-import '../../Components/Error/not_found_page.dart';
+import '../../Components/Error/route_not_found_page.dart';
 import '../../Export/e_commerce_export.dart';
 import '../../View/Screens/Auth/Sign_Up_Screen/sign_up_screen.dart';
 import '../../View/Screens/Navigation_Bar_Screens/Home/home_screen.dart';

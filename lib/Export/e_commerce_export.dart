@@ -15,6 +15,8 @@ export 'package:flutter_svg/flutter_svg.dart';
 export 'package:fluttertoast/fluttertoast.dart';
 // ! Shimmer Effect
 export 'package:shimmer_effect/shimmer_effect.dart';
+// ! Lottie Animation Library
+export 'package:lottie/lottie.dart';
 
 // ! Components Inner Folder Libraries  (Resource & Widget)
 export 'package:e_commerce/Components/Resources/resources.dart';
