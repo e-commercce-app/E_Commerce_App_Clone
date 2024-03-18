@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:e_commerce/View/Screens/OnBoarding_Screen/Bloc/page_view_bloc.dart';
+import 'package:e_commerce/View/User_Side/Screens/OnBoarding_Screen/Bloc/page_view_bloc.dart';
 
 import 'Export/e_commerce_export.dart';
 import 'init.dart';
@@ -33,7 +33,7 @@ class ECommerce extends StatelessWidget {
         navigatorKey: NavigatorService.navigatorKey,
         title: 'Shoes_E_Commerce',
         theme: eCommerceTheme,
-        initialRoute: RoutesName.signUpScreen,
+        initialRoute: RoutesName.splashScreen,
         onGenerateRoute: RoutesMethod.onGenerateRoutes,
       ),
     );
