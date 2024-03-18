@@ -17,7 +17,7 @@ class CartFetchDataBloc extends Bloc<CartFetchDataEvent, CartFetchDataState> {
 
       try {
         var listOfData = await myCartFetchData.getAddToCartData();
-        emit(CartFetchLoadedState(fetchData: listOfData));
+        emit.call(CartFetchLoadedState(fetchData: listOfData));
       } catch (error) {
         emit(CartFetchErrorState(
             errorMessage: "Do'nt Fetch Data ${error.toString()}"));

@@ -48,8 +48,13 @@ dependencies:
   flutter_staggered_animations: ^1.1.1
   # ! lottie Animation Controller to Json file 
   lottie: ^3.1.0
+  # ! Using Image Picker Controll this all Images for gallery and Camera
+  image_picker: ^1.0.7
+  #  ! Used For svg Images Controll
   flutter_svg: ^2.0.9
+  
   cached_network_image: ^3.3.1
+  firebase_storage: ^11.6.10
   
 
 dev_dependencies:

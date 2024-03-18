@@ -11,7 +11,11 @@ class PasswordCheckObscureEvent extends SignUpBlocEvent {
   PasswordCheckObscureEvent({required this.obscure});
 }
 
+// ! Pick Image Event .
+class ImagePickerGalleryEvent extends SignUpBlocEvent {}
 
+// ! Upload Firebase Event .
+class UploadImageEvent extends SignUpBlocEvent {}
 
 
 

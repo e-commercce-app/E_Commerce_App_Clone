@@ -3,12 +3,14 @@ class MyCartModelClass {
   String? productImage;
   String? productName;
   num? productPrice;
+  int? quantity;
 
   MyCartModelClass(
       {this.productUid,
       this.productImage,
       this.productName,
-      this.productPrice});
+      this.productPrice,
+      this.quantity});
 
   factory MyCartModelClass.fromJson(Map<String, dynamic> map) {
     return MyCartModelClass(
@@ -16,6 +18,7 @@ class MyCartModelClass {
       productImage: map["productImage"],
       productName: map["productName"],
       productPrice: map["productPrice"],
+      quantity: map["quantity"],
     );
   }
 
@@ -25,6 +28,7 @@ class MyCartModelClass {
     data['productImage'] = productImage;
     data['productName'] = productName;
     data['productPrice'] = productPrice;
+    data['quantity'] = quantity;
     return data;
   }
 }

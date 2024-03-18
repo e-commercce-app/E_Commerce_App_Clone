@@ -1,5 +1,7 @@
 // ignore_for_file: must_be_immutable
 
+import 'dart:io';
+
 import '../../../../../Export/e_commerce_export.dart';
 
 abstract class SignUpState {}
@@ -22,6 +24,20 @@ class SignUpClickState extends SignUpState {
 
 //  Google Button State .
 class SignUpGoogleState extends SignUpState {}
+
+// ! Pick Image State .
+class ImagePickerLoadedState extends SignUpState {
+  // XFile imagePath;
+  final File? image;
+  ImagePickerLoadedState({this.image});
+
+  ImagePickerLoadedState copyWith({File? image}) {
+    return ImagePickerLoadedState(image: image ?? this.image);
+  }
+}
+
+// ! Upload Firebase State .
+class UploadImageState extends SignUpState {}
 
 class CheckPasswordState extends SignUpState {
   bool isChecked = true;

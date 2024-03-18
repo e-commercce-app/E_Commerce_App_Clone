@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:e_commerce/Controller/Services/firebase_services.dart';
 
 import 'package:e_commerce/Models/my_cart_model_class.dart';
 

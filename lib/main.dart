@@ -33,7 +33,7 @@ class ECommerce extends StatelessWidget {
         navigatorKey: NavigatorService.navigatorKey,
         title: 'Shoes_E_Commerce',
         theme: eCommerceTheme,
-        initialRoute: RoutesName.bottomBarScreen,
+        initialRoute: RoutesName.signUpScreen,
         onGenerateRoute: RoutesMethod.onGenerateRoutes,
       ),
     );

@@ -2,6 +2,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'package:e_commerce/Components/Widgets/custom_image_view.dart';
 import 'package:e_commerce/Export/e_commerce_export.dart';
 
 import '../../../../Components/Widgets/AppBar/app_bar_leading_icon_button.dart';
@@ -10,6 +11,7 @@ import '../../../../Components/Widgets/custom_form_field.dart';
 import '../Sign_Up_Screen/bloc/sign_up_bloc.dart';
 import '../Sign_Up_Screen/bloc/sign_up_event.dart';
 import '../Sign_Up_Screen/bloc/sign_up_state.dart';
+import 'Components/image_picker_widget.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -27,12 +29,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus!.unfocus(),
       child: Scaffold(
-        resizeToAvoidBottomInset: false,
-        appBar: signUpAppBar(),
-        body: BlocBuilder<SignUpBloc, SignUpState>(
-          builder: (context, state) {
+          resizeToAvoidBottomInset: false,
+          appBar: signUpAppBar(),
+          body: BlocBuilder<SignUpBloc, SignUpState>(builder: (context, state) {
             state as SignUpClickState;
-            // state as CheckPasswordState;
+            // state as CheckPasswordState;(
             return SafeArea(
               top: false,
               child: SingleChildScrollView(
@@ -43,145 +44,143 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   padding: EdgeInsets.symmetric(
                     horizontal: size.width * 0.04,
                   ),
-                  child: Form(
-                    key: (state).key,
-                    child: Column(
-                      children: [
-                        // Some Space
-                        const CustomSizedBox(
-                          heightRatio: 0.04,
-                        ),
-                        AutoSizeText(
-                          "Create Account",
-                          style: Resources.textStyle
-                              .createAccountTextStyle(size: size),
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 1,
-                        ),
-                        const CustomSizedBox(heightRatio: 0.003),
-                        AutoSizeText(
-                          "Let's Create Account Together",
-                          style: Resources.textStyle
-                              .togetherCreateTextStyle(size: size),
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 1,
-                        ),
-                        const CustomSizedBox(heightRatio: 0.07),
-                        // ! User Name sections
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: AutoSizeText(
-                            "Your Name",
-                            style: Resources.textStyle
-                                .userNameTextStyle(size: size),
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 1,
-                          ),
-                        ),
-                        const CustomSizedBox(heightRatio: 0.008),
-                        //  User Name Input Field
-                        CustomTextFormField(
-                          controller: (state).nameController,
-                          textInputAction: TextInputAction.next,
-                          textInputType: TextInputType.name,
-                          hintText: "Jawad",
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return "Please Enter A Name";
-                            } else if (value.length <= 4) {
-                              return "Username should be less than 4 characters.";
-                            }
-                            return null;
-                          },
-                        ),
-                        // some space
-                        const CustomSizedBox(heightRatio: 0.03),
-                        // ! Email sections
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: AutoSizeText(
-                            "Email Address",
-                            style: Resources.textStyle
-                                .userNameTextStyle(size: size),
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 1,
-                          ),
-                        ),
-                        const CustomSizedBox(heightRatio: 0.008),
-                        // Email Address Input Field
-                        CustomTextFormField(
-                          controller: (state).emailController,
-                          textInputAction: TextInputAction.next,
-                          textInputType: TextInputType.emailAddress,
-                          hintText: "Enter Email",
-                          validator: (value) {
-                            if (value == null ||
-                                !isValidEmail(value, isRequired: true)) {
-                              return "Please Enter Valid Email";
-                            }
-                            return null;
-                          },
-                        ),
-                        // some space
-                        const CustomSizedBox(heightRatio: 0.03),
-                        // ! Password sections
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: AutoSizeText(
-                            "Password",
-                            style: Resources.textStyle
-                                .userNameTextStyle(size: size),
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 1,
-                          ),
-                        ),
-                        const CustomSizedBox(heightRatio: 0.008),
-                        // Password TextField .
-                        _passwordButton(state, context),
+                  child: Column(
+                    children: [
+                      SignUpGalleryImage(
+                        onTap: () {
+                          BlocProvider.of<SignUpBloc>(context)
+                              .add(ImagePickerGalleryEvent());
+                          print("object");
+                        },
+                        size: size,
+                        image: CustomImageView(
+                            imagePath: Resources.imagePath.sneaker1),
+                      ),
 
-                        // some space
-                        const CustomSizedBox(heightRatio: 0.05),
-                        // !SignUp Button Sections
-                        _signUpButton(context),
-                        const CustomSizedBox(heightRatio: 0.05),
-                        // ! Google Button Sections .
-                        _googleAuthButton(state, context),
-                        const CustomSizedBox(heightRatio: 0.03),
-                        Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              AutoSizeText("Already have an account?",
-                                  style: TextStyle(
-                                    // color: colorScheme.primary,
-                                    fontSize: size.height * 0.015,
-                                    fontFamily: 'Airbnb Cereal App',
-                                    fontWeight: FontWeight.w400,
-                                  )),
-                              Padding(
-                                  padding: const EdgeInsets.only(left: 2),
-                                  child: InkWell(
-                                    onTap: () => NavigatorService.pushNamed(
-                                        RoutesName.signInScreen),
-                                    child: AutoSizeText("Sign In",
-                                        style: TextStyle(
-                                          fontSize: size.height * 0.02,
-                                          fontFamily: 'Airbnb Cereal App',
-                                          fontWeight: FontWeight.w500,
-                                        )
-                                        // style: theme.textTheme.labelLarge
-                                        ),
-                                  ))
-                            ]),
-                        const SizedBox(height: 5)
-                      ],
-                    ),
+                      // ******************************************************
+
+                      // *************** User Name Input Field ****************
+
+                      Form(
+                        key: (state).key,
+                        child: Column(
+                          children: [
+                            const CustomSizedBox(heightRatio: 0.07),
+                            // ! User Name sections
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: AutoSizeText(
+                                "Your Name",
+                                style: Resources.textStyle
+                                    .userNameTextStyle(size: size),
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 1,
+                              ),
+                            ),
+                            const CustomSizedBox(heightRatio: 0.008),
+                            //  User Name Input Field
+                            CustomTextFormField(
+                              controller: (state).nameController,
+                              textInputAction: TextInputAction.next,
+                              textInputType: TextInputType.name,
+                              hintText: "Jawad",
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return "Please Enter A Name";
+                                } else if (value.length <= 4) {
+                                  return "Username should be less than 4 characters.";
+                                }
+                                return null;
+                              },
+                            ),
+                            // some space
+                            const CustomSizedBox(heightRatio: 0.03),
+                            // ! Email sections
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: AutoSizeText(
+                                "Email Address",
+                                style: Resources.textStyle
+                                    .userNameTextStyle(size: size),
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 1,
+                              ),
+                            ),
+                            const CustomSizedBox(heightRatio: 0.008),
+                            // Email Address Input Field
+                            CustomTextFormField(
+                              controller: (state).emailController,
+                              textInputAction: TextInputAction.next,
+                              textInputType: TextInputType.emailAddress,
+                              hintText: "Enter Email",
+                              validator: (value) {
+                                if (value == null ||
+                                    !isValidEmail(value, isRequired: true)) {
+                                  return "Please Enter Valid Email";
+                                }
+                                return null;
+                              },
+                            ),
+                            // some space
+                            const CustomSizedBox(heightRatio: 0.03),
+                            // ! Password sections
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: AutoSizeText(
+                                "Password",
+                                style: Resources.textStyle
+                                    .userNameTextStyle(size: size),
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 1,
+                              ),
+                            ),
+                            const CustomSizedBox(heightRatio: 0.008),
+                            // Password TextField .
+                            _passwordButton(state, context),
+
+                            // some space
+                            const CustomSizedBox(heightRatio: 0.05),
+                            // !SignUp Button Sections
+                            _signUpButton(context),
+                            const CustomSizedBox(heightRatio: 0.05),
+                            // ! Google Button Sections .
+                            _googleAuthButton(state, context),
+                            const CustomSizedBox(heightRatio: 0.03),
+                            Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  AutoSizeText("Already have an account?",
+                                      style: TextStyle(
+                                        // color: colorScheme.primary,
+                                        fontSize: size.height * 0.015,
+                                        fontFamily: 'Airbnb Cereal App',
+                                        fontWeight: FontWeight.w400,
+                                      )),
+                                  Padding(
+                                      padding: const EdgeInsets.only(left: 2),
+                                      child: InkWell(
+                                        onTap: () => NavigatorService.pushNamed(
+                                            RoutesName.signInScreen),
+                                        child: AutoSizeText("Sign In",
+                                            style: TextStyle(
+                                              fontSize: size.height * 0.02,
+                                              fontFamily: 'Airbnb Cereal App',
+                                              fontWeight: FontWeight.w500,
+                                            )
+                                            // style: theme.textTheme.labelLarge
+                                            ),
+                                      ))
+                                ]),
+                            const SizedBox(height: 5)
+                          ],
+                        ),
+                      )
+                    ],
                   ),
                 ),
               ),
             );
-          },
-        ),
-      ),
+          })),
     );
   }
 

@@ -2,6 +2,7 @@ import 'package:e_commerce/Models/shoes_product_home_page.dart';
 import 'package:e_commerce/View/Screens/My_Cart_Screen/bloc/cart_fetch_data_bloc.dart';
 import 'package:e_commerce/View/Screens/My_Cart_Screen/my_cart_main.dart';
 import 'package:e_commerce/View/Screens/Detail_Screen/detail_screen.dart';
+import 'package:e_commerce/View/Screens/Navigation_Bar_Screens/Cart/bloc/cart_bottom_bloc.dart';
 import 'package:e_commerce/View/Screens/Navigation_Bar_Screens/Profile_Page/profile_main_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -17,6 +18,7 @@ import 'package:e_commerce/View/Screens/Splash_Screen/splash_screen.dart';
 
 import '../../Components/Error/route_not_found_page.dart';
 import '../../Export/e_commerce_export.dart';
+import '../../View/Screens/Auth/Sign_Up_Screen/Bloc_Image_Picker/image_picker_bloc.dart';
 import '../../View/Screens/Auth/Sign_Up_Screen/sign_up_screen.dart';
 import '../../View/Screens/Navigation_Bar_Screens/Home/home_screen.dart';
 import '../../View/Screens/Navigation_Bar_Screens/bloc/bottom_navigation_bloc.dart';
@@ -72,10 +74,12 @@ class RoutesMethod {
     // 4
     else if (settings.name == RoutesName.signUpScreen) {
       return CustomPageTransition(
-          child: BlocProvider(
-        create: (context) => SignUpBloc(),
-        child: const SignUpScreen(),
-      ));
+          child: MultiBlocProvider(providers: [
+        BlocProvider(
+          create: (context) => SignUpBloc(),
+        ),
+        // BlocProvider(create: (context) => ImagePickerBloc())
+      ], child: const SignUpScreen()));
     }
     // 5
     else if (settings.name == RoutesName.signInScreen) {
@@ -96,8 +100,15 @@ class RoutesMethod {
     //  7
     else if (settings.name == RoutesName.bottomBarScreen) {
       return CustomPageTransition(
-          child: BlocProvider(
-        create: (context) => BottomNavigationBloc(),
+          child: MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (context) => BottomNavigationBloc(),
+          ),
+          BlocProvider(
+            create: (context) => CartBottomBloc(),
+          ),
+        ],
         child: const BottomBarScreen(),
       ));
     }

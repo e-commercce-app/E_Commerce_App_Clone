@@ -2,7 +2,6 @@ import 'package:e_commerce/Components/Widgets/custom_form_field.dart';
 import 'package:e_commerce/Export/e_commerce_export.dart';
 import 'package:e_commerce/Models/user_details.dart';
 import 'package:e_commerce/View/Screens/Navigation_Bar_Screens/Profile_Page/profile_main_screen.dart';
-import '../../../../../Controller/Services/firebase_services.dart';
 import 'Components/custom_update_app_bar.dart';
 
 class UpdateUserInfo extends StatefulWidget {

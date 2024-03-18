@@ -1,9 +1,11 @@
 // ignore_for_file: depend_on_referenced_packages, invalid_use_of_visible_for_testing_member
 
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
 import 'package:e_commerce/Export/e_commerce_export.dart';
-import 'package:e_commerce/View/Screens/Auth/Sign_Up_Screen/Components/google_authentication.dart';
 
+import '../../Sign_Up_Screen/Components/google_authentication.dart';
 part 'sign_in_event.dart';
 part 'sign_in_state.dart';
 
@@ -31,7 +33,7 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
           emailAddress.clear();
           password.clear();
         }).onError((error, stackTrace) {
-          debugPrint("Error SignIn : $error");
+          log("Error SignIn : $error");
           // ** show toast
           CustomDialog.toastMessage(message: "Error SignIn : $error");
         });

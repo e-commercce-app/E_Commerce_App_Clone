@@ -1,10 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 abstract class FirebaseServices {
   // ! Firebase instance .
   static FirebaseAuth get auth => FirebaseAuth.instance;
   static FirebaseFirestore get fireStore => FirebaseFirestore.instance;
+  static FirebaseStorage get storage => FirebaseStorage.instance;
   // ! Current User ID .
   static User? get currentUser => auth.currentUser;
   // ! Date and Time .

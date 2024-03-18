@@ -50,147 +50,152 @@ class _HomeScreenState extends State<HomeScreen>
           lazy: false,
         ),
       ],
-      child: Scaffold(
-          resizeToAvoidBottomInset: false,
-          body: Stack(
-            children: [
-              // ! Custom Drawer AppBar Section
-              const CustomDrawer(),
-              // ! Home Screen Section
-              BlocBuilder<Matrix4RotationBloc, Matrix4RotationState>(
-                builder: (context, state) {
-                  (state as RotationMatrixState);
-                  return AnimatedContainer(
-                    color: Resources.colors.kAllAppColor,
-                    transform: Matrix4.translationValues(
-                        state.xOffset, state.yOffset, 0.0)
-                      ..scale(state.isDrawerOpen ? 0.85 : 1.0)
-                      ..rotateZ(state.isDrawerOpen ? -50 : 0.0),
-                    duration: const Duration(seconds: 1),
-                    curve: Curves.fastEaseInToSlowEaseOut,
-                    width: double.maxFinite,
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 15,
-                      vertical: 5,
-                    ),
-                    child: Column(
-                      children: [
-                        homePageAppBar(context,
-                            child: state.isDrawerOpen
-                                ? Icon(
-                                    CupertinoIcons.arrow_left,
-                                    color: Resources.colors.kBlack,
-                                  )
-                                : CustomImageView(
-                                    imagePath: Resources.imagePath.homeDrawer),
-                            onTap: () {
-                          developer.log("message");
-                          BlocProvider.of<Matrix4RotationBloc>(context,
-                                  listen: false)
-                              .add(RotationHomePageEvents());
-                        }, size: size),
-                        // some Space .
-                        const CustomSizedBox(heightRatio: 0.02),
-                        // ! Search TextField Section .
-                        BlocBuilder<SearchBloc, SearchState>(
-                          builder: (context, state) {
-                            (state as SearchInitialState);
-                            return CustomSearchView(
-                              controller: state.searchController,
-                              hintText: "Looking for shoes",
-                              suffix: Padding(
-                                padding: const EdgeInsets.only(
-                                  right: 15,
-                                ),
-                                child: IconButton(
-                                  onPressed: () =>
-                                      state.searchController.clear(),
-                                  icon: Icon(
-                                    Icons.clear,
-                                    color: Colors.grey.shade600,
+      child: GestureDetector(
+        onTap: () => FocusScope.of(context).unfocus(),
+        child: Scaffold(
+            resizeToAvoidBottomInset: false,
+            body: Stack(
+              children: [
+                // ! Custom Drawer AppBar Section
+                const CustomDrawer(),
+                // ! Home Screen Section
+                BlocBuilder<Matrix4RotationBloc, Matrix4RotationState>(
+                  builder: (context, state) {
+                    (state as RotationMatrixState);
+                    return AnimatedContainer(
+                      color: Resources.colors.kAllAppColor,
+                      transform: Matrix4.translationValues(
+                          state.xOffset, state.yOffset, 0.0)
+                        ..scale(state.isDrawerOpen ? 0.85 : 1.0)
+                        ..rotateZ(state.isDrawerOpen ? -50 : 0.0),
+                      duration: const Duration(seconds: 1),
+                      curve: Curves.fastEaseInToSlowEaseOut,
+                      width: double.maxFinite,
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 15,
+                        vertical: 5,
+                      ),
+                      child: Column(
+                        children: [
+                          homePageAppBar(context,
+                              child: state.isDrawerOpen
+                                  ? Icon(
+                                      CupertinoIcons.arrow_left,
+                                      color: Resources.colors.kBlack,
+                                    )
+                                  : CustomImageView(
+                                      imagePath: Resources
+                                          .imagePath.homeDrawer), onTap: () {
+                            developer.log("message");
+                            BlocProvider.of<Matrix4RotationBloc>(context,
+                                    listen: false)
+                                .add(RotationHomePageEvents());
+                          }, size: size),
+                          // some Space .
+                          const CustomSizedBox(heightRatio: 0.02),
+                          // ! Search TextField Section .
+                          BlocBuilder<SearchBloc, SearchState>(
+                            builder: (context, state) {
+                              (state as SearchInitialState);
+                              return CustomSearchView(
+                                controller: state.searchController,
+                                hintText: "Looking for shoes",
+                                suffix: Padding(
+                                  padding: const EdgeInsets.only(
+                                    right: 15,
+                                  ),
+                                  child: IconButton(
+                                    onPressed: () =>
+                                        state.searchController.clear(),
+                                    icon: Icon(
+                                      Icons.clear,
+                                      color: Colors.grey.shade600,
+                                    ),
                                   ),
                                 ),
-                              ),
-                            );
-                          },
-                        ),
-                        const CustomSizedBox(heightRatio: 0.02),
-                        // ! TabBar Sections .
-                        DefaultTabController(
-                            length: 4,
-                            child: Column(
-                              children: [
-                                Material(
-                                  shadowColor: Colors.transparent,
-                                  color: Colors.transparent,
-                                  child: Container(
-                                    height: 60,
+                              );
+                            },
+                          ),
+                          const CustomSizedBox(heightRatio: 0.02),
+                          // ! TabBar Sections .
+                          DefaultTabController(
+                              length: 4,
+                              child: Column(
+                                children: [
+                                  Material(
+                                    shadowColor: Colors.transparent,
                                     color: Colors.transparent,
-                                    child: TabBar(
-                                        controller: tabController,
-                                        physics: const ClampingScrollPhysics(),
-                                        isScrollable: true,
-                                        tabAlignment: TabAlignment.center,
-                                        padding: const EdgeInsets.symmetric(
-                                            vertical: 10),
-                                        unselectedLabelColor: Colors.black,
-                                        indicatorSize:
-                                            TabBarIndicatorSize.label,
-                                        dividerColor: Colors.transparent,
-                                        indicator: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(30),
-                                            color:
-                                                Resources.colors.kButtonColor),
-                                        // ! Tabs
-                                        tabs: [
-                                          Tab(
-                                            child: _customTabBarItem(
-                                                tabBarImage: Resources
-                                                    .imagePath.nikeShoes),
-                                          ),
-                                          Tab(
+                                    child: Container(
+                                      height: 60,
+                                      color: Colors.transparent,
+                                      child: TabBar(
+                                          controller: tabController,
+                                          physics:
+                                              const ClampingScrollPhysics(),
+                                          isScrollable: true,
+                                          tabAlignment: TabAlignment.center,
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: 10),
+                                          unselectedLabelColor: Colors.black,
+                                          indicatorSize:
+                                              TabBarIndicatorSize.label,
+                                          dividerColor: Colors.transparent,
+                                          indicator: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(30),
+                                              color: Resources
+                                                  .colors.kButtonColor),
+                                          // ! Tabs
+                                          tabs: [
+                                            Tab(
                                               child: _customTabBarItem(
                                                   tabBarImage: Resources
-                                                      .imagePath.pumaShoes)),
-                                          Tab(
+                                                      .imagePath.nikeShoes),
+                                            ),
+                                            Tab(
+                                                child: _customTabBarItem(
+                                                    tabBarImage: Resources
+                                                        .imagePath.pumaShoes)),
+                                            Tab(
+                                                child: _customTabBarItem(
+                                                    tabBarImage: Resources
+                                                        .imagePath
+                                                        .adidasShoes)),
+                                            Tab(
                                               child: _customTabBarItem(
                                                   tabBarImage: Resources
-                                                      .imagePath.adidasShoes)),
-                                          Tab(
-                                            child: _customTabBarItem(
-                                                tabBarImage: Resources
-                                                    .imagePath.rebookShoes),
-                                          ),
-                                        ]),
+                                                      .imagePath.rebookShoes),
+                                            ),
+                                          ]),
+                                    ),
                                   ),
-                                ),
-                              ],
-                            )),
-                        //  ! _Build New Arrivals .
-                        _buildNewArrivals(context,
-                            newArrivalsText: "Popular Shoes",
-                            seeAllText: "See All"),
-                        Expanded(
-                            child: TabBarView(
-                                controller: tabController,
-                                // ! TabBar Screen List .
-                                children: const [
-                              NikeShoesScreen(),
-                              PumaShoesScreen(),
-                              BataShoesScreen(),
-                              ReebokShoesScreen(),
-                            ])),
-                      ],
-                    ),
-                  );
-                },
-              ),
-            ],
-          )
-          //   },
-          // )
-          ),
+                                ],
+                              )),
+                          //  ! _Build New Arrivals .
+                          _buildNewArrivals(context,
+                              newArrivalsText: "Popular Shoes",
+                              seeAllText: "See All"),
+                          Expanded(
+                              child: TabBarView(
+                                  controller: tabController,
+                                  // ! TabBar Screen List .
+                                  children: const [
+                                NikeShoesScreen(),
+                                PumaShoesScreen(),
+                                BataShoesScreen(),
+                                ReebokShoesScreen(),
+                              ])),
+                        ],
+                      ),
+                    );
+                  },
+                ),
+              ],
+            )
+            //   },
+            // )
+            ),
+      ),
     );
   }
 

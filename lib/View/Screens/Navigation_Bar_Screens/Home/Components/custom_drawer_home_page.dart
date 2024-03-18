@@ -1,7 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 import 'package:e_commerce/Components/Widgets/custom_shoes_page_design.dart';
+import 'package:e_commerce/Controller/Services/current_user_delete_account.dart';
 import 'package:e_commerce/Export/e_commerce_export.dart';
 
 class CustomDrawer extends StatefulWidget {
@@ -61,12 +61,6 @@ class _CustomDrawerState extends State<CustomDrawer> {
                   title: "Profile",
                   onTap: () => CustomDialog.toastMessage(message: "Profile"),
                 ),
-                // ! Home Screen
-                listTile(
-                  icon: CupertinoIcons.home,
-                  title: "Home Page",
-                  onTap: () => CustomDialog.toastMessage(message: "Home Page"),
-                ),
                 // ! My Cart
                 listTile(
                   icon: Icons.shopping_cart_checkout_outlined,
@@ -79,12 +73,20 @@ class _CustomDrawerState extends State<CustomDrawer> {
                   title: "Favorite",
                   onTap: () => CustomDialog.toastMessage(message: "Favorite"),
                 ),
+                // ! Delete Account
+                listTile(
+                  icon: Icons.delete_sweep_sharp,
+                  title: "Delete Account",
+                  onTap: () async {
+                    await DeleteCurrentUser.deleteCurrentUser();
+                    CustomDialog.toastMessage(message: "Delete Account");
+                  },
+                ),
                 // ! Order
                 listTile(
-                  icon: Icons.electric_bike,
-                  title: "Order",
-                  onTap: () => CustomDialog.toastMessage(message: "Order"),
-                ),
+                    icon: Icons.electric_bike,
+                    title: "Order",
+                    onTap: () async {}),
                 const CustomSizedBox(
                   heightRatio: 0.03,
                 ),

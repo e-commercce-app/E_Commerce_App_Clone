@@ -1,6 +1,6 @@
 // ignore_for_file: depend_on_referenced_packages, unnecessary_import, invalid_use_of_visible_for_testing_member
 import 'dart:developer';
-
+import 'dart:io';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:e_commerce/Components/Navigator_Service/navigator_services.dart';
@@ -11,6 +11,7 @@ import 'package:e_commerce/View/Screens/Auth/Sign_Up_Screen/Components/google_au
 import 'package:e_commerce/View/Screens/Auth/Sign_Up_Screen/bloc/sign_up_event.dart';
 import 'package:e_commerce/View/Screens/Auth/Sign_Up_Screen/bloc/sign_up_state.dart';
 
+import '../../../../../Components/Widgets/custom_image_Picker_widget.dart';
 import '../../../../../Controller/Services/firebase_services.dart';
 import '../../../../../Export/e_commerce_export.dart';
 
@@ -23,6 +24,8 @@ class SignUpBloc extends Bloc<SignUpBlocEvent, SignUpState> {
   final GlobalKey<FormState> _key = GlobalKey<FormState>();
   // !UserDetails Model Class
   UserDetails userInfo = UserDetails();
+  // ! Gallery Picker Services
+  ImagePickerService imagePickerService = ImagePickerService();
 
   SignUpBloc() : super(SignUpInitialState()) {
     // ! Call this Initial Value .
@@ -75,6 +78,15 @@ class SignUpBloc extends Bloc<SignUpBlocEvent, SignUpState> {
     // Google Button
     on<SignUpGoogleEvent>((event, emit) {
       GoogleSignInMethod.signInWithGoogle();
+    });
+
+    on<ImagePickerGalleryEvent>((event, emit) async {
+      // Pick image from gallery
+      final XFile? pickedFile = await imagePickerService.galleryImage();
+      if (pickedFile != null) {
+        log(pickedFile.path.toString());
+        ImagePickerLoadedState(image: File(pickedFile.path.toString()));
+      }
     });
 
     // password Obscure Check Bool Value.

@@ -17,6 +17,8 @@ export 'package:fluttertoast/fluttertoast.dart';
 export 'package:shimmer_effect/shimmer_effect.dart';
 // ! Lottie Animation Library
 export 'package:lottie/lottie.dart';
+//  ! Image Picker Library
+export 'package:image_picker/image_picker.dart';
 
 // ! Components Inner Folder Libraries  (Resource & Widget)
 export 'package:e_commerce/Components/Resources/resources.dart';

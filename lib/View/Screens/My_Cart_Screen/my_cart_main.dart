@@ -11,8 +11,9 @@ import '../../../Controller/Services/get_my_cart_data.dart';
 import '../../../Export/e_commerce_export.dart';
 
 class AddToCartScreen extends StatefulWidget {
-  const AddToCartScreen({super.key});
-
+  const AddToCartScreen({
+    super.key,
+  });
   @override
   State<AddToCartScreen> createState() => _AddToCartScreenState();
 }
@@ -25,7 +26,7 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    // Initial Events Calls .
+    // ! Initial Events Calls .
     context.read<CartFetchDataBloc>().add(FetchDataEvents());
   }
 
@@ -57,14 +58,15 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
                             itemCount: state.fetchData.length,
                             itemBuilder: (context, index) {
                               return CustomCartDesign(
-                                  imagePath: state.fetchData[index].productImage
-                                      .toString(),
-                                  positionStaggeredList: state.fetchData.length,
-                                  productName: state
-                                      .fetchData[index].productName
-                                      .toString(),
-                                  productPrice:
-                                      state.fetchData[index].productPrice ?? 0);
+                                imagePath: state.fetchData[index].productImage
+                                    .toString(),
+                                positionStaggeredList: state.fetchData.length,
+                                productName: state.fetchData[index].productName
+                                    .toString(),
+                                productPrice:
+                                    state.fetchData[index].productPrice ?? 0,
+                                quantity: state.fetchData[index].quantity ?? 0,
+                              );
                             },
                           ),
                         ),
