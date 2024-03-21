@@ -9,7 +9,7 @@ class ImagePickerService {
   Future<XFile?> galleryImage() async {
     final XFile? image =
         await picker.pickImage(source: ImageSource.gallery, imageQuality: 90);
-    developer.log(image!.path.toString());
+    // developer.log(image!.path.toString());
     return image;
   }
 

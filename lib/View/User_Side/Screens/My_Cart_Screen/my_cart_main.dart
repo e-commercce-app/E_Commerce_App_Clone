@@ -1,3 +1,4 @@
+import 'package:e_commerce/Controller/Services/Controller/cart_product_price.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -7,7 +8,7 @@ import 'package:e_commerce/View/User_Side/Screens/My_Cart_Screen/bloc/cart_fetch
 import '../../../../Components/Error/cart_no_item_page.dart';
 import '../../../../Components/Widgets/AppBar/app_bar_leading_icon_button.dart';
 import '../../../../Components/Widgets/AppBar/custom_appbar.dart';
-import '../../../../Controller/Services/get_my_cart_data.dart';
+import '../../../../Controller/Services/Controller/get_my_cart_data.dart';
 import '../../../../Export/e_commerce_export.dart';
 
 class AddToCartScreen extends StatefulWidget {
@@ -22,6 +23,12 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
   late Size size;
 
   MyCartFetchDataMethod fetchData = MyCartFetchDataMethod();
+  CartProductManagePrice managePrice = CartProductManagePrice();
+  @override
+  void initState() {
+    super.initState();
+    managePrice.fetchProductPrice();
+  }
 
   @override
   void didChangeDependencies() {
@@ -72,7 +79,7 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
                         ),
 
                         Container(
-                          height: size.height * 0.3,
+                          height: size.height * 0.15,
                           width: double.infinity,
                           decoration: BoxDecoration(
                               color: Resources.colors.kWhite,
@@ -88,61 +95,58 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
                             child: Column(
                               // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-                                Expanded(
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      AutoSizeText(
-                                        "Subtotal",
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .titleMedium!
-                                            .copyWith(
-                                              color: Resources.colors.kGray600,
-                                            ),
-                                      ),
-                                      AutoSizeText(
-                                        "\$1250.00",
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .titleLarge
-                                            ?.copyWith(
-                                                color: Resources
-                                                    .colors.kPrimaryContainer),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Expanded(
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      AutoSizeText("Shopping",
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .titleMedium!
-                                              .copyWith(
-                                                color:
-                                                    Resources.colors.kGray600,
-                                              )),
-                                      AutoSizeText(
-                                        "\$40.90",
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .titleLarge
-                                            ?.copyWith(
-                                                color: Resources
-                                                    .colors.kPrimaryContainer),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Divider(
-                                  color: Resources.colors.kGrey200
-                                      .withOpacity(0.4),
-                                ),
+                                // Expanded(
+                                //   child: Row(
+                                //     mainAxisAlignment:
+                                //         MainAxisAlignment.spaceBetween,
+                                //     children: [
+                                //       AutoSizeText(
+                                //         "Subtotal",
+                                //         style: Theme.of(context)
+                                //             .textTheme
+                                //             .titleMedium!
+                                //             .copyWith(
+                                //               color: Resources.colors.kGray600,
+                                //             ),
+                                //       ),
+                                //       AutoSizeText(
+                                //         "\$1250.00",
+                                //         style: Theme.of(context)
+                                //             .textTheme
+                                //             .titleLarge
+                                //             ?.copyWith(
+                                //                 color: Resources
+                                //                     .colors.kPrimaryContainer),
+                                //       ),
+                                //     ],
+                                //   ),
+                                // ),
+                                // Expanded(
+                                //   child: Row(
+                                //     mainAxisAlignment:
+                                //         MainAxisAlignment.spaceBetween,
+                                //     children: [
+                                //       AutoSizeText("Shopping",
+                                //           style: Theme.of(context)
+                                //               .textTheme
+                                //               .titleMedium!
+                                //               .copyWith(
+                                //                 color:
+                                //                     Resources.colors.kGray600,
+                                //               )),
+                                //       AutoSizeText(
+                                //         "\$40.90",
+                                //         style: Theme.of(context)
+                                //             .textTheme
+                                //             .titleLarge
+                                //             ?.copyWith(
+                                //                 color: Resources
+                                //                     .colors.kPrimaryContainer),
+                                //       ),
+                                //     ],
+                                //   ),
+                                // ),
+
                                 Expanded(
                                   child: Row(
                                     mainAxisAlignment:
@@ -158,7 +162,7 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
                                             ),
                                       ),
                                       AutoSizeText(
-                                        "\$1367.90",
+                                        "Total ${managePrice.totalPrice.toStringAsFixed(1)}",
                                         style: Theme.of(context)
                                             .textTheme
                                             .titleLarge

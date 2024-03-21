@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import '../../Export/e_commerce_export.dart';
+import '../../../Export/e_commerce_export.dart';
 
 class DeleteCurrentUser {
   static FirebaseFirestore fireStore = FirebaseFirestore.instance;

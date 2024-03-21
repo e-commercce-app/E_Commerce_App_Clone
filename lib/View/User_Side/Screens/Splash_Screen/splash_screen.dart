@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:e_commerce/Controller/Services/get_user_data_controller.dart';
+import 'package:e_commerce/Controller/Services/Controller/get_user_data_controller.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../../../Export/e_commerce_export.dart';

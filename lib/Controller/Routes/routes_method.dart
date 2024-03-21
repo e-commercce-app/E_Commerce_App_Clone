@@ -78,12 +78,11 @@ class RoutesMethod {
     // 4
     else if (settings.name == RoutesName.signUpScreen) {
       return CustomPageTransition(
-          child: MultiBlocProvider(providers: [
-        BlocProvider(
+        child: BlocProvider(
           create: (context) => SignUpBloc(),
+          child: const SignUpScreen(),
         ),
-        // BlocProvider(create: (context) => ImagePickerBloc())
-      ], child: const SignUpScreen()));
+      );
     }
     // 5
     else if (settings.name == RoutesName.signInScreen) {

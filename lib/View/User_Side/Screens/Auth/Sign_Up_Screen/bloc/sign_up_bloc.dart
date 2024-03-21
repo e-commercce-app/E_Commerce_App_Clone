@@ -30,6 +30,16 @@ class SignUpBloc extends Bloc<SignUpBlocEvent, SignUpState> {
   SignUpBloc() : super(SignUpInitialState()) {
     // ! Call this Initial Value .
     loadedState;
+
+    on<ImagePickerGalleryEvent>((event, emit) async {
+      // Pick image from gallery
+      final XFile? pickedFile = await imagePickerService.galleryImage();
+      if (pickedFile != null) {
+        log(pickedFile.path.toString());
+        ImagePickerLoadedState(image: File(pickedFile.path.toString()));
+      }
+    });
+
     //  Process this button Click and TextEditingController.
     on<SignUpClickEvent>((event, emit) {
       if (_key.currentState!.validate()) {
@@ -79,15 +89,6 @@ class SignUpBloc extends Bloc<SignUpBlocEvent, SignUpState> {
     // Google Button
     on<SignUpGoogleEvent>((event, emit) {
       GoogleSignInMethod.signInWithGoogle();
-    });
-
-    on<ImagePickerGalleryEvent>((event, emit) async {
-      // Pick image from gallery
-      final XFile? pickedFile = await imagePickerService.galleryImage();
-      if (pickedFile != null) {
-        log(pickedFile.path.toString());
-        ImagePickerLoadedState(image: File(pickedFile.path.toString()));
-      }
     });
 
     // password Obscure Check Bool Value.

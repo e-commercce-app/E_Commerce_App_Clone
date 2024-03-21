@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:e_commerce/Models/my_cart_model_class.dart';
 
-import '../../Export/e_commerce_export.dart';
+import '../../../Export/e_commerce_export.dart';
 
 class MyCartFetchDataMethod {
   MyCartModelClass cartModelClass = MyCartModelClass();

@@ -3,7 +3,7 @@
 import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
-import 'package:e_commerce/Controller/Services/get_user_data_controller.dart';
+import 'package:e_commerce/Controller/Services/Controller/get_user_data_controller.dart';
 import 'package:e_commerce/Export/e_commerce_export.dart';
 
 import '../../Sign_Up_Screen/Components/google_authentication.dart';

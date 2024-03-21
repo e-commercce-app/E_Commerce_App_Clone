@@ -1,7 +1,7 @@
 // ignore_for_file: depend_on_referenced_packages
 
 import 'package:bloc/bloc.dart';
-import 'package:e_commerce/Controller/Services/get_my_cart_data.dart';
+import 'package:e_commerce/Controller/Services/Controller/get_my_cart_data.dart';
 
 import '../../../../../Models/my_cart_model_class.dart';
 
