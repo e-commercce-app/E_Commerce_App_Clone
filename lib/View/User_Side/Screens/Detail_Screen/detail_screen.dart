@@ -5,7 +5,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:readmore/readmore.dart';
 
 import 'package:e_commerce/Components/Localization/app_strings.dart';
-import 'package:e_commerce/Components/Widgets/custom_image_view.dart';
 import 'package:e_commerce/Models/my_cart_model_class.dart';
 
 import '../../../../Components/Widgets/custom_shoes_page_design.dart';

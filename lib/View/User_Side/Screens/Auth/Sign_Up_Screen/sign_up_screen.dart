@@ -6,7 +6,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:e_commerce/Components/Widgets/custom_image_view.dart';
 import 'package:e_commerce/Export/e_commerce_export.dart';
 
 import '../../../../../Components/Widgets/AppBar/app_bar_leading_icon_button.dart';

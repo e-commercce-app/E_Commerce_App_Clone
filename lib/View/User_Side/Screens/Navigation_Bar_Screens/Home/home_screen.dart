@@ -10,7 +10,6 @@ import 'package:e_commerce/View/User_Side/Screens/Home_Page_Tabs/Reebok_Shoes/re
 import 'package:e_commerce/View/User_Side/Screens/Navigation_Bar_Screens/Home/Components/custom_drawer_home_page.dart';
 import 'package:e_commerce/View/User_Side/Screens/Navigation_Bar_Screens/Home/bloc/matrix4_rotation_bloc.dart';
 
-import '../../../../../Components/Widgets/custom_image_view.dart';
 import '../../../../../Components/Widgets/custom_search_bar_text_field.dart';
 import '../../../../../Export/e_commerce_export.dart';
 import 'Components/home_page_app_bar.dart';

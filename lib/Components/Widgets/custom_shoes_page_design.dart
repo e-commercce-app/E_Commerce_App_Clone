@@ -1,6 +1,5 @@
 // ignore_for_file: must_be_immutable
 
-import 'package:e_commerce/Components/Widgets/custom_image_view.dart';
 import 'package:e_commerce/Export/e_commerce_export.dart';
 
 class CustomProductShoesDesign extends StatefulWidget {

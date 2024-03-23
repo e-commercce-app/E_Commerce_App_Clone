@@ -1,3 +1,4 @@
+import 'package:e_commerce/Controller/Services/Controller/get_my_cart_data.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:e_commerce/Export/e_commerce_export.dart';
@@ -16,6 +17,7 @@ class CartBottomBarScreen extends StatefulWidget {
 }
 
 class _CartBottomBarScreenState extends State<CartBottomBarScreen> {
+  MyCartFetchDataMethod myCartFetchDataMethod = MyCartFetchDataMethod();
   late Size size;
   @override
   void initState() {
@@ -55,6 +57,7 @@ class _CartBottomBarScreenState extends State<CartBottomBarScreen> {
                             productPrice:
                                 state.cartData[index].productPrice ?? 0,
                             quantity: state.cartData[index].quantity ?? 0,
+                            deleteButton: () {},
                           );
                         },
                       ),

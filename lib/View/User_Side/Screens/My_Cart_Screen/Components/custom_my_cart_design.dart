@@ -1,7 +1,5 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-
-import '../../../../../Components/Widgets/custom_image_view.dart';
 import '../../../../../Export/e_commerce_export.dart';
 
 class CustomCartDesign extends StatefulWidget {
@@ -12,12 +10,14 @@ class CustomCartDesign extends StatefulWidget {
     required this.productName,
     required this.productPrice,
     required this.quantity,
+    required this.deleteButton,
   });
   final String imagePath;
   final String productName;
   final num productPrice;
   final int quantity;
   final int positionStaggeredList;
+  final Function()? deleteButton;
   @override
   State<CustomCartDesign> createState() => _CustomCartDesignState();
 }
@@ -96,9 +96,9 @@ class _CustomCartDesignState extends State<CustomCartDesign> {
                           ),
                           Expanded(
                             child: AutoSizeText(
-                              widget.productPrice.toString(),
-                              presetFontSizes: const [23, 13, 9, 5],
-                              style: GoogleFonts.almendraSc(
+                              "Price : ${widget.productPrice.toString()}",
+                              presetFontSizes: const [20, 13, 9, 5],
+                              style: GoogleFonts.alice(
                                   textStyle: Theme.of(context)
                                       .textTheme
                                       .bodySmall
@@ -109,57 +109,28 @@ class _CustomCartDesignState extends State<CustomCartDesign> {
                           ),
                           Expanded(
                             child: AutoSizeText(
-                              widget.quantity.toString(),
-                              presetFontSizes: const [23, 13, 9, 5],
-                              style: GoogleFonts.almendraSc(
+                              "Quantity : ${widget.quantity.toString()}",
+                              presetFontSizes: const [20, 13, 9, 5],
+                              style: GoogleFonts.alice(
                                   textStyle: Theme.of(context)
                                       .textTheme
                                       .bodySmall
                                       ?.copyWith(
                                           overflow: TextOverflow.ellipsis),
-                                  fontWeight: FontWeight.w500),
-                            ),
-                          ),
-                          // increment and decrement Sections
-                          Expanded(
-                            child: Row(
-                              children: [
-                                IconButton(
-                                    color: Colors.blue,
-                                    alignment: Alignment.center,
-                                    onPressed: () {},
-                                    highlightColor: Colors.blue,
-                                    icon: const Center(
-                                      child: Icon(
-                                        Icons.minimize_outlined,
-                                        color: Colors.black,
-                                      ),
-                                    )),
-                                AutoSizeText(
-                                  "1",
-                                  presetFontSizes: const [20, 15, 10, 7],
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyLarge
-                                      ?.copyWith(
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                ),
-                                IconButton(
-                                    color: Colors.blue,
-                                    alignment: Alignment.center,
-                                    onPressed: () {},
-                                    highlightColor: Colors.blue,
-                                    icon: const Center(
-                                      child: Icon(
-                                        Icons.minimize_outlined,
-                                        color: Colors.black,
-                                      ),
-                                    )),
-                              ],
+                                  fontWeight: FontWeight.w300),
                             ),
                           )
                         ],
+                      ),
+                      Expanded(
+                        child: Align(
+                            alignment: Alignment.bottomRight,
+                            child: InkWell(
+                                onTap: widget.deleteButton ?? () {},
+                                child: Icon(
+                                  CupertinoIcons.delete,
+                                  color: Resources.colors.kBlack,
+                                ))),
                       )
                     ],
                   ),

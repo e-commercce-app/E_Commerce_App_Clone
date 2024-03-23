@@ -1,7 +1,7 @@
-import 'package:e_commerce/Controller/Services/Controller/cart_product_price.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'package:e_commerce/Controller/Services/Controller/cart_product_price.dart';
 import 'package:e_commerce/View/User_Side/Screens/My_Cart_Screen/Components/custom_my_cart_design.dart';
 import 'package:e_commerce/View/User_Side/Screens/My_Cart_Screen/bloc/cart_fetch_data_bloc.dart';
 
@@ -10,6 +10,7 @@ import '../../../../Components/Widgets/AppBar/app_bar_leading_icon_button.dart';
 import '../../../../Components/Widgets/AppBar/custom_appbar.dart';
 import '../../../../Controller/Services/Controller/get_my_cart_data.dart';
 import '../../../../Export/e_commerce_export.dart';
+import 'Components/custom_delete_cart_dialog.dart';
 
 class AddToCartScreen extends StatefulWidget {
   const AddToCartScreen({
@@ -22,7 +23,7 @@ class AddToCartScreen extends StatefulWidget {
 class _AddToCartScreenState extends State<AddToCartScreen> {
   late Size size;
 
-  MyCartFetchDataMethod fetchData = MyCartFetchDataMethod();
+  MyCartFetchDataMethod cartFetchDataMethod = MyCartFetchDataMethod();
   CartProductManagePrice managePrice = CartProductManagePrice();
   @override
   void initState() {
@@ -73,6 +74,26 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
                                 productPrice:
                                     state.fetchData[index].productPrice ?? 0,
                                 quantity: state.fetchData[index].quantity ?? 0,
+                                deleteButton: () {
+                                  // ! Show Delete Dialog .
+                                  customDeleteCartDialogWidget(
+                                    context: context,
+                                    state: state,
+                                    index: index,
+                                    size: size,
+                                    onPressedOky: () {
+                                      cartFetchDataMethod
+                                          .deleteCartProduct(
+                                              itemID: state
+                                                  .fetchData[index].productUid
+                                                  .toString())
+                                          .then((value) {
+                                        NavigatorService.goBack();
+                                      });
+                                      setState(() {});
+                                    },
+                                  );
+                                },
                               );
                             },
                           ),
@@ -95,58 +116,6 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
                             child: Column(
                               // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-                                // Expanded(
-                                //   child: Row(
-                                //     mainAxisAlignment:
-                                //         MainAxisAlignment.spaceBetween,
-                                //     children: [
-                                //       AutoSizeText(
-                                //         "Subtotal",
-                                //         style: Theme.of(context)
-                                //             .textTheme
-                                //             .titleMedium!
-                                //             .copyWith(
-                                //               color: Resources.colors.kGray600,
-                                //             ),
-                                //       ),
-                                //       AutoSizeText(
-                                //         "\$1250.00",
-                                //         style: Theme.of(context)
-                                //             .textTheme
-                                //             .titleLarge
-                                //             ?.copyWith(
-                                //                 color: Resources
-                                //                     .colors.kPrimaryContainer),
-                                //       ),
-                                //     ],
-                                //   ),
-                                // ),
-                                // Expanded(
-                                //   child: Row(
-                                //     mainAxisAlignment:
-                                //         MainAxisAlignment.spaceBetween,
-                                //     children: [
-                                //       AutoSizeText("Shopping",
-                                //           style: Theme.of(context)
-                                //               .textTheme
-                                //               .titleMedium!
-                                //               .copyWith(
-                                //                 color:
-                                //                     Resources.colors.kGray600,
-                                //               )),
-                                //       AutoSizeText(
-                                //         "\$40.90",
-                                //         style: Theme.of(context)
-                                //             .textTheme
-                                //             .titleLarge
-                                //             ?.copyWith(
-                                //                 color: Resources
-                                //                     .colors.kPrimaryContainer),
-                                //       ),
-                                //     ],
-                                //   ),
-                                // ),
-
                                 Expanded(
                                   child: Row(
                                     mainAxisAlignment:
@@ -162,7 +131,7 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
                                             ),
                                       ),
                                       AutoSizeText(
-                                        "Total ${managePrice.totalPrice.toStringAsFixed(1)}",
+                                        "\$${managePrice.totalPrice.toStringAsFixed(1)}",
                                         style: Theme.of(context)
                                             .textTheme
                                             .titleLarge
@@ -229,7 +198,7 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
   }
 }
 
-  // My Cart Custom AppBar Section
+// My Cart Custom AppBar Section
 //   CustomAppBar myCartAppCart(
 //       {AsyncSnapshot<List<MyCartModelClass>>? snapshot}) {
 //     return CustomAppBar(

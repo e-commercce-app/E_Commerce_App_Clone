@@ -1,4 +1,3 @@
-import 'package:e_commerce/Components/Widgets/custom_image_view.dart';
 
 import '../../../../../../Components/Widgets/AppBar/app_bar_leading_icon_button.dart';
 import '../../../../../../Components/Widgets/AppBar/app_bar_subtitle_one.dart';
