@@ -21,6 +21,8 @@ import '../../Components/Error/route_not_found_page.dart';
 import '../../Export/e_commerce_export.dart';
 import '../../View/User_Side/Screens/Auth/Sign_Up_Screen/sign_up_screen.dart';
 import '../../View/User_Side/Screens/Navigation_Bar_Screens/Home/home_screen.dart';
+import '../../View/User_Side/Screens/Navigation_Bar_Screens/Home_Searching_Screen/bloc/search_bloc.dart';
+import '../../View/User_Side/Screens/Navigation_Bar_Screens/Home_Searching_Screen/search_main_page.dart';
 import '../../View/User_Side/Screens/Navigation_Bar_Screens/bloc/bottom_navigation_bloc.dart';
 import '../../View/User_Side/Screens/Navigation_Bar_Screens/navigation_bar_main.dart';
 
@@ -37,6 +39,7 @@ abstract class RoutesName {
   // Todo =>  User Panel Screens
   static const String bottomBarScreen = "BottomBarScreen";
   static const String homeScreen = "HomeScreen";
+  static const String searchHomeView = "SearchHomeView";
   static const String detailScreen = "DetailScreen";
   static const String addToCartScreen = "AddToCartScreen";
   static const String profile = "profile";
@@ -74,6 +77,13 @@ class RoutesMethod {
           // )
 
           );
+    }
+    // 3
+    else if (settings.name == RoutesName.searchHomeView) {
+      return CustomPageTransition(
+          child: BlocProvider(
+              create: (context) => SearchBloc(),
+              child: const SearchingTextField()));
     }
     // 4
     else if (settings.name == RoutesName.signUpScreen) {

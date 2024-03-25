@@ -24,6 +24,8 @@ class CustomSearchView extends StatelessWidget {
     this.filled = true,
     this.validator,
     this.onChanged,
+    this.onFieldSubmitted,
+    this.readOnly,
   }) : super(
           key: key,
         );
@@ -49,7 +51,8 @@ class CustomSearchView extends StatelessWidget {
   final bool? filled;
   final FormFieldValidator<String>? validator;
   final Function(String)? onChanged;
-
+  final Function(String)? onFieldSubmitted;
+  final bool? readOnly;
   @override
   Widget build(BuildContext context) {
     return alignment != null
@@ -77,6 +80,7 @@ class CustomSearchView extends StatelessWidget {
         scrollPadding:
             EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
         controller: controller,
+        readOnly: readOnly ?? false,
         focusNode: focusNode ?? FocusNode(),
         autofocus: autofocus!,
         style: textStyle ??
@@ -90,6 +94,9 @@ class CustomSearchView extends StatelessWidget {
         validator: validator,
         onChanged: (String value) {
           onChanged!.call(value);
+        },
+        onFieldSubmitted: (value) {
+          onFieldSubmitted!.call(value);
         },
       ),
     );
