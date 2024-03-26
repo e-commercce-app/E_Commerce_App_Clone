@@ -24,7 +24,7 @@ class _NikeShoesScreenState extends State<NikeShoesScreen> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: StreamBuilder(
-        stream: getNikeShoesData(),
+        stream: FirebaseServices.nikeShoesCollection.snapshots(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator.adaptive());
