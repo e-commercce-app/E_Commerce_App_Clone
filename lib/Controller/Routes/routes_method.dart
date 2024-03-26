@@ -25,6 +25,7 @@ import '../../View/User_Side/Screens/Navigation_Bar_Screens/Home_Searching_Scree
 import '../../View/User_Side/Screens/Navigation_Bar_Screens/Home_Searching_Screen/search_main_page.dart';
 import '../../View/User_Side/Screens/Navigation_Bar_Screens/bloc/bottom_navigation_bloc.dart';
 import '../../View/User_Side/Screens/Navigation_Bar_Screens/navigation_bar_main.dart';
+import 'page_transition.dart';
 
 // ! Routes Name
 abstract class RoutesName {
@@ -78,14 +79,14 @@ class RoutesMethod {
 
           );
     }
-    // 3
+    // 4
     else if (settings.name == RoutesName.searchHomeView) {
       return CustomPageTransition(
           child: BlocProvider(
               create: (context) => SearchBloc(),
               child: const SearchingTextField()));
     }
-    // 4
+    // 5
     else if (settings.name == RoutesName.signUpScreen) {
       return CustomPageTransition(
         child: BlocProvider(
@@ -94,7 +95,7 @@ class RoutesMethod {
         ),
       );
     }
-    // 5
+    // 6
     else if (settings.name == RoutesName.signInScreen) {
       return CustomPageTransition(
           child: BlocProvider(
@@ -102,7 +103,7 @@ class RoutesMethod {
         child: const SignInScreen(),
       ));
     }
-    // 6
+    // 7
     else if (settings.name == RoutesName.forgetPasswordScreen) {
       return CustomPageTransition(
           child: BlocProvider(
@@ -110,7 +111,7 @@ class RoutesMethod {
         child: const ForgetPassword(),
       ));
     }
-    //  7
+    // 8
     else if (settings.name == RoutesName.bottomBarScreen) {
       return CustomPageTransition(
           child: MultiBlocProvider(
@@ -125,14 +126,14 @@ class RoutesMethod {
         child: const BottomBarScreen(),
       ));
     }
-    // 8
+    // 9
     else if (settings.name == RoutesName.detailScreen) {
       return CustomPageTransition(
           child: DetailsScreen(
         productHomeScreen: settings.arguments as ProductShoesHomePage,
       ));
     }
-    // 9
+    // 10
     else if (settings.name == RoutesName.addToCartScreen) {
       return CustomPageTransition(
           child: BlocProvider(
@@ -140,11 +141,11 @@ class RoutesMethod {
         child: const AddToCartScreen(),
       ));
     }
-    // 10
+    // 11
     else if (settings.name == RoutesName.profile) {
       return CustomPageTransition(child: const ProfileScreen());
     }
-    // 11
+    // 12
     else if (settings.name == RoutesName.adminPanel) {
       return CustomPageTransition(child: const AdminScreen());
     }
@@ -157,17 +158,4 @@ class RoutesMethod {
       );
     }
   }
-}
-
-//! Controll Page Transition
-class CustomPageTransition extends PageRouteBuilder {
-  Widget child;
-  CustomPageTransition({required this.child})
-      : super(
-            transitionsBuilder:
-                (context, animation, secondaryAnimation, child) =>
-                    FadeTransition(opacity: animation, child: child),
-            transitionDuration: const Duration(microseconds: 700),
-            reverseTransitionDuration: const Duration(milliseconds: 500),
-            pageBuilder: (context, animation, secondaryAnimation) => child);
 }

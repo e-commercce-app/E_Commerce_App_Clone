@@ -1,23 +1,17 @@
 import '../../Export/e_commerce_export.dart';
-import '../Widgets/custom_image_view.dart';
 
-class NotFound404Error extends StatefulWidget {
+class NotFound404Error extends StatelessWidget {
   const NotFound404Error({Key? key, required this.imagePath}) : super(key: key);
   final String imagePath;
-  @override
-  State<NotFound404Error> createState() => _NotFound404ErrorState();
-}
 
-class _NotFound404ErrorState extends State<NotFound404Error> {
-  late Size size;
   @override
   Widget build(BuildContext context) {
-    size = MediaQuery.sizeOf(context);
+    Size size = MediaQuery.sizeOf(context);
     return Scaffold(
       body: Stack(
         children: [
           CustomImageView(
-            imagePath: widget.imagePath,
+            imagePath: imagePath,
             height: size.height,
           ),
           Positioned(

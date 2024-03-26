@@ -1,3 +1,4 @@
+import 'package:e_commerce/Components/Error/route_not_found_page.dart';
 import 'package:e_commerce/Components/Widgets/custom_grid_view_design.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -90,7 +91,8 @@ class _SearchingTextFieldState extends State<SearchingTextField> {
                     itemCount: searchResults.length,
                     itemBuilder: (BuildContext context, int index) {
                       return searchResults.isEmpty
-                          ? Text("data")
+                          ? NotFound404Error(
+                              imagePath: Resources.imagePath.notFound)
                           : CustomProductShoesDesign(
                               // Fetch Images
                               productImage: searchResults[index]
