@@ -1,18 +1,15 @@
-import 'package:flutter/cupertino.dart';
-
 import '../../Export/e_commerce_export.dart';
-import '../Widgets/AppBar/app_bar_leading_icon_button.dart';
 import '../Widgets/AppBar/app_bar_subtitle_one.dart';
 import '../Widgets/AppBar/custom_appbar.dart';
 
-class CartNoItemFound extends StatefulWidget {
-  const CartNoItemFound({super.key});
+class WishListNotFound extends StatefulWidget {
+  const WishListNotFound({super.key});
 
   @override
-  State<CartNoItemFound> createState() => _CartNoItemFoundState();
+  State<WishListNotFound> createState() => _WishListNotFoundState();
 }
 
-class _CartNoItemFoundState extends State<CartNoItemFound> {
+class _WishListNotFoundState extends State<WishListNotFound> {
   late Size size;
 
   @override
@@ -20,15 +17,15 @@ class _CartNoItemFoundState extends State<CartNoItemFound> {
     size = MediaQuery.sizeOf(context);
     return Scaffold(
       backgroundColor: Resources.colors.kWhite,
-      appBar: cartNoItemAppBar(context, size: size),
+      appBar: wishListAppBar(context, size: size),
       body: Center(
         child: SingleChildScrollView(
           child: Column(
             children: [
               LottieBuilder.asset(
-                Resources.imagePath.cartNotFound,
-                height: size.height * 0.3,
-                width: size.width * 0.6,
+                Resources.imagePath.favoriteEmpty,
+                height: size.height * 0.4,
+                width: size.width * 0.8,
                 fit: BoxFit.cover,
                 renderCache: RenderCache.drawingCommands,
               ),
@@ -36,7 +33,7 @@ class _CartNoItemFoundState extends State<CartNoItemFound> {
                 heightRatio: 0.003,
               ),
               AutoSizeText(
-                "Ohh... Your Cart is Empty".toUpperCase(),
+                "Your wishList is empty!".toUpperCase(),
                 presetFontSizes: const [18, 15, 10, 5],
                 overflow: TextOverflow.ellipsis,
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(
@@ -44,7 +41,7 @@ class _CartNoItemFoundState extends State<CartNoItemFound> {
                     ),
               ),
               AutoSizeText(
-                "But it doesn't have to be",
+                "Explore more and shortlist some items",
                 presetFontSizes: const [15, 10, 5],
                 overflow: TextOverflow.ellipsis,
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
@@ -71,17 +68,10 @@ class _CartNoItemFoundState extends State<CartNoItemFound> {
   }
 }
 
-PreferredSizeWidget cartNoItemAppBar(BuildContext context,
+PreferredSizeWidget wishListAppBar(BuildContext context,
     {Function()? onTap, Size? size}) {
   return CustomAppBar(
     size: size!,
-    leading: AppBarLeadingIconButtonOne(
-      onTap: onTap ?? () => NavigatorService.goBack(),
-      child: Icon(
-        CupertinoIcons.arrow_left,
-        color: Resources.colors.kBlack,
-      ),
-    ),
     centerTitle: true,
     title: AppbarSubtitleOne(
       text: "Item Not Found",

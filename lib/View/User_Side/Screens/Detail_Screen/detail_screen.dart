@@ -1,16 +1,20 @@
-// ignore_for_file: must_be_immutable
+// ignore_for_file: must_be_immutable, prefer_is_empty
 import 'dart:developer';
 
+import 'package:e_commerce/Models/add_to_favorite_item.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:readmore/readmore.dart';
 
 import 'package:e_commerce/Components/Localization/app_strings.dart';
 import 'package:e_commerce/Models/my_cart_model_class.dart';
 
+import '../../../../Components/Widgets/AppBar/app_bar_leading_icon_button.dart';
+import '../../../../Components/Widgets/AppBar/app_bar_subtitle_one.dart';
+import '../../../../Components/Widgets/AppBar/custom_appbar.dart';
 import '../../../../Components/Widgets/custom_shoes_page_design.dart';
 import '../../../../Export/e_commerce_export.dart';
 import '../../../../Models/shoes_product_home_page.dart';
-import 'Components/detail_screen_app_bar.dart';
 
 class DetailsScreen extends StatefulWidget {
   DetailsScreen({super.key, required this.productHomeScreen});
@@ -29,6 +33,8 @@ class _DetailsScreenState extends State<DetailsScreen>
   var quantity = 1;
   num currentPrice = 0.0;
 
+  //! Favorite Model Class
+  FavorIteItemModelClass favorIteItemModelClass = FavorIteItemModelClass();
   @override
   void initState() {
     super.initState();
@@ -40,6 +46,27 @@ class _DetailsScreenState extends State<DetailsScreen>
     controller.forward(); // start Animation .
   }
 
+  // ! Add To Favorite .
+  Future<void> addToFavorite() async {
+    var dateAndTime = DateTime.now().microsecondsSinceEpoch.toString();
+    User? current = FirebaseServices.auth.currentUser;
+    favorIteItemModelClass.favoriteID =
+        "$dateAndTime${FirebaseServices.currentUser!.uid}";
+    favorIteItemModelClass.favoriteImageUrl =
+        widget.productHomeScreen.productImage;
+    favorIteItemModelClass.favoriteName = widget.productHomeScreen.productName;
+    favorIteItemModelClass.favoritePrice =
+        widget.productHomeScreen.productPrice;
+    FirebaseServices.currentUserCollection
+        .doc(current?.uid)
+        .collection("addToFavorite")
+        .doc("$dateAndTime${FirebaseServices.currentUser!.uid}")
+        .set(favorIteItemModelClass.toMap())
+        .then((value) {
+      CustomDialog.toastMessage(message: "Add To Favorite");
+    });
+  }
+
   // screen size
   late Size size;
   @override
@@ -47,7 +74,56 @@ class _DetailsScreenState extends State<DetailsScreen>
     size = MediaQuery.sizeOf(context);
     return Scaffold(
       // ! App Bar section
-      appBar: homePageAppBar(context, size: size),
+      appBar: CustomAppBar(
+        size: size,
+        leading: AppBarLeadingIconButtonOne(
+          child: Icon(
+            CupertinoIcons.arrow_left,
+            color: Resources.colors.kBlack,
+            size: size.width * 0.07,
+          ),
+          onTap: () => NavigatorService.goBack(),
+        ),
+        centerTitle: true,
+        title: AppbarSubtitleOne(
+          text: "Men's Shoes",
+          margin: const EdgeInsets.only(left: 40),
+        ),
+        actions: [
+          StreamBuilder(
+            stream: FirebaseServices.currentUserCollection
+                .doc(FirebaseServices.currentUser?.uid)
+                .collection("addToFavorite")
+                .where("favoritePrice",
+                    isEqualTo: widget.productHomeScreen.productPrice)
+                .snapshots(),
+            builder: (context, snapshot) {
+              if (snapshot.data == null) {
+                return const Text("");
+              }
+              return AppBarLeadingIconButtonOne(
+                  onTap: () => snapshot.data?.docs.length == 0
+                      ? addToFavorite()
+                      : "Already added to Favorites",
+                  child: snapshot.data?.docs.length == 0
+                      ? Icon(
+                          Icons.favorite_outline,
+                          color: Resources.colors.kButtonColor,
+                        )
+                      : Icon(
+                          Icons.favorite,
+                          color: Resources.colors.kButtonColor,
+                        ));
+            },
+          ),
+          // Some Space
+          const CustomSizedBox(
+            widthRatio: 0.04,
+          ),
+        ],
+      ),
+
+      // ! Body Sections
       body: SingleChildScrollView(
         child: Column(
           children: [

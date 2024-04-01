@@ -5,6 +5,7 @@ import 'package:e_commerce/View/User_Side/Screens/Navigation_Bar_Screens/Profile
 import 'package:e_commerce/View/User_Side/Screens/Navigation_Bar_Screens/bloc/bottom_navigation_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../Export/e_commerce_export.dart';
+import 'Favorite_Items/favorite_main_page.dart';
 import 'Home/home_screen.dart';
 
 class BottomBarScreen extends StatefulWidget {
@@ -91,28 +92,6 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
           body: _pages![(state).index],
         );
       },
-    );
-  }
-}
-
-class Cart extends StatelessWidget {
-  const Cart({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(child: Text('Cart')),
-    );
-  }
-}
-
-class FavoriteScreen extends StatelessWidget {
-  const FavoriteScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(child: Text('Favorite')),
     );
   }
 }

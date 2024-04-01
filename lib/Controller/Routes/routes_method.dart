@@ -1,4 +1,5 @@
 import 'package:e_commerce/View/Admin_Panel/Screens/admin_main_file.dart';
+import 'package:e_commerce/View/User_Side/Screens/CheckOut/checkout_main.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:e_commerce/Models/shoes_product_home_page.dart';
@@ -44,6 +45,7 @@ abstract class RoutesName {
   static const String detailScreen = "DetailScreen";
   static const String addToCartScreen = "AddToCartScreen";
   static const String profile = "profile";
+  static const String checkOutScreen = "CheckOutScreen";
 
   // Todo =>  Admin Panel Screens
   static const String adminPanel = "AdminPanelScreen";
@@ -146,6 +148,10 @@ class RoutesMethod {
       return CustomPageTransition(child: const ProfileScreen());
     }
     // 12
+    else if (settings.name == RoutesName.checkOutScreen) {
+      return CustomPageTransition(child: const CheckOutScreen());
+    }
+    // 13
     else if (settings.name == RoutesName.adminPanel) {
       return CustomPageTransition(child: const AdminScreen());
     }

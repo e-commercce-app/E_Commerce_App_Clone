@@ -50,7 +50,9 @@ class _SearchingTextFieldState extends State<SearchingTextField> {
       return GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
         child: Scaffold(
-          appBar: searchingAppBar(size: size),
+          appBar: searchingAppBar(
+            size: size,
+          ),
           body: Container(
             padding: const EdgeInsets.symmetric(
               horizontal: 15,

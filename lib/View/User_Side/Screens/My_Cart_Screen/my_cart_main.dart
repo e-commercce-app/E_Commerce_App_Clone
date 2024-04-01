@@ -81,16 +81,12 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
                                     state: state,
                                     index: index,
                                     size: size,
-                                    onPressedOky: () {
-                                      cartFetchDataMethod
-                                          .deleteCartProduct(
+                                    onPressedOky: () async {
+                                      context.read<CartFetchDataBloc>().add(
+                                          RemoveItemCartEvent(
                                               itemID: state
                                                   .fetchData[index].productUid
-                                                  .toString())
-                                          .then((value) {
-                                        NavigatorService.goBack();
-                                      });
-                                      setState(() {});
+                                                  .toString()));
                                     },
                                   );
                                 },
@@ -150,7 +146,12 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
                                       alignment: Alignment.center,
                                       child: CustomButton(
                                           size: size,
-                                          onPressed: () {},
+                                          onPressed: () {
+                                            if (state.fetchData.isNotEmpty) {
+                                              NavigatorService.pushNamed(
+                                                  RoutesName.checkOutScreen);
+                                            }
+                                          },
                                           buttonText: "checkout".toUpperCase()),
                                     ),
                                   ),
@@ -160,7 +161,7 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
                           ),
                         ),
                         const CustomSizedBox(
-                          heightRatio: 0.07,
+                          heightRatio: 0.06,
                         )
                       ],
                     );
@@ -189,42 +190,8 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
       title: const AutoSizeText("My Cart"),
       actions: [
         AppBarLeadingIconButtonOne(
-            onTap: () {
-              NavigatorService.pushNamed(RoutesName.addToCartScreen);
-            },
-            child: AutoSizeText("${state.fetchData.length}")),
+            onTap: null, child: AutoSizeText("${state.fetchData.length}")),
       ],
     );
   }
 }
-
-// My Cart Custom AppBar Section
-//   CustomAppBar myCartAppCart(
-//       {AsyncSnapshot<List<MyCartModelClass>>? snapshot}) {
-//     return CustomAppBar(
-//       size: size,
-//       leading: AppBarLeadingIconButtonOne(
-//         onTap: () => NavigatorService.goBack(),
-//         child: Icon(
-//           CupertinoIcons.arrow_left,
-//           color: Resources.colors.kBlack,
-//           size: size.width * 0.07,
-//         ),
-//       ),
-//       centerTitle: true,
-//       title: const AutoSizeText("My Cart"),
-//       actions: [
-//         AppBarLeadingIconButtonOne(
-//             onTap: () {
-//               // ! LogOut Button
-//               // FirebaseServices.auth.signOut().then((value) {
-//               //   Navigator.pushReplacementNamed(context, RoutesName.signInScreen);
-//               // Navigator.pop(context);
-//               // });
-//               NavigatorService.pushNamed(RoutesName.addToCartScreen);
-//             },
-//             child: AutoSizeText("${snapshot?.data?.length}")),
-//       ],
-//     );
-//   }
-// }

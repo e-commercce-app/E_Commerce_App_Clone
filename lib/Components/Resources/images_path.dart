@@ -28,4 +28,5 @@ class ImagePath {
 
   // ! Lottie Animation Path
   String cartNotFound = "${lottieAnimation}cart_not_found.json";
+  String favoriteEmpty = "${lottieAnimation}favorite.json";
 }
