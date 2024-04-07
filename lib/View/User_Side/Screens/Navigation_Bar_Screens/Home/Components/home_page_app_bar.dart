@@ -1,4 +1,3 @@
-
 import '../../../../../../Components/Widgets/AppBar/app_bar_leading_icon_button.dart';
 import '../../../../../../Components/Widgets/AppBar/app_bar_subtitle_one.dart';
 import '../../../../../../Components/Widgets/AppBar/app_bar_subtitle_two.dart';
@@ -6,7 +5,10 @@ import '../../../../../../Components/Widgets/AppBar/custom_appbar.dart';
 import '../../../../../../Export/e_commerce_export.dart';
 
 PreferredSizeWidget homePageAppBar(BuildContext context,
-    {Function()? onTap, required Widget child, Size? size}) {
+    {Function()? onTap,
+    required Widget child,
+    Size? size,
+    String? currentLocation}) {
   return CustomAppBar(
     size: size!,
     leading: AppBarLeadingIconButtonOne(
@@ -25,7 +27,7 @@ PreferredSizeWidget homePageAppBar(BuildContext context,
           heightRatio: 0.004,
         ),
         AppbarSubtitleOne(
-          text: "Pakistan Lahore 45",
+          text: currentLocation ?? "Pakistan Lahore 45",
           margin: const EdgeInsets.only(left: 40),
         ),
       ],

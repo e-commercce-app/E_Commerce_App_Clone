@@ -86,7 +86,9 @@ class _CustomDrawerState extends State<CustomDrawer> {
                 listTile(
                     icon: Icons.electric_bike,
                     title: "Order",
-                    onTap: () async {}),
+                    onTap: () async {
+                      NavigatorService.pushNamed(RoutesName.orderNowScreen);
+                    }),
                 const CustomSizedBox(
                   heightRatio: 0.03,
                 ),
@@ -107,7 +109,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                     FirebaseServices.auth.signOut().then((value) {
                       GoogleSignIn().signOut();
                       CustomDialog.toastMessage(message: "LogOut");
-                      if (!mounted) {
+                      if (mounted) {
                         Navigator.pushReplacementNamed(
                             context, RoutesName.signInScreen);
                       }

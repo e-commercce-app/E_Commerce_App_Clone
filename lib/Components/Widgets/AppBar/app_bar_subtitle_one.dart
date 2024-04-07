@@ -22,7 +22,7 @@ class AppbarSubtitleOne extends StatelessWidget {
         child: AutoSizeText(text,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
-            presetFontSizes: const [14, 11, 8],
+            presetFontSizes: const [14, 11, 8, 5],
             textAlign: TextAlign.center,
             style: Theme.of(context).textTheme.titleMedium));
   }
