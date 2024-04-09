@@ -98,10 +98,9 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                             duration: const Duration(milliseconds: 400),
                             curve: Curves.easeIn);
                         if (state.selectedIndex == pages.length - 0) {
-                          Navigator.pushReplacementNamed(
-                            context,
-                            RoutesName.signInScreen,
-                          ).then((value) {
+                          NavigatorService.pushReplacementsNamed(
+                                  RoutesName.signInScreen)
+                              .then((value) {
                             state.selectedIndex = 2;
                           });
                         }

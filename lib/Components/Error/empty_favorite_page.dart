@@ -56,7 +56,8 @@ class _WishListNotFoundState extends State<WishListNotFound> {
                   size: size,
                   buttonText: "Shop Now",
                   onPressed: () {
-                    NavigatorService.pushNamed(RoutesName.bottomBarScreen);
+                    NavigatorService.pushNamedAndRemoveUntil(
+                        RoutesName.bottomBarScreen);
                   },
                 ),
               )

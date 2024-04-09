@@ -33,10 +33,10 @@ class _SplashScreenState extends State<SplashScreen> {
           userUid: currentUserDefine!.uid);
       if (userData[0]['isAdmin'] == true) {
         setStatusBarMode();
-        NavigatorService.pushNamed(RoutesName.bottomBarScreen);
+        NavigatorService.pushReplacementsNamed(RoutesName.bottomBarScreen);
       } else {
         setStatusBarMode();
-        NavigatorService.pushNamed(RoutesName.bottomBarScreen);
+        NavigatorService.pushReplacementsNamed(RoutesName.bottomBarScreen);
       }
     } else {
       SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);

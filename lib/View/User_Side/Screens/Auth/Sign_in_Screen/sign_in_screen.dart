@@ -153,8 +153,9 @@ class _SignInScreenState extends State<SignInScreen> {
                                   Padding(
                                       padding: const EdgeInsets.only(left: 2),
                                       child: InkWell(
-                                        onTap: () => NavigatorService.pushNamed(
-                                            RoutesName.signUpScreen),
+                                        onTap: () => NavigatorService
+                                            .pushReplacementsNamed(
+                                                RoutesName.signUpScreen),
                                         child: Text("Sign Up",
                                             style: TextStyle(
                                               // color: colorScheme.primaryContainer,

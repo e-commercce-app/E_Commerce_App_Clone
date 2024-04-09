@@ -1,7 +1,6 @@
 // ignore_for_file: must_be_immutable
 
 import 'dart:io';
-
 import '../../../../../../Export/e_commerce_export.dart';
 
 abstract class SignUpState {}
@@ -12,13 +11,14 @@ class SignUpClickState extends SignUpState {
   TextEditingController nameController;
   TextEditingController emailController;
   TextEditingController passwordController;
+  TextEditingController phoneController;
   GlobalKey<FormState> key;
   // bool checkPassword = false;
   SignUpClickState(
       {required this.nameController,
       required this.emailController,
       required this.passwordController,
-      // required this.checkPassword,
+      required this.phoneController,
       required this.key});
 }
 

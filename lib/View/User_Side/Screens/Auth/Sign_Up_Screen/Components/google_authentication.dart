@@ -49,7 +49,8 @@ class GoogleSignInMethod {
         userInfo.id = FirebaseServices.currentUser?.uid;
         userInfo.name = FirebaseServices.currentUser?.displayName.toString();
         userInfo.emailAddress = FirebaseServices.currentUser?.email.toString();
-        userInfo.userImage = FirebaseServices.currentUser?.photoURL.toString();
+        userInfo.password = "12464567";
+        userInfo.phoneNumber = "+92032467346";
         userInfo.isAdmin = false;
         // !create user help of Using Google process store data fireStore Database .
         await FirebaseServices.currentUserCollection
@@ -58,7 +59,7 @@ class GoogleSignInMethod {
             .then((value) {
           log("store data");
           // Correctly (Google SignUp) Push HomePage Screen
-          NavigatorService.pushNamed(RoutesName.bottomBarScreen);
+          NavigatorService.pushReplacementsNamed(RoutesName.bottomBarScreen);
         }).onError((error, stackTrace) {
           log("Error : $error");
         });

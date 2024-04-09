@@ -59,13 +59,19 @@ class _CustomDrawerState extends State<CustomDrawer> {
                 listTile(
                   icon: Icons.home_outlined,
                   title: "Profile",
-                  onTap: () => CustomDialog.toastMessage(message: "Profile"),
+                  onTap: () {
+                    NavigatorService.pushNamed(RoutesName.profile);
+                    CustomDialog.toastMessage(message: "Profile");
+                  },
                 ),
                 // ! My Cart
                 listTile(
                   icon: Icons.shopping_cart_checkout_outlined,
                   title: "My Cart",
-                  onTap: () => CustomDialog.toastMessage(message: "My Cart"),
+                  onTap: () {
+                    NavigatorService.pushNamed(RoutesName.addToCartScreen);
+                    CustomDialog.toastMessage(message: "My Cart");
+                  },
                 ),
                 // ! Favorite
                 listTile(

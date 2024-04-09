@@ -59,7 +59,8 @@ class _CartNoItemFoundState extends State<CartNoItemFound> {
                   size: size,
                   buttonText: "Shop Now",
                   onPressed: () {
-                    NavigatorService.pushNamed(RoutesName.bottomBarScreen);
+                    NavigatorService.pushNamedAndRemoveUntil(
+                        RoutesName.bottomBarScreen);
                   },
                 ),
               )

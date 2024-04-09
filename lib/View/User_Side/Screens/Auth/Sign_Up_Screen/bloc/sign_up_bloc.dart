@@ -20,6 +20,7 @@ class SignUpBloc extends Bloc<SignUpBlocEvent, SignUpState> {
   TextEditingController nameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController emailController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
   // GlobalKey
   final GlobalKey<FormState> _key = GlobalKey<FormState>();
   // !UserDetails Model Class
@@ -55,9 +56,9 @@ class SignUpBloc extends Bloc<SignUpBlocEvent, SignUpState> {
           userInfo.id = FirebaseServices.currentUser?.uid;
           userInfo.name = nameController.text.toString();
           userInfo.emailAddress = emailController.text.toString();
+          userInfo.password = passwordController.text.toString();
+          userInfo.phoneNumber = phoneController.text.toString();
           userInfo.isAdmin = false;
-          userInfo.userImage =
-              "https://firebasestorage.googleapis.com/v0/b/flutter-e-commerce-14c75.appspot.com/o/NikeShoes%2Fnike11.png?alt=media&token=bd143004-213f-439c-bfa3-3be73f769193";
           // ! store Data on Firebase Firestore .
           FirebaseServices.currentUserCollection
               .doc(FirebaseServices.currentUser?.uid)
@@ -75,8 +76,9 @@ class SignUpBloc extends Bloc<SignUpBlocEvent, SignUpState> {
           nameController.clear();
           emailController.clear();
           passwordController.clear();
+          phoneController.clear();
           // Next Screen Implements .
-          NavigatorService.pushNamed(
+          NavigatorService.pushReplacementsNamed(
             RoutesName.signInScreen,
           );
         }).onError((error, stackTrace) {
@@ -103,17 +105,20 @@ class SignUpBloc extends Bloc<SignUpBlocEvent, SignUpState> {
   }
   //
   get loadedState => emit(SignUpClickState(
-      nameController: nameController,
-      emailController: emailController,
-      passwordController: passwordController,
-      // checkPassword: true,
-      key: _key));
+        nameController: nameController,
+        emailController: emailController,
+        passwordController: passwordController,
+        phoneController: phoneController,
+        // checkPassword: true,
+        key: _key,
+      ));
 
   @override
   Future<void> close() {
     nameController.dispose();
     emailController.dispose();
     passwordController.dispose();
+    phoneController.clear();
     return super.close();
   }
 }

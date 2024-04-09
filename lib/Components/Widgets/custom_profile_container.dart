@@ -18,14 +18,14 @@ class CustomProfileContainer extends StatelessWidget {
         height: screenHeight * 0.07,
         width: screenWidth * 0.9,
         padding:
-            EdgeInsets.only(top: screenHeight * 0.01, left: screenWidth * 0.05),
+            EdgeInsets.only(top: screenHeight * 0.02, left: screenWidth * 0.05),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
           color: Resources.colors.kWhite,
         ),
         child: AutoSizeText(
           title,
-          presetFontSizes: const [25, 20, 15, 10],
+          presetFontSizes: const [20, 15, 10],
           style: GoogleFonts.abhayaLibre(
               textStyle: Theme.of(context)
                   .textTheme
