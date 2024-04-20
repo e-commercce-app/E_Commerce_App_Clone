@@ -21,6 +21,7 @@ import 'package:e_commerce/View/User_Side/Screens/Splash_Screen/splash_screen.da
 
 import '../../Components/Error/route_not_found_page.dart';
 import '../../Export/e_commerce_export.dart';
+import '../../View/User_Side/Screens/Auth/Sign_Up_Screen/check_password/check_password_field_bloc.dart';
 import '../../View/User_Side/Screens/Auth/Sign_Up_Screen/sign_up_screen.dart';
 import '../../View/User_Side/Screens/Navigation_Bar_Screens/Home/home_screen.dart';
 import '../../View/User_Side/Screens/Navigation_Bar_Screens/Home_Searching_Screen/bloc/search_bloc.dart';
@@ -93,11 +94,17 @@ class RoutesMethod {
     // 5
     else if (settings.name == RoutesName.signUpScreen) {
       return CustomPageTransition(
-        child: BlocProvider(
-          create: (context) => SignUpBloc(),
-          child: const SignUpScreen(),
-        ),
-      );
+          child: MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (context) => SignUpBloc(),
+          ),
+          BlocProvider(
+            create: (context) => CheckPasswordFieldBloc(),
+          ),
+        ],
+        child: const SignUpScreen(),
+      ));
     }
     // 6
     else if (settings.name == RoutesName.signInScreen) {

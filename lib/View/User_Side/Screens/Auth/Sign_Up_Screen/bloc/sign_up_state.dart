@@ -39,10 +39,10 @@ class ImagePickerLoadedState extends SignUpState {
 // ! Upload Firebase State .
 class UploadImageState extends SignUpState {}
 
-class CheckPasswordState extends SignUpState {
-  bool isChecked = true;
-  CheckPasswordState({required this.isChecked});
-}
+// class CheckPasswordState extends SignUpState {
+//   bool isChecked = true;
+//   CheckPasswordState({required this.isChecked});
+// }
 
 // class SignUpState extends Equatable {
 //   TextEditingController? userNameController;

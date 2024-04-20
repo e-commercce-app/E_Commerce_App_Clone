@@ -13,6 +13,9 @@ class SignInScreen extends StatefulWidget {
 class _SignInScreenState extends State<SignInScreen> {
   // Screen Size .
   late Size size;
+
+  //
+  bool isPasswordVisible = true;
   @override
   Widget build(BuildContext context) {
     size = MediaQuery.sizeOf(context);
@@ -110,6 +113,19 @@ class _SignInScreenState extends State<SignInScreen> {
                               textInputAction: TextInputAction.done,
                               textInputType: TextInputType.visiblePassword,
                               hintText: "Enter Your Password",
+
+                              obscureText: isPasswordVisible,
+                              // ! Visible and UnVisible .
+                              suffixIcon: IconButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      isPasswordVisible = !isPasswordVisible;
+                                    });
+                                  },
+                                  icon: isPasswordVisible
+                                      ? const Icon(Icons.remove_red_eye)
+                                      : const Icon(
+                                          Icons.remove_red_eye_outlined)),
                               validator: (value) {
                                 if (value!.isEmpty) {
                                   return "Please Enter a Password.";

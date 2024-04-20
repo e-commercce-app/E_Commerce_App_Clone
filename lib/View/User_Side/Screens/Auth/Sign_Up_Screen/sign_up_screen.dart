@@ -24,6 +24,10 @@ class SignUpScreen extends StatefulWidget {
 class _SignUpScreenState extends State<SignUpScreen> {
   // Screen Size .
   late Size size;
+
+  // check password
+  bool isPasswordVisible = false;
+
   @override
   Widget build(BuildContext context) {
     size = MediaQuery.sizeOf(context);
@@ -155,7 +159,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             ),
                             const CustomSizedBox(heightRatio: 0.008),
                             // Password TextField .
-                            _passwordButton(state, context),
+                            _passwordButton(
+                              state,
+                              context,
+                            ),
                             // some space
                             const CustomSizedBox(heightRatio: 0.03),
                             // ! Phone sections
@@ -243,25 +250,27 @@ class _SignUpScreenState extends State<SignUpScreen> {
     );
   }
 
-  Widget _passwordButton(SignUpState state, BuildContext context) {
+  Widget _passwordButton(
+    SignUpState state,
+    BuildContext context,
+  ) {
     return BlocBuilder<SignUpBloc, SignUpState>(builder: (context, state) {
       return CustomTextFormField(
         controller: (state as SignUpClickState).passwordController,
         textInputType: TextInputType.visiblePassword,
         hintText: "Enter Your Password",
         textInputAction: TextInputAction.done,
-        obscureText: true,
+        obscureText: isPasswordVisible,
         // ! Visible and UnVisible .
-        // suffixIcon: IconButton(
-        //     onPressed: () {
-        //       (state as CheckPasswordState);
-        //       BlocProvider.of<SignUpBloc>(context).add(
-        //           PasswordCheckObscureEvent(
-        //               obscure: (state as CheckPasswordState).isChecked));
-        //     },
-        //     icon: (state as CheckPasswordState).isChecked
-        //         ? const Icon(Icons.add)
-        //         : const Icon(Icons.remove_red_eye)),
+        suffixIcon: IconButton(
+            onPressed: () {
+              setState(() {
+                isPasswordVisible = !isPasswordVisible;
+              });
+            },
+            icon: isPasswordVisible
+                ? const Icon(Icons.remove_red_eye)
+                : const Icon(Icons.remove_red_eye_outlined)),
         validator: (value) {
           if (value!.isEmpty) {
             return "Please Enter a Password.";

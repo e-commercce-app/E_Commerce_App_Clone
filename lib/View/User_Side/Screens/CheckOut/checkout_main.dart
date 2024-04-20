@@ -8,6 +8,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../../../../Components/Widgets/custom_form_field.dart';
+import '../Google_Payement/custom_google_payement.dart';
 import 'Components/checkout_app_bar.dart';
 
 class CheckOutScreen extends StatefulWidget {
@@ -280,6 +281,15 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                       return null;
                     },
                   ),
+                  // some space
+                  const CustomSizedBox(heightRatio: 0.03),
+                  CustomButton(
+                      size: size,
+                      onPressed: () => NavigatorService.push(MaterialPageRoute(
+                            builder: (context) => const CustomPaymentWidget(),
+                          )),
+                      background: Resources.colors.kBlack,
+                      buttonText: "Google Payment"),
                   // some space
                   const CustomSizedBox(heightRatio: 0.03),
                   CustomButton(
