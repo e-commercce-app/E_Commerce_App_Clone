@@ -1,3 +1,4 @@
+import 'package:e_commerce/View/User_Side/Screens/Navigation_Bar_Screens/Favorite_Items/favorite_main_page.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 import 'package:e_commerce/Components/Widgets/custom_shoes_page_design.dart';
@@ -61,7 +62,6 @@ class _CustomDrawerState extends State<CustomDrawer> {
                   title: "Profile",
                   onTap: () {
                     NavigatorService.pushNamed(RoutesName.profile);
-                    CustomDialog.toastMessage(message: "Profile");
                   },
                 ),
                 // ! My Cart
@@ -70,15 +70,15 @@ class _CustomDrawerState extends State<CustomDrawer> {
                   title: "My Cart",
                   onTap: () {
                     NavigatorService.pushNamed(RoutesName.addToCartScreen);
-                    CustomDialog.toastMessage(message: "My Cart");
                   },
                 ),
                 // ! Favorite
                 listTile(
-                  icon: Icons.favorite_border,
-                  title: "Favorite",
-                  onTap: () => CustomDialog.toastMessage(message: "Favorite"),
-                ),
+                    icon: Icons.favorite_border,
+                    title: "Favorite",
+                    onTap: () => NavigatorService.push(MaterialPageRoute(
+                          builder: (context) => const FavoriteScreen(),
+                        ))),
                 // ! Delete Account
                 listTile(
                   icon: Icons.delete_sweep_sharp,
