@@ -33,7 +33,7 @@ class _WishListNotFoundState extends State<WishListNotFound> {
                 heightRatio: 0.003,
               ),
               AutoSizeText(
-                "Your wishList is empty!".toUpperCase(),
+                yourWishList.toUpperCase(),
                 presetFontSizes: const [18, 15, 10, 5],
                 overflow: TextOverflow.ellipsis,
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(
@@ -41,7 +41,7 @@ class _WishListNotFoundState extends State<WishListNotFound> {
                     ),
               ),
               AutoSizeText(
-                "Explore more and shortlist some items",
+                exploreMoreShortLost,
                 presetFontSizes: const [15, 10, 5],
                 overflow: TextOverflow.ellipsis,
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
@@ -54,7 +54,7 @@ class _WishListNotFoundState extends State<WishListNotFound> {
                 width: size.width * 0.5,
                 child: CustomButton(
                   size: size,
-                  buttonText: "Shop Now",
+                  buttonText: shopNow,
                   onPressed: () {
                     NavigatorService.pushNamedAndRemoveUntil(
                         RoutesName.bottomBarScreen);
@@ -75,7 +75,7 @@ PreferredSizeWidget wishListAppBar(BuildContext context,
     size: size!,
     centerTitle: true,
     title: AppbarSubtitleOne(
-      text: "Item Not Found",
+      text: itemNotFound,
       margin: const EdgeInsets.only(left: 40),
     ),
   );

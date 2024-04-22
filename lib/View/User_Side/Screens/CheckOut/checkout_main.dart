@@ -38,19 +38,18 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
     LocationPermission permission;
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
-      return Future.error('Location services are disabled.');
+      return Future.error(locationAreDisabled);
     }
     permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
-        return Future.error('Location permissions are denied');
+        return Future.error(locationPermissionDenied);
       }
     }
 
     if (permission == LocationPermission.deniedForever) {
-      return Future.error(
-          'Location permissions are permanently denied, we cannot request permissions.');
+      return Future.error(locationPermissionPermanentlyDenied);
     }
 
     return await Geolocator.getCurrentPosition(
@@ -109,7 +108,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
     _determinePosition().then((value) {
       currentLocation.toString();
       getLatLong();
-      CustomDialog.toastMessage(message: "Find This Locations ");
+      CustomDialog.toastMessage(message: findThisLocation);
     });
   }
 
@@ -190,7 +189,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                   Align(
                     alignment: Alignment.centerLeft,
                     child: AutoSizeText(
-                      "Your Name",
+                      yourName,
                       style: Resources.textStyle
                           .userNameTextStyle(size: size)
                           .copyWith(fontSize: 12),
@@ -204,7 +203,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                     controller: nameController,
                     textInputAction: TextInputAction.next,
                     textInputType: TextInputType.name,
-                    hintText: "Jawad",
+                    hintText: eCommerce,
                     borderRadius: BorderRadius.circular(15),
                     contentPadding: const EdgeInsets.all(12),
                     validator: (value) {
@@ -223,7 +222,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      "Email Address",
+                      signInEmailAddress,
                       style: Resources.textStyle
                           .userNameTextStyle(size: size)
                           .copyWith(fontSize: 12),
@@ -237,7 +236,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                     controller: emailController,
                     textInputAction: TextInputAction.next,
                     textInputType: TextInputType.emailAddress,
-                    hintText: "Enter Email",
+                    hintText: signInEnterEmail,
                     borderRadius: BorderRadius.circular(15),
                     contentPadding: const EdgeInsets.all(12),
                     validator: (value) {
@@ -255,7 +254,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                   Align(
                     alignment: Alignment.centerLeft,
                     child: AutoSizeText(
-                      "Number",
+                      number,
                       style: Resources.textStyle
                           .userNameTextStyle(size: size)
                           .copyWith(fontSize: 12),
@@ -289,7 +288,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                             builder: (context) => const CustomPaymentWidget(),
                           )),
                       background: Resources.colors.kBlack,
-                      buttonText: "Google Payment"),
+                      buttonText: googlePayment),
                   // some space
                   const CustomSizedBox(heightRatio: 0.03),
                   CustomButton(
@@ -323,7 +322,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                           });
                         }
                       },
-                      buttonText: "Payment")
+                      buttonText: payment)
                 ],
               ),
             ),

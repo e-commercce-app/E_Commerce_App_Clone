@@ -72,8 +72,8 @@ class _OrderScreenState extends State<OrderNowScreen> {
                     },
                   );
           } else {
-            return const Center(
-              child: Text("No Found Data"),
+            return Center(
+              child: Text(noFoundData),
             );
           }
         },

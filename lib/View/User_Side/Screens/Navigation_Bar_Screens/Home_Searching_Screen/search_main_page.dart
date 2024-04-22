@@ -1,6 +1,5 @@
 import 'package:e_commerce/Components/Error/route_not_found_page.dart';
 import 'package:e_commerce/Components/Widgets/custom_grid_view_design.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../Components/Widgets/custom_search_bar_text_field.dart';
 import '../../../../../Components/Widgets/custom_shoes_page_design.dart';
@@ -63,7 +62,7 @@ class _SearchingTextFieldState extends State<SearchingTextField> {
                 // ! Search Text Field Sections .
                 CustomSearchView(
                   controller: state.searchController,
-                  hintText: "Looking for shoes search.....",
+                  hintText: lookingForShoesSearch,
                   readOnly: false,
                   suffix: Padding(
                     padding: const EdgeInsets.only(

@@ -1,14 +1,11 @@
-import 'package:e_commerce/View/Admin_Panel/Screens/admin_main_file.dart';
-import 'package:e_commerce/View/User_Side/Screens/CheckOut/checkout_main.dart';
-import 'package:e_commerce/View/User_Side/Screens/Order_Final_Page/order_main_page.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:e_commerce/Models/shoes_product_home_page.dart';
+import 'package:e_commerce/View/Admin_Panel/Screens/admin_main_file.dart';
 import 'package:e_commerce/View/User_Side/Screens/Auth/Forget_Password/bloc/recovery_password_bloc.dart';
 import 'package:e_commerce/View/User_Side/Screens/Auth/Forget_Password/recovery_password.dart';
 import 'package:e_commerce/View/User_Side/Screens/Auth/Sign_Up_Screen/bloc/sign_up_bloc.dart';
 import 'package:e_commerce/View/User_Side/Screens/Auth/Sign_in_Screen/bloc/sign_in_bloc.dart';
 import 'package:e_commerce/View/User_Side/Screens/Auth/Sign_in_Screen/sign_in_screen.dart';
+import 'package:e_commerce/View/User_Side/Screens/CheckOut/checkout_main.dart';
 import 'package:e_commerce/View/User_Side/Screens/Detail_Screen/detail_screen.dart';
 import 'package:e_commerce/View/User_Side/Screens/My_Cart_Screen/bloc/cart_fetch_data_bloc.dart';
 import 'package:e_commerce/View/User_Side/Screens/My_Cart_Screen/my_cart_main.dart';
@@ -17,6 +14,7 @@ import 'package:e_commerce/View/User_Side/Screens/Navigation_Bar_Screens/Profile
 import 'package:e_commerce/View/User_Side/Screens/OnBoarding_Screen/Bloc/page_view_bloc.dart';
 import 'package:e_commerce/View/User_Side/Screens/OnBoarding_Screen/Bloc/page_view_event.dart';
 import 'package:e_commerce/View/User_Side/Screens/OnBoarding_Screen/onboarding_screen.dart';
+import 'package:e_commerce/View/User_Side/Screens/Order_Final_Page/order_main_page.dart';
 import 'package:e_commerce/View/User_Side/Screens/Splash_Screen/splash_screen.dart';
 
 import '../../Components/Error/route_not_found_page.dart';

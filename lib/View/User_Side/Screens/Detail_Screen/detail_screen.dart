@@ -1,12 +1,11 @@
 // ignore_for_file: must_be_immutable, prefer_is_empty
 import 'dart:developer';
 
-import 'package:e_commerce/Models/add_to_favorite_item.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:readmore/readmore.dart';
 
-import 'package:e_commerce/Components/Localization/app_strings.dart';
+import 'package:e_commerce/Models/add_to_favorite_item.dart';
 import 'package:e_commerce/Models/my_cart_model_class.dart';
 
 import '../../../../Components/Widgets/AppBar/app_bar_leading_icon_button.dart';
@@ -86,7 +85,7 @@ class _DetailsScreenState extends State<DetailsScreen>
         ),
         centerTitle: true,
         title: AppbarSubtitleOne(
-          text: "Men's Shoes",
+          text: menShoes,
           margin: const EdgeInsets.only(left: 40),
         ),
         actions: [
@@ -215,7 +214,7 @@ class _DetailsScreenState extends State<DetailsScreen>
                 children: [
                   customProductShoesInfoText(
                       context: context,
-                      messageText: "Total Price".toUpperCase().toString(),
+                      messageText: totalPrice.toUpperCase().toString(),
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                             fontWeight: FontWeight.w400,
                             fontSize: 15,
@@ -261,7 +260,7 @@ class _DetailsScreenState extends State<DetailsScreen>
                         CustomDialog.toastMessage(message: error.toString());
                       });
                     },
-                    buttonText: "Add To Cart"),
+                    buttonText: addToCart),
               )
             ],
           ),
@@ -295,7 +294,7 @@ class _DetailsScreenState extends State<DetailsScreen>
         // ! Product Best Seller .
         customProductShoesInfoText(
             context: context,
-            messageText: "Best Seller".toUpperCase(),
+            messageText: bestSeller.toUpperCase(),
             style: Theme.of(context).textTheme.titleSmall?.copyWith(
                 color: Resources.colors.kButtonColor,
                 fontSize: 15,
@@ -325,7 +324,7 @@ class _DetailsScreenState extends State<DetailsScreen>
             shoesDetails,
             trimLines: 3,
             textAlign: TextAlign.justify,
-            preDataText: "This Shoes",
+            preDataText: thisShoes,
             preDataTextStyle: const TextStyle(
               fontWeight: FontWeight.w700,
             ),
@@ -337,8 +336,8 @@ class _DetailsScreenState extends State<DetailsScreen>
                     overflow: TextOverflow.ellipsis)),
             colorClickableText: Colors.pink,
             trimMode: TrimMode.Line,
-            trimCollapsedText: '...Show more',
-            trimExpandedText: ' show less',
+            trimCollapsedText: showMore,
+            trimExpandedText: showLess,
           ),
         ),
       ],

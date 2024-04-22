@@ -46,12 +46,12 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
-            return const Center(
+            return Center(
               child: AutoSizeText(
-                "No Found Favorite Page Data ",
+                noFoundFavoritePage,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                style: TextStyle(color: Colors.white),
+                style: const TextStyle(color: Colors.white),
               ),
             );
           } else if (snapshot.hasData) {
@@ -90,7 +90,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                         .then((value) {
                                       NavigatorService.goBack();
                                       CustomDialog.toastMessage(
-                                          message: "Delete Favorite");
+                                          message: deleteFavorite);
                                     });
                                     setState(() {});
                                   },

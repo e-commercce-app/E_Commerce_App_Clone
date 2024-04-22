@@ -82,14 +82,11 @@ class _SplashScreenState extends State<SplashScreen> {
               // ! Image Section
               SizedBox(
                 height: size.height,
-                child: Image(
-                  image: AssetImage(
-                    Resources.imagePath.imgSplash,
-                  ),
+                child: CustomImageView(
+                  imagePath: Resources.imagePath.imgSplash,
                   fit: BoxFit.cover,
                 ),
               ),
-              // const CustomSizedBox(heightRatio: 0.01,),
               // ! Text Sections .
               const CustomTextKit(),
             ],

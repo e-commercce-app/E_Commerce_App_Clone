@@ -1,8 +1,5 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
-
-import 'package:e_commerce/View/User_Side/Screens/OnBoarding_Screen/Bloc/page_view_bloc.dart';
-
 import 'Export/e_commerce_export.dart';
+import 'View/User_Side/Screens/OnBoarding_Screen/Bloc/page_view_bloc.dart';
 import 'init.dart';
 
 void main() async {
@@ -31,7 +28,7 @@ class ECommerce extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         navigatorKey: NavigatorService.navigatorKey,
-        title: 'Shoes_E_Commerce',
+        title: shoesECommerce,
         theme: eCommerceTheme,
         initialRoute: RoutesName.splashScreen,
         onGenerateRoute: RoutesMethod.onGenerateRoutes,

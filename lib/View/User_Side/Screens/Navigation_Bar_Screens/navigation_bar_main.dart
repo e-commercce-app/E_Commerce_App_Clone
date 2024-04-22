@@ -1,12 +1,11 @@
 // ignore_for_file: library_private_types_in_public_api
 
-import 'package:e_commerce/View/User_Side/Screens/Navigation_Bar_Screens/Cart/cart_screen_main.dart';
-import 'package:e_commerce/View/User_Side/Screens/Navigation_Bar_Screens/Profile_Page/profile_main_screen.dart';
-import 'package:e_commerce/View/User_Side/Screens/Navigation_Bar_Screens/bloc/bottom_navigation_bloc.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../Export/e_commerce_export.dart';
+import 'Cart/cart_screen_main.dart';
 import 'Favorite_Items/favorite_main_page.dart';
 import 'Home/home_screen.dart';
+import 'Profile_Page/profile_main_screen.dart';
+import 'bloc/bottom_navigation_bloc.dart';
 
 class BottomBarScreen extends StatefulWidget {
   const BottomBarScreen({super.key});
@@ -104,8 +103,8 @@ class Search extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(child: Text('Search')),
+    return Scaffold(
+      body: Center(child: Text(search)),
     );
   }
 }

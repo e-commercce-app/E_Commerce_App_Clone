@@ -7,6 +7,6 @@ PreferredSizeWidget profileCustomAppBar({required Size size}) {
   return CustomAppBar(
     size: size,
     centerTitle: true,
-    title: AppbarSubtitleOne(text: "Profile".toUpperCase()),
+    title: AppbarSubtitleOne(text: profile.toUpperCase()),
   );
 }

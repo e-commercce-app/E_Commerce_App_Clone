@@ -59,7 +59,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             child: Column(
               children: [
                 AutoSizeText(
-                  "Jawad Jani",
+                  name.toString(),
                   style: Resources.textStyle
                       .createAccountTextStyle(size: size)
                       .copyWith(
@@ -76,7 +76,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 Align(
                   alignment: Alignment.centerLeft,
                   child: AutoSizeText(
-                    "Your Name",
+                    yourName,
                     style: Resources.textStyle.userNameTextStyle(size: size),
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
@@ -96,7 +96,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 Align(
                   alignment: Alignment.centerLeft,
                   child: AutoSizeText(
-                    "Email Address",
+                    signInEmailAddress,
                     style: Resources.textStyle.userNameTextStyle(
                       size: size,
                     ),
@@ -117,7 +117,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 Align(
                   alignment: Alignment.centerLeft,
                   child: AutoSizeText(
-                    "Phone Number",
+                    phoneNumber,
                     style: Resources.textStyle.userNameTextStyle(size: size),
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
@@ -149,7 +149,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ),
                       ));
                     },
-                    buttonText: "Edit Profile ")
+                    buttonText: editProfile)
               ],
             )),
       ),

@@ -36,7 +36,7 @@ class _CartNoItemFoundState extends State<CartNoItemFound> {
                 heightRatio: 0.003,
               ),
               AutoSizeText(
-                "Ohh... Your Cart is Empty".toUpperCase(),
+                yourCartIsEmpty.toUpperCase(),
                 presetFontSizes: const [18, 15, 10, 5],
                 overflow: TextOverflow.ellipsis,
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(
@@ -44,7 +44,7 @@ class _CartNoItemFoundState extends State<CartNoItemFound> {
                     ),
               ),
               AutoSizeText(
-                "But it doesn't have to be",
+                butItDoesHave,
                 presetFontSizes: const [15, 10, 5],
                 overflow: TextOverflow.ellipsis,
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
@@ -57,7 +57,7 @@ class _CartNoItemFoundState extends State<CartNoItemFound> {
                 width: size.width * 0.5,
                 child: CustomButton(
                   size: size,
-                  buttonText: "Shop Now",
+                  buttonText: shopNow,
                   onPressed: () {
                     NavigatorService.pushNamedAndRemoveUntil(
                         RoutesName.bottomBarScreen);
@@ -85,7 +85,7 @@ PreferredSizeWidget cartNoItemAppBar(BuildContext context,
     ),
     centerTitle: true,
     title: AppbarSubtitleOne(
-      text: "Item Not Found",
+      text: itemNotFound,
       margin: const EdgeInsets.only(left: 40),
     ),
   );

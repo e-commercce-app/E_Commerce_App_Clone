@@ -18,7 +18,7 @@ PreferredSizeWidget orderAppBar({Size? size}) {
       ),
       centerTitle: true,
       title: AppbarSubtitleOne(
-        text: "Final Order",
+        text: finalOrder,
         margin: const EdgeInsets.only(left: 40),
       ));
 }

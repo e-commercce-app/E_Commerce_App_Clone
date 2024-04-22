@@ -71,7 +71,7 @@ class _UpdateUserInfoState extends State<UpdateUserInfo> {
                 Align(
                   alignment: Alignment.centerLeft,
                   child: AutoSizeText(
-                    "Your Name",
+                    yourName,
                     style: Resources.textStyle
                         .userNameTextStyle(size: widget.size),
                     overflow: TextOverflow.ellipsis,
@@ -91,7 +91,7 @@ class _UpdateUserInfoState extends State<UpdateUserInfo> {
                 Align(
                   alignment: Alignment.centerLeft,
                   child: AutoSizeText(
-                    "Email Address",
+                    signInEmailAddress,
                     style: Resources.textStyle
                         .userNameTextStyle(size: widget.size),
                     overflow: TextOverflow.ellipsis,
@@ -112,7 +112,7 @@ class _UpdateUserInfoState extends State<UpdateUserInfo> {
                 Align(
                   alignment: Alignment.centerLeft,
                   child: AutoSizeText(
-                    "Phone Number",
+                    phoneNumber,
                     style: Resources.textStyle
                         .userNameTextStyle(size: widget.size),
                     overflow: TextOverflow.ellipsis,
@@ -125,33 +125,13 @@ class _UpdateUserInfoState extends State<UpdateUserInfo> {
                   textInputType: TextInputType.phone,
                   // initialValue: widget.userDetails.emailAddress.toString(),
                 ),
-
-                // // some space
-                // const CustomSizedBox(heightRatio: 0.05),
-                // // ! Password sections
-                // Align(
-                //   alignment: Alignment.centerLeft,
-                //   child: AutoSizeText(
-                //     "Password",
-                //     style: Resources.textStyle
-                //         .userNameTextStyle(size: widget.size),
-                //     overflow: TextOverflow.ellipsis,
-                //     maxLines: 1,
-                //   ),
-                // ),
-                // const CustomSizedBox(heightRatio: 0.008),
-                // CustomTextFormField(
-                //     // controller: phoneNoController,
-                //     textInputType: TextInputType.phone,
-                //     readOnly: true,
-                //     initialValue: passwordController.text.toString()),
                 // some space
                 const CustomSizedBox(heightRatio: 0.05),
                 // ! Buttons Sections .
 
                 CustomButton(
                   size: widget.size,
-                  buttonText: "Update".toUpperCase(),
+                  buttonText: update.toUpperCase(),
                   onPressed: () async {
                     await updateUserInfo().then((value) {
                       nameController.clear();
@@ -159,7 +139,7 @@ class _UpdateUserInfoState extends State<UpdateUserInfo> {
                       phoneNoController.clear();
                       NavigatorService.pushNamedAndRemoveUntil(
                           RoutesName.bottomBarScreen);
-                      CustomDialog.toastMessage(message: "Update User");
+                      CustomDialog.toastMessage(message: updateUser);
                     });
                   },
                 )

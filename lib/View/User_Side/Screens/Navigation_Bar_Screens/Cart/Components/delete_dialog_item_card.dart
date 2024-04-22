@@ -76,7 +76,7 @@ Future<dynamic> customDeleteCartBottomDialog(
             Align(
               alignment: Alignment.topCenter,
               child: AutoSizeText(
-                "😏😏 Are You Sure Delete this product",
+                areYouSureDeleteFavorite,
                 presetFontSizes: const [15, 10, 8, 5],
                 maxLines: 3,
                 style: GoogleFonts.alice(
@@ -97,11 +97,11 @@ Future<dynamic> customDeleteCartBottomDialog(
                     size: size,
                     background: Resources.colors.kGrey,
                     onPressed: () => NavigatorService.goBack(),
-                    buttonText: "Cancel".toUpperCase()),
+                    buttonText: cancel.toUpperCase()),
                 CustomButton(
                     size: size,
                     onPressed: onPressedOky!,
-                    buttonText: "Oky".toUpperCase()),
+                    buttonText: oky.toUpperCase()),
               ],
             )
           ],

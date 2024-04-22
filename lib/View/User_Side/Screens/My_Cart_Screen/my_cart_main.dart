@@ -1,16 +1,14 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-
-import 'package:e_commerce/Controller/Services/Controller/cart_product_price.dart';
-import 'package:e_commerce/View/User_Side/Screens/My_Cart_Screen/Components/custom_my_cart_design.dart';
-import 'package:e_commerce/View/User_Side/Screens/My_Cart_Screen/bloc/cart_fetch_data_bloc.dart';
 
 import '../../../../Components/Error/cart_no_item_page.dart';
 import '../../../../Components/Widgets/AppBar/app_bar_leading_icon_button.dart';
 import '../../../../Components/Widgets/AppBar/custom_appbar.dart';
+import '../../../../Controller/Services/Controller/cart_product_price.dart';
 import '../../../../Controller/Services/Controller/get_my_cart_data.dart';
 import '../../../../Export/e_commerce_export.dart';
 import 'Components/custom_delete_cart_dialog.dart';
+import 'Components/custom_my_cart_design.dart';
+import 'bloc/cart_fetch_data_bloc.dart';
 
 class AddToCartScreen extends StatefulWidget {
   const AddToCartScreen({
@@ -118,7 +116,7 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       AutoSizeText(
-                                        "Total Cost",
+                                        totalCost,
                                         style: Theme.of(context)
                                             .textTheme
                                             .titleMedium!
@@ -152,7 +150,7 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
                                                   RoutesName.checkOutScreen);
                                             }
                                           },
-                                          buttonText: "checkout".toUpperCase()),
+                                          buttonText: checkout.toUpperCase()),
                                     ),
                                   ),
                                 )
@@ -187,7 +185,7 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
         ),
       ),
       centerTitle: true,
-      title: const AutoSizeText("My Cart"),
+      title: AutoSizeText(myCart),
       actions: [
         AppBarLeadingIconButtonOne(
             onTap: null, child: AutoSizeText("${state.fetchData.length}")),

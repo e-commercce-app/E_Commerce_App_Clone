@@ -1,19 +1,18 @@
 import 'dart:developer' as developer;
 
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:e_commerce/View/User_Side/Screens/Home_Page_Tabs/Bata_Shoes/bata_shoes_main.dart';
-import 'package:e_commerce/View/User_Side/Screens/Home_Page_Tabs/Nike_Shoes/nike_shoes_main.dart';
-import 'package:e_commerce/View/User_Side/Screens/Home_Page_Tabs/Puma_Shoes/puma_shoes_main.dart';
-import 'package:e_commerce/View/User_Side/Screens/Home_Page_Tabs/Reebok_Shoes/reebok_shoes_main.dart';
-import 'package:e_commerce/View/User_Side/Screens/Navigation_Bar_Screens/Home/Components/custom_drawer_home_page.dart';
-import 'package:e_commerce/View/User_Side/Screens/Navigation_Bar_Screens/Home/bloc/matrix4_rotation_bloc.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 
 import '../../../../../Components/Widgets/custom_search_click_view.dart';
 import '../../../../../Export/e_commerce_export.dart';
+import '../../Home_Page_Tabs/Bata_Shoes/bata_shoes_main.dart';
+import '../../Home_Page_Tabs/Nike_Shoes/nike_shoes_main.dart';
+import '../../Home_Page_Tabs/Puma_Shoes/puma_shoes_main.dart';
+import '../../Home_Page_Tabs/Reebok_Shoes/reebok_shoes_main.dart';
+import 'Components/custom_drawer_home_page.dart';
 import 'Components/home_page_app_bar.dart';
+import 'bloc/matrix4_rotation_bloc.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -37,19 +36,18 @@ class _HomeScreenState extends State<HomeScreen>
     LocationPermission permission;
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
-      return Future.error('Location services are disabled.');
+      return Future.error(locationAreDisabled);
     }
     permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
-        return Future.error('Location permissions are denied');
+        return Future.error(locationPermissionDenied);
       }
     }
 
     if (permission == LocationPermission.deniedForever) {
-      return Future.error(
-          'Location permissions are permanently denied, we cannot request permissions.');
+      return Future.error(locationPermissionPermanentlyDenied);
     }
 
     return await Geolocator.getCurrentPosition(
@@ -100,7 +98,7 @@ class _HomeScreenState extends State<HomeScreen>
     _determinePosition().then((value) {
       currentLocation.toString();
       getLatLong();
-      CustomDialog.toastMessage(message: "Find This Locations ");
+      CustomDialog.toastMessage(message: findThisLocation);
     });
   }
 
@@ -217,8 +215,7 @@ class _HomeScreenState extends State<HomeScreen>
                             )),
                         //  ! _Build New Arrivals .
                         _buildNewArrivals(context,
-                            newArrivalsText: "Popular Shoes",
-                            seeAllText: "See All"),
+                            newArrivalsText: popularShoes, seeAllText: seeAll),
                         Expanded(
                             child: TabBarView(
                                 controller: tabController,

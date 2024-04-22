@@ -1,7 +1,7 @@
 import 'package:e_commerce/Components/Widgets/custom_form_field.dart';
 import 'package:e_commerce/Export/e_commerce_export.dart';
-import 'package:e_commerce/View/User_Side/Screens/Auth/Forget_Password/bloc/recovery_password_bloc.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'bloc/recovery_password_bloc.dart';
 
 class ForgetPassword extends StatefulWidget {
   const ForgetPassword({super.key});
@@ -49,8 +49,8 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                               heightRatio: 0.08,
                             ),
                             FittedBox(
-                              child: Text(
-                                "Recovery Password".toUpperCase(),
+                              child: AutoSizeText(
+                                recoveryPassword.toUpperCase(),
                                 style: Resources.textStyle
                                     .createAccountTextStyle(size: size),
                                 overflow: TextOverflow.ellipsis,
@@ -58,8 +58,8 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                               ),
                             ),
                             const CustomSizedBox(heightRatio: 0.003),
-                            Text(
-                              "Please Enter Your Email Address To Receive A Verification Code",
+                            AutoSizeText(
+                              pleaseEnterEmailAddress,
                               style: Resources.textStyle
                                   .togetherCreateTextStyle(size: size),
                               overflow: TextOverflow.ellipsis,
@@ -70,8 +70,8 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                             // ! Email sections
                             Align(
                               alignment: Alignment.centerLeft,
-                              child: Text(
-                                "Email Address",
+                              child: AutoSizeText(
+                                signInEnterEmail,
                                 style: Resources.textStyle
                                     .userNameTextStyle(size: size),
                                 overflow: TextOverflow.ellipsis,
@@ -83,7 +83,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                               controller: (state).emailAddress,
                               textInputAction: TextInputAction.next,
                               textInputType: TextInputType.emailAddress,
-                              hintText: "Enter Email",
+                              hintText: signInEnterEmail,
                               validator: (value) {
                                 if (value == null ||
                                     !isValidEmail(value, isRequired: true)) {
@@ -101,7 +101,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                                   BlocProvider.of<RecoveryPasswordBloc>(context)
                                       .add(ForgetPasswordClickEvent());
                                 },
-                                buttonText: "Continuo"),
+                                buttonText: continuo),
                             const CustomSizedBox(heightRatio: 0.04),
                             const SizedBox(height: 5)
                           ],

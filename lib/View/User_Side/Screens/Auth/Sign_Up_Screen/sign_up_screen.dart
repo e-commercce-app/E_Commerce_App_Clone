@@ -3,7 +3,6 @@
 import 'dart:developer' as developer;
 
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:e_commerce/Export/e_commerce_export.dart';
 
@@ -106,7 +105,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               controller: (state).nameController,
                               textInputAction: TextInputAction.next,
                               textInputType: TextInputType.name,
-                              hintText: "Jawad",
+                              hintText: "E_commerce",
                               validator: (value) {
                                 if (value!.isEmpty) {
                                   return "Please Enter A Name";
@@ -294,7 +293,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           BlocProvider.of<SignUpBloc>(context, listen: false)
               .add(SignUpGoogleEvent());
         },
-        buttonText: "Sign In With Google");
+        buttonText: "Sign Up With Google");
   }
 
   // Press Button process this Sign Create User .
@@ -305,6 +304,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
           BlocProvider.of<SignUpBloc>(context, listen: false)
               .add(SignUpClickEvent());
         },
-        buttonText: "Sign In");
+        buttonText: "Sign Up");
   }
 }
