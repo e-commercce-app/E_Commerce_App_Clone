@@ -1,5 +1,6 @@
 import 'dart:developer' as developer;
 
+import 'package:e_commerce/Components/Widgets/Custom_Snackbar/content_type.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
@@ -98,7 +99,12 @@ class _HomeScreenState extends State<HomeScreen>
     _determinePosition().then((value) {
       currentLocation.toString();
       getLatLong();
-      CustomDialog.toastMessage(message: findThisLocation);
+      CustomDialog.showCustomSnackBar(
+          context: context,
+          title: "Location",
+          message: "Find This Current Locations",
+          contentType: ContentType.success);
+      // CustomDialog.toastMessage(message: findThisLocation);
     });
   }
 

@@ -5,6 +5,8 @@ import 'package:e_commerce/Components/Widgets/custom_shoes_page_design.dart';
 import 'package:e_commerce/Controller/Services/Controller/current_user_delete_account.dart';
 import 'package:e_commerce/Export/e_commerce_export.dart';
 
+import '../../../../../../Components/Widgets/Custom_Snackbar/snack_bar.dart';
+
 class CustomDrawer extends StatefulWidget {
   const CustomDrawer({super.key});
 
@@ -85,7 +87,13 @@ class _CustomDrawerState extends State<CustomDrawer> {
                   title: "Delete Account",
                   onTap: () async {
                     await DeleteCurrentUser.deleteCurrentUser();
-                    CustomDialog.toastMessage(message: "Delete Account");
+                    if (context.mounted) {
+                      CustomDialog.showCustomSnackBar(
+                          context: context,
+                          title: "Delete Account",
+                          message: "Delete this account and delete all info ",
+                          contentType: ContentType.success);
+                    }
                   },
                 ),
                 // ! Order
@@ -114,7 +122,11 @@ class _CustomDrawerState extends State<CustomDrawer> {
                   onTap: () {
                     FirebaseServices.auth.signOut().then((value) {
                       GoogleSignIn().signOut();
-                      CustomDialog.toastMessage(message: "LogOut");
+                      CustomDialog.showCustomSnackBar(
+                          context: context,
+                          title: "LogOut",
+                          message: "Successfully Current User Logout",
+                          contentType: ContentType.success);
                       if (mounted) {
                         Navigator.pushReplacementNamed(
                             context, RoutesName.signInScreen);

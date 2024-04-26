@@ -1,3 +1,4 @@
+import 'package:e_commerce/Components/Widgets/Custom_Snackbar/content_type.dart';
 import 'package:e_commerce/Components/Widgets/custom_form_field.dart';
 import 'package:e_commerce/Export/e_commerce_export.dart';
 import 'package:e_commerce/Models/user_details.dart';
@@ -139,7 +140,12 @@ class _UpdateUserInfoState extends State<UpdateUserInfo> {
                       phoneNoController.clear();
                       NavigatorService.pushNamedAndRemoveUntil(
                           RoutesName.bottomBarScreen);
-                      CustomDialog.toastMessage(message: updateUser);
+                      CustomDialog.showCustomSnackBar(
+                          context: context,
+                          title: "Edit",
+                          message:
+                              "Successfully current user Update this data.",
+                          contentType: ContentType.success);
                     });
                   },
                 )

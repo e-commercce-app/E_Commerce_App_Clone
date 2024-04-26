@@ -7,6 +7,7 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
+import '../../../../Components/Widgets/Custom_Snackbar/snack_bar.dart';
 import '../../../../Components/Widgets/custom_form_field.dart';
 import '../Google_Payement/custom_google_payement.dart';
 import 'Components/checkout_app_bar.dart';
@@ -108,7 +109,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
     _determinePosition().then((value) {
       currentLocation.toString();
       getLatLong();
-      CustomDialog.toastMessage(message: findThisLocation);
+      // CustomDialog.toastMessage(message: findThisLocation);
     });
   }
 
@@ -312,13 +313,20 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                   "$dateAndTime${FirebaseServices.currentUser?.uid}")
                               .set(order.toJson())
                               .then((value) {
-                            CustomDialog.toastMessage(message: "Add To Cart");
+                            CustomDialog.showCustomSnackBar(
+                                context: context,
+                                title: "Order Now",
+                                message: "Submit successfully Order .",
+                                contentType: ContentType.success);
                             NavigatorService.pushReplacementsNamed(
                                 RoutesName.bottomBarScreen);
                           }).onError((error, stackTrace) {
                             log("Add To Cart Error : ${error.toString()}");
-                            CustomDialog.toastMessage(
-                                message: error.toString());
+                            CustomDialog.showCustomSnackBar(
+                                context: context,
+                                title: "Order Error",
+                                message: error.toString(),
+                                contentType: ContentType.success);
                           });
                         }
                       },

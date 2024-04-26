@@ -58,7 +58,7 @@ String get seeAll => "See All";
 
 // ! Favorite Screen String.
 String get noFoundFavoritePage => "No Found Favorite Page Data ";
-String get deleteFavorite => "Delete Favorite";
+String get deleteFavorite => "Your Product delete";
 String get areYouSureDeleteFavorite =>
     "😏😏 Are You Sure Delete this Favorite Item.";
 String get cancel => "Cancel";

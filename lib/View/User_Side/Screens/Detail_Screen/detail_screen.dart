@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable, prefer_is_empty
 import 'dart:developer';
 
+import 'package:e_commerce/Components/Widgets/Custom_Snackbar/content_type.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:readmore/readmore.dart';
@@ -62,7 +63,11 @@ class _DetailsScreenState extends State<DetailsScreen>
         .doc("$dateAndTime${FirebaseServices.currentUser!.uid}")
         .set(favorIteItemModelClass.toMap())
         .then((value) {
-      CustomDialog.toastMessage(message: "Add To Favorite");
+      CustomDialog.showCustomSnackBar(
+          context: context,
+          title: "Favorite",
+          message: "Your Product added to Favorite",
+          contentType: ContentType.success);
     });
   }
 
@@ -254,10 +259,18 @@ class _DetailsScreenState extends State<DetailsScreen>
                               "$dateAndTime${FirebaseServices.currentUser?.uid}")
                           .set(myCart.toJson())
                           .then((value) {
-                        CustomDialog.toastMessage(message: "Add To Cart");
+                        CustomDialog.showCustomSnackBar(
+                            context: context,
+                            title: "My Cart",
+                            message: "Your item is added successfully",
+                            contentType: ContentType.success);
                       }).onError((error, stackTrace) {
                         log("Add To Cart Error : ${error.toString()}");
-                        CustomDialog.toastMessage(message: error.toString());
+                        CustomDialog.showCustomSnackBar(
+                            context: context,
+                            title: "Error",
+                            message: error.toString(),
+                            contentType: ContentType.failure);
                       });
                     },
                     buttonText: addToCart),

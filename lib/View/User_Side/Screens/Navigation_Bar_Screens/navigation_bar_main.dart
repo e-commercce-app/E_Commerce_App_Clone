@@ -1,11 +1,13 @@
 // ignore_for_file: library_private_types_in_public_api
 
+import '../../../../Components/Widgets/Custom_Snackbar/snack_bar.dart';
 import '../../../../Export/e_commerce_export.dart';
 import 'Cart/cart_screen_main.dart';
 import 'Favorite_Items/favorite_main_page.dart';
 import 'Home/home_screen.dart';
 import 'Profile_Page/profile_main_screen.dart';
 import 'bloc/bottom_navigation_bloc.dart';
+import 'package:flutter/cupertino.dart';
 
 class BottomBarScreen extends StatefulWidget {
   const BottomBarScreen({super.key});
@@ -104,7 +106,31 @@ class Search extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(child: Text(search)),
+      body: Center(
+          child: CupertinoButton(
+              color: Resources.colors.kBlue,
+              onPressed: () {
+                const snackBar = SnackBar(
+                  /// need to set following properties for best effect of awesome_snackbar_content
+                  elevation: 0,
+                  behavior: SnackBarBehavior.floating,
+                  backgroundColor: Colors.transparent,
+                  duration: Duration(seconds: 3),
+                  content: AwesomeSnackbarContent(
+                    title: 'On Snap!',
+                    message:
+                        'This is an example error message that will be shown in the body of snackbar!',
+
+                    /// change contentType to ContentType.success, ContentType.warning or ContentType.help for variants
+                    contentType: ContentType.warning,
+                  ),
+                );
+
+                ScaffoldMessenger.of(context)
+                  ..hideCurrentSnackBar()
+                  ..showSnackBar(snackBar);
+              },
+              child: const Text("Search"))),
     );
   }
 }

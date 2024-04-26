@@ -46,6 +46,8 @@ dependencies:
   readmore: ^2.2.0
   # ! flutter Staggered Animations
   flutter_staggered_animations: ^1.1.1
+  # ! Awesome SnackBar With Customization
+  awesome_snackbar_content: ^0.1.3
   # ! lottie Animation Controller to Json file 
   lottie: ^3.1.0
   # ! Using Image Picker Controll this all Images for gallery and Camera
@@ -87,6 +89,7 @@ flutter:
     - assets/
     - assets/images/
     - assets/fonts/
+    - assets/snackbar_image/
     - animation/
     - assets/sample_payment_configuration.json
   
