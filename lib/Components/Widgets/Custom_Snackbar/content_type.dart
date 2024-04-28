@@ -13,10 +13,13 @@ class ContentType {
   const ContentType(this.message, [this.color]);
 
   static const ContentType help = ContentType('help', DefaultColors.helpBlue);
+
   static const ContentType failure =
       ContentType('failure', DefaultColors.failureRed);
+
   static const ContentType success =
       ContentType('success', DefaultColors.blueAppColor);
+
   static const ContentType warning =
       ContentType('warning', DefaultColors.warningYellow);
 }

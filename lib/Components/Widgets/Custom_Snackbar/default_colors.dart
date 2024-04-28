@@ -1,6 +1,6 @@
 import '../../../Export/e_commerce_export.dart';
 
-/// `DefaultColors` incase `color` paramter is null in `ContentType` in `SnackBar`
+/// `DefaultColors` incase `color` parameter is null in `ContentType` in `SnackBar`
 class DefaultColors {
   /// help
   static const Color helpBlue = Color(0xff3282B8);
