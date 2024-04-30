@@ -107,8 +107,13 @@ class Search extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-          child: CupertinoButton(
-              color: Resources.colors.kBlue,
+          child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          // ! Warning Button
+          CupertinoButton(
+              color: DefaultColors.warningYellow,
               onPressed: () {
                 const snackBar = SnackBar(
                   /// need to set following properties for best effect of awesome_snackbar_content
@@ -117,7 +122,7 @@ class Search extends StatelessWidget {
                   backgroundColor: Colors.transparent,
                   duration: Duration(seconds: 3),
                   content: AwesomeSnackbarContent(
-                    title: 'On Snap!',
+                    title: 'Warning',
                     message:
                         'This is an example error message that will be shown in the body of snackbar!',
 
@@ -130,7 +135,98 @@ class Search extends StatelessWidget {
                   ..hideCurrentSnackBar()
                   ..showSnackBar(snackBar);
               },
-              child: const Text("Search"))),
+              child: const Text("Warning Button")),
+          const CustomSizedBox(
+            heightRatio: 0.1,
+          ),
+
+          // ! failure Button
+          CupertinoButton(
+              color: DefaultColors.failureRed,
+              onPressed: () {
+                const snackBar = SnackBar(
+                  /// need to set following properties for best effect of awesome_snackbar_content
+                  elevation: 0,
+                  behavior: SnackBarBehavior.floating,
+                  backgroundColor: Colors.transparent,
+                  duration: Duration(seconds: 3),
+                  content: AwesomeSnackbarContent(
+                    title: 'Failure',
+                    message:
+                        'This is an example error message that will be shown in the body of snackbar!',
+
+                    /// change contentType to ContentType.success, ContentType.warning or ContentType.help for variants
+                    contentType: ContentType.failure,
+                  ),
+                );
+
+                ScaffoldMessenger.of(context)
+                  ..hideCurrentSnackBar()
+                  ..showSnackBar(snackBar);
+              },
+              child: const Text("failure Button")),
+          const CustomSizedBox(
+            heightRatio: 0.1,
+          ),
+
+          // ! Help Button
+          CupertinoButton(
+              color: DefaultColors.helpBlue,
+              onPressed: () {
+                const snackBar = SnackBar(
+                  /// need to set following properties for best effect of awesome_snackbar_content
+                  elevation: 0,
+                  behavior: SnackBarBehavior.floating,
+                  backgroundColor: Colors.transparent,
+                  duration: Duration(seconds: 3),
+                  content: AwesomeSnackbarContent(
+                    title: 'Help',
+                    message:
+                        'This is an example error message that will be shown in the body of snackbar!',
+
+                    /// change contentType to ContentType.success, ContentType.warning or ContentType.help for variants
+                    contentType: ContentType.help,
+                  ),
+                );
+
+                ScaffoldMessenger.of(context)
+                  ..hideCurrentSnackBar()
+                  ..showSnackBar(snackBar);
+              },
+              child: const Text("Help Button")),
+          const CustomSizedBox(
+            heightRatio: 0.1,
+          ),
+          // ! success Button
+          CupertinoButton(
+              color: DefaultColors.successGreen,
+              onPressed: () {
+                const snackBar = SnackBar(
+                  /// need to set following properties for best effect of awesome_snackbar_content
+                  elevation: 0,
+                  behavior: SnackBarBehavior.floating,
+                  backgroundColor: Colors.transparent,
+                  duration: Duration(seconds: 3),
+                  content: AwesomeSnackbarContent(
+                    title: 'Success',
+                    message:
+                        'This is an example error message that will be shown in the body of snackbar!',
+
+                    /// change contentType to ContentType.success, ContentType.warning or ContentType.help for variants
+                    contentType: ContentType.success,
+                  ),
+                );
+
+                ScaffoldMessenger.of(context)
+                  ..hideCurrentSnackBar()
+                  ..showSnackBar(snackBar);
+              },
+              child: const Text("Success Button")),
+          const CustomSizedBox(
+            heightRatio: 0.1,
+          ),
+        ],
+      )),
     );
   }
 }

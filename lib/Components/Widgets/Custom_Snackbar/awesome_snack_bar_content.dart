@@ -92,8 +92,8 @@ class AwesomeSnackbarContent extends StatelessWidget {
               borderRadius: const BorderRadius.only(
                 bottomLeft: Radius.circular(20),
               ),
-              child: CustomImageView(
-                imagePath: Resources.imagePath.bubbles,
+              child: SvgPicture.asset(
+                Resources.imagePath.bubbles,
                 height: size.height * 0.06,
                 width: size.width * 0.05,
                 colorFilter:
@@ -118,16 +118,16 @@ class AwesomeSnackbarContent extends StatelessWidget {
             child: Stack(
               alignment: Alignment.center,
               children: [
-                CustomImageView(
-                  imagePath: Resources.imagePath.back,
+                SvgPicture.asset(
+                  Resources.imagePath.back,
                   height: size.height * 0.06,
                   colorFilter:
                       _getColorFilter(hslDark.toColor(), ui.BlendMode.srcIn),
                 ),
                 Positioned(
                   top: size.height * 0.015,
-                  child: CustomImageView(
-                    imagePath: assetSVG(contentType),
+                  child: SvgPicture.asset(
+                    assetSVG(contentType),
                     height: size.height * 0.022,
                   ),
                 )
@@ -152,7 +152,7 @@ class AwesomeSnackbarContent extends StatelessWidget {
                     /// `title` parameter
                     Expanded(
                       flex: 3,
-                      child: AutoSizeText(
+                      child: Text(
                         title,
                         style: TextStyle(
                           fontSize: titleFontSize ??
@@ -174,8 +174,8 @@ class AwesomeSnackbarContent extends StatelessWidget {
                         }
                         ScaffoldMessenger.of(context).hideCurrentSnackBar();
                       },
-                      child: CustomImageView(
-                        imagePath: Resources.imagePath.failure,
+                      child: SvgPicture.asset(
+                        Resources.imagePath.failure,
                         height: size.height * 0.022,
                       ),
                     ),
@@ -187,7 +187,7 @@ class AwesomeSnackbarContent extends StatelessWidget {
 
                 /// `message` body text parameter
                 Expanded(
-                  child: AutoSizeText(
+                  child: Text(
                     message,
                     style: TextStyle(
                       fontSize: messageFontSize ?? size.height * 0.016,
