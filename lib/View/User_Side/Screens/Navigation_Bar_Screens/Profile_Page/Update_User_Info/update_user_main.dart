@@ -1,7 +1,7 @@
+import 'package:e_commerce/Components/Widgets/Custom_Snackbar/content_type.dart';
 import 'package:e_commerce/Components/Widgets/custom_form_field.dart';
 import 'package:e_commerce/Export/e_commerce_export.dart';
 import 'package:e_commerce/Models/user_details.dart';
-import 'package:e_commerce/View/User_Side/Screens/Navigation_Bar_Screens/Profile_Page/profile_main_screen.dart';
 import 'Components/custom_update_app_bar.dart';
 
 class UpdateUserInfo extends StatefulWidget {
@@ -17,18 +17,21 @@ class _UpdateUserInfoState extends State<UpdateUserInfo> {
   // TextEditingController
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
+  TextEditingController phoneNoController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
 
   Future<void> updateUserInfo() async {
     var userColl = FirebaseServices.currentUserCollection;
     var userDoc = userColl.doc(FirebaseServices.currentUser!.uid);
 
     var updateData = UserDetails(
-        id: FirebaseServices.currentUser!.uid,
-        emailAddress: emailController.text.toString(),
-        name: nameController.text.toString(),
-        isAdmin: false,
-        userImage:
-            "https://firebasestorage.googleapis.com/v0/b/flutter-e-commerce-14c75.appspot.com/o/NikeShoes%2Fnike11.png?alt=media&token=bd143004-213f-439c-bfa3-3be73f769193");
+      id: FirebaseServices.currentUser!.uid,
+      emailAddress: emailController.text.toString(),
+      name: nameController.text.toString(),
+      phoneNumber: phoneNoController.text.toString(),
+      password: passwordController.text.toString(),
+      isAdmin: false,
+    );
 
     userDoc.update(updateData.toJson());
     setState(() {});
@@ -39,6 +42,8 @@ class _UpdateUserInfoState extends State<UpdateUserInfo> {
     super.initState();
     nameController.text = widget.userDetails.name.toString();
     emailController.text = widget.userDetails.emailAddress.toString();
+    phoneNoController.text = widget.userDetails.phoneNumber.toString();
+    passwordController.text = widget.userDetails.password.toString();
   }
 
   @override
@@ -67,7 +72,7 @@ class _UpdateUserInfoState extends State<UpdateUserInfo> {
                 Align(
                   alignment: Alignment.centerLeft,
                   child: AutoSizeText(
-                    "Your Name",
+                    yourName,
                     style: Resources.textStyle
                         .userNameTextStyle(size: widget.size),
                     overflow: TextOverflow.ellipsis,
@@ -87,7 +92,7 @@ class _UpdateUserInfoState extends State<UpdateUserInfo> {
                 Align(
                   alignment: Alignment.centerLeft,
                   child: AutoSizeText(
-                    "Email Address",
+                    signInEmailAddress,
                     style: Resources.textStyle
                         .userNameTextStyle(size: widget.size),
                     overflow: TextOverflow.ellipsis,
@@ -97,23 +102,50 @@ class _UpdateUserInfoState extends State<UpdateUserInfo> {
                 const CustomSizedBox(heightRatio: 0.008),
                 CustomTextFormField(
                   controller: emailController,
+                  readOnly: true,
+                  textInputType: TextInputType.emailAddress,
                   // initialValue: widget.userDetails.emailAddress.toString(),
                 ),
+
+                // some space
+                const CustomSizedBox(heightRatio: 0.05),
+                // ! Phone Number sections
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: AutoSizeText(
+                    phoneNumber,
+                    style: Resources.textStyle
+                        .userNameTextStyle(size: widget.size),
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                  ),
+                ),
+                const CustomSizedBox(heightRatio: 0.008),
+                CustomTextFormField(
+                  controller: phoneNoController,
+                  textInputType: TextInputType.phone,
+                  // initialValue: widget.userDetails.emailAddress.toString(),
+                ),
+                // some space
+                const CustomSizedBox(heightRatio: 0.05),
                 // ! Buttons Sections .
 
                 CustomButton(
                   size: widget.size,
-                  buttonText: "Update".toUpperCase(),
+                  buttonText: update.toUpperCase(),
                   onPressed: () async {
                     await updateUserInfo().then((value) {
                       nameController.clear();
                       emailController.clear();
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const ProfileScreen(),
-                          ));
-                      CustomDialog.toastMessage(message: "Update User");
+                      phoneNoController.clear();
+                      NavigatorService.pushNamedAndRemoveUntil(
+                          RoutesName.bottomBarScreen);
+                      CustomDialog.showCustomSnackBar(
+                          context: context,
+                          title: "Edit",
+                          message:
+                              "Successfully current user Update this data.",
+                          contentType: ContentType.success);
                     });
                   },
                 )
@@ -121,5 +153,13 @@ class _UpdateUserInfoState extends State<UpdateUserInfo> {
             )),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    nameController.dispose();
+    emailController.dispose();
+    phoneNoController.dispose();
+    super.dispose();
   }
 }

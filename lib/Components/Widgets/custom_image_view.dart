@@ -11,6 +11,7 @@ class CustomImageView extends StatelessWidget {
   double? width;
   Color? color;
   BoxFit? fit;
+  final ColorFilter? colorFilter;
   final String placeHolder;
   Alignment? alignment;
   VoidCallback? onTap;
@@ -33,6 +34,7 @@ class CustomImageView extends StatelessWidget {
     this.margin,
     this.border,
     this.placeHolder = 'assets/images/image_not_found.png',
+    this.colorFilter,
   });
 
   @override
@@ -94,8 +96,9 @@ class CustomImageView extends StatelessWidget {
               height: height,
               width: width,
               fit: fit ?? BoxFit.contain,
-              colorFilter: ColorFilter.mode(
-                  this.color ?? Colors.transparent, BlendMode.srcIn),
+              colorFilter: colorFilter ??
+                  ColorFilter.mode(
+                      this.color ?? Colors.transparent, BlendMode.srcIn),
             ),
           );
         case ImageType.file:

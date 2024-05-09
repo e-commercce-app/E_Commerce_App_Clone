@@ -1,4 +1,3 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:e_commerce/Components/Widgets/custom_form_field.dart';
 import 'package:e_commerce/Export/e_commerce_export.dart';
 import 'package:e_commerce/View/User_Side/Screens/Auth/Sign_in_Screen/bloc/sign_in_bloc.dart';
@@ -13,6 +12,9 @@ class SignInScreen extends StatefulWidget {
 class _SignInScreenState extends State<SignInScreen> {
   // Screen Size .
   late Size size;
+
+  //
+  bool isPasswordVisible = true;
   @override
   Widget build(BuildContext context) {
     size = MediaQuery.sizeOf(context);
@@ -49,7 +51,7 @@ class _SignInScreenState extends State<SignInScreen> {
                               heightRatio: 0.08,
                             ),
                             Text(
-                              "Hello Again!".toUpperCase(),
+                              helloAgain.toUpperCase(),
                               style: Resources.textStyle
                                   .createAccountTextStyle(size: size),
                               overflow: TextOverflow.ellipsis,
@@ -57,7 +59,7 @@ class _SignInScreenState extends State<SignInScreen> {
                             ),
                             const CustomSizedBox(heightRatio: 0.003),
                             Text(
-                              "Welcome Back You've Been Missed!",
+                              welcomeBackYouMissed,
                               style: Resources.textStyle
                                   .togetherCreateTextStyle(size: size),
                               overflow: TextOverflow.ellipsis,
@@ -68,7 +70,7 @@ class _SignInScreenState extends State<SignInScreen> {
                             Align(
                               alignment: Alignment.centerLeft,
                               child: Text(
-                                "Email Address",
+                                signInEmailAddress,
                                 style: Resources.textStyle
                                     .userNameTextStyle(size: size),
                                 overflow: TextOverflow.ellipsis,
@@ -81,7 +83,7 @@ class _SignInScreenState extends State<SignInScreen> {
                               controller: (state).emailAddress,
                               textInputAction: TextInputAction.next,
                               textInputType: TextInputType.emailAddress,
-                              hintText: "Enter Email",
+                              hintText: signInEnterEmail,
                               validator: (value) {
                                 if (value == null ||
                                     !isValidEmail(value, isRequired: true)) {
@@ -96,7 +98,7 @@ class _SignInScreenState extends State<SignInScreen> {
                             Align(
                               alignment: Alignment.centerLeft,
                               child: Text(
-                                "Password",
+                                password,
                                 style: Resources.textStyle
                                     .userNameTextStyle(size: size),
                                 overflow: TextOverflow.ellipsis,
@@ -110,6 +112,19 @@ class _SignInScreenState extends State<SignInScreen> {
                               textInputAction: TextInputAction.done,
                               textInputType: TextInputType.visiblePassword,
                               hintText: "Enter Your Password",
+
+                              obscureText: isPasswordVisible,
+                              // ! Visible and UnVisible .
+                              suffixIcon: IconButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      isPasswordVisible = !isPasswordVisible;
+                                    });
+                                  },
+                                  icon: isPasswordVisible
+                                      ? const Icon(Icons.remove_red_eye)
+                                      : const Icon(
+                                          Icons.remove_red_eye_outlined)),
                               validator: (value) {
                                 if (value!.isEmpty) {
                                   return "Please Enter a Password.";
@@ -127,7 +142,7 @@ class _SignInScreenState extends State<SignInScreen> {
                                         Resources.colors.kBlue.withOpacity(0.5),
                                     onTap: () => NavigatorService.pushNamed(
                                         RoutesName.forgetPasswordScreen),
-                                    child: const Text("Recovery Password"))),
+                                    child: AutoSizeText(recoveryPassword))),
                             // some space
                             const CustomSizedBox(heightRatio: 0.05),
                             // !SignUp Button Sections
@@ -140,7 +155,7 @@ class _SignInScreenState extends State<SignInScreen> {
                             Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Text("Don't Have An Account ?",
+                                  Text(haveAnOtherAccount,
                                       style: TextStyle(
                                         // color: colorScheme.primary,
                                         fontSize: size.height * 0.015,
@@ -153,8 +168,9 @@ class _SignInScreenState extends State<SignInScreen> {
                                   Padding(
                                       padding: const EdgeInsets.only(left: 2),
                                       child: InkWell(
-                                        onTap: () => NavigatorService.pushNamed(
-                                            RoutesName.signUpScreen),
+                                        onTap: () => NavigatorService
+                                            .pushReplacementsNamed(
+                                                RoutesName.signUpScreen),
                                         child: Text("Sign Up",
                                             style: TextStyle(
                                               // color: colorScheme.primaryContainer,
@@ -189,7 +205,7 @@ class _SignInScreenState extends State<SignInScreen> {
         onPressed: () {
           BlocProvider.of<SignInBloc>(context).add(SignInClickEvent());
         },
-        buttonText: "Sign In");
+        buttonText: signIn);
   }
 
   // Press Google Button trigger event and implement this state .
@@ -202,6 +218,6 @@ class _SignInScreenState extends State<SignInScreen> {
           (state is SignInGoogleState);
           BlocProvider.of<SignInBloc>(context).add(SignInGoogleEvent());
         },
-        buttonText: "Sign In With Google");
+        buttonText: signInWithGoogle);
   }
 }

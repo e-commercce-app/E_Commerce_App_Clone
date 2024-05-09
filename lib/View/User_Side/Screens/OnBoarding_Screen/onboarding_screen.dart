@@ -1,7 +1,5 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-import 'package:e_commerce/Components/Localization/app_strings.dart';
 import 'package:e_commerce/View/User_Side/Screens/OnBoarding_Screen/Bloc/page_view_bloc.dart';
 import 'package:e_commerce/View/User_Side/Screens/OnBoarding_Screen/Bloc/page_view_event.dart';
 
@@ -98,10 +96,9 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                             duration: const Duration(milliseconds: 400),
                             curve: Curves.easeIn);
                         if (state.selectedIndex == pages.length - 0) {
-                          Navigator.pushReplacementNamed(
-                            context,
-                            RoutesName.signInScreen,
-                          ).then((value) {
+                          NavigatorService.pushReplacementsNamed(
+                                  RoutesName.signInScreen)
+                              .then((value) {
                             state.selectedIndex = 2;
                           });
                         }

@@ -5,3 +5,8 @@ sealed class CartBottomEvent {
 }
 
 class FetchBottomCartEvent extends CartBottomEvent {}
+
+class RemoveItemBottomCartEvent extends CartBottomEvent {
+  String itemID;
+  RemoveItemBottomCartEvent({required this.itemID});
+}

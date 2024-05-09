@@ -1,5 +1,4 @@
 import 'package:e_commerce/Controller/Services/Controller/get_my_cart_data.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:e_commerce/Export/e_commerce_export.dart';
 import 'package:e_commerce/View/User_Side/Screens/Navigation_Bar_Screens/Cart/bloc/cart_bottom_bloc.dart';
@@ -8,6 +7,7 @@ import '../../../../../Components/Error/cart_no_item_page.dart';
 import '../../../../../Components/Widgets/AppBar/app_bar_leading_icon_button.dart';
 import '../../../../../Components/Widgets/AppBar/custom_appbar.dart';
 import '../../My_Cart_Screen/Components/custom_my_cart_design.dart';
+import 'Components/delete_dialog_item_card.dart';
 
 class CartBottomBarScreen extends StatefulWidget {
   const CartBottomBarScreen({super.key});
@@ -57,7 +57,22 @@ class _CartBottomBarScreenState extends State<CartBottomBarScreen> {
                             productPrice:
                                 state.cartData[index].productPrice ?? 0,
                             quantity: state.cartData[index].quantity ?? 0,
-                            deleteButton: () {},
+                            deleteButton: () {
+                              // ! Show Delete Dialog .
+                              customDeleteCartBottomDialog(
+                                context: context,
+                                state: state,
+                                index: index,
+                                size: size,
+                                onPressedOky: () async {
+                                  context.read<CartBottomBloc>().add(
+                                      RemoveItemBottomCartEvent(
+                                          itemID: state
+                                              .cartData[index].productUid
+                                              .toString()));
+                                },
+                              );
+                            },
                           );
                         },
                       ),
@@ -80,10 +95,7 @@ class _CartBottomBarScreenState extends State<CartBottomBarScreen> {
       title: const AutoSizeText("My Cart"),
       actions: [
         AppBarLeadingIconButtonOne(
-            onTap: () {
-              NavigatorService.pushNamed(RoutesName.addToCartScreen);
-            },
-            child: AutoSizeText("${state.cartData.length}")),
+            onTap: null, child: AutoSizeText("${state.cartData.length}")),
       ],
     );
   }

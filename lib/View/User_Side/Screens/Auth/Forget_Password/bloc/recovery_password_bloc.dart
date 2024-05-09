@@ -2,7 +2,6 @@
 
 import 'dart:developer';
 
-import 'package:bloc/bloc.dart';
 import 'package:e_commerce/Export/e_commerce_export.dart';
 
 part 'recovery_password_event.dart';

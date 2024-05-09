@@ -1,17 +1,19 @@
 import 'dart:developer' as developer;
 
+import 'package:e_commerce/Components/Widgets/Custom_Snackbar/content_type.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:e_commerce/View/User_Side/Screens/Home_Page_Tabs/Bata_Shoes/bata_shoes_main.dart';
-import 'package:e_commerce/View/User_Side/Screens/Home_Page_Tabs/Nike_Shoes/nike_shoes_main.dart';
-import 'package:e_commerce/View/User_Side/Screens/Home_Page_Tabs/Puma_Shoes/puma_shoes_main.dart';
-import 'package:e_commerce/View/User_Side/Screens/Home_Page_Tabs/Reebok_Shoes/reebok_shoes_main.dart';
-import 'package:e_commerce/View/User_Side/Screens/Navigation_Bar_Screens/Home/Components/custom_drawer_home_page.dart';
-import 'package:e_commerce/View/User_Side/Screens/Navigation_Bar_Screens/Home/bloc/matrix4_rotation_bloc.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
 
 import '../../../../../Components/Widgets/custom_search_click_view.dart';
 import '../../../../../Export/e_commerce_export.dart';
+import '../../Home_Page_Tabs/Bata_Shoes/bata_shoes_main.dart';
+import '../../Home_Page_Tabs/Nike_Shoes/nike_shoes_main.dart';
+import '../../Home_Page_Tabs/Puma_Shoes/puma_shoes_main.dart';
+import '../../Home_Page_Tabs/Reebok_Shoes/reebok_shoes_main.dart';
+import 'Components/custom_drawer_home_page.dart';
 import 'Components/home_page_app_bar.dart';
+import 'bloc/matrix4_rotation_bloc.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -26,10 +28,84 @@ class _HomeScreenState extends State<HomeScreen>
   late Size size;
   late TabController tabController;
 
+  //  store this current Location .
+  String currentLocation = "";
+
+  // ! Using Internet Fetch This Current Location .
+  Future<Position> _determinePosition() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      return Future.error(locationAreDisabled);
+    }
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        return Future.error(locationPermissionDenied);
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      return Future.error(locationPermissionPermanentlyDenied);
+    }
+
+    return await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+  }
+
+  getLatLong() {
+    Future<Position> data = _determinePosition();
+    data.then((value) {
+      debugPrint("value $value");
+      setState(() {
+        value.latitude;
+        value.longitude;
+      });
+
+      getAddress(value.latitude, value.longitude);
+    }).catchError((error) {
+      debugPrint("Error $error");
+    });
+  }
+
+  /// ! For convert latitude longitude to address
+  /// !Using (GeoCoding) Package .
+  getAddress(
+    lat,
+    long,
+  ) async {
+    List<Placemark> placemarks = await placemarkFromCoordinates(lat, long);
+    setState(() {
+      currentLocation =
+          "${placemarks[0].street!} ${placemarks[0].country!} ${placemarks[0].name} ${placemarks[0].locality}";
+    });
+
+    for (int i = 0; i < placemarks.length; i++) {
+      debugPrint("INDEX $i ${placemarks[i]}");
+    }
+  }
+
   @override
   void initState() {
     super.initState();
     tabController = TabController(length: 4, vsync: this, initialIndex: 0);
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _determinePosition().then((value) {
+      currentLocation.toString();
+      getLatLong();
+      CustomDialog.showCustomSnackBar(
+          context: context,
+          title: "Location",
+          message: "Find This Current Locations",
+          contentType: ContentType.success);
+      // CustomDialog.toastMessage(message: findThisLocation);
+    });
   }
 
   @override
@@ -75,7 +151,9 @@ class _HomeScreenState extends State<HomeScreen>
                           BlocProvider.of<Matrix4RotationBloc>(context,
                                   listen: false)
                               .add(RotationHomePageEvents());
-                        }, size: size),
+                        },
+                            size: size,
+                            currentLocation: currentLocation.toString()),
                         // some Space .
                         const CustomSizedBox(heightRatio: 0.02),
                         // ! Search TextField Container Section .
@@ -143,8 +221,7 @@ class _HomeScreenState extends State<HomeScreen>
                             )),
                         //  ! _Build New Arrivals .
                         _buildNewArrivals(context,
-                            newArrivalsText: "Popular Shoes",
-                            seeAllText: "See All"),
+                            newArrivalsText: popularShoes, seeAllText: seeAll),
                         Expanded(
                             child: TabBarView(
                                 controller: tabController,

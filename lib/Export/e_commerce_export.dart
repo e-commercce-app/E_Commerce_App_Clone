@@ -1,4 +1,6 @@
 // ! Main material library .
+// ignore_for_file: depend_on_referenced_packages
+
 export 'package:flutter/material.dart';
 
 // ! Services class .
@@ -32,9 +34,14 @@ export '../Components/Widgets/custom_size_box.dart';
 export '../Components/Widgets/custom_toast.dart';
 export '../Components/Widgets/validation_function.dart';
 export '../Components/Widgets/custom_image_view.dart';
+export '../Components/Localization/app_strings.dart';
 // ! Controller Services Library .
 export 'package:e_commerce/Controller/Services/firebase_services.dart';
 // ! Navigator Services
 export 'package:e_commerce/Components/Navigator_Service/navigator_services.dart';
 // ! Routes Library
 export 'package:e_commerce/Controller/Routes/routes_method.dart';
+
+// ! Bloc Pattern Libraries
+export "package:flutter_bloc/flutter_bloc.dart";
+export 'package:bloc/bloc.dart';

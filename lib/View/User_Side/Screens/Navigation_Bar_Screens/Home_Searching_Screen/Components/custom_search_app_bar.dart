@@ -18,7 +18,7 @@ PreferredSizeWidget searchingAppBar({Size? size}) {
       ),
       centerTitle: true,
       title: AppbarSubtitleOne(
-        text: "Searching",
+        text: searching,
         margin: const EdgeInsets.only(left: 40),
       ));
 }

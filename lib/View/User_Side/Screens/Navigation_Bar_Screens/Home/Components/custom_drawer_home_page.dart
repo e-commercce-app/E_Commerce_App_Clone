@@ -1,8 +1,11 @@
+import 'package:e_commerce/View/User_Side/Screens/Navigation_Bar_Screens/Favorite_Items/favorite_main_page.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 import 'package:e_commerce/Components/Widgets/custom_shoes_page_design.dart';
 import 'package:e_commerce/Controller/Services/Controller/current_user_delete_account.dart';
 import 'package:e_commerce/Export/e_commerce_export.dart';
+
+import '../../../../../../Components/Widgets/Custom_Snackbar/snack_bar.dart';
 
 class CustomDrawer extends StatefulWidget {
   const CustomDrawer({super.key});
@@ -59,34 +62,47 @@ class _CustomDrawerState extends State<CustomDrawer> {
                 listTile(
                   icon: Icons.home_outlined,
                   title: "Profile",
-                  onTap: () => CustomDialog.toastMessage(message: "Profile"),
+                  onTap: () {
+                    NavigatorService.pushNamed(RoutesName.profile);
+                  },
                 ),
                 // ! My Cart
                 listTile(
                   icon: Icons.shopping_cart_checkout_outlined,
                   title: "My Cart",
-                  onTap: () => CustomDialog.toastMessage(message: "My Cart"),
+                  onTap: () {
+                    NavigatorService.pushNamed(RoutesName.addToCartScreen);
+                  },
                 ),
                 // ! Favorite
                 listTile(
-                  icon: Icons.favorite_border,
-                  title: "Favorite",
-                  onTap: () => CustomDialog.toastMessage(message: "Favorite"),
-                ),
+                    icon: Icons.favorite_border,
+                    title: "Favorite",
+                    onTap: () => NavigatorService.push(MaterialPageRoute(
+                          builder: (context) => const FavoriteScreen(),
+                        ))),
                 // ! Delete Account
                 listTile(
                   icon: Icons.delete_sweep_sharp,
                   title: "Delete Account",
                   onTap: () async {
                     await DeleteCurrentUser.deleteCurrentUser();
-                    CustomDialog.toastMessage(message: "Delete Account");
+                    if (context.mounted) {
+                      CustomDialog.showCustomSnackBar(
+                          context: context,
+                          title: "Delete Account",
+                          message: "Delete this account and delete all info ",
+                          contentType: ContentType.success);
+                    }
                   },
                 ),
                 // ! Order
                 listTile(
                     icon: Icons.electric_bike,
                     title: "Order",
-                    onTap: () async {}),
+                    onTap: () async {
+                      NavigatorService.pushNamed(RoutesName.orderNowScreen);
+                    }),
                 const CustomSizedBox(
                   heightRatio: 0.03,
                 ),
@@ -106,8 +122,12 @@ class _CustomDrawerState extends State<CustomDrawer> {
                   onTap: () {
                     FirebaseServices.auth.signOut().then((value) {
                       GoogleSignIn().signOut();
-                      CustomDialog.toastMessage(message: "LogOut");
-                      if (!mounted) {
+                      CustomDialog.showCustomSnackBar(
+                          context: context,
+                          title: "LogOut",
+                          message: "Successfully Current User Logout",
+                          contentType: ContentType.success);
+                      if (mounted) {
                         Navigator.pushReplacementNamed(
                             context, RoutesName.signInScreen);
                       }

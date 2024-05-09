@@ -17,3 +17,6 @@ class ErrorBottomCartState extends CartBottomState {
   String errorMsg;
   ErrorBottomCartState({required this.errorMsg});
 }
+
+// ! Delete Item State
+class RemoveItemCartBottomState extends CartBottomState {}

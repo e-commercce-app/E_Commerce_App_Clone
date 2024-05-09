@@ -4,7 +4,6 @@ import 'package:e_commerce/Export/e_commerce_export.dart';
 import 'package:e_commerce/Models/user_details.dart';
 import 'package:e_commerce/View/User_Side/Screens/Navigation_Bar_Screens/Profile_Page/custom_profile_app_bar.dart';
 
-import 'Components/camera_and_image_picker_design.dart';
 import 'Update_User_Info/update_user_main.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -38,24 +37,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     size = MediaQuery.sizeOf(context);
-    String name = userDetails.name ?? "E_Commerence";
-    String email = userDetails.emailAddress ?? "xyz@gmail.com";
-    String imagePath = userDetails.userImage ?? "xyz";
+    String name = userDetails.name ??
+        FirebaseServices.currentUser!.displayName.toString();
+    String email = userDetails.emailAddress ??
+        FirebaseServices.currentUser!.email.toString();
+    String phone = userDetails.phoneNumber ?? "+92032467...";
+    String password = userDetails.password ?? "1234567";
     return Scaffold(
       // ! Custom App Bar Sections .
       appBar: profileCustomAppBar(
-        onTap: () {
-          NavigatorService.push(MaterialPageRoute(
-            builder: (context) => UpdateUserInfo(
-              userDetails: UserDetails(
-                emailAddress: email.toString(),
-                name: name.toString(),
-                id: FirebaseServices.currentUser!.uid,
-              ),
-              size: size,
-            ),
-          ));
-        },
         size: size,
       ),
       body: SingleChildScrollView(
@@ -68,21 +58,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
             child: Column(
               children: [
-                // ! Image Sections .
-                CustomPickImageView(
-                  size: size,
-                  imagePath: imagePath,
-                ),
-                // Some Space
-                const CustomSizedBox(
-                  heightRatio: 0.02,
-                ),
                 AutoSizeText(
-                  "Jawad Jani",
+                  name.toString(),
                   style: Resources.textStyle
                       .createAccountTextStyle(size: size)
                       .copyWith(
-                        fontSize: 17,
+                        fontSize: 25,
+                        fontWeight: FontWeight.bold,
                         overflow: TextOverflow.ellipsis,
                       ),
                   overflow: TextOverflow.ellipsis,
@@ -94,7 +76,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 Align(
                   alignment: Alignment.centerLeft,
                   child: AutoSizeText(
-                    "Your Name",
+                    yourName,
                     style: Resources.textStyle.userNameTextStyle(size: size),
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
@@ -114,8 +96,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 Align(
                   alignment: Alignment.centerLeft,
                   child: AutoSizeText(
-                    "Email Address",
-                    style: Resources.textStyle.userNameTextStyle(size: size),
+                    signInEmailAddress,
+                    style: Resources.textStyle.userNameTextStyle(
+                      size: size,
+                    ),
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
                   ),
@@ -126,7 +110,46 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   title: email.toString(),
                   screenHeight: size.height,
                   screenWidth: size.width,
-                )
+                ),
+                // some space
+                const CustomSizedBox(heightRatio: 0.03),
+                // ! Phone Number sections
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: AutoSizeText(
+                    phoneNumber,
+                    style: Resources.textStyle.userNameTextStyle(size: size),
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                  ),
+                ),
+                const CustomSizedBox(heightRatio: 0.008),
+                // Email Address Input Field
+                CustomProfileContainer(
+                  title: phone.toString(),
+                  screenHeight: size.height,
+                  screenWidth: size.width,
+                ),
+
+                // some space
+                const CustomSizedBox(heightRatio: 0.05),
+                CustomButton(
+                    size: size,
+                    onPressed: () {
+                      NavigatorService.push(MaterialPageRoute(
+                        builder: (context) => UpdateUserInfo(
+                          userDetails: UserDetails(
+                            emailAddress: email.toString(),
+                            name: name.toString(),
+                            phoneNumber: phone.toString(),
+                            password: password,
+                            id: FirebaseServices.currentUser!.uid,
+                          ),
+                          size: size,
+                        ),
+                      ));
+                    },
+                    buttonText: editProfile)
               ],
             )),
       ),

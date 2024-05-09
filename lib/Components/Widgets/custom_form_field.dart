@@ -27,6 +27,7 @@ class CustomTextFormField extends StatelessWidget {
     this.validator,
     this.readOnly,
     this.initialValue,
+    this.borderRadius,
   }) : super(key: key);
 
   final Alignment? alignment;
@@ -53,6 +54,7 @@ class CustomTextFormField extends StatelessWidget {
   final FormFieldValidator<String>? validator;
   final bool? readOnly;
   final String? initialValue;
+  final BorderRadius? borderRadius;
   @override
   Widget build(BuildContext context) {
     return textFormFieldWidget(context);
@@ -90,6 +92,7 @@ class CustomTextFormField extends StatelessWidget {
         prefixIcon: prefixIcon,
         prefixIconConstraints: prefixConstraints,
         suffixIcon: suffixIcon,
+        suffixIconColor: Colors.black,
         suffixIconConstraints: suffixConstraints,
         isDense: true,
         contentPadding: contentPadding ?? const EdgeInsets.all(14),
@@ -97,17 +100,17 @@ class CustomTextFormField extends StatelessWidget {
         filled: filled,
         border: borderDecoration ??
             OutlineInputBorder(
-              borderRadius: BorderRadius.circular(24),
+              borderRadius: borderRadius ?? BorderRadius.circular(24),
               borderSide: BorderSide.none,
             ),
         enabledBorder: borderDecoration ??
             OutlineInputBorder(
-              borderRadius: BorderRadius.circular(24),
+              borderRadius: borderRadius ?? BorderRadius.circular(24),
               borderSide: BorderSide.none,
             ),
         focusedBorder: borderDecoration ??
             OutlineInputBorder(
-              borderRadius: BorderRadius.circular(24),
+              borderRadius: borderRadius ?? BorderRadius.circular(24),
               borderSide: BorderSide.none,
             ),
       );

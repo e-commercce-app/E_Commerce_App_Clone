@@ -30,4 +30,10 @@ class NavigatorService {
       route,
     );
   }
+
+  //! pushNamedAndRemoveUntil
+  static Future<dynamic> pushNamedAndRemoveUntil(String newRouteName) {
+    return navigatorKey.currentState!
+        .pushNamedAndRemoveUntil(newRouteName, (route) => false);
+  }
 }

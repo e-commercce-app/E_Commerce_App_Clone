@@ -97,3 +97,29 @@ class AppTextStyle {
     );
   }
 }
+
+// !  Product Name Text .
+Widget productNameText({required String name, double? fontSize}) {
+  return AutoSizeText(
+    name,
+    style: GoogleFonts.aBeeZee(
+        textStyle: TextStyle(
+      fontSize: fontSize ?? 25,
+      color: Resources.colors.kBlack,
+      fontWeight: FontWeight.bold,
+    )),
+    overflow: TextOverflow.ellipsis,
+  );
+}
+
+// ! Product Price Text .
+Widget productPriceText({required String price, double? fontSize}) {
+  return AutoSizeText(price,
+      style: GoogleFonts.aBeeZee(
+          textStyle: TextStyle(
+        fontSize: fontSize ?? 18,
+        color: Resources.colors.kBlack,
+        fontWeight: FontWeight.bold,
+      )),
+      overflow: TextOverflow.ellipsis);
+}

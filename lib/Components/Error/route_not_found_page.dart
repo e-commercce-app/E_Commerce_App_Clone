@@ -18,7 +18,7 @@ class NotFound404Error extends StatelessWidget {
             bottom: 230,
             left: 30,
             child: AutoSizeText(
-              'Dead End',
+              deadEnd,
               presetFontSizes: const [25.0, 20.0, 15.0, 10.0],
               style: kTitleTextStyle.copyWith(
                   color: Colors.white, overflow: TextOverflow.ellipsis),
@@ -28,7 +28,7 @@ class NotFound404Error extends StatelessWidget {
             bottom: 170,
             left: 30,
             child: AutoSizeText(
-              'Oops! The page you are looking for\nis not found',
+              oopsThePageNotFound,
               presetFontSizes: const [18.0, 12.0, 9.0, 5.0],
               style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                   color: Resources.colors.kGray600,
@@ -45,7 +45,7 @@ class NotFound404Error extends StatelessWidget {
                 onPressed: () {
                   NavigatorService.pushNamed(RoutesName.bottomBarScreen);
                 },
-                buttonText: "Home"),
+                buttonText: home),
           ),
         ],
       ),

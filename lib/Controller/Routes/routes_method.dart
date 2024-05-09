@@ -1,12 +1,11 @@
-import 'package:e_commerce/View/Admin_Panel/Screens/admin_main_file.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:e_commerce/Models/shoes_product_home_page.dart';
+import 'package:e_commerce/View/Admin_Panel/Screens/admin_main_file.dart';
 import 'package:e_commerce/View/User_Side/Screens/Auth/Forget_Password/bloc/recovery_password_bloc.dart';
 import 'package:e_commerce/View/User_Side/Screens/Auth/Forget_Password/recovery_password.dart';
 import 'package:e_commerce/View/User_Side/Screens/Auth/Sign_Up_Screen/bloc/sign_up_bloc.dart';
 import 'package:e_commerce/View/User_Side/Screens/Auth/Sign_in_Screen/bloc/sign_in_bloc.dart';
 import 'package:e_commerce/View/User_Side/Screens/Auth/Sign_in_Screen/sign_in_screen.dart';
+import 'package:e_commerce/View/User_Side/Screens/CheckOut/checkout_main.dart';
 import 'package:e_commerce/View/User_Side/Screens/Detail_Screen/detail_screen.dart';
 import 'package:e_commerce/View/User_Side/Screens/My_Cart_Screen/bloc/cart_fetch_data_bloc.dart';
 import 'package:e_commerce/View/User_Side/Screens/My_Cart_Screen/my_cart_main.dart';
@@ -15,10 +14,12 @@ import 'package:e_commerce/View/User_Side/Screens/Navigation_Bar_Screens/Profile
 import 'package:e_commerce/View/User_Side/Screens/OnBoarding_Screen/Bloc/page_view_bloc.dart';
 import 'package:e_commerce/View/User_Side/Screens/OnBoarding_Screen/Bloc/page_view_event.dart';
 import 'package:e_commerce/View/User_Side/Screens/OnBoarding_Screen/onboarding_screen.dart';
+import 'package:e_commerce/View/User_Side/Screens/Order_Final_Page/order_main_page.dart';
 import 'package:e_commerce/View/User_Side/Screens/Splash_Screen/splash_screen.dart';
 
 import '../../Components/Error/route_not_found_page.dart';
 import '../../Export/e_commerce_export.dart';
+import '../../View/User_Side/Screens/Auth/Sign_Up_Screen/check_password/check_password_field_bloc.dart';
 import '../../View/User_Side/Screens/Auth/Sign_Up_Screen/sign_up_screen.dart';
 import '../../View/User_Side/Screens/Navigation_Bar_Screens/Home/home_screen.dart';
 import '../../View/User_Side/Screens/Navigation_Bar_Screens/Home_Searching_Screen/bloc/search_bloc.dart';
@@ -44,6 +45,8 @@ abstract class RoutesName {
   static const String detailScreen = "DetailScreen";
   static const String addToCartScreen = "AddToCartScreen";
   static const String profile = "profile";
+  static const String checkOutScreen = "CheckOutScreen";
+  static const String orderNowScreen = "OrderNowScreen";
 
   // Todo =>  Admin Panel Screens
   static const String adminPanel = "AdminPanelScreen";
@@ -89,11 +92,17 @@ class RoutesMethod {
     // 5
     else if (settings.name == RoutesName.signUpScreen) {
       return CustomPageTransition(
-        child: BlocProvider(
-          create: (context) => SignUpBloc(),
-          child: const SignUpScreen(),
-        ),
-      );
+          child: MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (context) => SignUpBloc(),
+          ),
+          BlocProvider(
+            create: (context) => CheckPasswordFieldBloc(),
+          ),
+        ],
+        child: const SignUpScreen(),
+      ));
     }
     // 6
     else if (settings.name == RoutesName.signInScreen) {
@@ -146,6 +155,14 @@ class RoutesMethod {
       return CustomPageTransition(child: const ProfileScreen());
     }
     // 12
+    else if (settings.name == RoutesName.checkOutScreen) {
+      return CustomPageTransition(child: const CheckOutScreen());
+    }
+    // 13
+    else if (settings.name == RoutesName.orderNowScreen) {
+      return CustomPageTransition(child: const OrderNowScreen());
+    }
+    // 14
     else if (settings.name == RoutesName.adminPanel) {
       return CustomPageTransition(child: const AdminScreen());
     }

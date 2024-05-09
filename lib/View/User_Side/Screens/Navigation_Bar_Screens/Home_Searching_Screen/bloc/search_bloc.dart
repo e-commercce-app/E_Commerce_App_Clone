@@ -1,7 +1,5 @@
 // ignore_for_file: invalid_use_of_visible_for_testing_member, depend_on_referenced_packages
 
-import 'package:bloc/bloc.dart';
-
 import '../../../../../../Export/e_commerce_export.dart';
 import 'search_state.dart';
 part 'search_event.dart';

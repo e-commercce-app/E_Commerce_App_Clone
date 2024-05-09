@@ -1,6 +1,7 @@
 class ImagePath {
   static String imagePath = "assets/images/";
   static String lottieAnimation = "animation/";
+  static String snackbarPath = "assets/snackbar_image/";
 
   /// images Path ///
   // ! Splash images
@@ -28,4 +29,13 @@ class ImagePath {
 
   // ! Lottie Animation Path
   String cartNotFound = "${lottieAnimation}cart_not_found.json";
+  String favoriteEmpty = "${lottieAnimation}favorite.json";
+
+  // ! SnackBar Svg Images .
+  String failure = "${snackbarPath}failure.svg";
+  String success = "${snackbarPath}success.svg";
+  String warning = "${snackbarPath}warning.svg";
+  String help = "${snackbarPath}help.svg";
+  String bubbles = "${snackbarPath}bubbles.svg";
+  String back = "${snackbarPath}back.svg";
 }

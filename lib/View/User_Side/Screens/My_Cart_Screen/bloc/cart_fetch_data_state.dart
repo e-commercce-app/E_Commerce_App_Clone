@@ -17,3 +17,6 @@ class CartFetchErrorState extends CartFetchDataState {
   String errorMessage;
   CartFetchErrorState({required this.errorMessage});
 }
+
+// ! Delete Item State
+class RemoveItemCartState extends CartFetchDataState {}

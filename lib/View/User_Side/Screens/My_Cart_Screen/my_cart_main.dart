@@ -1,16 +1,14 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-
-import 'package:e_commerce/Controller/Services/Controller/cart_product_price.dart';
-import 'package:e_commerce/View/User_Side/Screens/My_Cart_Screen/Components/custom_my_cart_design.dart';
-import 'package:e_commerce/View/User_Side/Screens/My_Cart_Screen/bloc/cart_fetch_data_bloc.dart';
 
 import '../../../../Components/Error/cart_no_item_page.dart';
 import '../../../../Components/Widgets/AppBar/app_bar_leading_icon_button.dart';
 import '../../../../Components/Widgets/AppBar/custom_appbar.dart';
+import '../../../../Controller/Services/Controller/cart_product_price.dart';
 import '../../../../Controller/Services/Controller/get_my_cart_data.dart';
 import '../../../../Export/e_commerce_export.dart';
 import 'Components/custom_delete_cart_dialog.dart';
+import 'Components/custom_my_cart_design.dart';
+import 'bloc/cart_fetch_data_bloc.dart';
 
 class AddToCartScreen extends StatefulWidget {
   const AddToCartScreen({
@@ -81,16 +79,12 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
                                     state: state,
                                     index: index,
                                     size: size,
-                                    onPressedOky: () {
-                                      cartFetchDataMethod
-                                          .deleteCartProduct(
+                                    onPressedOky: () async {
+                                      context.read<CartFetchDataBloc>().add(
+                                          RemoveItemCartEvent(
                                               itemID: state
                                                   .fetchData[index].productUid
-                                                  .toString())
-                                          .then((value) {
-                                        NavigatorService.goBack();
-                                      });
-                                      setState(() {});
+                                                  .toString()));
                                     },
                                   );
                                 },
@@ -122,7 +116,7 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       AutoSizeText(
-                                        "Total Cost",
+                                        totalCost,
                                         style: Theme.of(context)
                                             .textTheme
                                             .titleMedium!
@@ -150,8 +144,13 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
                                       alignment: Alignment.center,
                                       child: CustomButton(
                                           size: size,
-                                          onPressed: () {},
-                                          buttonText: "checkout".toUpperCase()),
+                                          onPressed: () {
+                                            if (state.fetchData.isNotEmpty) {
+                                              NavigatorService.pushNamed(
+                                                  RoutesName.checkOutScreen);
+                                            }
+                                          },
+                                          buttonText: checkout.toUpperCase()),
                                     ),
                                   ),
                                 )
@@ -160,7 +159,7 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
                           ),
                         ),
                         const CustomSizedBox(
-                          heightRatio: 0.07,
+                          heightRatio: 0.06,
                         )
                       ],
                     );
@@ -186,45 +185,11 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
         ),
       ),
       centerTitle: true,
-      title: const AutoSizeText("My Cart"),
+      title: AutoSizeText(myCart),
       actions: [
         AppBarLeadingIconButtonOne(
-            onTap: () {
-              NavigatorService.pushNamed(RoutesName.addToCartScreen);
-            },
-            child: AutoSizeText("${state.fetchData.length}")),
+            onTap: null, child: AutoSizeText("${state.fetchData.length}")),
       ],
     );
   }
 }
-
-// My Cart Custom AppBar Section
-//   CustomAppBar myCartAppCart(
-//       {AsyncSnapshot<List<MyCartModelClass>>? snapshot}) {
-//     return CustomAppBar(
-//       size: size,
-//       leading: AppBarLeadingIconButtonOne(
-//         onTap: () => NavigatorService.goBack(),
-//         child: Icon(
-//           CupertinoIcons.arrow_left,
-//           color: Resources.colors.kBlack,
-//           size: size.width * 0.07,
-//         ),
-//       ),
-//       centerTitle: true,
-//       title: const AutoSizeText("My Cart"),
-//       actions: [
-//         AppBarLeadingIconButtonOne(
-//             onTap: () {
-//               // ! LogOut Button
-//               // FirebaseServices.auth.signOut().then((value) {
-//               //   Navigator.pushReplacementNamed(context, RoutesName.signInScreen);
-//               // Navigator.pop(context);
-//               // });
-//               NavigatorService.pushNamed(RoutesName.addToCartScreen);
-//             },
-//             child: AutoSizeText("${snapshot?.data?.length}")),
-//       ],
-//     );
-//   }
-// }
