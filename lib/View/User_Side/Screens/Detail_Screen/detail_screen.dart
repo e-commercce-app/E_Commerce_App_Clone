@@ -1,18 +1,12 @@
 // ignore_for_file: must_be_immutable, prefer_is_empty
 import 'dart:developer';
 
-import 'package:e_commerce/Components/Widgets/Custom_Snackbar/content_type.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:readmore/readmore.dart';
 
 import 'package:e_commerce/Models/add_to_favorite_item.dart';
 import 'package:e_commerce/Models/my_cart_model_class.dart';
-
-import '../../../../Components/Widgets/AppBar/app_bar_leading_icon_button.dart';
-import '../../../../Components/Widgets/AppBar/app_bar_subtitle_one.dart';
-import '../../../../Components/Widgets/AppBar/custom_appbar.dart';
-import '../../../../Components/Widgets/custom_shoes_page_design.dart';
 import '../../../../Export/e_commerce_export.dart';
 import '../../../../Models/shoes_product_home_page.dart';
 

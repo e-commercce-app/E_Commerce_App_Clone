@@ -1,7 +1,6 @@
 import 'dart:ui' as ui;
 
 import '../../../Export/e_commerce_export.dart';
-import 'content_type.dart';
 
 class AwesomeSnackbarContent extends StatelessWidget {
   /// [inMaterialBanner = true]

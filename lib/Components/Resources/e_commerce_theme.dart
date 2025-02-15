@@ -88,7 +88,7 @@ ColorScheme _getCustomColorScheme() {
     primary: Resources.colors.kWhite,
     onPrimary: Resources.colors.kWhite,
     onError: Resources.colors.kErrorRedColors,
-    background: Resources.colors.kWhite,
+    surface: Resources.colors.kWhite,
   );
 }
 

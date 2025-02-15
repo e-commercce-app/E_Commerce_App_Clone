@@ -1,6 +1,5 @@
 // ignore_for_file: library_private_types_in_public_api
 
-import '../../../../Components/Widgets/Custom_Snackbar/snack_bar.dart';
 import '../../../../Export/e_commerce_export.dart';
 import 'Cart/cart_screen_main.dart';
 import 'Favorite_Items/favorite_main_page.dart';
