@@ -7,8 +7,6 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-import '../../../../Components/Widgets/Custom_Snackbar/snack_bar.dart';
-import '../../../../Components/Widgets/custom_form_field.dart';
 import '../Google_Payement/custom_google_payement.dart';
 import 'Components/checkout_app_bar.dart';
 

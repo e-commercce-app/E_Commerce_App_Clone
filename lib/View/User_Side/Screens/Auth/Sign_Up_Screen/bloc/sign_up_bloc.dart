@@ -28,6 +28,7 @@ class SignUpBloc extends Bloc<SignUpBlocEvent, SignUpState> {
   // ! Gallery Picker Services
   ImagePickerService imagePickerService = ImagePickerService();
 
+
   SignUpBloc() : super(SignUpInitialState()) {
     // ! Call this Initial Value .
     loadedState;

@@ -1,11 +1,9 @@
 import 'dart:developer' as developer;
 
-import 'package:e_commerce/Components/Widgets/Custom_Snackbar/content_type.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 
-import '../../../../../Components/Widgets/custom_search_click_view.dart';
 import '../../../../../Export/e_commerce_export.dart';
 import '../../Home_Page_Tabs/Bata_Shoes/bata_shoes_main.dart';
 import '../../Home_Page_Tabs/Nike_Shoes/nike_shoes_main.dart';

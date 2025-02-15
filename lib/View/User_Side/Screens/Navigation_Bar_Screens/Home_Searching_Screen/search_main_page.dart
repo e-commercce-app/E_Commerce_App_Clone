@@ -1,8 +1,5 @@
 import 'package:e_commerce/Components/Error/route_not_found_page.dart';
-import 'package:e_commerce/Components/Widgets/custom_grid_view_design.dart';
 
-import '../../../../../Components/Widgets/custom_search_bar_text_field.dart';
-import '../../../../../Components/Widgets/custom_shoes_page_design.dart';
 import '../../../../../Export/e_commerce_export.dart';
 import '../../../../../Models/shoes_product_home_page.dart';
 import 'Components/custom_search_app_bar.dart';
@@ -17,13 +14,13 @@ class SearchingTextField extends StatefulWidget {
 }
 
 class _SearchingTextFieldState extends State<SearchingTextField> {
-  String? searchQuery;
+  // String? searchQuery;
   List<Map<String, dynamic>> searchResults = [];
 
-  Stream getSearchBarFirebaseData() {
+  Stream getSearchBarFirebaseData(String? searchQuery) {
     return FirebaseServices.nikeShoesCollection
         .where("productName", isGreaterThanOrEqualTo: searchQuery)
-        .where("productName", isLessThan: "${searchQuery}z")
+        .where("productName", isLessThan: "$searchQuery")
         .get()
         .then((querySnapshot) {
       setState(() {
@@ -38,7 +35,7 @@ class _SearchingTextFieldState extends State<SearchingTextField> {
   @override
   void initState() {
     super.initState();
-    getSearchBarFirebaseData();
+    // getSearchBarFirebaseData();
   }
 
   @override
@@ -78,11 +75,11 @@ class _SearchingTextFieldState extends State<SearchingTextField> {
                   ),
                   onChanged: (value) {
                     setState(() {
-                      searchQuery = value;
+                      getSearchBarFirebaseData(value);
                     });
                   },
                   onFieldSubmitted: (value) {
-                    getSearchBarFirebaseData();
+                    // getSearchBarFirebaseData();
                   },
                 ),
 

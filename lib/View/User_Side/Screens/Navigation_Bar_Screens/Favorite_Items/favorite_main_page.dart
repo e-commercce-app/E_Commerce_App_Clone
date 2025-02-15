@@ -6,8 +6,6 @@ import 'package:e_commerce/Export/e_commerce_export.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../../../../Components/Error/empty_favorite_page.dart';
-import '../../../../../Components/Widgets/AppBar/app_bar_leading_icon_button.dart';
-import '../../../../../Components/Widgets/AppBar/custom_appbar.dart';
 import 'package:e_commerce/Models/add_to_favorite_item.dart';
 
 import 'Components/custom_dialog_delete_favorite.dart';

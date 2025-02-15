@@ -1,5 +1,3 @@
-import 'package:e_commerce/Components/Widgets/custom_profile_container.dart';
-
 import 'package:e_commerce/Export/e_commerce_export.dart';
 import 'package:e_commerce/Models/user_details.dart';
 import 'package:e_commerce/View/User_Side/Screens/Navigation_Bar_Screens/Profile_Page/custom_profile_app_bar.dart';

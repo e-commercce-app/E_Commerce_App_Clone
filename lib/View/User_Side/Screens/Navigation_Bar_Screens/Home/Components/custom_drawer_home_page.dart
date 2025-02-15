@@ -1,11 +1,8 @@
 import 'package:e_commerce/View/User_Side/Screens/Navigation_Bar_Screens/Favorite_Items/favorite_main_page.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-import 'package:e_commerce/Components/Widgets/custom_shoes_page_design.dart';
 import 'package:e_commerce/Controller/Services/Controller/current_user_delete_account.dart';
 import 'package:e_commerce/Export/e_commerce_export.dart';
-
-import '../../../../../../Components/Widgets/Custom_Snackbar/snack_bar.dart';
 
 class CustomDrawer extends StatefulWidget {
   const CustomDrawer({super.key});
