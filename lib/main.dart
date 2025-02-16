@@ -1,5 +1,7 @@
+import 'package:e_commerce/core/Components/Navigator_Service/Routes/routes_name.dart';
+
 import 'Export/e_commerce_export.dart';
-import 'View/User_Side/Screens/OnBoarding_Screen/Bloc/page_view_bloc.dart';
+import 'feature/User_Side/Screens/OnBoarding_Screen/Bloc/page_view_bloc.dart';
 import 'init.dart';
 
 void main() async {
