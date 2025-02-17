@@ -1,6 +1,4 @@
-import 'package:e_commerce/core/Components/Navigator_Service/Routes/routes_name.dart';
-
-import '../../../Export/e_commerce_export.dart';
+import 'package:e_commerce/Export/e_commerce_export.dart';
 
 class WishListNotFound extends StatefulWidget {
   const WishListNotFound({super.key});
@@ -45,7 +43,9 @@ class _WishListNotFoundState extends State<WishListNotFound> {
                 presetFontSizes: const [15, 10, 5],
                 overflow: TextOverflow.ellipsis,
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    fontWeight: FontWeight.w400, color: Resources.colors.kGrey),
+                      fontWeight: FontWeight.w400,
+                      color: Resources.colors.kGrey,
+                    ),
               ),
               const CustomSizedBox(
                 heightRatio: 0.06,
@@ -57,10 +57,11 @@ class _WishListNotFoundState extends State<WishListNotFound> {
                   buttonText: shopNow,
                   onPressed: () {
                     NavigatorService.pushNamedAndRemoveUntil(
-                        RoutesName.bottomBarScreen);
+                      RoutesName.bottomBarScreen,
+                    );
                   },
                 ),
-              )
+              ),
             ],
           ),
         ),
@@ -69,12 +70,15 @@ class _WishListNotFoundState extends State<WishListNotFound> {
   }
 }
 
-PreferredSizeWidget wishListAppBar(BuildContext context,
-    {Function()? onTap, Size? size}) {
+PreferredSizeWidget wishListAppBar(
+  BuildContext context, {
+  void Function()? onTap,
+  Size? size,
+}) {
   return CustomAppBar(
     size: size!,
     centerTitle: true,
-    title: AppbarSubtitleOne(
+    title: AppBarSubtitleOne(
       text: itemNotFound,
       margin: const EdgeInsets.only(left: 40),
     ),

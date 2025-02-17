@@ -1,13 +1,14 @@
-import '../../../Export/e_commerce_export.dart';
+import 'package:e_commerce/Export/e_commerce_export.dart';
 
 class CustomButton extends StatelessWidget {
-  const CustomButton(
-      {super.key,
-      required this.size,
-      required this.onPressed,
-      required this.buttonText,
-      this.background,
-      this.textColor});
+  const CustomButton({
+    required this.size,
+    required this.onPressed,
+    required this.buttonText,
+    this.background,
+    this.textColor,
+    super.key,
+  });
   final Size size;
   final VoidCallback onPressed;
   final String buttonText;
@@ -25,9 +26,13 @@ class CustomButton extends StatelessWidget {
       splashColor: Colors.transparent,
       focusElevation: 8,
       child: Center(
-        child: Text(buttonText,
-            style: Resources.textStyle
-                .customButtonTextStyle(size: size, textColor: textColor)),
+        child: Text(
+          buttonText,
+          style: Resources.textStyle.customButtonTextStyle(
+            size: size,
+            textColor: textColor ?? Resources.colors.kWhite,
+          ),
+        ),
       ),
     );
   }

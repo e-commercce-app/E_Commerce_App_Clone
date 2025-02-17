@@ -1,18 +1,16 @@
 import 'dart:developer' as developer;
 
+import 'package:e_commerce/Export/e_commerce_export.dart';
+import 'package:e_commerce/feature/User_Side/Screens/Home_Page_Tabs/Bata_Shoes/bata_shoes_main.dart';
+import 'package:e_commerce/feature/User_Side/Screens/Home_Page_Tabs/Nike_Shoes/nike_shoes_main.dart';
+import 'package:e_commerce/feature/User_Side/Screens/Home_Page_Tabs/Puma_Shoes/puma_shoes_main.dart';
+import 'package:e_commerce/feature/User_Side/Screens/Home_Page_Tabs/Reebok_Shoes/reebok_shoes_main.dart';
+import 'package:e_commerce/feature/User_Side/Screens/Navigation_Bar_Screens/Home/Components/custom_drawer_home_page.dart';
+import 'package:e_commerce/feature/User_Side/Screens/Navigation_Bar_Screens/Home/Components/home_page_app_bar.dart';
+import 'package:e_commerce/feature/User_Side/Screens/Navigation_Bar_Screens/Home/bloc/matrix4_rotation_bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
-
-import 'package:e_commerce/core/Components/Navigator_Service/Routes/routes_name.dart';
-import '../../../../../Export/e_commerce_export.dart';
-import '../../Home_Page_Tabs/Bata_Shoes/bata_shoes_main.dart';
-import '../../Home_Page_Tabs/Nike_Shoes/nike_shoes_main.dart';
-import '../../Home_Page_Tabs/Puma_Shoes/puma_shoes_main.dart';
-import '../../Home_Page_Tabs/Reebok_Shoes/reebok_shoes_main.dart';
-import 'Components/custom_drawer_home_page.dart';
-import 'Components/home_page_app_bar.dart';
-import 'bloc/matrix4_rotation_bloc.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -28,7 +26,7 @@ class _HomeScreenState extends State<HomeScreen>
   late TabController tabController;
 
   //  store this current Location .
-  String currentLocation = "";
+  String currentLocation = '';
 
   // ! Using Internet Fetch This Current Location .
   Future<Position> _determinePosition() async {
@@ -51,13 +49,14 @@ class _HomeScreenState extends State<HomeScreen>
     }
 
     return await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
+      desiredAccuracy: LocationAccuracy.high,
+    );
   }
 
   getLatLong() {
-    Future<Position> data = _determinePosition();
+    final data = _determinePosition();
     data.then((value) {
-      debugPrint("value $value");
+      debugPrint('value $value');
       setState(() {
         value.latitude;
         value.longitude;
@@ -65,24 +64,24 @@ class _HomeScreenState extends State<HomeScreen>
 
       getAddress(value.latitude, value.longitude);
     }).catchError((error) {
-      debugPrint("Error $error");
+      debugPrint('Error $error');
     });
   }
 
   /// ! For convert latitude longitude to address
   /// !Using (GeoCoding) Package .
   getAddress(
-    lat,
-    long,
+    double lat,
+    double long,
   ) async {
-    List<Placemark> placemarks = await placemarkFromCoordinates(lat, long);
+    final placemarks = await placemarkFromCoordinates(lat, long);
     setState(() {
       currentLocation =
-          "${placemarks[0].street!} ${placemarks[0].country!} ${placemarks[0].name} ${placemarks[0].locality}";
+          '${placemarks[0].street!} ${placemarks[0].country!} ${placemarks[0].name} ${placemarks[0].locality}';
     });
 
-    for (int i = 0; i < placemarks.length; i++) {
-      debugPrint("INDEX $i ${placemarks[i]}");
+    for (var i = 0; i < placemarks.length; i++) {
+      debugPrint('INDEX $i ${placemarks[i]}');
     }
   }
 
@@ -99,10 +98,11 @@ class _HomeScreenState extends State<HomeScreen>
       currentLocation.toString();
       getLatLong();
       CustomDialog.showCustomSnackBar(
-          context: context,
-          title: "Location",
-          message: "Find This Current Locations",
-          contentType: ContentType.success);
+        context: context,
+        title: 'Location',
+        message: 'Find This Current Locations',
+        contentType: ContentType.success,
+      );
       // CustomDialog.toastMessage(message: findThisLocation);
     });
   }
@@ -113,134 +113,153 @@ class _HomeScreenState extends State<HomeScreen>
     return BlocProvider(
       create: (context) => Matrix4RotationBloc(),
       child: Scaffold(
-          resizeToAvoidBottomInset: false,
-          body: Stack(
-            children: [
-              // ! Custom Drawer AppBar Section
-              const CustomDrawer(),
-              // ! Home Screen Section
-              BlocBuilder<Matrix4RotationBloc, Matrix4RotationState>(
-                builder: (context, state) {
-                  (state as RotationMatrixState);
-                  return AnimatedContainer(
-                    color: Resources.colors.kAllAppColor,
-                    transform: Matrix4.translationValues(
-                        state.xOffset, state.yOffset, 0.0)
-                      ..scale(state.isDrawerOpen ? 0.85 : 1.0)
-                      ..rotateZ(state.isDrawerOpen ? -50 : 0.0),
-                    duration: const Duration(seconds: 1),
-                    curve: Curves.fastEaseInToSlowEaseOut,
-                    width: double.maxFinite,
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 15,
-                      vertical: 5,
-                    ),
-                    child: Column(
-                      children: [
-                        homePageAppBar(context,
-                            child: state.isDrawerOpen
-                                ? Icon(
-                                    CupertinoIcons.arrow_left,
-                                    color: Resources.colors.kBlack,
-                                  )
-                                : CustomImageView(
-                                    imagePath: Resources.imagePath.homeDrawer),
-                            onTap: () {
-                          developer.log("message");
-                          BlocProvider.of<Matrix4RotationBloc>(context,
-                                  listen: false)
-                              .add(RotationHomePageEvents());
+        resizeToAvoidBottomInset: false,
+        body: Stack(
+          children: [
+            // ! Custom Drawer AppBar Section
+            const CustomDrawer(),
+            // ! Home Screen Section
+            BlocBuilder<Matrix4RotationBloc, Matrix4RotationState>(
+              builder: (context, state) {
+                (state as RotationMatrixState);
+                return AnimatedContainer(
+                  color: Resources.colors.kAllAppColor,
+                  transform: Matrix4.translationValues(
+                    state.xOffset,
+                    state.yOffset,
+                    0.0,
+                  )
+                    ..scale(state.isDrawerOpen ? 0.85 : 1.0)
+                    ..rotateZ(state.isDrawerOpen ? -50 : 0.0),
+                  duration: const Duration(seconds: 1),
+                  curve: Curves.fastEaseInToSlowEaseOut,
+                  width: double.maxFinite,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 15,
+                    vertical: 5,
+                  ),
+                  child: Column(
+                    children: [
+                      homePageAppBar(
+                        context,
+                        child: state.isDrawerOpen
+                            ? Icon(
+                                CupertinoIcons.arrow_left,
+                                color: Resources.colors.kBlack,
+                              )
+                            : CustomImageView(
+                                imagePath: Resources.imagePath.homeDrawer,
+                              ),
+                        onTap: () {
+                          developer.log('message');
+                          BlocProvider.of<Matrix4RotationBloc>(
+                            context,
+                            listen: false,
+                          ).add(RotationHomePageEvents());
                         },
-                            size: size,
-                            currentLocation: currentLocation.toString()),
-                        // some Space .
-                        const CustomSizedBox(heightRatio: 0.02),
-                        // ! Search TextField Container Section .
-                        CustomSearchClickView(
-                          size: size,
-                          onTap: () {
-                            NavigatorService.pushNamed(
-                              RoutesName.searchHomeView,
-                            );
-                          },
-                        ),
-                        // some Space
-                        const CustomSizedBox(heightRatio: 0.02),
-                        // ! TabBar Sections .
-                        DefaultTabController(
-                            length: 4,
-                            child: Column(
-                              children: [
-                                Material(
-                                  shadowColor: Colors.transparent,
-                                  color: Colors.transparent,
-                                  child: Container(
-                                    height: 60,
-                                    color: Colors.transparent,
-                                    child: TabBar(
-                                        controller: tabController,
-                                        physics: const ClampingScrollPhysics(),
-                                        isScrollable: true,
-                                        tabAlignment: TabAlignment.center,
-                                        padding: const EdgeInsets.symmetric(
-                                            vertical: 10),
-                                        unselectedLabelColor: Colors.black,
-                                        indicatorSize:
-                                            TabBarIndicatorSize.label,
-                                        dividerColor: Colors.transparent,
-                                        indicator: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(30),
-                                            color:
-                                                Resources.colors.kButtonColor),
-                                        // ! Tabs
-                                        tabs: [
-                                          Tab(
-                                            child: _customTabBarItem(
-                                                tabBarImage: Resources
-                                                    .imagePath.nikeShoes),
-                                          ),
-                                          Tab(
-                                              child: _customTabBarItem(
-                                                  tabBarImage: Resources
-                                                      .imagePath.pumaShoes)),
-                                          Tab(
-                                              child: _customTabBarItem(
-                                                  tabBarImage: Resources
-                                                      .imagePath.adidasShoes)),
-                                          Tab(
-                                            child: _customTabBarItem(
-                                                tabBarImage: Resources
-                                                    .imagePath.rebookShoes),
-                                          ),
-                                        ]),
+                        size: size,
+                        currentLocation: currentLocation.toString(),
+                      ),
+                      // some Space .
+                      const CustomSizedBox(heightRatio: 0.02),
+                      // ! Search TextField Container Section .
+                      CustomSearchClickView(
+                        size: size,
+                        onTap: () {
+                          NavigatorService.pushNamed(
+                            RoutesName.searchHomeView,
+                          );
+                        },
+                      ),
+                      // some Space
+                      const CustomSizedBox(heightRatio: 0.02),
+                      // ! TabBar Sections .
+                      DefaultTabController(
+                        length: 4,
+                        child: Column(
+                          children: [
+                            Material(
+                              shadowColor: Colors.transparent,
+                              color: Colors.transparent,
+                              child: Container(
+                                height: 60,
+                                color: Colors.transparent,
+                                child: TabBar(
+                                  controller: tabController,
+                                  physics: const ClampingScrollPhysics(),
+                                  isScrollable: true,
+                                  tabAlignment: TabAlignment.center,
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 10,
                                   ),
+                                  unselectedLabelColor: Colors.black,
+                                  indicatorSize: TabBarIndicatorSize.label,
+                                  dividerColor: Colors.transparent,
+                                  indicator: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(30),
+                                    color: Resources.colors.kButtonColor,
+                                  ),
+                                  // ! Tabs
+                                  tabs: [
+                                    Tab(
+                                      child: _customTabBarItem(
+                                        tabBarImage:
+                                            Resources.imagePath.nikeShoes,
+                                      ),
+                                    ),
+                                    Tab(
+                                      child: _customTabBarItem(
+                                        tabBarImage:
+                                            Resources.imagePath.pumaShoes,
+                                      ),
+                                    ),
+                                    Tab(
+                                      child: _customTabBarItem(
+                                        tabBarImage:
+                                            Resources.imagePath.adidasShoes,
+                                      ),
+                                    ),
+                                    Tab(
+                                      child: _customTabBarItem(
+                                        tabBarImage:
+                                            Resources.imagePath.rebookShoes,
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              ],
-                            )),
-                        //  ! _Build New Arrivals .
-                        _buildNewArrivals(context,
-                            newArrivalsText: popularShoes, seeAllText: seeAll),
-                        Expanded(
-                            child: TabBarView(
-                                controller: tabController,
-                                // ! TabBar Screen List .
-                                children: const [
-                              NikeShoesScreen(),
-                              PumaShoesScreen(),
-                              BataShoesScreen(),
-                              ReebokShoesScreen(),
-                            ])),
-                      ],
-                    ),
-                  );
-                },
-              ),
-            ],
-          )
-          //   },
-          // )
-          ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      //  ! _Build New Arrivals .
+                      _buildNewArrivals(
+                        context,
+                        newArrivalsText: popularShoes,
+                        seeAllText: seeAll,
+                      ),
+                      Expanded(
+                        child: TabBarView(
+                          controller: tabController,
+                          // ! TabBar Screen List .
+                          children: const [
+                            NikeShoesScreen(),
+                            PumaShoesScreen(),
+                            BataShoesScreen(),
+                            ReebokShoesScreen(),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              },
+            ),
+          ],
+        ),
+        //   },
+        // )
+      ),
     );
   }
 
@@ -250,14 +269,15 @@ class _HomeScreenState extends State<HomeScreen>
       height: 35,
       width: 70,
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(30),
-          border: Border.all(color: Resources.colors.kButtonColor, width: 1)),
+        borderRadius: BorderRadius.circular(30),
+        border: Border.all(color: Resources.colors.kButtonColor, width: 1),
+      ),
       child: Align(
-          alignment: Alignment.center,
-          child: CustomImageView(
-            fit: BoxFit.cover,
-            imagePath: tabBarImage,
-          )),
+        child: CustomImageView(
+          fit: BoxFit.cover,
+          imagePath: tabBarImage,
+        ),
+      ),
     );
   }
 

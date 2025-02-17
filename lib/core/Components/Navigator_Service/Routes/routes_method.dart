@@ -27,9 +27,8 @@ import '../../../../feature/User_Side/Screens/Navigation_Bar_Screens/Home_Search
 import '../../../../feature/User_Side/Screens/Navigation_Bar_Screens/bloc/bottom_navigation_bloc.dart';
 import '../../../../feature/User_Side/Screens/Navigation_Bar_Screens/navigation_bar_main.dart';
 import 'page_transition.dart';
-import 'routes_name.dart';
 
-//  ! All Pages Controll  (onGenerateRoutes)
+//  ! All Pages Control  (onGenerateRoutes)
 class RoutesMethod {
   static Route<dynamic>? onGenerateRoutes(RouteSettings settings) {
     // 1

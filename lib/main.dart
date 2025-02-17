@@ -1,16 +1,15 @@
-import 'package:e_commerce/core/Components/Navigator_Service/Routes/routes_name.dart';
-
-import 'Export/e_commerce_export.dart';
-import 'feature/User_Side/Screens/OnBoarding_Screen/Bloc/page_view_bloc.dart';
-import 'init.dart';
+import 'package:e_commerce/Export/e_commerce_export.dart';
+import 'package:e_commerce/feature/User_Side/Screens/OnBoarding_Screen/Bloc/page_view_bloc.dart';
+import 'package:e_commerce/init.dart';
 
 void main() async {
   // On Create initial Data Load .
   await initDataLoad();
   // Set this PreferredOrientations .
-  Future.wait([
+  await Future.wait([
     SystemChrome.setPreferredOrientations(
-        [DeviceOrientation.portraitDown, DeviceOrientation.portraitUp])
+      [DeviceOrientation.portraitDown, DeviceOrientation.portraitUp],
+    ),
   ]).then((value) {
     runApp(const ECommerce());
   });
@@ -25,7 +24,7 @@ class ECommerce extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (context) => PageViewBloc(),
-        )
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

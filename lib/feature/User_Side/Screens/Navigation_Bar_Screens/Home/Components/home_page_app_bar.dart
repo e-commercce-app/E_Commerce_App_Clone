@@ -24,7 +24,7 @@ PreferredSizeWidget homePageAppBar(BuildContext context,
         const CustomSizedBox(
           heightRatio: 0.004,
         ),
-        AppbarSubtitleOne(
+        AppBarSubtitleOne(
           text: currentLocation ?? "Pakistan Lahore 45",
           margin: const EdgeInsets.only(left: 40),
         ),

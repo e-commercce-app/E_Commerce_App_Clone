@@ -1,14 +1,14 @@
 // ignore_for_file: must_be_immutable
 
-import '../../../../Export/e_commerce_export.dart';
+import 'package:e_commerce/Export/e_commerce_export.dart';
 
-class AppbarSubtitleOne extends StatelessWidget {
-  AppbarSubtitleOne({
-    Key? key,
+class AppBarSubtitleOne extends StatelessWidget {
+  AppBarSubtitleOne({
     required this.text,
     this.margin,
     this.onTap,
-  }) : super(key: key);
+    super.key,
+  });
 
   String text;
   EdgeInsetsGeometry? margin;
@@ -16,14 +16,17 @@ class AppbarSubtitleOne extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-        onTap: () {
-          onTap!.call();
-        },
-        child: AutoSizeText(text,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            presetFontSizes: const [14, 11, 8, 5],
-            textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.titleMedium));
+      onTap: () {
+        onTap!.call();
+      },
+      child: AutoSizeText(
+        text,
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
+        presetFontSizes: const [14, 11, 8, 5],
+        textAlign: TextAlign.center,
+        style: Theme.of(context).textTheme.titleMedium,
+      ),
+    );
   }
 }

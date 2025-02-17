@@ -17,7 +17,7 @@ class CustomUpdateAppBar extends StatelessWidget
     return CustomAppBar(
       size: widget.size,
       centerTitle: true,
-      title: AppbarSubtitleOne(text: update.toUpperCase()),
+      title: AppBarSubtitleOne(text: update.toUpperCase()),
       leading: AppBarLeadingIconButtonOne(
           child: InkWell(
         borderRadius: BorderRadius.circular(20),

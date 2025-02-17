@@ -4,16 +4,11 @@ import 'dart:developer';
 
 import 'package:e_commerce/Export/e_commerce_export.dart';
 
-import 'package:e_commerce/core/Components/Navigator_Service/Routes/routes_name.dart';
 part 'recovery_password_event.dart';
 part 'recovery_password_state.dart';
 
 class RecoveryPasswordBloc
     extends Bloc<RecoveryPasswordEvent, RecoveryPasswordState> {
-  // TextEditingController
-  TextEditingController emailAddress = TextEditingController();
-  // Form GlobalKey
-  GlobalKey<FormState> formKey = GlobalKey<FormState>();
   RecoveryPasswordBloc() : super(RecoveryPasswordInitial()) {
     //  initial state .
     loadingState;
@@ -22,19 +17,24 @@ class RecoveryPasswordBloc
       loadingState;
       if (formKey.currentState!.validate()) {
         FirebaseServices.auth
-            .sendPasswordResetEmail(email: emailAddress.text.toString())
+            .sendPasswordResetEmail(email: emailAddress.text)
             .then((value) {
           NavigatorService.pushNamed(RoutesName.signInScreen);
-          log("Successfully Work");
-          CustomDialog.toastMessage(message: "Successfully Work");
+          log('Successfully Work');
+          CustomDialog.toastMessage(message: 'Successfully Work');
         }).onError((error, stackTrace) {
-          log("Error : $error");
-          CustomDialog.toastMessage(message: "Error : $error");
+          log('Error : $error');
+          CustomDialog.toastMessage(message: 'Error : $error');
         });
       }
     });
   }
+  // TextEditingController
+  TextEditingController emailAddress = TextEditingController();
+  // Form GlobalKey
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   get loadingState => emit(
-      ForgetPasswordClickState(emailAddress: emailAddress, formKey: formKey));
+        ForgetPasswordClickState(emailAddress: emailAddress, formKey: formKey),
+      );
 }
