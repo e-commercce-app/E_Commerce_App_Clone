@@ -1,4 +1,4 @@
-import '../../../Export/e_commerce_export.dart';
+part of 'extension.dart';
 
 /// `Message` Padding extension .
 

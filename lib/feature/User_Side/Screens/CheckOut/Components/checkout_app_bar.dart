@@ -14,7 +14,7 @@ PreferredSizeWidget checkOutAppBar({Size? size}) {
         onTap: () => NavigatorService.goBack(),
       ),
       centerTitle: true,
-      title: AppbarSubtitleOne(
+      title: AppBarSubtitleOne(
         text: "CheckOut",
         margin: const EdgeInsets.only(left: 40),
       ));

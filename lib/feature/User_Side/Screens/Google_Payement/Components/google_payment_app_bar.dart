@@ -14,7 +14,7 @@ PreferredSizeWidget googlePaymentAppBar({Size? size}) {
         onTap: () => NavigatorService.goBack(),
       ),
       centerTitle: true,
-      title: AppbarSubtitleOne(
+      title: AppBarSubtitleOne(
         text: "Google Payment",
         margin: const EdgeInsets.only(left: 40),
       ));

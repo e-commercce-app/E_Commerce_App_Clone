@@ -1,7 +1,5 @@
-import 'package:e_commerce/core/Components/Navigator_Service/Routes/routes_name.dart';
+import 'package:e_commerce/Export/e_commerce_export.dart';
 import 'package:flutter/cupertino.dart';
-
-import '../../../Export/e_commerce_export.dart';
 
 class CartNoItemFound extends StatefulWidget {
   const CartNoItemFound({super.key});
@@ -46,7 +44,9 @@ class _CartNoItemFoundState extends State<CartNoItemFound> {
                 presetFontSizes: const [15, 10, 5],
                 overflow: TextOverflow.ellipsis,
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    fontWeight: FontWeight.w400, color: Resources.colors.kGrey),
+                      fontWeight: FontWeight.w400,
+                      color: Resources.colors.kGrey,
+                    ),
               ),
               const CustomSizedBox(
                 heightRatio: 0.06,
@@ -58,10 +58,11 @@ class _CartNoItemFoundState extends State<CartNoItemFound> {
                   buttonText: shopNow,
                   onPressed: () {
                     NavigatorService.pushNamedAndRemoveUntil(
-                        RoutesName.bottomBarScreen);
+                      RoutesName.bottomBarScreen,
+                    );
                   },
                 ),
-              )
+              ),
             ],
           ),
         ),
@@ -70,19 +71,22 @@ class _CartNoItemFoundState extends State<CartNoItemFound> {
   }
 }
 
-PreferredSizeWidget cartNoItemAppBar(BuildContext context,
-    {Function()? onTap, Size? size}) {
+PreferredSizeWidget cartNoItemAppBar(
+  BuildContext context, {
+  void Function()? onTap,
+  Size? size,
+}) {
   return CustomAppBar(
     size: size!,
     leading: AppBarLeadingIconButtonOne(
-      onTap: onTap ?? () => NavigatorService.goBack(),
+      onTap: onTap ?? NavigatorService.goBack,
       child: Icon(
         CupertinoIcons.arrow_left,
         color: Resources.colors.kBlack,
       ),
     ),
     centerTitle: true,
-    title: AppbarSubtitleOne(
+    title: AppBarSubtitleOne(
       text: itemNotFound,
       margin: const EdgeInsets.only(left: 40),
     ),

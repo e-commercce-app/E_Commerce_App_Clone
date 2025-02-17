@@ -1,9 +1,4 @@
 class FavorIteItemModelClass {
-  String? favoriteID;
-  String? favoriteImageUrl;
-  String? favoriteName;
-  num? favoritePrice;
-
   FavorIteItemModelClass(
       {this.favoriteID,
       this.favoriteImageUrl,
@@ -12,19 +7,23 @@ class FavorIteItemModelClass {
 
   factory FavorIteItemModelClass.fromJson(Map<String, dynamic> map) {
     return FavorIteItemModelClass(
-      favoriteID: map["favoriteID"],
-      favoriteImageUrl: map["favoriteImageUrl"],
-      favoriteName: map["favoriteName"],
-      favoritePrice: map["favoritePrice"],
+      favoriteID: map['favoriteID'] as String?,
+      favoriteImageUrl: map['favoriteImageUrl'] as String?,
+      favoriteName: map['favoriteName'] as String?,
+      favoritePrice: map['favoritePrice'] as num?,
     );
   }
+  String? favoriteID;
+  String? favoriteImageUrl;
+  String? favoriteName;
+  num? favoritePrice;
 
   Map<String, dynamic> toMap() {
-    Map<String, dynamic> data = <String, dynamic>{};
-    data["favoriteID"] = favoriteID;
-    data["favoriteImageUrl"] = favoriteImageUrl;
-    data["favoriteName"] = favoriteName;
-    data["favoritePrice"] = favoritePrice;
+    final data = <String, dynamic>{};
+    data['favoriteID'] = favoriteID;
+    data['favoriteImageUrl'] = favoriteImageUrl;
+    data['favoriteName'] = favoriteName;
+    data['favoritePrice'] = favoritePrice;
     return data;
   }
 }

@@ -3,12 +3,11 @@ import 'dart:developer';
 
 import 'package:e_commerce/Export/e_commerce_export.dart';
 import 'package:e_commerce/Models/order_model_class.dart';
+import 'package:e_commerce/feature/User_Side/Screens/CheckOut/Components/checkout_app_bar.dart';
+import 'package:e_commerce/feature/User_Side/Screens/Google_Payement/custom_google_payement.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-
-import '../Google_Payement/custom_google_payement.dart';
-import 'Components/checkout_app_bar.dart';
 
 class CheckOutScreen extends StatefulWidget {
   const CheckOutScreen({super.key});
@@ -29,7 +28,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
       Completer<GoogleMapController>();
 
   //  store this current Location .
-  String currentLocation = "";
+  String currentLocation = '';
 
   // ! Using Internet Fetch This Current Location .
   Future<Position> _determinePosition() async {
@@ -52,38 +51,39 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
     }
 
     return await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
+      desiredAccuracy: LocationAccuracy.high,
+    );
   }
 
-  getLatLong() {
-    Future<Position> data = _determinePosition();
+  void getLatLong() {
+    final data = _determinePosition();
     data.then((value) {
-      debugPrint("value $value");
+      debugPrint('value $value');
       setState(() {
         value.latitude;
         value.longitude;
       });
 
       getAddress(value.latitude, value.longitude);
-    }).catchError((error) {
-      debugPrint("Error $error");
+    }).catchError((Object error) {
+      debugPrint('Error $error');
     });
   }
 
   /// ! For convert latitude longitude to address
   /// !Using (GeoCoding) Package .
-  getAddress(
-    lat,
-    long,
+  Future<void> getAddress(
+    double lat,
+    double long,
   ) async {
-    List<Placemark> placemarks = await placemarkFromCoordinates(lat, long);
+    final placemarks = await placemarkFromCoordinates(lat, long);
     setState(() {
       currentLocation =
-          "${placemarks[0].street!} ${placemarks[0].country!} ${placemarks[0].name} ${placemarks[0].locality}";
+          '${placemarks[0].street!} ${placemarks[0].country!} ${placemarks[0].name} ${placemarks[0].locality}';
     });
 
-    for (int i = 0; i < placemarks.length; i++) {
-      debugPrint("INDEX $i ${placemarks[i]}");
+    for (var i = 0; i < placemarks.length; i++) {
+      debugPrint('INDEX $i ${placemarks[i]}');
     }
   }
 
@@ -105,7 +105,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     _determinePosition().then((value) {
-      currentLocation.toString();
+      currentLocation;
       getLatLong();
       // CustomDialog.toastMessage(message: findThisLocation);
     });
@@ -143,45 +143,46 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                       borderRadius: BorderRadius.circular(20),
                       child: GoogleMap(
                         initialCameraPosition: _kGooglePlex,
-                        compassEnabled: true,
                         myLocationEnabled: true,
-                        mapType: MapType.normal,
                         trafficEnabled: true,
                         mapToolbarEnabled: false,
-                        scrollGesturesEnabled: true,
-                        rotateGesturesEnabled: true,
                         onMapCreated: (GoogleMapController controller) {
                           _controller.complete(controller);
-                          currentLocation.toString();
+                          currentLocation;
                         },
                       ),
                     ),
                   ),
                   // ! Location Text .
                   Text.rich(
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 2,
-                      TextSpan(children: [
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 2,
+                    TextSpan(
+                      children: [
                         TextSpan(
-                            text: "Find Location :\t\t",
-                            style: Resources.textStyle
-                                .userNameTextStyle(size: size)
-                                .copyWith(
-                                    fontWeight: FontWeight.bold,
-                                    color: Resources.colors.kButtonColor),
-                            children: [
-                              TextSpan(
-                                text: currentLocation.toString(),
-                                style: Resources.textStyle
-                                    .userNameTextStyle(size: size)
-                                    .copyWith(
-                                        fontWeight: FontWeight.w400,
-                                        color: Resources.colors.kBlack,
-                                        decorationStyle:
-                                            TextDecorationStyle.double),
-                              )
-                            ])
-                      ])),
+                          text: 'Find Location :\t\t',
+                          style: Resources.textStyle
+                              .userNameTextStyle(size: size)
+                              .copyWith(
+                                fontWeight: FontWeight.bold,
+                                color: Resources.colors.kButtonColor,
+                              ),
+                          children: [
+                            TextSpan(
+                              text: currentLocation,
+                              style: Resources.textStyle
+                                  .userNameTextStyle(size: size)
+                                  .copyWith(
+                                    fontWeight: FontWeight.w400,
+                                    color: Resources.colors.kBlack,
+                                    decorationStyle: TextDecorationStyle.double,
+                                  ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
 
                   const CustomSizedBox(heightRatio: 0.008),
                   // ! Name sections
@@ -200,16 +201,15 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                   //  User Name Input Field
                   CustomTextFormField(
                     controller: nameController,
-                    textInputAction: TextInputAction.next,
                     textInputType: TextInputType.name,
                     hintText: eCommerce,
                     borderRadius: BorderRadius.circular(15),
                     contentPadding: const EdgeInsets.all(12),
                     validator: (value) {
                       if (value!.isEmpty) {
-                        return "Please Enter A Name";
+                        return 'Please Enter A Name';
                       } else if (value.length <= 4) {
-                        return "Username should be less than 4 characters.";
+                        return 'Username should be less than 4 characters.';
                       }
                       return null;
                     },
@@ -233,7 +233,6 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                   // Email Address Input Field
                   CustomTextFormField(
                     controller: emailController,
-                    textInputAction: TextInputAction.next,
                     textInputType: TextInputType.emailAddress,
                     hintText: signInEnterEmail,
                     borderRadius: BorderRadius.circular(15),
@@ -241,7 +240,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                     validator: (value) {
                       if (value == null ||
                           !isValidEmail(value, isRequired: true)) {
-                        return "Please Enter Valid Email";
+                        return 'Please Enter Valid Email';
                       }
                       return null;
                     },
@@ -265,16 +264,15 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                   //  User Name Input Field
                   CustomTextFormField(
                     controller: phoneController,
-                    textInputAction: TextInputAction.next,
                     textInputType: TextInputType.name,
-                    hintText: "03034...",
+                    hintText: '03034...',
                     borderRadius: BorderRadius.circular(15),
                     contentPadding: const EdgeInsets.all(12),
                     validator: (value) {
                       if (value!.isEmpty) {
-                        return "Please Enter A Number";
+                        return 'Please Enter A Number';
                       } else if (value.length <= 11) {
-                        return "Minimum 11 Character .";
+                        return 'Minimum 11 Character .';
                       }
                       return null;
                     },
@@ -282,53 +280,60 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                   // some space
                   const CustomSizedBox(heightRatio: 0.03),
                   CustomButton(
-                      size: size,
-                      onPressed: () => NavigatorService.push(MaterialPageRoute(
-                            builder: (context) => const CustomPaymentWidget(),
-                          )),
-                      background: Resources.colors.kBlack,
-                      buttonText: googlePayment),
+                    size: size,
+                    onPressed: () => NavigatorService.push(
+                      MaterialPageRoute(
+                        builder: (context) => const CustomPaymentWidget(),
+                      ),
+                    ),
+                    background: Resources.colors.kBlack,
+                    buttonText: googlePayment,
+                  ),
                   // some space
                   const CustomSizedBox(heightRatio: 0.03),
                   CustomButton(
-                      size: size,
-                      onPressed: () async {
-                        if (formKey.currentState!.validate()) {
-                          var dateAndTime =
-                              DateTime.now().microsecondsSinceEpoch.toString();
-                          OrderModelClass order = OrderModelClass();
+                    size: size,
+                    onPressed: () async {
+                      if (formKey.currentState!.validate()) {
+                        var dateAndTime =
+                            DateTime.now().microsecondsSinceEpoch.toString();
+                        final order = OrderModelClass()
+                          ..orderUid = FirebaseServices.currentUser?.uid
+                          ..orderLocation = currentLocation
+                          ..orderName = nameController.text
+                          ..orderEmail = emailController.text
+                          ..orderPhone = phoneController.text;
 
-                          order.orderUid = FirebaseServices.currentUser?.uid;
-                          order.orderLocation = currentLocation.toString();
-                          order.orderName = nameController.text.toString();
-                          order.orderEmail = emailController.text.toString();
-                          order.orderPhone = phoneController.text.toString();
-
-                          await FirebaseServices.currentUserCollection
-                              .doc(FirebaseServices.currentUser?.uid)
-                              .collection("MyOrder")
-                              .doc(
-                                  "$dateAndTime${FirebaseServices.currentUser?.uid}")
-                              .set(order.toJson())
-                              .then((value) {
-                            CustomDialog.showCustomSnackBar(
-                                context: context,
-                                title: "Order Now",
-                                message: "Submit successfully Order .",
-                                contentType: ContentType.success);
-                            NavigatorService.pushReplacementsNamed(
-                                RoutesName.bottomBarScreen);
-                          }).onError((error, stackTrace) {
-                            log("Add To Cart Error : ${error.toString()}");
-                            CustomDialog.showCustomSnackBar(
-                                context: context,
-                                title: "Order Error",
-                                message: error.toString(),
-                                contentType: ContentType.success);
-                          });
-                        }
-                      },
-                      buttonText: payment)
+                        await FirebaseServices.currentUserCollection
+                            .doc(FirebaseServices.currentUser?.uid)
+                            .collection('MyOrder')
+                            .doc(
+                              '$dateAndTime${FirebaseServices.currentUser?.uid}',
+                            )
+                            .set(order.toJson())
+                            .then((value) {
+                          CustomDialog.showCustomSnackBar(
+                            context: context,
+                            title: 'Order Now',
+                            message: 'Submit successfully Order .',
+                            contentType: ContentType.success,
+                          );
+                          NavigatorService.pushReplacementsNamed(
+                            RoutesName.bottomBarScreen,
+                          );
+                        }).onError((error, stackTrace) {
+                          log('Add To Cart Error : $error');
+                          CustomDialog.showCustomSnackBar(
+                            context: context,
+                            title: 'Order Error',
+                            message: error.toString(),
+                            contentType: ContentType.success,
+                          );
+                        });
+                      }
+                    },
+                    buttonText: payment,
+                  ),
                 ],
               ),
             ),

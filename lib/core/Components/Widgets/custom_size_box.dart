@@ -1,16 +1,15 @@
-import '../../../Export/e_commerce_export.dart';
+import 'package:e_commerce/Export/e_commerce_export.dart';
 
 class CustomSizedBox extends StatelessWidget {
-  final num? heightRatio;
-  final num? widthRatio;
-  final Widget? child;
-
   const CustomSizedBox({
     super.key,
     this.widthRatio,
     this.heightRatio,
     this.child,
   });
+  final num? heightRatio;
+  final num? widthRatio;
+  final Widget? child;
 
   @override
   Widget build(BuildContext context) {

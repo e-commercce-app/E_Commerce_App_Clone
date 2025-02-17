@@ -1,5 +1,5 @@
-import '../../../../../Export/e_commerce_export.dart';
-import '../../../../../Models/shoes_product_home_page.dart';
+import 'package:e_commerce/Export/e_commerce_export.dart';
+import 'package:e_commerce/Models/shoes_product_home_page.dart';
 
 class ReebokShoesScreen extends StatefulWidget {
   const ReebokShoesScreen({super.key});
@@ -17,7 +17,7 @@ class _ReebokShoesScreenState extends State<ReebokShoesScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: StreamBuilder(
-        stream: getReebokShoesFetchData(),
+        stream: FirebaseServices.reebokShoesCollection.snapshots(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator.adaptive());
@@ -27,8 +27,9 @@ class _ReebokShoesScreenState extends State<ReebokShoesScreen> {
               itemCount: snapshot.data?.docs.length,
               itemBuilder: (context, int index) {
                 // Map<String, dynamic> data = snapshot.data!.docs[index].data();
-                ProductShoesHomePage product = ProductShoesHomePage.fromJson(
-                    snapshot.data!.docs[index].data());
+                final product = ProductShoesHomePage.fromJson(
+                  snapshot.data!.docs[index].data(),
+                );
                 return CustomProductShoesDesign(
                   // Fetch Images
                   productImage: product.productImage.toString(),
@@ -37,11 +38,14 @@ class _ReebokShoesScreenState extends State<ReebokShoesScreen> {
                   heroTag: product.productImage.toString(),
                   onTap: () {
                     // ** Detail Page .
-                    NavigatorService.pushNamed(RoutesName.detailScreen,
-                        arguments: ProductShoesHomePage(
-                            productImage: product.productImage.toString(),
-                            productName: product.productName.toString(),
-                            productPrice: product.productPrice));
+                    NavigatorService.pushNamed(
+                      RoutesName.detailScreen,
+                      arguments: ProductShoesHomePage(
+                        productImage: product.productImage.toString(),
+                        productName: product.productName.toString(),
+                        productPrice: product.productPrice,
+                      ),
+                    );
                   },
                 );
               },

@@ -83,7 +83,7 @@ class _DetailsScreenState extends State<DetailsScreen>
           onTap: () => NavigatorService.goBack(),
         ),
         centerTitle: true,
-        title: AppbarSubtitleOne(
+        title: AppBarSubtitleOne(
           text: menShoes,
           margin: const EdgeInsets.only(left: 40),
         ),

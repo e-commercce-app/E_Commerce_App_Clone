@@ -1,40 +1,42 @@
-import '../../../Export/e_commerce_export.dart';
+import 'package:e_commerce/Export/e_commerce_export.dart';
 
 class CustomDialog {
   /// `message` show Toast Message .
   static Future<bool?> toastMessage({required String message}) {
     return Fluttertoast.showToast(
-        msg: message,
-        toastLength: Toast.LENGTH_LONG,
-        gravity: ToastGravity.BOTTOM,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Resources.colors.kButtonColor,
-        textColor: Colors.white,
-        fontSize: 10.0);
+      msg: message,
+      toastLength: Toast.LENGTH_LONG,
+      gravity: ToastGravity.BOTTOM,
+      backgroundColor: Resources.colors.kButtonColor,
+      textColor: Colors.white,
+      fontSize: 10,
+    );
   }
 
   /// `message` show Progress Bar .
   static void showProgressBar(BuildContext context) {
-    showDialog(
-        context: context,
-        builder: (_) => const Center(
-                child: CircularProgressIndicator(
-              color: Colors.red,
-            )));
+    showDialog<void>(
+      context: context,
+      builder: (_) => const Center(
+        child: CircularProgressIndicator(
+          color: Colors.red,
+        ),
+      ),
+    );
   }
 
   /// `message` Custom SnackBar message .
-  static void showCustomSnackBar(
-      {required BuildContext context,
-      required String? title,
-      required String? message,
-      required ContentType? contentType}) {
-    SnackBar snackBar = SnackBar(
+  static void showCustomSnackBar({
+    required BuildContext context,
+    required String? title,
+    required String? message,
+    required ContentType? contentType,
+  }) {
+    final snackBar = SnackBar(
       /// need to set following properties for best effect of awesome_snackbar_content
       elevation: 0,
       behavior: SnackBarBehavior.floating,
       backgroundColor: Colors.transparent,
-      duration: const Duration(seconds: 4),
       content: AwesomeSnackbarContent(
         title: title ?? 'On Snap!',
         message: message ??

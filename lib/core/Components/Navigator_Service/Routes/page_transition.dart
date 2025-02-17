@@ -1,4 +1,4 @@
-//! Controll Page Transition
+//! Control Page Transition
 import '../../../../Export/e_commerce_export.dart';
 
 class CustomPageTransition extends PageRouteBuilder {

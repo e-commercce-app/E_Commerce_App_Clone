@@ -1,8 +1,8 @@
-import '../../../Export/e_commerce_export.dart';
+import 'package:e_commerce/Export/e_commerce_export.dart';
 
 class CustomSearchView extends StatelessWidget {
   const CustomSearchView({
-    Key? key,
+    super.key,
     this.alignment,
     this.width,
     this.scrollPadding,
@@ -26,9 +26,7 @@ class CustomSearchView extends StatelessWidget {
     this.onChanged,
     this.onFieldSubmitted,
     this.readOnly,
-  }) : super(
-          key: key,
-        );
+  });
 
   final Alignment? alignment;
   final double? width;
@@ -65,13 +63,13 @@ class CustomSearchView extends StatelessWidget {
 
   Widget searchViewWidget(BuildContext context) {
     // var mediaQueryWidth = MediaQuery.sizeOf(context).width;
-    var mediaQueryHeight = MediaQuery.sizeOf(context).height;
+    final mediaQueryHeight = MediaQuery.sizeOf(context).height;
     return Container(
       width: width ?? double.maxFinite,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(mediaQueryHeight * 0.032),
         boxShadow: [
-          BoxShadow(blurRadius: 0.1, color: Resources.colors.kGray600)
+          BoxShadow(blurRadius: 0.1, color: Resources.colors.kGray600),
         ],
       ),
       child: TextFormField(
@@ -102,9 +100,12 @@ class CustomSearchView extends StatelessWidget {
     );
   }
 
-  InputDecoration decoration({context, height}) {
+  InputDecoration decoration({
+    required BuildContext context,
+    required double height,
+  }) {
     return InputDecoration(
-      hintText: hintText ?? "",
+      hintText: hintText ?? '',
       hintStyle: hintStyle ??
           Theme.of(context)
               .textTheme

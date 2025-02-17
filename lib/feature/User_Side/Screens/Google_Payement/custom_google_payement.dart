@@ -1,7 +1,7 @@
+import 'package:e_commerce/Export/e_commerce_export.dart';
+import 'package:e_commerce/feature/User_Side/Screens/Google_Payement/Components/google_payment_app_bar.dart';
+import 'package:e_commerce/feature/User_Side/Screens/Google_Payement/Components/payement_list.dart';
 import 'package:pay/pay.dart';
-import '../../../../Export/e_commerce_export.dart';
-import 'Components/google_payment_app_bar.dart';
-import 'Components/payement_list.dart';
 
 class CustomPaymentWidget extends StatefulWidget {
   const CustomPaymentWidget({super.key});
@@ -20,7 +20,7 @@ class _CustomPaymentWidgetState extends State<CustomPaymentWidget> {
         PaymentConfiguration.fromAsset('sample_payment_configuration.json');
   }
 
-  void onGooglePayResult(paymentResult) {
+  void onGooglePayResult(dynamic paymentResult) {
     debugPrint(paymentResult.toString());
   }
 
@@ -47,7 +47,7 @@ class _CustomPaymentWidgetState extends State<CustomPaymentWidget> {
           ),
           const SizedBox(height: 5),
           const AutoSizeText(
-            '\$50.20',
+            r'$50.20',
             presetFontSizes: [15.0, 10.0, 5.0],
             style: TextStyle(
               color: Color(0xff777777),
@@ -76,20 +76,20 @@ class _CustomPaymentWidgetState extends State<CustomPaymentWidget> {
           SizedBox(height: size.height * 0.1),
           // Example pay button configured using an asset
           FutureBuilder<PaymentConfiguration>(
-              future: _googlePayConfigFuture,
-              builder: (context, snapshot) => snapshot.hasData
-                  ? GooglePayButton(
-                      paymentConfiguration: snapshot.data!,
-                      paymentItems: paymentItems,
-                      type: GooglePayButtonType.buy,
-                      margin: const EdgeInsets.only(top: 15.0),
-                      onPaymentResult: onGooglePayResult,
-                      loadingIndicator: const Center(
-                        child: CircularProgressIndicator(),
-                      ),
-                    )
-                  : const SizedBox.shrink()),
-          const SizedBox(height: 15)
+            future: _googlePayConfigFuture,
+            builder: (context, snapshot) => snapshot.hasData
+                ? GooglePayButton(
+                    paymentConfiguration: snapshot.data!,
+                    paymentItems: paymentItems,
+                    margin: const EdgeInsets.only(top: 15.0),
+                    onPaymentResult: onGooglePayResult,
+                    loadingIndicator: const Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  )
+                : const SizedBox.shrink(),
+          ),
+          const SizedBox(height: 15),
         ],
       ),
     );

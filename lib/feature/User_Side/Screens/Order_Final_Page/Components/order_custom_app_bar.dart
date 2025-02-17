@@ -14,7 +14,7 @@ PreferredSizeWidget orderAppBar({Size? size}) {
         onTap: () => NavigatorService.goBack(),
       ),
       centerTitle: true,
-      title: AppbarSubtitleOne(
+      title: AppBarSubtitleOne(
         text: finalOrder,
         margin: const EdgeInsets.only(left: 40),
       ));

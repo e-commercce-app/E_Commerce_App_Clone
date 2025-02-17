@@ -2,20 +2,15 @@
 
 import 'dart:developer';
 
-import 'package:e_commerce/core/Controller/Services/Controller/get_user_data_controller.dart';
 import 'package:e_commerce/Export/e_commerce_export.dart';
+import 'package:e_commerce/core/Controller/Services/Controller/get_user_data_controller.dart';
 
-import 'package:e_commerce/core/Components/Navigator_Service/Routes/routes_name.dart';
-import '../../Sign_Up_Screen/Components/google_authentication.dart';
+import 'package:e_commerce/feature/User_Side/Screens/Auth/Sign_Up_Screen/Components/google_authentication.dart';
+
 part 'sign_in_event.dart';
 part 'sign_in_state.dart';
 
 class SignInBloc extends Bloc<SignInEvent, SignInState> {
-  // TextEditingController
-  TextEditingController emailAddress = TextEditingController();
-  TextEditingController password = TextEditingController();
-  // Form Global Key .
-  GlobalKey<FormState> formKey = GlobalKey<FormState>();
   SignInBloc() : super(SignInInitialState()) {
     // initial State .
     loadingState;
@@ -25,30 +20,35 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
         // Already Login Users
         auth
             .signInWithEmailAndPassword(
-                email: emailAddress.text.toString(),
-                password: password.text.toString())
+          email: emailAddress.text,
+          password: password.text,
+        )
             .then((value) async {
-          var userData = await GetUserDataController.getUserData(
-              userUid: FirebaseServices.currentUser!.uid);
+          final userData = await GetUserDataController.getUserData(
+            userUid: FirebaseServices.currentUser!.uid,
+          );
           if (userData[0]['isAdmin'] == true) {
-            NavigatorService.pushReplacementsNamed(RoutesName.adminPanel);
+            await NavigatorService.pushReplacementsNamed(RoutesName.adminPanel);
 
-            CustomDialog.toastMessage(message: "Successfully Admin Panel ");
+            await CustomDialog.toastMessage(
+              message: 'Successfully Admin Panel ',
+            );
             // clear TextEditingController .
             emailAddress.clear();
             password.clear();
           } else {
-            CustomDialog.toastMessage(message: "SignIn Successfully");
-            NavigatorService.pushNamedAndRemoveUntil(
-                RoutesName.bottomBarScreen);
+            await CustomDialog.toastMessage(message: 'SignIn Successfully');
+            await NavigatorService.pushNamedAndRemoveUntil(
+              RoutesName.bottomBarScreen,
+            );
             // clear TextEditingController .
             emailAddress.clear();
             password.clear();
           }
         }).onError((error, stackTrace) {
-          log("Error SignIn : $error");
+          log('Error SignIn : $error');
           // ** show toast
-          CustomDialog.toastMessage(message: "Error SignIn : $error");
+          CustomDialog.toastMessage(message: 'Error SignIn : $error');
         });
       }
     });
@@ -58,9 +58,19 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
       GoogleSignInMethod.signInWithGoogle();
     });
   }
+  // TextEditingController
+  TextEditingController emailAddress = TextEditingController();
+  TextEditingController password = TextEditingController();
+  // Form Global Key .
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  get loadingState => emit(SignInClickState(
-      emailAddress: emailAddress, password: password, formKey: formKey));
+  get loadingState => emit(
+        SignInClickState(
+          emailAddress: emailAddress,
+          password: password,
+          formKey: formKey,
+        ),
+      );
 
   @override
   Future<void> close() {

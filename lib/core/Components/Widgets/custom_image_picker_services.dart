@@ -1,13 +1,13 @@
 import 'dart:developer' as developer;
 
-import '../../../Export/e_commerce_export.dart';
+import 'package:e_commerce/Export/e_commerce_export.dart';
 
 class ImagePickerService {
   ImagePicker picker = ImagePicker();
 
   // ! Pick Gallery Images .
   Future<XFile?> galleryImage() async {
-    final XFile? image =
+    final image =
         await picker.pickImage(source: ImageSource.gallery, imageQuality: 90);
     // developer.log(image!.path.toString());
     return image;
@@ -15,7 +15,7 @@ class ImagePickerService {
 
   // ! Pick Camera Images .
   Future<XFile?> cameraCaptureImage() async {
-    final XFile? cameraImage =
+    final cameraImage =
         await picker.pickImage(source: ImageSource.camera, imageQuality: 90);
     return cameraImage;
   }
@@ -26,17 +26,18 @@ class ImagePickerService {
   }) async {
     // File? imagefile;
     try {
-      XFile? image = await ImagePicker().pickImage(
-          source: imageSource,
-          imageQuality: 80,
-          preferredCameraDevice: CameraDevice.rear);
+      final image = await ImagePicker().pickImage(
+        source: imageSource,
+        imageQuality: 80,
+        preferredCameraDevice: CameraDevice.rear,
+      );
 
       if (image != null) return;
 
       // imagefile = File(image.path);
 
       return image;
-    } catch (error) {
+    } on Exception catch (error) {
       developer.log('Failed To Pic image >>>: ${error.toString()}');
     }
   }

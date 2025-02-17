@@ -14,7 +14,7 @@ PreferredSizeWidget searchingAppBar({Size? size}) {
         onTap: () => NavigatorService.goBack(),
       ),
       centerTitle: true,
-      title: AppbarSubtitleOne(
+      title: AppBarSubtitleOne(
         text: searching,
         margin: const EdgeInsets.only(left: 40),
       ));

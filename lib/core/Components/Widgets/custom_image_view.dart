@@ -4,6 +4,24 @@ import 'dart:io';
 import '../../../Export/e_commerce_export.dart';
 
 class CustomImageView extends StatelessWidget {
+  ///a [CustomImageView] it can be used for showing any type of images
+  /// it will shows the placeholder image if image is not found on network image
+  CustomImageView({
+    required this.imagePath,
+    this.height,
+    this.width,
+    this.color,
+    this.fit,
+    this.alignment,
+    this.onTap,
+    this.radius,
+    this.margin,
+    this.border,
+    this.placeHolder = 'assets/images/image_not_found.png',
+    this.colorFilter,
+    super.key,
+  });
+
   ///[imagePath] is required parameter for showing image
   String? imagePath;
 
@@ -18,24 +36,6 @@ class CustomImageView extends StatelessWidget {
   EdgeInsetsGeometry? margin;
   BorderRadius? radius;
   BoxBorder? border;
-
-  ///a [CustomImageView] it can be used for showing any type of images
-  /// it will shows the placeholder image if image is not found on network image
-  CustomImageView({
-    super.key,
-    required this.imagePath,
-    this.height,
-    this.width,
-    this.color,
-    this.fit,
-    this.alignment,
-    this.onTap,
-    this.radius,
-    this.margin,
-    this.border,
-    this.placeHolder = 'assets/images/image_not_found.png',
-    this.colorFilter,
-  });
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +58,7 @@ class CustomImageView extends StatelessWidget {
   }
 
   ///build the image with border radius
-  _buildCircleImage() {
+  Widget _buildCircleImage() {
     if (radius != null) {
       return ClipRRect(
         borderRadius: radius ?? BorderRadius.zero,
@@ -70,7 +70,7 @@ class CustomImageView extends StatelessWidget {
   }
 
   ///build the image with border and border radius style
-  _buildImageWithBorder() {
+  Widget _buildImageWithBorder() {
     if (border != null) {
       return Container(
         decoration: BoxDecoration(
@@ -98,7 +98,9 @@ class CustomImageView extends StatelessWidget {
               fit: fit ?? BoxFit.contain,
               colorFilter: colorFilter ??
                   ColorFilter.mode(
-                      this.color ?? Colors.transparent, BlendMode.srcIn),
+                    this.color ?? Colors.transparent,
+                    BlendMode.srcIn,
+                  ),
             ),
           );
         case ImageType.file:
@@ -154,7 +156,7 @@ extension ImageTypeExtension on String {
       return ImageType.svg;
     } else if (this.startsWith('file://')) {
       return ImageType.file;
-    } else if (this.endsWith(".jpg")) {
+    } else if (this.endsWith('.jpg')) {
       return ImageType.jpg;
     } else {
       return ImageType.png;
