@@ -1,9 +1,10 @@
 import 'package:e_commerce/Export/e_commerce_export.dart';
+import 'package:e_commerce/core/Components/Navigator_Service/navigator.dart';
 import 'package:e_commerce/feature/User_Side/Screens/OnBoarding_Screen/Bloc/page_view_bloc.dart';
 import 'package:e_commerce/init.dart';
 
 void main() async {
-  // On Create initial Data Load .
+  //! On Create initial Data Load .
   await initDataLoad();
   // Set this PreferredOrientations .
   await Future.wait([

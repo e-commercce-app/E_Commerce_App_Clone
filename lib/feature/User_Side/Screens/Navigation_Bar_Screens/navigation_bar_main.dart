@@ -1,11 +1,11 @@
 // ignore_for_file: library_private_types_in_public_api
 
-import '../../../../Export/e_commerce_export.dart';
-import 'Cart/cart_screen_main.dart';
-import 'Favorite_Items/favorite_main_page.dart';
-import 'Home/home_screen.dart';
-import 'Profile_Page/profile_main_screen.dart';
-import 'bloc/bottom_navigation_bloc.dart';
+import 'package:e_commerce/Export/e_commerce_export.dart';
+import 'package:e_commerce/feature/User_Side/Screens/Navigation_Bar_Screens/Cart/cart_screen_main.dart';
+import 'package:e_commerce/feature/User_Side/Screens/Navigation_Bar_Screens/Favorite_Items/favorite_main_page.dart';
+import 'package:e_commerce/feature/User_Side/Screens/Navigation_Bar_Screens/Home/home_screen.dart';
+import 'package:e_commerce/feature/User_Side/Screens/Navigation_Bar_Screens/Profile_Page/profile_main_screen.dart';
+import 'package:e_commerce/feature/User_Side/Screens/Navigation_Bar_Screens/bloc/bottom_navigation_bloc.dart';
 import 'package:flutter/cupertino.dart';
 
 class BottomBarScreen extends StatefulWidget {
@@ -65,31 +65,32 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
           resizeToAvoidBottomInset: true,
           // BottomNavigationBar
           bottomNavigationBar: BottomNavigationBar(
-              onTap: (int index) {
-                BlocProvider.of<BottomNavigationBloc>(context, listen: false)
-                    .add(
-                  BottomNavigationEvent(currentIndex: index),
-                );
-              },
-              elevation: 0,
-              backgroundColor: Colors.transparent,
-              selectedLabelStyle: GoogleFonts.adamina(color: Colors.blue),
-              unselectedItemColor: Resources.colors.kGrey,
-              selectedItemColor: Resources.colors.kButtonColor,
-              currentIndex: (state as BottomNavigationInitial).index,
-              items: itemsList),
+            onTap: (int index) {
+              BlocProvider.of<BottomNavigationBloc>(context, listen: false).add(
+                BottomNavigationEvent(currentIndex: index),
+              );
+            },
+            elevation: 0,
+            backgroundColor: Colors.transparent,
+            selectedLabelStyle: GoogleFonts.adamina(color: Colors.blue),
+            unselectedItemColor: Resources.colors.kGrey,
+            selectedItemColor: Resources.colors.kButtonColor,
+            currentIndex: (state as BottomNavigationInitial).index,
+            items: itemsList,
+          ),
           // floatingActionButton notch .
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerDocked,
           floatingActionButton: Padding(
             padding: const EdgeInsets.all(8.0),
             child: FloatingActionButton(
-                backgroundColor: Resources.colors.kButtonColor,
-                hoverElevation: 10,
-                splashColor: Resources.colors.kWhite.withOpacity(0.3),
-                elevation: 8,
-                child: const Icon(Icons.shopify_rounded, size: 35),
-                onPressed: () => state.index = 2),
+              backgroundColor: Resources.colors.kButtonColor,
+              hoverElevation: 10,
+              splashColor: Resources.colors.kWhite.withOpacity(0.3),
+              elevation: 8,
+              child: const Icon(Icons.shopify_rounded, size: 35),
+              onPressed: () => state.index = 2,
+            ),
           ),
           // Generate Widgets List .
           body: _pages![(state).index],
@@ -106,12 +107,12 @@ class Search extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-          child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          // ! Warning Button
-          CupertinoButton(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            // ! Warning Button
+            CupertinoButton(
               color: DefaultColors.warningYellow,
               onPressed: () {
                 const snackBar = SnackBar(
@@ -134,13 +135,14 @@ class Search extends StatelessWidget {
                   ..hideCurrentSnackBar()
                   ..showSnackBar(snackBar);
               },
-              child: const Text("Warning Button")),
-          const CustomSizedBox(
-            heightRatio: 0.1,
-          ),
+              child: const Text('Warning Button'),
+            ),
+            const CustomSizedBox(
+              heightRatio: 0.1,
+            ),
 
-          // ! failure Button
-          CupertinoButton(
+            // ! failure Button
+            CupertinoButton(
               color: DefaultColors.failureRed,
               onPressed: () {
                 const snackBar = SnackBar(
@@ -163,13 +165,14 @@ class Search extends StatelessWidget {
                   ..hideCurrentSnackBar()
                   ..showSnackBar(snackBar);
               },
-              child: const Text("failure Button")),
-          const CustomSizedBox(
-            heightRatio: 0.1,
-          ),
+              child: const Text('failure Button'),
+            ),
+            const CustomSizedBox(
+              heightRatio: 0.1,
+            ),
 
-          // ! Help Button
-          CupertinoButton(
+            // ! Help Button
+            CupertinoButton(
               color: DefaultColors.helpBlue,
               onPressed: () {
                 const snackBar = SnackBar(
@@ -192,12 +195,13 @@ class Search extends StatelessWidget {
                   ..hideCurrentSnackBar()
                   ..showSnackBar(snackBar);
               },
-              child: const Text("Help Button")),
-          const CustomSizedBox(
-            heightRatio: 0.1,
-          ),
-          // ! success Button
-          CupertinoButton(
+              child: const Text('Help Button'),
+            ),
+            const CustomSizedBox(
+              heightRatio: 0.1,
+            ),
+            // ! success Button
+            CupertinoButton(
               color: DefaultColors.successGreen,
               onPressed: () {
                 const snackBar = SnackBar(
@@ -220,12 +224,14 @@ class Search extends StatelessWidget {
                   ..hideCurrentSnackBar()
                   ..showSnackBar(snackBar);
               },
-              child: const Text("Success Button")),
-          const CustomSizedBox(
-            heightRatio: 0.1,
-          ),
-        ],
-      )),
+              child: const Text('Success Button'),
+            ),
+            const CustomSizedBox(
+              heightRatio: 0.1,
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

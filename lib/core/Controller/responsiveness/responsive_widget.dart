@@ -1,16 +1,15 @@
-import '../../../Export/e_commerce_export.dart';
+import 'package:e_commerce/Export/e_commerce_export.dart';
 
 class ResponsiveWidget extends StatelessWidget {
-  final Widget largeScreen;
-  final Widget? mediumScreen;
-  final Widget? smallScreen;
-
   const ResponsiveWidget({
-    Key? key,
     required this.largeScreen,
     this.mediumScreen,
     this.smallScreen,
-  }) : super(key: key);
+    super.key,
+  });
+  final Widget largeScreen;
+  final Widget? mediumScreen;
+  final Widget? smallScreen;
 
   static bool isSmallScreen(BuildContext context) {
     return MediaQuery.of(context).size.width < 800;

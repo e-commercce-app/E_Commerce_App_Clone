@@ -1,11 +1,12 @@
 import 'package:e_commerce/Export/e_commerce_export.dart';
 
 class CustomProfileContainer extends StatelessWidget {
-  const CustomProfileContainer(
-      {super.key,
-      required this.title,
-      required this.screenHeight,
-      required this.screenWidth});
+  const CustomProfileContainer({
+    required this.title,
+    required this.screenHeight,
+    required this.screenWidth,
+    super.key,
+  });
   final String title;
   final double screenHeight;
   final double screenWidth;
@@ -27,12 +28,13 @@ class CustomProfileContainer extends StatelessWidget {
           title,
           presetFontSizes: const [20, 15, 10],
           style: GoogleFonts.abhayaLibre(
-              textStyle: Theme.of(context)
-                  .textTheme
-                  .bodySmall
-                  ?.copyWith(overflow: TextOverflow.ellipsis),
-              fontSize: 25,
-              fontWeight: FontWeight.w500),
+            textStyle: Theme.of(context)
+                .textTheme
+                .bodySmall
+                ?.copyWith(overflow: TextOverflow.ellipsis),
+            fontSize: 25,
+            fontWeight: FontWeight.w500,
+          ),
           textAlign: TextAlign.start,
         ),
       ),

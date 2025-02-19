@@ -1,13 +1,12 @@
-import '../../../Export/e_commerce_export.dart';
-import '../Navigator_Service/Routes/routes_name.dart';
+import 'package:e_commerce/Export/e_commerce_export.dart';
 
 class NotFound404Error extends StatelessWidget {
-  const NotFound404Error({Key? key, required this.imagePath}) : super(key: key);
+  const NotFound404Error({required this.imagePath, super.key});
   final String imagePath;
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.sizeOf(context);
+    final size = MediaQuery.sizeOf(context);
     return Scaffold(
       body: Stack(
         children: [
@@ -22,7 +21,9 @@ class NotFound404Error extends StatelessWidget {
               deadEnd,
               presetFontSizes: const [25.0, 20.0, 15.0, 10.0],
               style: kTitleTextStyle.copyWith(
-                  color: Colors.white, overflow: TextOverflow.ellipsis),
+                color: Colors.white,
+                overflow: TextOverflow.ellipsis,
+              ),
             ),
           ),
           Positioned(
@@ -32,8 +33,9 @@ class NotFound404Error extends StatelessWidget {
               oopsThePageNotFound,
               presetFontSizes: const [18.0, 12.0, 9.0, 5.0],
               style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                  color: Resources.colors.kGray600,
-                  overflow: TextOverflow.ellipsis),
+                    color: Resources.colors.kGray600,
+                    overflow: TextOverflow.ellipsis,
+                  ),
               textAlign: TextAlign.start,
             ),
           ),
@@ -42,11 +44,12 @@ class NotFound404Error extends StatelessWidget {
             left: 30,
             right: 250,
             child: CustomButton(
-                size: size,
-                onPressed: () {
-                  NavigatorService.pushNamed(RoutesName.bottomBarScreen);
-                },
-                buttonText: home),
+              size: size,
+              onPressed: () {
+                NavigatorService.pushNamed(RoutesName.bottomBarScreen);
+              },
+              buttonText: home,
+            ),
           ),
         ],
       ),

@@ -1,4 +1,4 @@
-import 'package:e_commerce/Export/e_commerce_export.dart';
+part of 'navigator.dart';
 
 class NavigatorService {
   static GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
@@ -13,7 +13,7 @@ class NavigatorService {
   }
 
   // ! goBack
-  static void goBack() async {
+  static Future<void> goBack() async {
     return navigatorKey.currentState?.pop();
   }
 

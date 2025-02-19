@@ -1,13 +1,13 @@
-import '../../../../../Export/e_commerce_export.dart';
+import 'package:e_commerce/Export/e_commerce_export.dart';
 
 class HeadingsOnboardingScreen extends StatelessWidget {
   const HeadingsOnboardingScreen({
-    super.key,
     required this.size,
     required this.boldText1,
     required this.boldText2,
     required this.smallText1,
     required this.smallText2,
+    super.key,
   });
 
   final Size size;
@@ -20,7 +20,6 @@ class HeadingsOnboardingScreen extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: size.width * 0.03),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // !Large Text

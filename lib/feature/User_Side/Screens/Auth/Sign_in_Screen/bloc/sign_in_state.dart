@@ -8,14 +8,14 @@ class SignInInitialState extends SignInState {}
 
 // Initial State .
 final class SignInClickState extends SignInState {
+  SignInClickState({
+    required this.emailAddress,
+    required this.password,
+    required this.formKey,
+  });
   TextEditingController emailAddress;
   TextEditingController password;
   GlobalKey<FormState> formKey;
-
-  SignInClickState(
-      {required this.emailAddress,
-      required this.password,
-      required this.formKey});
 }
 
 class SignInGoogleState extends SignInState {}

@@ -48,14 +48,14 @@ class _HomeScreenState extends State<HomeScreen>
       return Future.error(locationPermissionPermanentlyDenied);
     }
 
-    return await Geolocator.getCurrentPosition(
+    return Geolocator.getCurrentPosition(
       desiredAccuracy: LocationAccuracy.high,
     );
   }
 
-  getLatLong() {
+  Future<void> getLatLong() async {
     final data = _determinePosition();
-    data.then((value) {
+    await data.then((Position value) {
       debugPrint('value $value');
       setState(() {
         value.latitude;
@@ -63,14 +63,14 @@ class _HomeScreenState extends State<HomeScreen>
       });
 
       getAddress(value.latitude, value.longitude);
-    }).catchError((error) {
+    }).catchError((dynamic error) {
       debugPrint('Error $error');
     });
   }
 
   /// ! For convert latitude longitude to address
   /// !Using (GeoCoding) Package .
-  getAddress(
+  Future<void> getAddress(
     double lat,
     double long,
   ) async {
@@ -95,7 +95,7 @@ class _HomeScreenState extends State<HomeScreen>
   void didChangeDependencies() {
     super.didChangeDependencies();
     _determinePosition().then((value) {
-      currentLocation.toString();
+      currentLocation;
       getLatLong();
       CustomDialog.showCustomSnackBar(
         context: context,
@@ -127,7 +127,7 @@ class _HomeScreenState extends State<HomeScreen>
                   transform: Matrix4.translationValues(
                     state.xOffset,
                     state.yOffset,
-                    0.0,
+                    0,
                   )
                     ..scale(state.isDrawerOpen ? 0.85 : 1.0)
                     ..rotateZ(state.isDrawerOpen ? -50 : 0.0),
@@ -158,7 +158,7 @@ class _HomeScreenState extends State<HomeScreen>
                           ).add(RotationHomePageEvents());
                         },
                         size: size,
-                        currentLocation: currentLocation.toString(),
+                        currentLocation: currentLocation,
                       ),
                       // some Space .
                       const CustomSizedBox(heightRatio: 0.02),

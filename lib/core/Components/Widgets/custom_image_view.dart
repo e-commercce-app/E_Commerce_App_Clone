@@ -1,7 +1,7 @@
 // ignore_for_file: must_be_immutable
 
 import 'dart:io';
-import '../../../Export/e_commerce_export.dart';
+import 'package:e_commerce/Export/e_commerce_export.dart';
 
 class CustomImageView extends StatelessWidget {
   ///a [CustomImageView] it can be used for showing any type of images

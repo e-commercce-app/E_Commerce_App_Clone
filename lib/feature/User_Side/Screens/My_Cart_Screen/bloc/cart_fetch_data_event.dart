@@ -7,6 +7,6 @@ sealed class CartFetchDataEvent {
 class FetchDataEvents extends CartFetchDataEvent {}
 
 class RemoveItemCartEvent extends CartFetchDataEvent {
-  String itemID;
   RemoveItemCartEvent({required this.itemID});
+  String itemID;
 }

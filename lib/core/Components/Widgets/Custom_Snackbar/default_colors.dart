@@ -1,4 +1,4 @@
-import '../../../../Export/e_commerce_export.dart';
+import 'package:e_commerce/Export/e_commerce_export.dart';
 
 /// `DefaultColors` incase `color` parameter is null in `ContentType` in `SnackBar`
 class DefaultColors {

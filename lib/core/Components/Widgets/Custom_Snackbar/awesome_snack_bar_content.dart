@@ -3,6 +3,17 @@ import 'dart:ui' as ui;
 import '../../../../Export/e_commerce_export.dart';
 
 class AwesomeSnackbarContent extends StatelessWidget {
+  const AwesomeSnackbarContent({
+    required this.title,
+    required this.message,
+    required this.contentType,
+    this.color,
+    this.titleFontSize,
+    this.messageFontSize,
+    this.inMaterialBanner = false,
+    super.key,
+  });
+
   /// [inMaterialBanner = true]
 
   /// title is the header String that will show on top
@@ -26,34 +37,23 @@ class AwesomeSnackbarContent extends StatelessWidget {
   /// if you want to customize the font size of the message
   final double? messageFontSize;
 
-  const AwesomeSnackbarContent({
-    Key? key,
-    this.color,
-    this.titleFontSize,
-    this.messageFontSize,
-    required this.title,
-    required this.message,
-    required this.contentType,
-    this.inMaterialBanner = false,
-  }) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
-    bool isRTL = Directionality.of(context) == TextDirection.rtl;
+    final isRTL = Directionality.of(context) == TextDirection.rtl;
 
     final size = MediaQuery.of(context).size;
 
     // screen dimensions
-    bool isMobile = size.width <= 768;
-    bool isTablet = size.width > 768 && size.width <= 992;
+    final isMobile = size.width <= 768;
+    final isTablet = size.width > 768 && size.width <= 992;
 
     /// for reflecting different color shades in the SnackBar
     final hsl = HSLColor.fromColor(color ?? contentType.color!);
     final hslDark = hsl.withLightness((hsl.lightness - 0.1).clamp(0.0, 1.0));
 
-    double horizontalPadding = 0.0;
-    double leftSpace = size.width * 0.12;
-    double rightSpace = size.width * 0.12;
+    var horizontalPadding = 0.0;
+    var leftSpace = size.width * 0.12;
+    final rightSpace = size.width * 0.12;
 
     if (isMobile) {
       horizontalPadding = size.width * 0.01;
@@ -129,7 +129,7 @@ class AwesomeSnackbarContent extends StatelessWidget {
                     assetSVG(contentType),
                     height: size.height * 0.022,
                   ),
-                )
+                ),
               ],
             ),
           ),
@@ -199,7 +199,7 @@ class AwesomeSnackbarContent extends StatelessWidget {
                 ),
               ],
             ),
-          )
+          ),
         ],
       ),
     );
@@ -230,6 +230,8 @@ class AwesomeSnackbarContent extends StatelessWidget {
   }
 
   static ColorFilter? _getColorFilter(
-          ui.Color? color, ui.BlendMode colorBlendMode) =>
+    ui.Color? color,
+    ui.BlendMode colorBlendMode,
+  ) =>
       color == null ? null : ui.ColorFilter.mode(color, colorBlendMode);
 }

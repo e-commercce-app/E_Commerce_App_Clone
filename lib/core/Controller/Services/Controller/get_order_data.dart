@@ -16,18 +16,18 @@ class OrderNowFetchDataMethod {
   Future<List<OrderModelClass>> getOrderNowData() async {
     List<OrderModelClass> newList = [];
     var getData = await firestore
-        .collection("UserDetails")
+        .collection('UserDetails')
         .doc(user!.uid)
-        .collection("MyOrder")
+        .collection('MyOrder')
         .get();
 
-    for (var element in getData.docs) {
+    for (final element in getData.docs) {
       orderNowModelClass = OrderModelClass.fromJson(element.data());
       newList.add(orderNowModelClass);
-      debugPrint(">>>>>>>>>>>>>>>>>>>>>>>>>....  $newList");
+      debugPrint('>>>>>>>>>>>>>>>>>>>>>>>>>....  $newList');
     }
     orderNowList = newList;
-    debugPrint("....................${orderNowList.length}");
+    debugPrint('....................${orderNowList.length}');
 
     return orderNowList;
   }

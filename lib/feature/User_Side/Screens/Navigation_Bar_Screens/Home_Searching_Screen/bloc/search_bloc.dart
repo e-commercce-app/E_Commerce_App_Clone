@@ -1,15 +1,15 @@
 // ignore_for_file: invalid_use_of_visible_for_testing_member, depend_on_referenced_packages
 
-import '../../../../../../Export/e_commerce_export.dart';
-import 'search_state.dart';
+import 'package:e_commerce/Export/e_commerce_export.dart';
+import 'package:e_commerce/feature/User_Side/Screens/Navigation_Bar_Screens/Home_Searching_Screen/bloc/search_state.dart';
 part 'search_event.dart';
 
 class SearchBloc extends Bloc<SearchEvent, SearchState> {
-  TextEditingController searchController = TextEditingController();
   SearchBloc() : super(InitialState()) {
     loadingState;
     on<SearchEvent>((event, emit) {});
   }
+  TextEditingController searchController = TextEditingController();
   get loadingState =>
       emit(SearchInitialState(searchController: searchController));
 

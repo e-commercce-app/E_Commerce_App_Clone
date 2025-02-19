@@ -6,7 +6,7 @@ class GetUserDataController {
   static Future<List<QueryDocumentSnapshot<Object?>>> getUserData(
       {required String userUid}) async {
     final QuerySnapshot userData = await FirebaseServices.currentUserCollection
-        .where("id", isEqualTo: userUid)
+        .where('id', isEqualTo: userUid)
         .get();
     return userData.docs;
   }

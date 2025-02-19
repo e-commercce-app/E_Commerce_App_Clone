@@ -1,17 +1,15 @@
 // ignore_for_file: must_be_immutable, prefer_is_empty
 import 'dart:developer';
 
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:e_commerce/Export/e_commerce_export.dart';
+import 'package:e_commerce/Models/add_to_favorite_item.dart';
+import 'package:e_commerce/Models/my_cart_model_class.dart';
+import 'package:e_commerce/Models/shoes_product_home_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:readmore/readmore.dart';
 
-import 'package:e_commerce/Models/add_to_favorite_item.dart';
-import 'package:e_commerce/Models/my_cart_model_class.dart';
-import '../../../../Export/e_commerce_export.dart';
-import '../../../../Models/shoes_product_home_page.dart';
-
 class DetailsScreen extends StatefulWidget {
-  DetailsScreen({super.key, required this.productHomeScreen});
+  DetailsScreen({required this.productHomeScreen, super.key});
 
   ProductShoesHomePage productHomeScreen = ProductShoesHomePage();
   @override
@@ -34,34 +32,35 @@ class _DetailsScreenState extends State<DetailsScreen>
     super.initState();
     currentPrice = widget.productHomeScreen.productPrice!;
     controller = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 700));
-    turns = Tween<double>(begin: 0.8, end: 1.0).animate(controller);
+      vsync: this,
+      duration: const Duration(milliseconds: 700),
+    );
+    turns = Tween<double>(begin: 0.8, end: 1).animate(controller);
 
     controller.forward(); // start Animation .
   }
 
   // ! Add To Favorite .
   Future<void> addToFavorite() async {
-    var dateAndTime = DateTime.now().microsecondsSinceEpoch.toString();
-    User? current = FirebaseServices.auth.currentUser;
-    favorIteItemModelClass.favoriteID =
-        "$dateAndTime${FirebaseServices.currentUser!.uid}";
-    favorIteItemModelClass.favoriteImageUrl =
-        widget.productHomeScreen.productImage;
-    favorIteItemModelClass.favoriteName = widget.productHomeScreen.productName;
-    favorIteItemModelClass.favoritePrice =
-        widget.productHomeScreen.productPrice;
-    FirebaseServices.currentUserCollection
+    final dateAndTime = DateTime.now().microsecondsSinceEpoch.toString();
+    final current = FirebaseServices.auth.currentUser;
+    favorIteItemModelClass
+      ..favoriteID = '$dateAndTime${FirebaseServices.currentUser!.uid}'
+      ..favoriteImageUrl = widget.productHomeScreen.productImage
+      ..favoriteName = widget.productHomeScreen.productName
+      ..favoritePrice = widget.productHomeScreen.productPrice;
+    await FirebaseServices.currentUserCollection
         .doc(current?.uid)
-        .collection("addToFavorite")
-        .doc("$dateAndTime${FirebaseServices.currentUser!.uid}")
+        .collection('addToFavorite')
+        .doc('$dateAndTime${FirebaseServices.currentUser!.uid}')
         .set(favorIteItemModelClass.toMap())
         .then((value) {
       CustomDialog.showCustomSnackBar(
-          context: context,
-          title: "Favorite",
-          message: "Your Product added to Favorite",
-          contentType: ContentType.success);
+        context: context,
+        title: 'Favorite',
+        message: 'Your Product added to Favorite',
+        contentType: ContentType.success,
+      );
     });
   }
 
@@ -91,27 +90,30 @@ class _DetailsScreenState extends State<DetailsScreen>
           StreamBuilder(
             stream: FirebaseServices.currentUserCollection
                 .doc(FirebaseServices.currentUser?.uid)
-                .collection("addToFavorite")
-                .where("favoritePrice",
-                    isEqualTo: widget.productHomeScreen.productPrice)
+                .collection('addToFavorite')
+                .where(
+                  'favoritePrice',
+                  isEqualTo: widget.productHomeScreen.productPrice,
+                )
                 .snapshots(),
             builder: (context, snapshot) {
               if (snapshot.data == null) {
-                return const Text("");
+                return const Text('');
               }
               return AppBarLeadingIconButtonOne(
-                  onTap: () => snapshot.data?.docs.length == 0
-                      ? addToFavorite()
-                      : "Already added to Favorites",
-                  child: snapshot.data?.docs.length == 0
-                      ? Icon(
-                          Icons.favorite_outline,
-                          color: Resources.colors.kButtonColor,
-                        )
-                      : Icon(
-                          Icons.favorite,
-                          color: Resources.colors.kButtonColor,
-                        ));
+                onTap: () => snapshot.data?.docs.length == 0
+                    ? addToFavorite()
+                    : 'Already added to Favorites',
+                child: snapshot.data?.docs.length == 0
+                    ? Icon(
+                        Icons.favorite_outline,
+                        color: Resources.colors.kButtonColor,
+                      )
+                    : Icon(
+                        Icons.favorite,
+                        color: Resources.colors.kButtonColor,
+                      ),
+              );
             },
           ),
           // Some Space
@@ -131,7 +133,7 @@ class _DetailsScreenState extends State<DetailsScreen>
               child: CustomImageView(
                 imagePath: widget.productHomeScreen.productImage.toString(),
                 fit: BoxFit.fill,
-                height: (size.height * 0.3),
+                height: size.height * 0.3,
                 width: double.infinity,
               ),
             ),
@@ -140,11 +142,11 @@ class _DetailsScreenState extends State<DetailsScreen>
               height: size.height * 0.3,
               width: double.infinity,
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: Resources.colors.kWhite),
+                borderRadius: BorderRadius.circular(10),
+                color: Resources.colors.kWhite,
+              ),
               child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
                 child: _customShoesDetailsWidget(context),
               ),
             ),
@@ -158,7 +160,7 @@ class _DetailsScreenState extends State<DetailsScreen>
               children: [
                 FloatingActionButton.small(
                   onPressed: increment,
-                  heroTag: "float1",
+                  heroTag: 'float1',
                   backgroundColor: Resources.colors.kWhite,
                   child: Icon(
                     CupertinoIcons.plus_app_fill,
@@ -172,17 +174,18 @@ class _DetailsScreenState extends State<DetailsScreen>
                 AutoSizeText(
                   quantity.toString(),
                   style: GoogleFonts.aBeeZee(
-                      textStyle: TextStyle(
-                    fontSize: 25,
-                    color: Resources.colors.kBlack,
-                    fontWeight: FontWeight.bold,
-                  )),
+                    textStyle: TextStyle(
+                      fontSize: 25,
+                      color: Resources.colors.kBlack,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                   overflow: TextOverflow.ellipsis,
                 ),
                 const CustomSizedBox(widthRatio: 0.01),
                 FloatingActionButton.small(
                   onPressed: decrement,
-                  heroTag: "float2",
+                  heroTag: 'float2',
                   backgroundColor: Colors.white,
                   child: Icon(
                     CupertinoIcons.minus_rectangle_fill,
@@ -199,11 +202,12 @@ class _DetailsScreenState extends State<DetailsScreen>
       ),
       bottomNavigationBar: BottomAppBar(
         child: Container(
-          height: (size.height * 0.07),
+          height: size.height * 0.07,
           width: double.infinity,
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: Resources.colors.kWhite),
+            borderRadius: BorderRadius.circular(10),
+            color: Resources.colors.kWhite,
+          ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -212,63 +216,68 @@ class _DetailsScreenState extends State<DetailsScreen>
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   customProductShoesInfoText(
-                      context: context,
-                      messageText: totalPrice.toUpperCase().toString(),
-                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                            fontWeight: FontWeight.w400,
-                            fontSize: 15,
-                          )),
+                    context: context,
+                    messageText: totalPrice.toUpperCase(),
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          fontWeight: FontWeight.w400,
+                          fontSize: 15,
+                        ),
+                  ),
                   customProductShoesInfoText(
-                      context: context,
-                      messageText: "\$ ${currentPrice.toString()}",
-                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                            fontWeight: FontWeight.w700,
-                            fontSize: 20,
-                          )),
+                    context: context,
+                    messageText: '\$ $currentPrice',
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          fontWeight: FontWeight.w700,
+                          fontSize: 20,
+                        ),
+                  ),
                 ],
               ),
               // ! My Cart Button Section .
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(8),
                 child: CustomButton(
-                    size: size,
-                    onPressed: () async {
-                      // ! (Cart model class) fireStore Set data sections
-                      var dateAndTime =
-                          DateTime.now().microsecondsSinceEpoch.toString();
-                      MyCartModelClass myCart = MyCartModelClass();
-
-                      myCart.productUid =
-                          "$dateAndTime${FirebaseServices.currentUser?.uid}";
-                      myCart.productImage =
-                          widget.productHomeScreen.productImage.toString();
-                      myCart.productName =
-                          widget.productHomeScreen.productName.toString();
-                      myCart.productPrice = currentPrice;
-                      myCart.quantity = quantity;
-                      await FirebaseServices.currentUserCollection
-                          .doc(FirebaseServices.currentUser?.uid)
-                          .collection("MyPersonalCart")
-                          .doc(
-                              "$dateAndTime${FirebaseServices.currentUser?.uid}")
-                          .set(myCart.toJson())
-                          .then((value) {
-                        CustomDialog.showCustomSnackBar(
-                            context: context,
-                            title: "My Cart",
-                            message: "Your item is added successfully",
-                            contentType: ContentType.success);
-                      }).onError((error, stackTrace) {
-                        log("Add To Cart Error : ${error.toString()}");
-                        CustomDialog.showCustomSnackBar(
-                            context: context,
-                            title: "Error",
-                            message: error.toString(),
-                            contentType: ContentType.failure);
-                      });
-                    },
-                    buttonText: addToCart),
-              )
+                  size: size,
+                  onPressed: () async {
+                    // ! (Cart model class) fireStore Set data sections
+                    final dateAndTime =
+                        DateTime.now().microsecondsSinceEpoch.toString();
+                    final myCart = MyCartModelClass()
+                      ..productUid =
+                          '$dateAndTime${FirebaseServices.currentUser?.uid}'
+                      ..productImage =
+                          widget.productHomeScreen.productImage.toString()
+                      ..productName =
+                          widget.productHomeScreen.productName.toString()
+                      ..productPrice = currentPrice
+                      ..quantity = quantity;
+                    await FirebaseServices.currentUserCollection
+                        .doc(FirebaseServices.currentUser?.uid)
+                        .collection('MyPersonalCart')
+                        .doc(
+                          '$dateAndTime${FirebaseServices.currentUser?.uid}',
+                        )
+                        .set(myCart.toJson())
+                        .then((value) {
+                      CustomDialog.showCustomSnackBar(
+                        context: context,
+                        title: 'My Cart',
+                        message: 'Your item is added successfully',
+                        contentType: ContentType.success,
+                      );
+                    }).onError((error, stackTrace) {
+                      log('Add To Cart Error : $error');
+                      CustomDialog.showCustomSnackBar(
+                        context: context,
+                        title: 'Error',
+                        message: error.toString(),
+                        contentType: ContentType.failure,
+                      );
+                    });
+                  },
+                  buttonText: addToCart,
+                ),
+              ),
             ],
           ),
         ),
@@ -300,31 +309,36 @@ class _DetailsScreenState extends State<DetailsScreen>
       children: [
         // ! Product Best Seller .
         customProductShoesInfoText(
-            context: context,
-            messageText: bestSeller.toUpperCase(),
-            style: Theme.of(context).textTheme.titleSmall?.copyWith(
+          context: context,
+          messageText: bestSeller.toUpperCase(),
+          style: Theme.of(context).textTheme.titleSmall?.copyWith(
                 color: Resources.colors.kButtonColor,
                 fontSize: 15,
-                fontWeight: FontWeight.w500)),
+                fontWeight: FontWeight.w500,
+              ),
+        ),
         // ! Product Name .
         customProductShoesInfoText(
-            context: context,
-            messageText: widget.productHomeScreen.productName.toString(),
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  fontWeight: FontWeight.w900,
-                  fontSize: 30,
-                )),
+          context: context,
+          messageText: widget.productHomeScreen.productName.toString(),
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                fontWeight: FontWeight.w900,
+                fontSize: 30,
+              ),
+        ),
         // ! Product Price .
         customProductShoesInfoText(
-            context: context,
-            messageText: currentPrice.toString(),
-            style: GoogleFonts.almendraSc(
-                textStyle: Theme.of(context)
-                    .textTheme
-                    .bodySmall
-                    ?.copyWith(overflow: TextOverflow.ellipsis),
-                fontSize: 30,
-                fontWeight: FontWeight.w500)),
+          context: context,
+          messageText: currentPrice.toString(),
+          style: GoogleFonts.almendraSc(
+            textStyle: Theme.of(context)
+                .textTheme
+                .bodySmall
+                ?.copyWith(overflow: TextOverflow.ellipsis),
+            fontSize: 30,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
         // ! Shoes Detail Sections .
         Expanded(
           child: ReadMoreText(
@@ -336,11 +350,13 @@ class _DetailsScreenState extends State<DetailsScreen>
               fontWeight: FontWeight.w700,
             ),
             style: GoogleFonts.aBeeZee(
-                textStyle: TextStyle(
-                    fontSize: 10,
-                    color: Resources.colors.kBlack,
-                    fontWeight: FontWeight.bold,
-                    overflow: TextOverflow.ellipsis)),
+              textStyle: TextStyle(
+                fontSize: 10,
+                color: Resources.colors.kBlack,
+                fontWeight: FontWeight.bold,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
             colorClickableText: Colors.pink,
             trimMode: TrimMode.Line,
             trimCollapsedText: showMore,

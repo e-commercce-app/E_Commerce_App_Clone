@@ -1,7 +1,6 @@
 abstract class PageViewState {
-  int selectedIndex;
-
   PageViewState({required this.selectedIndex});
+  int selectedIndex;
 }
 
 class InitialPageViewState extends PageViewState {

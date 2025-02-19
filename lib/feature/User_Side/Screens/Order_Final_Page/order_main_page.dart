@@ -1,11 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:e_commerce/Export/e_commerce_export.dart';
+import 'package:e_commerce/core/Components/Error/empty_favorite_page.dart';
+import 'package:e_commerce/core/Controller/Services/Controller/get_order_data.dart';
+import 'package:e_commerce/feature/User_Side/Screens/Order_Final_Page/Components/order_custom_app_bar.dart';
+import 'package:e_commerce/feature/User_Side/Screens/Order_Final_Page/Components/order_now_custom_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
-import '../../../../core/Components/Error/empty_favorite_page.dart';
-import '../../../../core/Controller/Services/Controller/get_order_data.dart';
-import '../../../../Export/e_commerce_export.dart';
-import 'Components/order_custom_app_bar.dart';
-import 'Components/order_now_custom_widget.dart';
 
 class OrderNowScreen extends StatefulWidget {
   const OrderNowScreen({super.key});
@@ -18,12 +17,12 @@ class _OrderScreenState extends State<OrderNowScreen> {
   OrderNowFetchDataMethod orderNow = OrderNowFetchDataMethod();
 
   Future<void> deleteOrderNowFirebase({required String itemDeleteUid}) {
-    User? user = FirebaseAuth.instance.currentUser;
-    FirebaseFirestore firestore = FirebaseFirestore.instance;
+    final user = FirebaseAuth.instance.currentUser;
+    final firestore = FirebaseFirestore.instance;
     return firestore
-        .collection("UserDetails")
+        .collection('UserDetails')
         .doc(user!.uid)
-        .collection("MyOrder")
+        .collection('MyOrder')
         .doc(itemDeleteUid)
         .delete();
   }
@@ -43,7 +42,7 @@ class _OrderScreenState extends State<OrderNowScreen> {
           } else if (snapshot.hasError) {
             return const Center(
               child: AutoSizeText(
-                "No Found Favorite Page Data ",
+                'No Found Favorite Page Data ',
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(color: Colors.white),
@@ -65,8 +64,9 @@ class _OrderScreenState extends State<OrderNowScreen> {
                         positionStaggeredList: snapshot.data!.length,
                         deleteOrderNow: () {
                           deleteOrderNowFirebase(
-                              itemDeleteUid:
-                                  snapshot.data![index].orderUid.toString());
+                            itemDeleteUid:
+                                snapshot.data![index].orderUid.toString(),
+                          );
                         },
                       );
                     },

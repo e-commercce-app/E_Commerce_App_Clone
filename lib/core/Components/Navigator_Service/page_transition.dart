@@ -1,5 +1,5 @@
 //! Control Page Transition
-import '../../../../Export/e_commerce_export.dart';
+part of 'navigator.dart';
 
 class CustomPageTransition extends PageRouteBuilder {
   Widget child;

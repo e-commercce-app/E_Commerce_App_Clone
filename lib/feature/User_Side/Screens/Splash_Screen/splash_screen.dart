@@ -1,11 +1,9 @@
 import 'dart:async';
 
-import 'package:e_commerce/core/Components/Navigator_Service/Routes/routes_name.dart';
+import 'package:e_commerce/Export/e_commerce_export.dart';
 import 'package:e_commerce/core/Controller/Services/Controller/get_user_data_controller.dart';
+import 'package:e_commerce/feature/User_Side/Screens/Splash_Screen/Components/custom_text.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
-import '../../../../Export/e_commerce_export.dart';
-import 'Components/custom_text.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -30,25 +28,35 @@ class _SplashScreenState extends State<SplashScreen> {
 
   Future<void> currentLoadScreen(BuildContext context) async {
     if (currentUserDefine != null) {
-      var userData = await GetUserDataController.getUserData(
-          userUid: currentUserDefine!.uid);
+      final userData = await GetUserDataController.getUserData(
+        userUid: currentUserDefine!.uid,
+      );
       if (userData[0]['isAdmin'] == true) {
         setStatusBarMode();
-        NavigatorService.pushReplacementsNamed(RoutesName.bottomBarScreen);
+        await NavigatorService.pushReplacementsNamed(
+          RoutesName.bottomBarScreen,
+        );
       } else {
         setStatusBarMode();
-        NavigatorService.pushReplacementsNamed(RoutesName.bottomBarScreen);
+        await NavigatorService.pushReplacementsNamed(
+          RoutesName.bottomBarScreen,
+        );
       }
     } else {
-      SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
-      Navigator.pushReplacementNamed(context, RoutesName.onBoardingScreen);
+      await SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+      await Navigator.pushReplacementNamed(
+        context,
+        RoutesName.onBoardingScreen,
+      );
     }
   }
 
   void setStatusBarMode() {
-    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-      statusBarIconBrightness: Brightness.dark,
-    ));
+    SystemChrome.setSystemUIOverlayStyle(
+      const SystemUiOverlayStyle(
+        statusBarIconBrightness: Brightness.dark,
+      ),
+    );
     SystemChrome.setEnabledSystemUIMode(
       SystemUiMode.edgeToEdge,
     );
@@ -74,7 +82,7 @@ class _SplashScreenState extends State<SplashScreen> {
     size = MediaQuery.sizeOf(context);
     return Scaffold(
       body: GestureDetector(
-        onTap: () => NavigatorService.goBack(),
+        onTap: NavigatorService.goBack,
         child: SafeArea(
           top: false,
           child: Stack(

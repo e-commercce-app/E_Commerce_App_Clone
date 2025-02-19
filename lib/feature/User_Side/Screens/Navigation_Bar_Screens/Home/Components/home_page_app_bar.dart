@@ -1,12 +1,12 @@
-import '../../../../../../Export/e_commerce_export.dart';
+import 'package:e_commerce/Export/e_commerce_export.dart';
 
-import 'package:e_commerce/core/Components/Navigator_Service/Routes/routes_name.dart';
-
-PreferredSizeWidget homePageAppBar(BuildContext context,
-    {Function()? onTap,
-    required Widget child,
-    Size? size,
-    String? currentLocation}) {
+PreferredSizeWidget homePageAppBar(
+  BuildContext context, {
+  required Widget child,
+  Function()? onTap,
+  Size? size,
+  String? currentLocation,
+}) {
   return CustomAppBar(
     size: size!,
     leading: AppBarLeadingIconButtonOne(
@@ -17,7 +17,7 @@ PreferredSizeWidget homePageAppBar(BuildContext context,
     title: Column(
       children: [
         AppbarSubtitleTwo(
-          text: "Store Location",
+          text: 'Store Location',
           padding: const EdgeInsets.symmetric(horizontal: 66),
         ),
         // Some Space
@@ -25,7 +25,7 @@ PreferredSizeWidget homePageAppBar(BuildContext context,
           heightRatio: 0.004,
         ),
         AppBarSubtitleOne(
-          text: currentLocation ?? "Pakistan Lahore 45",
+          text: currentLocation ?? 'Pakistan Lahore 45',
           margin: const EdgeInsets.only(left: 40),
         ),
       ],

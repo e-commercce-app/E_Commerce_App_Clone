@@ -1,32 +1,4 @@
-import 'package:e_commerce/Models/shoes_product_home_page.dart';
-import 'package:e_commerce/feature/Admin_Panel/Screens/admin_main_file.dart';
-import 'package:e_commerce/feature/User_Side/Screens/Auth/Forget_Password/bloc/recovery_password_bloc.dart';
-import 'package:e_commerce/feature/User_Side/Screens/Auth/Forget_Password/recovery_password.dart';
-import 'package:e_commerce/feature/User_Side/Screens/Auth/Sign_Up_Screen/bloc/sign_up_bloc.dart';
-import 'package:e_commerce/feature/User_Side/Screens/Auth/Sign_in_Screen/bloc/sign_in_bloc.dart';
-import 'package:e_commerce/feature/User_Side/Screens/Auth/Sign_in_Screen/sign_in_screen.dart';
-import 'package:e_commerce/feature/User_Side/Screens/CheckOut/checkout_main.dart';
-import 'package:e_commerce/feature/User_Side/Screens/Detail_Screen/detail_screen.dart';
-import 'package:e_commerce/feature/User_Side/Screens/My_Cart_Screen/bloc/cart_fetch_data_bloc.dart';
-import 'package:e_commerce/feature/User_Side/Screens/My_Cart_Screen/my_cart_main.dart';
-import 'package:e_commerce/feature/User_Side/Screens/Navigation_Bar_Screens/Cart/bloc/cart_bottom_bloc.dart';
-import 'package:e_commerce/feature/User_Side/Screens/Navigation_Bar_Screens/Profile_Page/profile_main_screen.dart';
-import 'package:e_commerce/feature/User_Side/Screens/OnBoarding_Screen/Bloc/page_view_bloc.dart';
-import 'package:e_commerce/feature/User_Side/Screens/OnBoarding_Screen/Bloc/page_view_event.dart';
-import 'package:e_commerce/feature/User_Side/Screens/OnBoarding_Screen/onboarding_screen.dart';
-import 'package:e_commerce/feature/User_Side/Screens/Order_Final_Page/order_main_page.dart';
-import 'package:e_commerce/feature/User_Side/Screens/Splash_Screen/splash_screen.dart';
-
-import '../../Error/route_not_found_page.dart';
-import '../../../../Export/e_commerce_export.dart';
-import '../../../../feature/User_Side/Screens/Auth/Sign_Up_Screen/check_password/check_password_field_bloc.dart';
-import '../../../../feature/User_Side/Screens/Auth/Sign_Up_Screen/sign_up_screen.dart';
-import '../../../../feature/User_Side/Screens/Navigation_Bar_Screens/Home/home_screen.dart';
-import '../../../../feature/User_Side/Screens/Navigation_Bar_Screens/Home_Searching_Screen/bloc/search_bloc.dart';
-import '../../../../feature/User_Side/Screens/Navigation_Bar_Screens/Home_Searching_Screen/search_main_page.dart';
-import '../../../../feature/User_Side/Screens/Navigation_Bar_Screens/bloc/bottom_navigation_bloc.dart';
-import '../../../../feature/User_Side/Screens/Navigation_Bar_Screens/navigation_bar_main.dart';
-import 'page_transition.dart';
+part of 'navigator.dart';
 
 //  ! All Pages Control  (onGenerateRoutes)
 class RoutesMethod {

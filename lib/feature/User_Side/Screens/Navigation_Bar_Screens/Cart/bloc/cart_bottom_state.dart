@@ -9,13 +9,13 @@ final class CartBottomInitial extends CartBottomState {}
 class LoadingBottomCartState extends CartBottomState {}
 
 class LoadedBottomCartState extends CartBottomState {
-  List<MyCartModelClass> cartData;
   LoadedBottomCartState({required this.cartData});
+  List<MyCartModelClass> cartData;
 }
 
 class ErrorBottomCartState extends CartBottomState {
-  String errorMsg;
   ErrorBottomCartState({required this.errorMsg});
+  String errorMsg;
 }
 
 // ! Delete Item State

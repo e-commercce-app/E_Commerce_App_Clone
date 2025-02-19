@@ -1,9 +1,7 @@
+import 'package:e_commerce/Export/e_commerce_export.dart';
+import 'package:e_commerce/core/Controller/Services/Controller/current_user_delete_account.dart';
 import 'package:e_commerce/feature/User_Side/Screens/Navigation_Bar_Screens/Favorite_Items/favorite_main_page.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-
-import 'package:e_commerce/core/Components/Navigator_Service/Routes/routes_name.dart';
-import 'package:e_commerce/core/Controller/Services/Controller/current_user_delete_account.dart';
-import 'package:e_commerce/Export/e_commerce_export.dart';
 
 class CustomDrawer extends StatefulWidget {
   const CustomDrawer({super.key});
@@ -21,17 +19,15 @@ class _CustomDrawerState extends State<CustomDrawer> {
         width: double.infinity,
         color: Resources.colors.kDrawerBackgroundColor,
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 50.0),
+          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 50),
           child: SingleChildScrollView(
-            scrollDirection: Axis.vertical,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 // ! Drawer Image  Section
                 Container(
-                  height: 100.0,
-                  width: 100.0,
+                  height: 100,
+                  width: 100,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(50),
                     color: Resources.colors.kWhite,
@@ -39,27 +35,31 @@ class _CustomDrawerState extends State<CustomDrawer> {
                   child: Image(image: AssetImage(Resources.imagePath.sneaker2)),
                 ),
                 customProductShoesInfoText(
-                    context: context,
-                    messageText: "Hey 👐",
-                    style: const TextStyle(
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.w300,
-                        color: Colors.white)),
+                  context: context,
+                  messageText: 'Hey 👐',
+                  style: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w300,
+                    color: Colors.white,
+                  ),
+                ),
                 // !  Current User Name
                 customProductShoesInfoText(
-                    context: context,
-                    messageText: "Nike Shoes",
-                    style: const TextStyle(
-                        fontSize: 25.0,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white)),
+                  context: context,
+                  messageText: 'Nike Shoes',
+                  style: const TextStyle(
+                    fontSize: 25,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.white,
+                  ),
+                ),
                 const CustomSizedBox(
                   heightRatio: 0.03,
                 ),
                 //!  Profile
                 listTile(
                   icon: Icons.home_outlined,
-                  title: "Profile",
+                  title: 'Profile',
                   onTap: () {
                     NavigatorService.pushNamed(RoutesName.profile);
                   },
@@ -67,40 +67,45 @@ class _CustomDrawerState extends State<CustomDrawer> {
                 // ! My Cart
                 listTile(
                   icon: Icons.shopping_cart_checkout_outlined,
-                  title: "My Cart",
+                  title: 'My Cart',
                   onTap: () {
                     NavigatorService.pushNamed(RoutesName.addToCartScreen);
                   },
                 ),
                 // ! Favorite
                 listTile(
-                    icon: Icons.favorite_border,
-                    title: "Favorite",
-                    onTap: () => NavigatorService.push(MaterialPageRoute(
-                          builder: (context) => const FavoriteScreen(),
-                        ))),
+                  icon: Icons.favorite_border,
+                  title: 'Favorite',
+                  onTap: () => NavigatorService.push(
+                    MaterialPageRoute(
+                      builder: (context) => const FavoriteScreen(),
+                    ),
+                  ),
+                ),
                 // ! Delete Account
                 listTile(
                   icon: Icons.delete_sweep_sharp,
-                  title: "Delete Account",
+                  title: 'Delete Account',
                   onTap: () async {
                     await DeleteCurrentUser.deleteCurrentUser();
                     if (context.mounted) {
                       CustomDialog.showCustomSnackBar(
-                          context: context,
-                          title: "Delete Account",
-                          message: "Delete this account and delete all info ",
-                          contentType: ContentType.success);
+                        context: context,
+                        title: 'Delete Account',
+                        message: 'Delete this account and delete all info ',
+                        contentType: ContentType.success,
+                      );
                     }
                   },
                 ),
                 // ! Order
                 listTile(
-                    icon: Icons.electric_bike,
-                    title: "Order",
-                    onTap: () async {
-                      NavigatorService.pushNamed(RoutesName.orderNowScreen);
-                    }),
+                  icon: Icons.electric_bike,
+                  title: 'Order',
+                  onTap: () async {
+                    await NavigatorService.pushNamed(RoutesName.orderNowScreen);
+                  },
+                ),
                 const CustomSizedBox(
                   heightRatio: 0.03,
                 ),
@@ -116,18 +121,21 @@ class _CustomDrawerState extends State<CustomDrawer> {
                 // ! LogOut
                 listTile(
                   icon: Icons.login_outlined,
-                  title: "LogOut",
+                  title: 'LogOut',
                   onTap: () {
                     FirebaseServices.auth.signOut().then((value) {
                       GoogleSignIn().signOut();
                       CustomDialog.showCustomSnackBar(
-                          context: context,
-                          title: "LogOut",
-                          message: "Successfully Current User Logout",
-                          contentType: ContentType.success);
+                        context: context,
+                        title: 'LogOut',
+                        message: 'Successfully Current User Logout',
+                        contentType: ContentType.success,
+                      );
                       if (mounted) {
                         Navigator.pushReplacementNamed(
-                            context, RoutesName.signInScreen);
+                          context,
+                          RoutesName.signInScreen,
+                        );
                       }
                     });
                   },
@@ -141,11 +149,12 @@ class _CustomDrawerState extends State<CustomDrawer> {
   }
 }
 
-Widget listTile(
-    {String? text,
-    required IconData? icon,
-    GestureTapCallback? onTap,
-    required String title}) {
+Widget listTile({
+  String? text,
+  required IconData? icon,
+  GestureTapCallback? onTap,
+  required String title,
+}) {
   return InkWell(
     onTap: onTap,
     child: ListTile(
@@ -157,9 +166,11 @@ Widget listTile(
           color: Colors.white,
         ),
       ),
-      title: AutoSizeText(title,
-          presetFontSizes: const [18.0, 14.0, 10.0, 5.0],
-          style: Resources.textStyle.drawerTextStyle()),
+      title: AutoSizeText(
+        title,
+        presetFontSizes: const [18.0, 14.0, 10.0, 5.0],
+        style: Resources.textStyle.drawerTextStyle(),
+      ),
     ),
   );
 }

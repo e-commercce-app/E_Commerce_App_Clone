@@ -1,8 +1,8 @@
-import '../../../Export/e_commerce_export.dart';
+import 'package:e_commerce/Export/e_commerce_export.dart';
 
 class CustomTextFormField extends StatelessWidget {
   const CustomTextFormField({
-    Key? key,
+    super.key,
     this.alignment,
     this.width,
     this.scrollPadding,
@@ -28,7 +28,7 @@ class CustomTextFormField extends StatelessWidget {
     this.readOnly,
     this.initialValue,
     this.borderRadius,
-  }) : super(key: key);
+  });
 
   final Alignment? alignment;
   final double? width;
@@ -62,7 +62,7 @@ class CustomTextFormField extends StatelessWidget {
 
   Widget textFormFieldWidget(BuildContext context) {
     // var mediaQueryWidth = MediaQuery.sizeOf(context).width;
-    var mediaQueryHHeight = MediaQuery.sizeOf(context).height;
+    final mediaQueryHHeight = MediaQuery.sizeOf(context).height;
     return SizedBox(
       width: width ?? double.maxFinite,
       child: TextFormField(
@@ -87,7 +87,7 @@ class CustomTextFormField extends StatelessWidget {
   }
 
   InputDecoration get decoration => InputDecoration(
-        hintText: hintText ?? "",
+        hintText: hintText ?? '',
         hintStyle: hintStyle ?? const TextStyle(fontWeight: FontWeight.w400),
         prefixIcon: prefixIcon,
         prefixIconConstraints: prefixConstraints,
