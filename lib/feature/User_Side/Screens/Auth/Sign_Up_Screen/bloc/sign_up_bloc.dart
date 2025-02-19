@@ -4,11 +4,9 @@ import 'dart:io';
 
 import 'package:e_commerce/Export/e_commerce_export.dart';
 import 'package:e_commerce/Models/user_details.dart';
-import 'package:e_commerce/core/Components/Navigator_Service/Routes/routes_name.dart';
-import 'package:e_commerce/core/Components/Navigator_Service/navigator_services.dart';
+import 'package:e_commerce/core/Components/Navigator_Service/routes_name.dart';
 import 'package:e_commerce/core/Components/Widgets/custom_image_picker_services.dart';
 import 'package:e_commerce/core/Components/Widgets/custom_toast.dart';
-import 'package:e_commerce/core/Controller/Services/firebase_services.dart';
 import 'package:e_commerce/feature/User_Side/Screens/Auth/Sign_Up_Screen/Components/google_authentication.dart';
 import 'package:e_commerce/feature/User_Side/Screens/Auth/Sign_Up_Screen/bloc/sign_up_event.dart';
 import 'package:e_commerce/feature/User_Side/Screens/Auth/Sign_Up_Screen/bloc/sign_up_state.dart';

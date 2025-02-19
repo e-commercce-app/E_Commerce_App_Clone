@@ -9,13 +9,13 @@ class CartFetchDataInitial extends CartFetchDataState {}
 class CartFetchLoadingState extends CartFetchDataState {}
 
 class CartFetchLoadedState extends CartFetchDataState {
-  List<MyCartModelClass> fetchData;
   CartFetchLoadedState({required this.fetchData});
+  List<MyCartModelClass> fetchData;
 }
 
 class CartFetchErrorState extends CartFetchDataState {
-  String errorMessage;
   CartFetchErrorState({required this.errorMessage});
+  String errorMessage;
 }
 
 // ! Delete Item State

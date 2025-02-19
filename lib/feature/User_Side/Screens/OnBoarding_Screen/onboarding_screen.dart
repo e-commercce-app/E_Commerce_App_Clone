@@ -1,12 +1,11 @@
-import 'package:e_commerce/core/Components/Navigator_Service/Routes/routes_name.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+// ignore_for_file: flutter_style_todos
 
+import 'package:e_commerce/Export/e_commerce_export.dart';
 import 'package:e_commerce/feature/User_Side/Screens/OnBoarding_Screen/Bloc/page_view_bloc.dart';
 import 'package:e_commerce/feature/User_Side/Screens/OnBoarding_Screen/Bloc/page_view_event.dart';
-
-import '../../../../Export/e_commerce_export.dart';
-import 'Bloc/page_view_state.dart';
-import 'Components/heading_text.dart';
+import 'package:e_commerce/feature/User_Side/Screens/OnBoarding_Screen/Bloc/page_view_state.dart';
+import 'package:e_commerce/feature/User_Side/Screens/OnBoarding_Screen/Components/heading_text.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class OnBoardingScreen extends StatefulWidget {
   const OnBoardingScreen({super.key});
@@ -59,7 +58,6 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                       BlocProvider.of<PageViewBloc>(context)
                           .add(PageViewEvent());
                     },
-                    scrollDirection: Axis.horizontal,
                     // Todo => Define 3 pages .
                     children: pages,
                   ),
@@ -81,7 +79,6 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                             // BlocProvider.of<PageViewBloc>(context)
                             //     .add(PageViewEvent());
                           },
-                          axisDirection: Axis.horizontal,
                           effect: ExpandingDotsEffect(
                             dotColor: Resources.colors.kGrey,
                             activeDotColor: Resources.colors.kButtonColor,
@@ -178,7 +175,6 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
         width: size.width,
         color: Resources.colors.kAllAppColor,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Big Text OnBoarding Screen
@@ -242,7 +238,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
             ),
             child: Transform(
               transform: Matrix4.identity()
-                ..translate(0.0, 0.0)
+                ..translate(0.0, 0)
                 ..rotateZ(-0.15),
               child: Image(
                 image: AssetImage(imageNike),

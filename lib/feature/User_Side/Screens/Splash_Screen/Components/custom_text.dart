@@ -9,15 +9,17 @@ class CustomTextKit extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTextStyle(
-      style: Theme.of(context)
-          .textTheme
-          .displayLarge!
-          .copyWith(fontSize: 50, color: Resources.colors.kWhite, shadows: [
-        Shadow(
+      style: Theme.of(context).textTheme.displayLarge!.copyWith(
+        fontSize: 50,
+        color: Resources.colors.kWhite,
+        shadows: [
+          Shadow(
             color: Resources.colors.kWhite,
             blurRadius: 3,
-            offset: const Offset(1.0, 0.0))
-      ]),
+            offset: const Offset(1.0, 0.0),
+          ),
+        ],
+      ),
       child: AnimatedTextKit(
         animatedTexts: [
           WavyAnimatedText(

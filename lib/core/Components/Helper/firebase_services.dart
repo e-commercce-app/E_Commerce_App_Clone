@@ -1,3 +1,5 @@
+// ignore_for_file: flutter_style_todos
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -15,16 +17,16 @@ abstract class FirebaseServices {
 
   // ! Tab Bar Grid View All Collection and Data Receive Firebase FireStore .
   static CollectionReference<Map<String, dynamic>> get currentUserCollection =>
-      fireStore.collection("UserDetails"); // Current User Collections .
+      fireStore.collection('UserDetails'); //Todo=> Current User Collections .
   static CollectionReference<Map<String, dynamic>> get nikeShoesCollection =>
-      fireStore.collection("NikeShoes"); // NikeShoes .
+      fireStore.collection('NikeShoes'); //Todo=> NikeShoes .
   static CollectionReference<Map<String, dynamic>> get pumaShoesCollection =>
-      fireStore.collection("PumaShoes"); // AdidasShoes .
+      fireStore.collection('PumaShoes'); //Todo=> AdidasShoes .
   static CollectionReference<Map<String, dynamic>> get bataShoesCollection =>
-      fireStore.collection("BataShoes"); // BataShoes .
+      fireStore.collection('BataShoes'); //Todo=> BataShoes .
   static CollectionReference<Map<String, dynamic>> get reebokShoesCollection =>
-      fireStore.collection("ReebokShoes"); // Rebook Shoes .
+      fireStore.collection('ReebokShoes'); //Todo=> Rebook Shoes .
   // ! My Cart Collection .
   static CollectionReference<Map<String, dynamic>> get myCartCollection =>
-      fireStore.collection("MyPersonalCart"); // My Cart
+      fireStore.collection('MyPersonalCart'); //Todo=> My Cart
 }

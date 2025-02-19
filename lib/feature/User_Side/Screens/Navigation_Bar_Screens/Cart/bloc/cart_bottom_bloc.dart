@@ -1,28 +1,22 @@
 // ignore_for_file: depend_on_referenced_packages
 import 'package:cloud_firestore/cloud_firestore.dart';
-
-import '../../../../../../core/Controller/Services/Controller/get_my_cart_data.dart';
-import '../../../../../../Export/e_commerce_export.dart';
-import '../../../../../../Models/my_cart_model_class.dart';
+import 'package:e_commerce/Export/e_commerce_export.dart';
+import 'package:e_commerce/Models/my_cart_model_class.dart';
+import 'package:e_commerce/core/Controller/Services/Controller/get_my_cart_data.dart';
 
 part 'cart_bottom_event.dart';
 part 'cart_bottom_state.dart';
 
 class CartBottomBloc extends Bloc<CartBottomEvent, CartBottomState> {
-  MyCartFetchDataMethod fetchCartData = MyCartFetchDataMethod();
-
-  MyCartFetchDataMethod cartFetchDataMethod = MyCartFetchDataMethod();
-  FirebaseFirestore fireStore = FirebaseFirestore.instance;
-
   CartBottomBloc() : super(CartBottomInitial()) {
     on<CartBottomEvent>((event, emit) async {
       emit.call(LoadingBottomCartState());
 
       try {
-        var getData = await fetchCartData.getAddToCartData();
+        final getData = await fetchCartData.getAddToCartData();
         emit.call(LoadedBottomCartState(cartData: getData));
-      } catch (e) {
-        emit.call(ErrorBottomCartState(errorMsg: "No Found Cart Data."));
+      } on Exception catch (e) {
+        emit.call(ErrorBottomCartState(errorMsg: 'No Found Cart Data.'));
       }
     });
 
@@ -35,10 +29,17 @@ class CartBottomBloc extends Bloc<CartBottomEvent, CartBottomState> {
           NavigatorService.goBack();
           CustomDialog.toastMessage(message: 'Delete Item');
         });
-      } catch (error) {
-        emit(ErrorBottomCartState(
-            errorMsg: "Do'nt Remove Item ${error.toString()}"));
+      } on Exception catch (error) {
+        emit(
+          ErrorBottomCartState(
+            errorMsg: "Do'nt Remove Item $error",
+          ),
+        );
       }
     });
   }
+  MyCartFetchDataMethod fetchCartData = MyCartFetchDataMethod();
+
+  MyCartFetchDataMethod cartFetchDataMethod = MyCartFetchDataMethod();
+  FirebaseFirestore fireStore = FirebaseFirestore.instance;
 }

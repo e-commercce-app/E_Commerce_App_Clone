@@ -1,6 +1,6 @@
+import 'package:e_commerce/feature/User_Side/Screens/OnBoarding_Screen/Bloc/page_view_event.dart';
+import 'package:e_commerce/feature/User_Side/Screens/OnBoarding_Screen/Bloc/page_view_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'page_view_event.dart';
-import 'page_view_state.dart';
 
 class PageViewBloc extends Bloc<PageViewEvent, PageViewState> {
   PageViewBloc() : super(InitialPageViewState(selectedIndex: 0)) {

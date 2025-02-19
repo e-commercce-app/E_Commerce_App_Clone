@@ -1,11 +1,9 @@
-import 'package:e_commerce/core/Controller/Services/Controller/get_my_cart_data.dart';
-
 import 'package:e_commerce/Export/e_commerce_export.dart';
+import 'package:e_commerce/core/Components/Error/cart_no_item_page.dart';
+import 'package:e_commerce/core/Controller/Services/Controller/get_my_cart_data.dart';
+import 'package:e_commerce/feature/User_Side/Screens/My_Cart_Screen/Components/custom_my_cart_design.dart';
+import 'package:e_commerce/feature/User_Side/Screens/Navigation_Bar_Screens/Cart/Components/delete_dialog_item_card.dart';
 import 'package:e_commerce/feature/User_Side/Screens/Navigation_Bar_Screens/Cart/bloc/cart_bottom_bloc.dart';
-
-import '../../../../../core/Components/Error/cart_no_item_page.dart';
-import '../../My_Cart_Screen/Components/custom_my_cart_design.dart';
-import 'Components/delete_dialog_item_card.dart';
 
 class CartBottomBarScreen extends StatefulWidget {
   const CartBottomBarScreen({super.key});
@@ -39,47 +37,51 @@ class _CartBottomBarScreenState extends State<CartBottomBarScreen> {
           } else if (state is LoadedBottomCartState) {
             return state.cartData.isEmpty
                 ? const CartNoItemFound()
-                : Column(children: [
-                    // ! My Cart Custom App Bar
-                    customBottomCartAppBar(state),
-                    Expanded(
-                      child: ListView.builder(
-                        itemCount: state.cartData.length,
-                        itemBuilder: (context, index) {
-                          return CustomCartDesign(
-                            imagePath:
-                                state.cartData[index].productImage.toString(),
-                            positionStaggeredList: state.cartData.length,
-                            productName:
-                                state.cartData[index].productName.toString(),
-                            productPrice:
-                                state.cartData[index].productPrice ?? 0,
-                            quantity: state.cartData[index].quantity ?? 0,
-                            deleteButton: () {
-                              // ! Show Delete Dialog .
-                              customDeleteCartBottomDialog(
-                                context: context,
-                                state: state,
-                                index: index,
-                                size: size,
-                                onPressedOky: () async {
-                                  context.read<CartBottomBloc>().add(
-                                      RemoveItemBottomCartEvent(
-                                          itemID: state
-                                              .cartData[index].productUid
-                                              .toString()));
-                                },
-                              );
-                            },
-                          );
-                        },
+                : Column(
+                    children: [
+                      // ! My Cart Custom App Bar
+                      customBottomCartAppBar(state),
+                      Expanded(
+                        child: ListView.builder(
+                          itemCount: state.cartData.length,
+                          itemBuilder: (context, index) {
+                            return CustomCartDesign(
+                              imagePath:
+                                  state.cartData[index].productImage.toString(),
+                              positionStaggeredList: state.cartData.length,
+                              productName:
+                                  state.cartData[index].productName.toString(),
+                              productPrice:
+                                  state.cartData[index].productPrice ?? 0,
+                              quantity: state.cartData[index].quantity ?? 0,
+                              deleteButton: () {
+                                // ! Show Delete Dialog .
+                                customDeleteCartBottomDialog(
+                                  context: context,
+                                  state: state,
+                                  index: index,
+                                  size: size,
+                                  onPressedOky: () async {
+                                    context.read<CartBottomBloc>().add(
+                                          RemoveItemBottomCartEvent(
+                                            itemID: state
+                                                .cartData[index].productUid
+                                                .toString(),
+                                          ),
+                                        );
+                                  },
+                                );
+                              },
+                            );
+                          },
+                        ),
                       ),
-                    )
-                  ]);
+                    ],
+                  );
           } else if (state is ErrorBottomCartState) {
             return Center(child: Text(state.errorMsg.toString()));
           } else {
-            return const Center(child: Text("No Data "));
+            return const Center(child: Text('No Data '));
           }
         },
       ),
@@ -90,10 +92,12 @@ class _CartBottomBarScreenState extends State<CartBottomBarScreen> {
     return CustomAppBar(
       size: size,
       centerTitle: true,
-      title: const AutoSizeText("My Cart"),
+      title: const AutoSizeText('My Cart'),
       actions: [
         AppBarLeadingIconButtonOne(
-            onTap: null, child: AutoSizeText("${state.cartData.length}")),
+          onTap: null,
+          child: AutoSizeText('${state.cartData.length}'),
+        ),
       ],
     );
   }

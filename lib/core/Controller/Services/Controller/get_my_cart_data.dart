@@ -1,8 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-
+import 'package:e_commerce/Export/e_commerce_export.dart';
 import 'package:e_commerce/Models/my_cart_model_class.dart';
-
-import '../../../../Export/e_commerce_export.dart';
 
 class MyCartFetchDataMethod {
   // ! Get All Item add To Cart .
@@ -13,18 +11,18 @@ class MyCartFetchDataMethod {
   // ** GetData Details Screen and Show AddToCart Screen .
   Future<List<MyCartModelClass>> getAddToCartData() async {
     List<MyCartModelClass> newList = [];
-    var getData = await fireStore
-        .collection("UserDetails")
+    final getData = await fireStore
+        .collection('UserDetails')
         .doc(FirebaseServices.currentUser!.uid)
-        .collection("MyPersonalCart")
+        .collection('MyPersonalCart')
         .get();
-    for (var element in getData.docs) {
+    for (final element in getData.docs) {
       cartModelClass = MyCartModelClass.fromJson(element.data());
       newList.add(cartModelClass);
-      debugPrint(">>>>>>>>>>>>>>>>>>>>>>>>>....  $newList");
+      debugPrint('>>>>>>>>>>>>>>>>>>>>>>>>>....  $newList');
     }
     addToCartList = newList;
-    debugPrint("....................${addToCartList.length}");
+    debugPrint('....................${addToCartList.length}');
 
     return addToCartList;
   }
@@ -32,9 +30,9 @@ class MyCartFetchDataMethod {
   // ! Delete (MyAddToCart) add Product Item's .
   Future<void> deleteCartProduct({String? itemID}) async {
     await fireStore
-        .collection("UserDetails")
+        .collection('UserDetails')
         .doc(FirebaseServices.currentUser?.uid)
-        .collection("MyPersonalCart")
+        .collection('MyPersonalCart')
         .doc(itemID)
         .delete();
   }

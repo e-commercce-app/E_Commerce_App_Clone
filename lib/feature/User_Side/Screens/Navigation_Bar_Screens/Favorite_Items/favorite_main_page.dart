@@ -1,15 +1,13 @@
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:e_commerce/core/Controller/Services/Controller/get_favorite_data.dart';
 import 'package:e_commerce/Export/e_commerce_export.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-
-import '../../../../../core/Components/Error/empty_favorite_page.dart';
 import 'package:e_commerce/Models/add_to_favorite_item.dart';
-
-import 'Components/custom_dialog_delete_favorite.dart';
-import 'Components/custom_favorite_design.dart';
+import 'package:e_commerce/core/Components/Error/empty_favorite_page.dart';
+import 'package:e_commerce/core/Controller/Services/Controller/get_favorite_data.dart';
+import 'package:e_commerce/feature/User_Side/Screens/Navigation_Bar_Screens/Favorite_Items/Components/custom_dialog_delete_favorite.dart';
+import 'package:e_commerce/feature/User_Side/Screens/Navigation_Bar_Screens/Favorite_Items/Components/custom_favorite_design.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class FavoriteScreen extends StatefulWidget {
   const FavoriteScreen({super.key});
@@ -26,9 +24,9 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
   // ! Press delete icon and delete list of item one by one .
   Future<void> deleteItem({required String itemId}) {
     return firestore
-        .collection("UserDetails")
+        .collection('UserDetails')
         .doc(user!.uid)
-        .collection("addToFavorite")
+        .collection('addToFavorite')
         .doc(itemId)
         .delete();
   }
@@ -79,16 +77,18 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                   index: index,
                                   size: size,
                                   onPressedOky: () {
-                                    log(snapshot.data![index].favoriteID
-                                        .toString());
+                                    log(
+                                      snapshot.data![index].favoriteID
+                                          .toString(),
+                                    );
                                     deleteItem(
-                                            itemId: snapshot
-                                                .data![index].favoriteID
-                                                .toString())
-                                        .then((value) {
+                                      itemId: snapshot.data![index].favoriteID
+                                          .toString(),
+                                    ).then((value) {
                                       NavigatorService.goBack();
                                       CustomDialog.toastMessage(
-                                          message: deleteFavorite);
+                                        message: deleteFavorite,
+                                      );
                                     });
                                     setState(() {});
                                   },
@@ -97,7 +97,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                             );
                           },
                         ),
-                      )
+                      ),
                     ],
                   );
           } else {
@@ -110,15 +110,17 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
 
   // ! Custom favorite App Bar
   CustomAppBar customFavoriteAppBar(
-      AsyncSnapshot<List<FavorIteItemModelClass>> snapshot) {
+    AsyncSnapshot<List<FavorIteItemModelClass>> snapshot,
+  ) {
     return CustomAppBar(
       size: size,
       centerTitle: true,
-      title: const AutoSizeText("Favorite"),
+      title: const AutoSizeText('Favorite'),
       actions: [
         AppBarLeadingIconButtonOne(
-            onTap: null,
-            child: AutoSizeText("${snapshot.data!.length.toInt()}")),
+          onTap: null,
+          child: AutoSizeText('${snapshot.data!.length.toInt()}'),
+        ),
       ],
     );
   }

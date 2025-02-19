@@ -1,22 +1,22 @@
-import '../../../../Export/e_commerce_export.dart';
+import 'package:e_commerce/Export/e_commerce_export.dart';
 
 class AppBarLeadingIconButtonOne extends StatelessWidget {
   const AppBarLeadingIconButtonOne({
+    required this.child,
     super.key,
     this.onTap,
-    required this.child,
   });
   final VoidCallback? onTap;
   final Widget child;
   @override
   Widget build(BuildContext context) {
-    var width = MediaQuery.sizeOf(context).width;
-    var height = MediaQuery.sizeOf(context).height;
+    final width = MediaQuery.sizeOf(context).width;
+    final height = MediaQuery.sizeOf(context).height;
     return Center(
       child: Container(
         height: height * 0.055,
         width: width * 0.12,
-        padding: const EdgeInsets.all(0),
+        padding: EdgeInsets.zero,
         decoration: BoxDecoration(
           color: Resources.colors.kWhite,
           borderRadius: BorderRadius.circular(32),

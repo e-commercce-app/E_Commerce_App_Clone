@@ -1,12 +1,11 @@
+import 'package:e_commerce/Export/e_commerce_export.dart';
+import 'package:e_commerce/core/Components/Error/cart_no_item_page.dart';
+import 'package:e_commerce/core/Controller/Services/Controller/cart_product_price.dart';
+import 'package:e_commerce/core/Controller/Services/Controller/get_my_cart_data.dart';
+import 'package:e_commerce/feature/User_Side/Screens/My_Cart_Screen/Components/custom_delete_cart_dialog.dart';
+import 'package:e_commerce/feature/User_Side/Screens/My_Cart_Screen/Components/custom_my_cart_design.dart';
+import 'package:e_commerce/feature/User_Side/Screens/My_Cart_Screen/bloc/cart_fetch_data_bloc.dart';
 import 'package:flutter/cupertino.dart';
-
-import '../../../../core/Components/Error/cart_no_item_page.dart';
-import '../../../../core/Controller/Services/Controller/cart_product_price.dart';
-import '../../../../core/Controller/Services/Controller/get_my_cart_data.dart';
-import '../../../../Export/e_commerce_export.dart';
-import 'Components/custom_delete_cart_dialog.dart';
-import 'Components/custom_my_cart_design.dart';
-import 'bloc/cart_fetch_data_bloc.dart';
 
 class AddToCartScreen extends StatefulWidget {
   const AddToCartScreen({
@@ -46,9 +45,10 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
             if (state is CartFetchLoadingState ||
                 state is CartFetchDataInitial) {
               return Center(
-                  child: CircularProgressIndicator.adaptive(
-                backgroundColor: Resources.colors.kButtonColor,
-              ));
+                child: CircularProgressIndicator.adaptive(
+                  backgroundColor: Resources.colors.kButtonColor,
+                ),
+              );
             } else if (state is CartFetchLoadedState) {
               // ! Load Data .
               return state.fetchData.isEmpty
@@ -79,10 +79,12 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
                                     size: size,
                                     onPressedOky: () async {
                                       context.read<CartFetchDataBloc>().add(
-                                          RemoveItemCartEvent(
+                                            RemoveItemCartEvent(
                                               itemID: state
                                                   .fetchData[index].productUid
-                                                  .toString()));
+                                                  .toString(),
+                                            ),
+                                          );
                                     },
                                   );
                                 },
@@ -95,13 +97,15 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
                           height: size.height * 0.15,
                           width: double.infinity,
                           decoration: BoxDecoration(
-                              color: Resources.colors.kWhite,
-                              boxShadow: [
-                                BoxShadow(
-                                    blurRadius: 0.2,
-                                    spreadRadius: 0.2,
-                                    color: Resources.colors.kGrey)
-                              ]),
+                            color: Resources.colors.kWhite,
+                            boxShadow: [
+                              BoxShadow(
+                                blurRadius: 0.2,
+                                spreadRadius: 0.2,
+                                color: Resources.colors.kGrey,
+                              ),
+                            ],
+                          ),
                           child: Padding(
                             padding:
                                 const EdgeInsets.symmetric(horizontal: 8.0),
@@ -123,13 +127,14 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
                                             ),
                                       ),
                                       AutoSizeText(
-                                        "\$${managePrice.totalPrice.toStringAsFixed(1)}",
+                                        '\$${managePrice.totalPrice.toStringAsFixed(1)}',
                                         style: Theme.of(context)
                                             .textTheme
                                             .titleLarge
                                             ?.copyWith(
-                                                color: Resources
-                                                    .colors.kPrimaryContainer),
+                                              color: Resources
+                                                  .colors.kPrimaryContainer,
+                                            ),
                                       ),
                                     ],
                                   ),
@@ -141,29 +146,32 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
                                     child: Align(
                                       alignment: Alignment.center,
                                       child: CustomButton(
-                                          size: size,
-                                          onPressed: () {
-                                            if (state.fetchData.isNotEmpty) {
-                                              NavigatorService.pushNamed(
-                                                  RoutesName.checkOutScreen);
-                                            }
-                                          },
-                                          buttonText: checkout.toUpperCase()),
+                                        size: size,
+                                        onPressed: () {
+                                          if (state.fetchData.isNotEmpty) {
+                                            NavigatorService.pushNamed(
+                                              RoutesName.checkOutScreen,
+                                            );
+                                          }
+                                        },
+                                        buttonText: checkout.toUpperCase(),
+                                      ),
                                     ),
                                   ),
-                                )
+                                ),
                               ],
                             ),
                           ),
                         ),
                         const CustomSizedBox(
                           heightRatio: 0.06,
-                        )
+                        ),
                       ],
                     );
             } else {
               return Center(
-                  child: Text((state as CartFetchErrorState).errorMessage));
+                child: Text((state as CartFetchErrorState).errorMessage),
+              );
             }
           },
         ),
@@ -186,7 +194,9 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
       title: AutoSizeText(myCart),
       actions: [
         AppBarLeadingIconButtonOne(
-            onTap: null, child: AutoSizeText("${state.fetchData.length}")),
+          onTap: null,
+          child: AutoSizeText('${state.fetchData.length}'),
+        ),
       ],
     );
   }

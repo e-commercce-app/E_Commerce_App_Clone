@@ -1,16 +1,16 @@
-import '../../../../Export/e_commerce_export.dart';
+import 'package:e_commerce/Export/e_commerce_export.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppBar({
-    Key? key,
+    required this.size,
     this.height,
     // this.leadingWidth,
     this.leading,
     this.title,
     this.centerTitle,
     this.actions,
-    required this.size,
-  }) : super(key: key);
+    super.key,
+  });
 
   final double? height;
   // final double? leadingWidth;
