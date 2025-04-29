@@ -1,8 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:e_commerce/Export/e_commerce_export.dart';
+import 'package:e_commerce/Models/order_model_class.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
-import '../../../../Export/e_commerce_export.dart';
-import '../../../../Models/order_model_class.dart';
 
 class OrderNowFetchDataMethod {
   // Firebase Services
@@ -15,7 +14,7 @@ class OrderNowFetchDataMethod {
 // ** GetData Details Screen and Show OrderNow Screen .
   Future<List<OrderModelClass>> getOrderNowData() async {
     List<OrderModelClass> newList = [];
-    var getData = await firestore
+    final getData = await firestore
         .collection('UserDetails')
         .doc(user!.uid)
         .collection('MyOrder')

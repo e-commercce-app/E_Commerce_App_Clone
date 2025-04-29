@@ -1,6 +1,6 @@
-/// Checks if string is email.
+///! Checks if string is email.
 bool isValidEmail(String? inputString, {bool isRequired = false}) {
-  bool isInputStringValid = false;
+  var isInputStringValid = false;
 
   if (!isRequired && (inputString == null ? true : inputString.isEmpty)) {
     isInputStringValid = true;

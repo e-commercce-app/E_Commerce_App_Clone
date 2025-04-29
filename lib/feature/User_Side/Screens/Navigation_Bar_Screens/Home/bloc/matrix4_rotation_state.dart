@@ -7,11 +7,12 @@ sealed class Matrix4RotationState {
 final class Matrix4RotationInitial extends Matrix4RotationState {}
 
 class RotationMatrixState extends Matrix4RotationState {
+  RotationMatrixState({
+    required this.xOffset,
+    required this.yOffset,
+    required this.isDrawerOpen,
+  });
   double xOffset;
   double yOffset;
   bool isDrawerOpen;
-  RotationMatrixState(
-      {required this.xOffset,
-      required this.yOffset,
-      required this.isDrawerOpen});
 }

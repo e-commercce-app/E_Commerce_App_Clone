@@ -1,25 +1,26 @@
 // ignore_for_file: must_be_immutable
 
 import 'dart:io';
-import '../../../../../../Export/e_commerce_export.dart';
+import 'package:e_commerce/Export/e_commerce_export.dart';
 
 abstract class SignUpState {}
 
 class SignUpInitialState extends SignUpState {}
 
 class SignUpClickState extends SignUpState {
+  // bool checkPassword = false;
+  SignUpClickState({
+    required this.nameController,
+    required this.emailController,
+    required this.passwordController,
+    required this.phoneController,
+    required this.key,
+  });
   TextEditingController nameController;
   TextEditingController emailController;
   TextEditingController passwordController;
   TextEditingController phoneController;
   GlobalKey<FormState> key;
-  // bool checkPassword = false;
-  SignUpClickState(
-      {required this.nameController,
-      required this.emailController,
-      required this.passwordController,
-      required this.phoneController,
-      required this.key});
 }
 
 //  Google Button State .
@@ -27,9 +28,9 @@ class SignUpGoogleState extends SignUpState {}
 
 // ! Pick Image State .
 class ImagePickerLoadedState extends SignUpState {
+  ImagePickerLoadedState({this.image});
   // XFile imagePath;
   final File? image;
-  ImagePickerLoadedState({this.image});
 
   ImagePickerLoadedState copyWith({File? image}) {
     return ImagePickerLoadedState(image: image ?? this.image);

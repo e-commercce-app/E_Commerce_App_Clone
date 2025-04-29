@@ -107,8 +107,7 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
                             ],
                           ),
                           child: Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 8.0),
+                            padding: const EdgeInsets.symmetric(horizontal: 8),
                             child: Column(
                               // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
@@ -144,7 +143,6 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
                                     widthRatio: 0.9,
                                     heightRatio: 0.06,
                                     child: Align(
-                                      alignment: Alignment.center,
                                       child: CustomButton(
                                         size: size,
                                         onPressed: () {
@@ -179,11 +177,11 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
     );
   }
 
-  CustomAppBar customMyCart(CartFetchLoadedState state) {
+  Widget customMyCart(CartFetchLoadedState state) {
     return CustomAppBar(
       size: size,
       leading: AppBarLeadingIconButtonOne(
-        onTap: () => NavigatorService.goBack(),
+        onTap: NavigatorService.goBack,
         child: Icon(
           CupertinoIcons.arrow_left,
           color: Resources.colors.kBlack,

@@ -1,10 +1,10 @@
-import '../../../Export/e_commerce_export.dart';
+import 'package:e_commerce/Export/e_commerce_export.dart';
 
 class CustomSearchClickView extends StatelessWidget {
   const CustomSearchClickView({
-    super.key,
     required this.size,
     required this.onTap,
+    super.key,
   });
 
   final Size size;
@@ -20,7 +20,7 @@ class CustomSearchClickView extends StatelessWidget {
           color: Resources.colors.kWhite,
           borderRadius: BorderRadius.circular(size.height * 0.032),
           boxShadow: [
-            BoxShadow(blurRadius: 0.1, color: Resources.colors.kGray600)
+            BoxShadow(blurRadius: 0.1, color: Resources.colors.kGray600),
           ],
         ),
         child: Padding(
@@ -28,18 +28,21 @@ class CustomSearchClickView extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              AutoSizeText("Looking for shoes search.....",
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyMedium
-                      ?.copyWith(color: Resources.colors.kGray600)),
+              AutoSizeText(
+                'Looking for shoes search.....',
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyMedium
+                    ?.copyWith(color: Resources.colors.kGray600),
+              ),
               IconButton(
-                  onPressed: null,
-                  icon: Icon(
-                    Icons.clear,
-                    size: 20,
-                    color: Resources.colors.kGray600,
-                  ))
+                onPressed: null,
+                icon: Icon(
+                  Icons.clear,
+                  size: 20,
+                  color: Resources.colors.kGray600,
+                ),
+              ),
             ],
           ),
         ),

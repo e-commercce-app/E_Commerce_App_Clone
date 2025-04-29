@@ -1,9 +1,10 @@
 import 'package:e_commerce/Export/e_commerce_export.dart';
+import 'package:e_commerce/feature/User_Side/Screens/Notification/notification_screen.dart';
 
 PreferredSizeWidget homePageAppBar(
   BuildContext context, {
   required Widget child,
-  Function()? onTap,
+  void Function()? onTap,
   Size? size,
   String? currentLocation,
 }) {
@@ -32,20 +33,33 @@ PreferredSizeWidget homePageAppBar(
     ),
     actions: [
       AppBarLeadingIconButtonOne(
-          onTap: () {
-            // ! LogOut Button
-            // FirebaseServices.auth.signOut().then((value) {
-            //   Navigator.pushReplacementNamed(context, RoutesName.signInScreen);
-            // Navigator.pop(context);
-            // });
-            NavigatorService.pushNamed(RoutesName.addToCartScreen);
-          },
-          child: CustomImageView(
-            imagePath: Resources.imagePath.trolley,
-          )),
+        onTap: () {
+          // ! LogOut Button
+          // FirebaseServices.auth.signOut().then((value) {
+          //   Navigator.pushReplacementNamed(context, RoutesName.signInScreen);
+          // Navigator.pop(context);
+          // });
+          NavigatorService.pushNamed(RoutesName.addToCartScreen);
+        },
+        child: CustomImageView(
+          imagePath: Resources.imagePath.trolley,
+        ),
+      ),
       // Some Space
       const CustomSizedBox(
         widthRatio: 0.04,
+      ),
+      AppBarLeadingIconButtonOne(
+        onTap: () {
+          NavigatorService.push(
+            MaterialPageRoute(
+              builder: (context) => const NotificationScreen(),
+            ),
+          );
+        },
+        child: CustomImageView(
+          imagePath: Resources.imagePath.trolley,
+        ),
       ),
     ],
   );

@@ -8,7 +8,7 @@ import 'package:e_commerce/feature/User_Side/Screens/Auth/Sign_Up_Screen/bloc/si
 import 'package:e_commerce/feature/User_Side/Screens/Auth/Sign_Up_Screen/check_password/check_password_field_bloc.dart';
 import 'package:e_commerce/feature/User_Side/Screens/Auth/Sign_Up_Screen/sign_up_screen.dart';
 import 'package:e_commerce/feature/User_Side/Screens/Auth/Sign_in_Screen/bloc/sign_in_bloc.dart';
-import 'package:e_commerce/feature/User_Side/Screens/Auth/Sign_in_Screen/sign_in_screen.dart';
+import 'package:e_commerce/feature/User_Side/Screens/Auth/Sign_in_Screen/Screen/sign_in_screen.dart';
 import 'package:e_commerce/feature/User_Side/Screens/CheckOut/checkout_main.dart';
 import 'package:e_commerce/feature/User_Side/Screens/Detail_Screen/detail_screen.dart';
 import 'package:e_commerce/feature/User_Side/Screens/My_Cart_Screen/bloc/cart_fetch_data_bloc.dart';
