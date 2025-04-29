@@ -1,12 +1,13 @@
-import '../../../../../../Export/e_commerce_export.dart';
-import '../../../../../../Models/add_to_favorite_item.dart';
+import 'package:e_commerce/Export/e_commerce_export.dart';
+import 'package:e_commerce/Models/add_to_favorite_item.dart';
 
-Future<dynamic> customDeleteFavoriteDialog(
-    {required BuildContext context,
-    required AsyncSnapshot<List<FavorIteItemModelClass>> snapshot,
-    required int index,
-    required Size size,
-    required Function()? onPressedOky}) {
+Future<dynamic> customDeleteFavoriteDialog({
+  required BuildContext context,
+  required AsyncSnapshot<List<FavorIteItemModelClass>> snapshot,
+  required int index,
+  required Size size,
+  required Function()? onPressedOky,
+}) {
   return showDialog(
     context: context,
     builder: (context) {
@@ -16,8 +17,7 @@ Future<dynamic> customDeleteFavoriteDialog(
           width: size.width * 0.5,
           child: ListView(
             shrinkWrap: true,
-            scrollDirection: Axis.vertical,
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(8),
             keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
             children: [
               Container(
@@ -25,14 +25,16 @@ Future<dynamic> customDeleteFavoriteDialog(
                 width: size.width,
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    boxShadow: [
-                      BoxShadow(
-                          blurRadius: 0.7,
-                          color: Resources.colors.kGrey,
-                          spreadRadius: 2,
-                          blurStyle: BlurStyle.outer)
-                    ]),
+                  borderRadius: BorderRadius.circular(20),
+                  boxShadow: [
+                    BoxShadow(
+                      blurRadius: 0.7,
+                      color: Resources.colors.kGrey,
+                      spreadRadius: 2,
+                      blurStyle: BlurStyle.outer,
+                    ),
+                  ],
+                ),
                 child: CustomImageView(
                   imagePath: snapshot.data![index].favoriteImageUrl.toString(),
                   fit: BoxFit.contain,
@@ -40,7 +42,7 @@ Future<dynamic> customDeleteFavoriteDialog(
               ),
               // ! Name Sections
               AutoSizeText(
-                "Name : ${snapshot.data![index].favoriteName.toString()}",
+                'Name : ${snapshot.data![index].favoriteName}',
                 presetFontSizes: const [20, 15, 10, 7],
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                       fontWeight: FontWeight.w500,
@@ -48,14 +50,15 @@ Future<dynamic> customDeleteFavoriteDialog(
               ),
               // ! Price Section
               AutoSizeText(
-                "Price : ${snapshot.data![index].favoritePrice.toString()}",
+                'Price : ${snapshot.data![index].favoritePrice}',
                 presetFontSizes: const [20, 13, 9, 5],
                 style: GoogleFonts.alice(
-                    textStyle: Theme.of(context)
-                        .textTheme
-                        .bodySmall
-                        ?.copyWith(overflow: TextOverflow.ellipsis),
-                    fontWeight: FontWeight.w500),
+                  textStyle: Theme.of(context)
+                      .textTheme
+                      .bodySmall
+                      ?.copyWith(overflow: TextOverflow.ellipsis),
+                  fontWeight: FontWeight.w500,
+                ),
               ),
               const CustomSizedBox(
                 heightRatio: 0.03,
@@ -68,13 +71,12 @@ Future<dynamic> customDeleteFavoriteDialog(
                   presetFontSizes: const [15, 10, 8, 5],
                   maxLines: 3,
                   style: GoogleFonts.alice(
-                      textStyle: Theme.of(context)
-                          .textTheme
-                          .bodySmall
-                          ?.copyWith(
-                              overflow: TextOverflow.ellipsis,
-                              color: Resources.colors.kRedColor),
-                      fontWeight: FontWeight.w500),
+                    textStyle: Theme.of(context).textTheme.bodySmall?.copyWith(
+                          overflow: TextOverflow.ellipsis,
+                          color: Resources.colors.kRedColor,
+                        ),
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
               ),
               const CustomSizedBox(
@@ -85,16 +87,18 @@ Future<dynamic> customDeleteFavoriteDialog(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   CustomButton(
-                      size: size,
-                      background: Resources.colors.kGrey,
-                      onPressed: () => NavigatorService.goBack(),
-                      buttonText: cancel.toUpperCase()),
+                    size: size,
+                    background: Resources.colors.kGrey,
+                    onPressed: NavigatorService.goBack,
+                    buttonText: cancel.toUpperCase(),
+                  ),
                   CustomButton(
-                      size: size,
-                      onPressed: onPressedOky!,
-                      buttonText: oky.toUpperCase()),
+                    size: size,
+                    onPressed: onPressedOky!,
+                    buttonText: oky.toUpperCase(),
+                  ),
                 ],
-              )
+              ),
             ],
           ),
         ),

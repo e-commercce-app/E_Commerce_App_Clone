@@ -20,7 +20,7 @@ export 'package:flutter/material.dart';
 // ! Services class .
 export 'package:flutter/services.dart';
 // ! Bloc Pattern Libraries
-export "package:flutter_bloc/flutter_bloc.dart";
+export 'package:flutter_bloc/flutter_bloc.dart';
 // ! Flutter Svg Library .
 export 'package:flutter_svg/flutter_svg.dart';
 // ! flutter toast

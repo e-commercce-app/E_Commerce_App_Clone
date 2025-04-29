@@ -79,7 +79,7 @@ class _CartBottomBarScreenState extends State<CartBottomBarScreen> {
                     ],
                   );
           } else if (state is ErrorBottomCartState) {
-            return Center(child: Text(state.errorMsg.toString()));
+            return Center(child: Text(state.errorMsg));
           } else {
             return const Center(child: Text('No Data '));
           }

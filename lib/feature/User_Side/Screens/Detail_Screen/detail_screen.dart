@@ -1,12 +1,14 @@
 // ignore_for_file: must_be_immutable, prefer_is_empty
+
 import 'dart:developer';
 
 import 'package:e_commerce/Export/e_commerce_export.dart';
 import 'package:e_commerce/Models/add_to_favorite_item.dart';
 import 'package:e_commerce/Models/my_cart_model_class.dart';
 import 'package:e_commerce/Models/shoes_product_home_page.dart';
+import 'package:e_commerce/feature/User_Side/Screens/Detail_Screen/widget/custom_shoes_details_widget.dart';
+import 'package:e_commerce/feature/User_Side/Screens/Detail_Screen/widget/quantity_section.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:readmore/readmore.dart';
 
 class DetailsScreen extends StatefulWidget {
   DetailsScreen({required this.productHomeScreen, super.key});
@@ -27,20 +29,25 @@ class _DetailsScreenState extends State<DetailsScreen>
 
   //! Favorite Model Class
   FavorIteItemModelClass favorIteItemModelClass = FavorIteItemModelClass();
+
   @override
   void initState() {
     super.initState();
+    initializeAnimation();
     currentPrice = widget.productHomeScreen.productPrice!;
+  }
+
+  //! Initialize animation controller
+  void initializeAnimation() {
     controller = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 700),
     );
     turns = Tween<double>(begin: 0.8, end: 1).animate(controller);
-
     controller.forward(); // start Animation .
   }
 
-  // ! Add To Favorite .
+  //! Add to favorite
   Future<void> addToFavorite() async {
     final dateAndTime = DateTime.now().microsecondsSinceEpoch.toString();
     final current = FirebaseServices.auth.currentUser;
@@ -64,227 +71,7 @@ class _DetailsScreenState extends State<DetailsScreen>
     });
   }
 
-  // screen size
-  late Size size;
-  @override
-  Widget build(BuildContext context) {
-    size = MediaQuery.sizeOf(context);
-    return Scaffold(
-      // ! App Bar section
-      appBar: CustomAppBar(
-        size: size,
-        leading: AppBarLeadingIconButtonOne(
-          child: Icon(
-            CupertinoIcons.arrow_left,
-            color: Resources.colors.kBlack,
-            size: size.width * 0.07,
-          ),
-          onTap: () => NavigatorService.goBack(),
-        ),
-        centerTitle: true,
-        title: AppBarSubtitleOne(
-          text: menShoes,
-          margin: const EdgeInsets.only(left: 40),
-        ),
-        actions: [
-          StreamBuilder(
-            stream: FirebaseServices.currentUserCollection
-                .doc(FirebaseServices.currentUser?.uid)
-                .collection('addToFavorite')
-                .where(
-                  'favoritePrice',
-                  isEqualTo: widget.productHomeScreen.productPrice,
-                )
-                .snapshots(),
-            builder: (context, snapshot) {
-              if (snapshot.data == null) {
-                return const Text('');
-              }
-              return AppBarLeadingIconButtonOne(
-                onTap: () => snapshot.data?.docs.length == 0
-                    ? addToFavorite()
-                    : 'Already added to Favorites',
-                child: snapshot.data?.docs.length == 0
-                    ? Icon(
-                        Icons.favorite_outline,
-                        color: Resources.colors.kButtonColor,
-                      )
-                    : Icon(
-                        Icons.favorite,
-                        color: Resources.colors.kButtonColor,
-                      ),
-              );
-            },
-          ),
-          // Some Space
-          const CustomSizedBox(
-            widthRatio: 0.04,
-          ),
-        ],
-      ),
-
-      // ! Body Sections
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            // ! Shoes Image Section .
-            RotationTransition(
-              turns: turns,
-              child: CustomImageView(
-                imagePath: widget.productHomeScreen.productImage.toString(),
-                fit: BoxFit.fill,
-                height: size.height * 0.3,
-                width: double.infinity,
-              ),
-            ),
-            // ! _Custom Shoes Details Widget
-            Container(
-              height: size.height * 0.3,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: Resources.colors.kWhite,
-              ),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-                child: _customShoesDetailsWidget(context),
-              ),
-            ),
-            const CustomSizedBox(
-              heightRatio: 0.04,
-            ),
-
-            // ! Text Decrement and Increment Number  .
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                FloatingActionButton.small(
-                  onPressed: increment,
-                  heroTag: 'float1',
-                  backgroundColor: Resources.colors.kWhite,
-                  child: Icon(
-                    CupertinoIcons.plus_app_fill,
-                    color: Resources.colors.kButtonColor,
-                  ),
-                ),
-                const CustomSizedBox(
-                  widthRatio: 0.01,
-                ),
-                // Text
-                AutoSizeText(
-                  quantity.toString(),
-                  style: GoogleFonts.aBeeZee(
-                    textStyle: TextStyle(
-                      fontSize: 25,
-                      color: Resources.colors.kBlack,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  overflow: TextOverflow.ellipsis,
-                ),
-                const CustomSizedBox(widthRatio: 0.01),
-                FloatingActionButton.small(
-                  onPressed: decrement,
-                  heroTag: 'float2',
-                  backgroundColor: Colors.white,
-                  child: Icon(
-                    CupertinoIcons.minus_rectangle_fill,
-                    size: 20,
-                    color: Resources.colors.kButtonColor,
-                  ),
-                ),
-              ],
-            ),
-
-            // ! AddToCart Button Section
-          ],
-        ),
-      ),
-      bottomNavigationBar: BottomAppBar(
-        child: Container(
-          height: size.height * 0.07,
-          width: double.infinity,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            color: Resources.colors.kWhite,
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  customProductShoesInfoText(
-                    context: context,
-                    messageText: totalPrice.toUpperCase(),
-                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          fontWeight: FontWeight.w400,
-                          fontSize: 15,
-                        ),
-                  ),
-                  customProductShoesInfoText(
-                    context: context,
-                    messageText: '\$ $currentPrice',
-                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          fontWeight: FontWeight.w700,
-                          fontSize: 20,
-                        ),
-                  ),
-                ],
-              ),
-              // ! My Cart Button Section .
-              Padding(
-                padding: const EdgeInsets.all(8),
-                child: CustomButton(
-                  size: size,
-                  onPressed: () async {
-                    // ! (Cart model class) fireStore Set data sections
-                    final dateAndTime =
-                        DateTime.now().microsecondsSinceEpoch.toString();
-                    final myCart = MyCartModelClass()
-                      ..productUid =
-                          '$dateAndTime${FirebaseServices.currentUser?.uid}'
-                      ..productImage =
-                          widget.productHomeScreen.productImage.toString()
-                      ..productName =
-                          widget.productHomeScreen.productName.toString()
-                      ..productPrice = currentPrice
-                      ..quantity = quantity;
-                    await FirebaseServices.currentUserCollection
-                        .doc(FirebaseServices.currentUser?.uid)
-                        .collection('MyPersonalCart')
-                        .doc(
-                          '$dateAndTime${FirebaseServices.currentUser?.uid}',
-                        )
-                        .set(myCart.toJson())
-                        .then((value) {
-                      CustomDialog.showCustomSnackBar(
-                        context: context,
-                        title: 'My Cart',
-                        message: 'Your item is added successfully',
-                        contentType: ContentType.success,
-                      );
-                    }).onError((error, stackTrace) {
-                      log('Add To Cart Error : $error');
-                      CustomDialog.showCustomSnackBar(
-                        context: context,
-                        title: 'Error',
-                        message: error.toString(),
-                        contentType: ContentType.failure,
-                      );
-                    });
-                  },
-                  buttonText: addToCart,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
+  //! Increment quantity
   void increment() {
     setState(() {
       quantity++;
@@ -292,6 +79,7 @@ class _DetailsScreenState extends State<DetailsScreen>
     });
   }
 
+  //! Decrement quantity
   void decrement() {
     setState(() {
       if (quantity >= 2 && quantity != 0) {
@@ -301,69 +89,206 @@ class _DetailsScreenState extends State<DetailsScreen>
     });
   }
 
-  //  _Custom Shoes Details Widget
-  Widget _customShoesDetailsWidget(BuildContext context) {
+  //! Add to cart
+  Future<void> itemAddToCart() async {
+    final dateAndTime = DateTime.now().microsecondsSinceEpoch.toString();
+    final myCart = MyCartModelClass()
+      ..productUid = '$dateAndTime${FirebaseServices.currentUser?.uid}'
+      ..productImage = widget.productHomeScreen.productImage.toString()
+      ..productName = widget.productHomeScreen.productName.toString()
+      ..productPrice = currentPrice
+      ..quantity = quantity;
+    await FirebaseServices.currentUserCollection
+        .doc(FirebaseServices.currentUser?.uid)
+        .collection('MyPersonalCart')
+        .doc('$dateAndTime${FirebaseServices.currentUser?.uid}')
+        .set(myCart.toJson())
+        .then((value) {
+      CustomDialog.showCustomSnackBar(
+        context: context,
+        title: 'My Cart',
+        message: 'Your item is added successfully',
+        contentType: ContentType.success,
+      );
+    }).onError((error, stackTrace) {
+      log('Add To Cart Error : $error');
+      CustomDialog.showCustomSnackBar(
+        context: context,
+        title: 'Error',
+        message: error.toString(),
+        contentType: ContentType.failure,
+      );
+    });
+  }
+
+  late Size size;
+  @override
+  Widget build(BuildContext context) {
+    size = MediaQuery.sizeOf(context);
+    return Scaffold(
+      appBar: buildAppBar(),
+      body: buildBody(),
+      bottomNavigationBar: buildBottomAppBar(),
+    );
+  }
+
+  //! Build app bar
+  PreferredSizeWidget buildAppBar() {
+    return CustomAppBar(
+      size: size,
+      leading: AppBarLeadingIconButtonOne(
+        onTap: NavigatorService.goBack,
+        child: Icon(
+          CupertinoIcons.arrow_left,
+          color: Resources.colors.kBlack,
+          size: size.width * 0.07,
+        ),
+      ),
+      centerTitle: true,
+      title: AppBarSubtitleOne(
+        text: menShoes,
+        margin: const EdgeInsets.only(left: 40),
+      ),
+      actions: [
+        StreamBuilder(
+          stream: FirebaseServices.currentUserCollection
+              .doc(FirebaseServices.currentUser?.uid)
+              .collection('addToFavorite')
+              .where(
+                'favoritePrice',
+                isEqualTo: widget.productHomeScreen.productPrice,
+              )
+              .snapshots(),
+          builder: (context, snapshot) {
+            if (snapshot.data == null) {
+              return const Text('');
+            }
+            return AppBarLeadingIconButtonOne(
+              onTap: () => snapshot.data?.docs.length == 0
+                  ? addToFavorite()
+                  : 'Already added to Favorites',
+              child: snapshot.data?.docs.length == 0
+                  ? Icon(
+                      Icons.favorite_outline,
+                      color: Resources.colors.kButtonColor,
+                    )
+                  : Icon(
+                      Icons.favorite,
+                      color: Resources.colors.kButtonColor,
+                    ),
+            );
+          },
+        ),
+        const CustomSizedBox(widthRatio: 0.04),
+      ],
+    );
+  }
+
+  //! Build body
+  Widget buildBody() {
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          buildImageSection(),
+          buildDetailsSection(),
+          QuantitySection(
+            quantity: quantity,
+            increment: increment,
+            decrement: decrement,
+          ),
+        ],
+      ),
+    );
+  }
+
+  //! Build image section
+  Widget buildImageSection() {
+    return RotationTransition(
+      turns: turns,
+      child: CustomImageView(
+        imagePath: widget.productHomeScreen.productImage.toString(),
+        fit: BoxFit.fill,
+        height: size.height * 0.3,
+        width: double.infinity,
+      ),
+    );
+  }
+
+  //! Build details section
+  Widget buildDetailsSection() {
+    return Container(
+      height: size.height * 0.3,
+      width: double.infinity,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        color: Resources.colors.kWhite,
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+        child: CustomShoesDetailsWidget(
+          productHomeScreen: widget.productHomeScreen,
+          currentPrice: currentPrice,
+        ),
+      ),
+    );
+  }
+
+  //! Build bottom app bar
+  BottomAppBar buildBottomAppBar() {
+    return BottomAppBar(
+      child: Container(
+        height: size.height * 0.07,
+        width: double.infinity,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          color: Resources.colors.kWhite,
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            buildPriceInfo(),
+            buildAddToCartButton(),
+          ],
+        ),
+      ),
+    );
+  }
+
+  //! Build price info
+  Widget buildPriceInfo() {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        // ! Product Best Seller .
         customProductShoesInfoText(
           context: context,
-          messageText: bestSeller.toUpperCase(),
-          style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                color: Resources.colors.kButtonColor,
-                fontSize: 15,
-                fontWeight: FontWeight.w500,
-              ),
-        ),
-        // ! Product Name .
-        customProductShoesInfoText(
-          context: context,
-          messageText: widget.productHomeScreen.productName.toString(),
+          messageText: totalPrice.toUpperCase(),
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                fontWeight: FontWeight.w900,
-                fontSize: 30,
+                fontWeight: FontWeight.w400,
+                fontSize: 15,
               ),
         ),
-        // ! Product Price .
         customProductShoesInfoText(
           context: context,
-          messageText: currentPrice.toString(),
-          style: GoogleFonts.almendraSc(
-            textStyle: Theme.of(context)
-                .textTheme
-                .bodySmall
-                ?.copyWith(overflow: TextOverflow.ellipsis),
-            fontSize: 30,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-        // ! Shoes Detail Sections .
-        Expanded(
-          child: ReadMoreText(
-            shoesDetails,
-            trimLines: 3,
-            textAlign: TextAlign.justify,
-            preDataText: thisShoes,
-            preDataTextStyle: const TextStyle(
-              fontWeight: FontWeight.w700,
-            ),
-            style: GoogleFonts.aBeeZee(
-              textStyle: TextStyle(
-                fontSize: 10,
-                color: Resources.colors.kBlack,
-                fontWeight: FontWeight.bold,
-                overflow: TextOverflow.ellipsis,
+          messageText: '\$ $currentPrice',
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                fontWeight: FontWeight.w700,
+                fontSize: 20,
               ),
-            ),
-            colorClickableText: Colors.pink,
-            trimMode: TrimMode.Line,
-            trimCollapsedText: showMore,
-            trimExpandedText: showLess,
-          ),
         ),
       ],
+    );
+  }
+
+  //! Build add to cart button
+  Widget buildAddToCartButton() {
+    return Padding(
+      padding: const EdgeInsets.all(8),
+      child: CustomButton(
+        size: size,
+        onPressed: itemAddToCart,
+        buttonText: addToCart,
+      ),
     );
   }
 }

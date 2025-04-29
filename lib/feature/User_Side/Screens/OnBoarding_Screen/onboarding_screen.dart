@@ -25,7 +25,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   @override
   void initState() {
     super.initState();
-    pageController = PageController(initialPage: 0);
+    pageController = PageController();
     SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(statusBarColor: Colors.transparent),
     );
@@ -42,6 +42,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   Widget build(BuildContext context) {
     size = MediaQuery.sizeOf(context);
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: BlocBuilder<PageViewBloc, PageViewState>(
         builder: (context, state) {
           return SafeArea(
@@ -51,7 +52,6 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
               children: [
                 Expanded(
                   child: PageView(
-                    allowImplicitScrolling: false,
                     controller: pageController,
                     onPageChanged: (index) {
                       state.selectedIndex = index;
@@ -131,7 +131,6 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
         width: size.width,
         color: Resources.colors.kAllAppColor,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Big Text OnBoarding Screen
@@ -153,7 +152,6 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
         width: size.width,
         color: Resources.colors.kAllAppColor,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Big Text OnBoarding Screen
@@ -238,7 +236,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
             ),
             child: Transform(
               transform: Matrix4.identity()
-                ..translate(0.0, 0)
+                ..translate(0.0)
                 ..rotateZ(-0.15),
               child: Image(
                 image: AssetImage(imageNike),

@@ -21,7 +21,7 @@ class ImagePickerService {
   }
 
   // ! Get Image From Camera Image And Gallery Image
-  static Future getImageFromSource({
+  static Future<dynamic> getImageFromSource({
     required ImageSource imageSource,
   }) async {
     // File? imagefile;

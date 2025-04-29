@@ -1,5 +1,6 @@
 import 'package:e_commerce/Export/e_commerce_export.dart';
 import 'package:e_commerce/Models/user_details.dart';
+import 'package:e_commerce/core/Components/Helper/notification_server.dart';
 import 'package:e_commerce/feature/User_Side/Screens/Navigation_Bar_Screens/Profile_Page/Update_User_Info/Components/custom_update_app_bar.dart';
 
 class UpdateUserInfo extends StatefulWidget {
@@ -20,6 +21,8 @@ class _UpdateUserInfoState extends State<UpdateUserInfo> {
   TextEditingController emailController = TextEditingController();
   TextEditingController phoneNoController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  // ! Notification Server
+  final _notificationServer = NotificationServer();
 
   Future<void> updateUserInfo() async {
     final userColl = FirebaseServices.currentUserCollection;
@@ -31,7 +34,8 @@ class _UpdateUserInfoState extends State<UpdateUserInfo> {
       name: nameController.text,
       phoneNumber: phoneNoController.text,
       password: passwordController.text,
-      isAdmin: false,
+      role: 'isUser',
+      token: _notificationServer.getEndUserToken().toString(),
     );
 
     await userDoc.update(updateData.toJson());

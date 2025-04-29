@@ -131,7 +131,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                         message: 'Successfully Current User Logout',
                         contentType: ContentType.success,
                       );
-                      if (mounted) {
+                      if (context.mounted) {
                         Navigator.pushReplacementNamed(
                           context,
                           RoutesName.signInScreen,
@@ -150,10 +150,10 @@ class _CustomDrawerState extends State<CustomDrawer> {
 }
 
 Widget listTile({
-  String? text,
   required IconData? icon,
-  GestureTapCallback? onTap,
   required String title,
+  GestureTapCallback? onTap,
+  String? text,
 }) {
   return InkWell(
     onTap: onTap,

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:e_commerce/Export/e_commerce_export.dart';
 import 'package:e_commerce/core/Controller/Services/Controller/get_user_data_controller.dart';
@@ -27,25 +28,32 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<void> currentLoadScreen(BuildContext context) async {
-    if (currentUserDefine != null) {
-      final userData = await GetUserDataController.getUserData(
-        userUid: currentUserDefine!.uid,
-      );
-      if (userData[0]['isAdmin'] == true) {
-        setStatusBarMode();
-        await NavigatorService.pushReplacementsNamed(
-          RoutesName.bottomBarScreen,
+    try {
+      if (currentUserDefine != null) {
+        final userData = await GetUserDataController.getUserData(
+          userUid: currentUserDefine!.uid,
         );
+        if (userData.isNotEmpty && userData[0]['isAdmin'] == true) {
+          setStatusBarMode();
+          await NavigatorService.pushReplacementsNamed(
+            RoutesName.bottomBarScreen,
+          );
+        } else {
+          setStatusBarMode();
+          await NavigatorService.pushReplacementsNamed(
+            RoutesName.bottomBarScreen,
+          );
+        }
       } else {
-        setStatusBarMode();
+        await SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
         await NavigatorService.pushReplacementsNamed(
-          RoutesName.bottomBarScreen,
+          RoutesName.onBoardingScreen,
         );
       }
-    } else {
+    } catch (e) {
+      log('Error loading screen: $e');
       await SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
-      await Navigator.pushReplacementNamed(
-        context,
+      await NavigatorService.pushReplacementsNamed(
         RoutesName.onBoardingScreen,
       );
     }
@@ -61,20 +69,6 @@ class _SplashScreenState extends State<SplashScreen> {
       SystemUiMode.edgeToEdge,
     );
   }
-  // void currentScreenLoaded() {
-  //   if (currentUserDefine != null) {
-  //     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-  //       statusBarIconBrightness: Brightness.dark,
-  //     ));
-  //     SystemChrome.setEnabledSystemUIMode(
-  //       SystemUiMode.edgeToEdge,
-  //     );
-  //     Navigator.pushReplacementNamed(context, RoutesName.bottomBarScreen);
-  //   } else {
-  //     SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
-  //     Navigator.pushReplacementNamed(context, RoutesName.onBoardingScreen);
-  //   }
-  // }
 
   late Size size;
   @override

@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:e_commerce/Export/e_commerce_export.dart';
 import 'package:e_commerce/Models/user_details.dart';
+import 'package:e_commerce/core/Components/Helper/notification_server.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -39,8 +40,11 @@ class GoogleSignInMethod {
       // log("Google User : ${googleUser.photoUrl.toString()}");
       // Once signed in, return the UserCredential
       return await auth.signInWithCredential(credential).then((value) async {
+        final notificationServer = NotificationServer();
         log('Successfully Google SignUp');
-        CustomDialog.toastMessage(message: 'Successfully Google SignUp');
+        await CustomDialog.toastMessage(message: 'Successfully Google SignUp');
+
+        final token = await notificationServer.getEndUserToken();
         debugPrint('Successfully ');
         // ** pass this current user data .
         userInfo.id = FirebaseServices.currentUser?.uid;
@@ -48,7 +52,8 @@ class GoogleSignInMethod {
         userInfo.emailAddress = FirebaseServices.currentUser?.email.toString();
         userInfo.password = '12464567';
         userInfo.phoneNumber = '+92032467346';
-        userInfo.isAdmin = false;
+        userInfo.role = 'isUser';
+        userInfo.token = token;
         // !create user help of Using Google process store data fireStore Database .
         await FirebaseServices.currentUserCollection
             .doc(FirebaseServices.currentUser?.uid)

@@ -27,16 +27,7 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
           final userData = await GetUserDataController.getUserData(
             userUid: FirebaseServices.currentUser!.uid,
           );
-          if (userData[0]['isAdmin'] == true) {
-            await NavigatorService.pushReplacementsNamed(RoutesName.adminPanel);
-
-            await CustomDialog.toastMessage(
-              message: 'Successfully Admin Panel ',
-            );
-            // clear TextEditingController .
-            emailAddress.clear();
-            password.clear();
-          } else {
+          if (userData[0]['role'] == 'isUser') {
             await CustomDialog.toastMessage(message: 'SignIn Successfully');
             await NavigatorService.pushNamedAndRemoveUntil(
               RoutesName.bottomBarScreen,

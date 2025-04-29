@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:e_commerce/Export/e_commerce_export.dart';
 import 'package:e_commerce/Models/user_details.dart';
+import 'package:e_commerce/core/Components/Helper/notification_server.dart';
 import 'package:e_commerce/core/Components/Navigator_Service/routes_name.dart';
 import 'package:e_commerce/core/Components/Widgets/custom_image_picker_services.dart';
 import 'package:e_commerce/core/Components/Widgets/custom_toast.dart';
@@ -36,18 +37,21 @@ class SignUpBloc extends Bloc<SignUpBlocEvent, SignUpState> {
           email: emailController.text,
           password: passwordController.text,
         )
-            .then((value) {
-          CustomDialog.toastMessage(message: 'Successfully Sign Up');
-
+            .then((value) async {
+          await CustomDialog.toastMessage(message: 'Successfully Sign Up');
+          final token = await _notificationServer.getEndUserToken();
           userInfo
             ..id = FirebaseServices.currentUser?.uid
             ..name = nameController.text
             ..emailAddress = emailController.text
             ..password = passwordController.text
             ..phoneNumber = phoneController.text
-            ..isAdmin = false;
+            ..role = 'isUser' // Default 'isUser' role
+            ..adminToken = token
+            ..token = token;
+
           // ! store Data on Firebase Firestore .
-          FirebaseServices.currentUserCollection
+          await FirebaseServices.currentUserCollection
               .doc(FirebaseServices.currentUser?.uid)
               .set(userInfo.toJson())
               .then((value) {
@@ -66,7 +70,7 @@ class SignUpBloc extends Bloc<SignUpBlocEvent, SignUpState> {
           passwordController.clear();
           phoneController.clear();
           // Next Screen Implements .
-          NavigatorService.pushReplacementsNamed(
+          await NavigatorService.pushReplacementsNamed(
             RoutesName.signInScreen,
           );
         }).onError((error, stackTrace) {
@@ -102,6 +106,8 @@ class SignUpBloc extends Bloc<SignUpBlocEvent, SignUpState> {
   UserDetails userInfo = UserDetails();
   // ! Gallery Picker Services
   ImagePickerService imagePickerService = ImagePickerService();
+  // ! Notification Server
+  final NotificationServer _notificationServer = NotificationServer();
   //
   get loadedState => emit(
         SignUpClickState(

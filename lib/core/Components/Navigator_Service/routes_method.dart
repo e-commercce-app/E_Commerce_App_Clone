@@ -10,93 +10,101 @@ class RoutesMethod {
     // 2
     else if (settings.name == RoutesName.onBoardingScreen) {
       return CustomPageTransition(
-          child: BlocProvider(
-        create: (context) => PageViewBloc()..add(PageViewEvent()),
-        child: const OnBoardingScreen(),
-      ));
+        child: BlocProvider(
+          create: (context) => PageViewBloc()..add(PageViewEvent()),
+          child: const OnBoardingScreen(),
+        ),
+      );
     }
     // 3
     else if (settings.name == RoutesName.homeScreen) {
       return CustomPageTransition(
-          //     child: MultiBlocProvider(providers: [
-          //   BlocProvider(
-          //     create: (context) => SearchBloc(),
-          //     lazy: false,
-          //   ),
-          //   BlocProvider(create: (context) => Matrix4RotationBloc())
-          // ],
-          child: const HomeScreen()
-          // )
-
-          );
+        //     child: MultiBlocProvider(providers: [
+        //   BlocProvider(
+        //     create: (context) => SearchBloc(),
+        //     lazy: false,
+        //   ),
+        //   BlocProvider(create: (context) => Matrix4RotationBloc())
+        // ],
+        child: const HomeScreen(),
+        // )
+      );
     }
     // 4
     else if (settings.name == RoutesName.searchHomeView) {
       return CustomPageTransition(
-          child: BlocProvider(
-              create: (context) => SearchBloc(),
-              child: const SearchingTextField()));
+        child: BlocProvider(
+          create: (context) => SearchBloc(),
+          child: const SearchingTextField(),
+        ),
+      );
     }
     // 5
     else if (settings.name == RoutesName.signUpScreen) {
       return CustomPageTransition(
-          child: MultiBlocProvider(
-        providers: [
-          BlocProvider(
-            create: (context) => SignUpBloc(),
-          ),
-          BlocProvider(
-            create: (context) => CheckPasswordFieldBloc(),
-          ),
-        ],
-        child: const SignUpScreen(),
-      ));
+        child: MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (context) => SignUpBloc(),
+            ),
+            BlocProvider(
+              create: (context) => CheckPasswordFieldBloc(),
+            ),
+          ],
+          child: const SignUpScreen(),
+        ),
+      );
     }
     // 6
     else if (settings.name == RoutesName.signInScreen) {
       return CustomPageTransition(
-          child: BlocProvider(
-        create: (context) => SignInBloc(),
-        child: const SignInScreen(),
-      ));
+        child: BlocProvider(
+          create: (context) => SignInBloc(),
+          child: const SignInScreen(),
+        ),
+      );
     }
     // 7
     else if (settings.name == RoutesName.forgetPasswordScreen) {
       return CustomPageTransition(
-          child: BlocProvider(
-        create: (context) => RecoveryPasswordBloc(),
-        child: const ForgetPassword(),
-      ));
+        child: BlocProvider(
+          create: (context) => RecoveryPasswordBloc(),
+          child: const ForgetPassword(),
+        ),
+      );
     }
     // 8
     else if (settings.name == RoutesName.bottomBarScreen) {
       return CustomPageTransition(
-          child: MultiBlocProvider(
-        providers: [
-          BlocProvider(
-            create: (context) => BottomNavigationBloc(),
-          ),
-          BlocProvider(
-            create: (context) => CartBottomBloc(),
-          ),
-        ],
-        child: const BottomBarScreen(),
-      ));
+        child: MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (context) => BottomNavigationBloc(),
+            ),
+            BlocProvider(
+              create: (context) => CartBottomBloc(),
+            ),
+          ],
+          child: const BottomBarScreen(),
+        ),
+      );
     }
     // 9
     else if (settings.name == RoutesName.detailScreen) {
       return CustomPageTransition(
-          child: DetailsScreen(
-        productHomeScreen: settings.arguments as ProductShoesHomePage,
-      ));
+        child: DetailsScreen(
+          productHomeScreen: settings.arguments! as ProductShoesHomePage,
+        ),
+      );
     }
     // 10
     else if (settings.name == RoutesName.addToCartScreen) {
       return CustomPageTransition(
-          child: BlocProvider(
-        create: (context) => CartFetchDataBloc(),
-        child: const AddToCartScreen(),
-      ));
+        child: BlocProvider(
+          create: (context) => CartFetchDataBloc(),
+          child: const AddToCartScreen(),
+        ),
+      );
     }
     // 11
     else if (settings.name == RoutesName.profile) {

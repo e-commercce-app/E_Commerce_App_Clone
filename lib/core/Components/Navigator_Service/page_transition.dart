@@ -1,8 +1,7 @@
 //! Control Page Transition
 part of 'navigator.dart';
 
-class CustomPageTransition extends PageRouteBuilder {
-  Widget child;
+class CustomPageTransition extends PageRouteBuilder<dynamic> {
   CustomPageTransition({required this.child})
       : super(
             transitionsBuilder:
@@ -11,4 +10,5 @@ class CustomPageTransition extends PageRouteBuilder {
             transitionDuration: const Duration(microseconds: 700),
             reverseTransitionDuration: const Duration(milliseconds: 500),
             pageBuilder: (context, animation, secondaryAnimation) => child);
+  Widget child;
 }

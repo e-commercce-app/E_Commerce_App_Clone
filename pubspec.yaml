@@ -24,6 +24,9 @@ dependencies:
   firebase_auth: ^5.5.0
   # ! store all data in fireStore database
   cloud_firestore: ^5.6.4
+  # ! Using Firebase Track this application like as (End User See Error)
+  firebase_crashlytics: ^4.3.3
+  firebase_analytics: ^11.4.3
   # ! handle this text fonts style .
   google_fonts: ^6.1.0
   # ! animated Text Kit multiple Text Animation 

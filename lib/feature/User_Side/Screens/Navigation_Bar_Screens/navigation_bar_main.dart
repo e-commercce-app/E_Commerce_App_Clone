@@ -1,6 +1,8 @@
 // ignore_for_file: library_private_types_in_public_api
 
 import 'package:e_commerce/Export/e_commerce_export.dart';
+import 'package:e_commerce/core/Components/Helper/firebase_server_token.dart';
+import 'package:e_commerce/core/Components/Helper/notification_server.dart';
 import 'package:e_commerce/feature/User_Side/Screens/Navigation_Bar_Screens/Cart/cart_screen_main.dart';
 import 'package:e_commerce/feature/User_Side/Screens/Navigation_Bar_Screens/Favorite_Items/favorite_main_page.dart';
 import 'package:e_commerce/feature/User_Side/Screens/Navigation_Bar_Screens/Home/home_screen.dart';
@@ -19,6 +21,8 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
   List<Widget>? _pages;
   // int _selectedPageIndex = 0;
 
+  NotificationServer notificationServer = NotificationServer();
+
   @override
   void initState() {
     _pages = [
@@ -28,6 +32,14 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
       const CartBottomBarScreen(),
       const ProfileScreen(),
     ];
+
+    notificationServer
+      ..requestNotification()
+      ..getEndUserToken()
+      ..firebaseInit(context: context)
+      ..setupInteractMessage(context: context);
+
+    FirebaseAccessToken.getToken();
     super.initState();
   }
 
