@@ -17,10 +17,11 @@ class Matrix4RotationBloc
       ),
     );
 
-    on<RotationHomePageEvents>((event, emit) {
+    on<RotationHomePageEvents>(
+        (RotationHomePageEvents event, Emitter<Matrix4RotationState> emit) {
       isDrawerOpen = !isDrawerOpen;
       if (isDrawerOpen == true) {
-        xOffset = 290.0;
+        xOffset = 280.0;
         yOffset = 80.0;
         emit(
           RotationMatrixState(
