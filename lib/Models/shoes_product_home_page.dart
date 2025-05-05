@@ -1,28 +1,35 @@
-class ProductShoesHomePage {
-  ProductShoesHomePage({
+class ProductShoesHomePageModel {
+  ProductShoesHomePageModel({
     this.productImage,
     this.productName,
-    this.productPrice,
+    this.fullPrice,
+    this.salePrice,
+    this.isSale,
   });
 
   // ! FromJson / From Map
-  factory ProductShoesHomePage.fromJson(Map<String, dynamic> map) {
-    return ProductShoesHomePage(
+  factory ProductShoesHomePageModel.fromJson(Map<String, dynamic> map) {
+    return ProductShoesHomePageModel(
       productImage: map['productImage'] as String?,
       productName: map['productName'] as String?,
-      productPrice: map['productPrice'] as num?,
+      fullPrice: map['fullPrice'] as num?,
+      salePrice: map['salePrice']?.toString(),
+      isSale: map['isSale'] as bool?,
     );
   }
   String? productImage;
   String? productName;
-  num? productPrice;
-
+  num? fullPrice;
+  String? salePrice;
+  bool? isSale;
   // ! ToJson / ToMap
   Map<String, dynamic> toJson() {
     final data = <String, dynamic>{};
     data['productImage'] = productImage;
     data['productName'] = productName;
-    data['productPrice'] = productPrice;
+    data['fullPrice'] = fullPrice;
+    data['salePrice'] = salePrice;
+    data['isSale'] = isSale;
     return data;
   }
 }

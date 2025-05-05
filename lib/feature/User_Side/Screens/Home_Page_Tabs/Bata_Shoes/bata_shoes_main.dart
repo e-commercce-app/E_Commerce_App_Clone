@@ -27,23 +27,27 @@ class _BataShoesScreenState extends State<BataShoesScreen> {
               itemCount: snapshot.data?.docs.length,
               itemBuilder: (context, int index) {
                 // Map<String, dynamic> data = snapshot.data!.docs[index].data();
-                final product = ProductShoesHomePage.fromJson(
+                final product = ProductShoesHomePageModel.fromJson(
                   snapshot.data!.docs[index].data(),
                 );
                 return CustomProductShoesDesign(
                   // Fetch Images
                   productImage: product.productImage.toString(),
                   productName: product.productName.toString(),
-                  productPrice: product.productPrice,
+                  fullPrice: product.fullPrice,
+                  isSale: product.isSale,
+                  salePrice: product.salePrice,
                   heroTag: product.productImage.toString(),
                   onTap: () {
                     // ** Detail Page .
                     NavigatorService.pushNamed(
                       RoutesName.detailScreen,
-                      arguments: ProductShoesHomePage(
+                      arguments: ProductShoesHomePageModel(
                         productImage: product.productImage.toString(),
                         productName: product.productName.toString(),
-                        productPrice: product.productPrice,
+                        salePrice: product.salePrice,
+                        fullPrice: product.fullPrice,
+                        isSale: product.isSale,
                       ),
                     );
                   },

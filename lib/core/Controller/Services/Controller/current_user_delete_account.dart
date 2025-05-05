@@ -36,7 +36,7 @@ class DeleteCurrentUser {
         CustomDialog.toastMessage(message: 'Delete Sign In User');
 
         NavigatorService.pushReplacementsNamed(RoutesName.signInScreen);
-      }).catchError((error) {
+      }).catchError((dynamic error) {
         CustomDialog.toastMessage(message: 'Error : $error');
         log(error.toString());
       });

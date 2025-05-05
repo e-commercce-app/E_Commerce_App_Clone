@@ -33,7 +33,7 @@ class _SplashScreenState extends State<SplashScreen> {
         final userData = await GetUserDataController.getUserData(
           userUid: currentUserDefine!.uid,
         );
-        if (userData.isNotEmpty && userData[0]['isAdmin'] == true) {
+        if (userData.isNotEmpty && userData[0]['isUser'] == true) {
           setStatusBarMode();
           await NavigatorService.pushReplacementsNamed(
             RoutesName.bottomBarScreen,

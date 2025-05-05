@@ -123,7 +123,7 @@ Widget productNameText({required String name, double? fontSize}) {
 }
 
 // ! Product Price Text .
-Widget productPriceText({required String price, double? fontSize}) {
+Widget fullPriceText({required String price, double? fontSize}) {
   return AutoSizeText(
     price,
     style: GoogleFonts.aBeeZee(

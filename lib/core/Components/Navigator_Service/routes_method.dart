@@ -93,7 +93,7 @@ class RoutesMethod {
     else if (settings.name == RoutesName.detailScreen) {
       return CustomPageTransition(
         child: DetailsScreen(
-          productHomeScreen: settings.arguments! as ProductShoesHomePage,
+          productHomeScreen: settings.arguments! as ProductShoesHomePageModel,
         ),
       );
     }

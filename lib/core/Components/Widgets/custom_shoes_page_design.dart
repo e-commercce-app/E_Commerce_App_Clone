@@ -8,12 +8,16 @@ class CustomProductShoesDesign extends StatefulWidget {
     required this.onTap,
     required this.productImage,
     required this.productName,
-    required this.productPrice,
+    required this.fullPrice,
+    this.salePrice,
+    this.isSale,
     super.key,
   });
   final String? productImage;
   final String? productName;
-  final num? productPrice;
+  final num? fullPrice;
+  final String? salePrice;
+  final bool? isSale;
   final String heroTag;
   final VoidCallback onTap;
   @override
@@ -79,18 +83,45 @@ class _CustomProductShoesDesignState extends State<CustomProductShoesDesign> {
                     ),
               ),
               // ! Product Price .
-              customProductShoesInfoText(
-                context: context,
-                messageText: widget.productPrice.toString(),
-                style: GoogleFonts.almendraSc(
-                  textStyle: Theme.of(context)
-                      .textTheme
-                      .bodySmall
-                      ?.copyWith(overflow: TextOverflow.ellipsis),
-                  fontSize: 25,
-                  fontWeight: FontWeight.w500,
-                ),
+              Row(
+                children: [
+                  customProductShoesInfoText(
+                    context: context,
+                    // ignore: use_if_null_to_convert_nulls_to_bools
+                    messageText:
+                        (widget.isSale == true && widget.salePrice != '')
+                            ? widget.salePrice
+                            : widget.fullPrice.toString(),
+                    style: GoogleFonts.almendraSc(
+                      textStyle: Theme.of(context)
+                          .textTheme
+                          .bodySmall
+                          ?.copyWith(overflow: TextOverflow.ellipsis),
+                      fontSize: 25,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  if (widget.isSale == true && widget.salePrice != '')
+                    Text(
+                      ' PKR: ${widget.fullPrice} ',
+                      style: const TextStyle(
+                        fontSize: 10,
+                        color: Colors.red,
+                        decoration: TextDecoration.lineThrough,
+                        decorationColor: Colors.red,
+                      ),
+                    ),
+                ],
               ),
+
+              //  widget.productModel.isSale == true &&
+              //                       widget.productModel.salePrice != ''
+              //                   ? Text(
+              //                       "PKR: " + widget.productModel.salePrice,
+              //                     )
+              //                   : Text(
+              //                       "PKR: " + widget.productModel.fullPrice,
+              //                     ),
             ],
           ),
         ),
@@ -100,7 +131,7 @@ class _CustomProductShoesDesignState extends State<CustomProductShoesDesign> {
 }
 
 // ! _Custom Product Shoes Info Text
-Padding customProductShoesInfoText({
+Widget customProductShoesInfoText({
   required BuildContext context,
   required String? messageText,
   required TextStyle? style,

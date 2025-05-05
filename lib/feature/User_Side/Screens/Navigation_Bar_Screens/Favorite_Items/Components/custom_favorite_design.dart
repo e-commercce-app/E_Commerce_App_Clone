@@ -7,13 +7,13 @@ class CustomFavoriteItemDesign extends StatefulWidget {
     required this.imagePath,
     required this.positionStaggeredList,
     required this.productName,
-    required this.productPrice,
+    required this.fullPrice,
     required this.deleteButton,
     super.key,
   });
   final String imagePath;
   final String productName;
-  final num productPrice;
+  final num fullPrice;
   final int positionStaggeredList;
   final Function()? deleteButton;
   @override
@@ -95,7 +95,7 @@ class _CustomCartDesignState extends State<CustomFavoriteItemDesign> {
                         ),
                         Expanded(
                           child: AutoSizeText(
-                            'Price : ${widget.productPrice}',
+                            'Price : ${widget.fullPrice}',
                             presetFontSizes: const [20, 13, 9, 5],
                             style: GoogleFonts.alice(
                               textStyle: Theme.of(context)

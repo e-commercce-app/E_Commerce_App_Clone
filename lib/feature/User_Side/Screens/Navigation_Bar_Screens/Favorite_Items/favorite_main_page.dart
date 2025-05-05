@@ -66,7 +66,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                   .toString(),
                               productName:
                                   snapshot.data![index].favoriteName.toString(),
-                              productPrice:
+                              fullPrice:
                                   snapshot.data![index].favoritePrice ?? 0,
                               positionStaggeredList: snapshot.data?.length ?? 0,
                               deleteButton: () {

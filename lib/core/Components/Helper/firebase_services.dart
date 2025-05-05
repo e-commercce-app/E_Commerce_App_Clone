@@ -26,6 +26,8 @@ abstract class FirebaseServices {
       fireStore.collection('BataShoes'); //Todo=> BataShoes .
   static CollectionReference<Map<String, dynamic>> get reebokShoesCollection =>
       fireStore.collection('ReebokShoes'); //Todo=> Rebook Shoes .
+  static CollectionReference<Map<String, dynamic>> get saleShoesCollection =>
+      fireStore.collection('SaleShoes'); //Todo=> Adidas Shoes .
   // ! My Cart Collection .
   static CollectionReference<Map<String, dynamic>> get myCartCollection =>
       fireStore.collection('MyPersonalCart'); //Todo=> My Cart

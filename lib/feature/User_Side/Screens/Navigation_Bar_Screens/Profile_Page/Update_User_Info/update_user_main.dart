@@ -34,6 +34,7 @@ class _UpdateUserInfoState extends State<UpdateUserInfo> {
       name: nameController.text,
       phoneNumber: phoneNoController.text,
       password: passwordController.text,
+      createdOn: DateTime.now().toString(),
       role: 'isUser',
       token: _notificationServer.getEndUserToken().toString(),
     );

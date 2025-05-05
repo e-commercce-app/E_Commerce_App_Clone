@@ -1,17 +1,17 @@
 import 'package:e_commerce/Export/e_commerce_export.dart';
 
-import '../../../../../Models/shoes_product_home_page.dart';
+import 'package:e_commerce/Models/shoes_product_home_page.dart';
 
-class NikeShoesScreen extends StatefulWidget {
-  const NikeShoesScreen({super.key});
+class SaleShoesProductScreen extends StatefulWidget {
+  const SaleShoesProductScreen({super.key});
 
   @override
-  State<NikeShoesScreen> createState() => _NikeShoesScreenState();
+  State<SaleShoesProductScreen> createState() => _SaleShoesProductScreenState();
 }
 
-class _NikeShoesScreenState extends State<NikeShoesScreen> {
+class _SaleShoesProductScreenState extends State<SaleShoesProductScreen> {
   Stream getNikeShoesData() {
-    return FirebaseServices.nikeShoesCollection.snapshots();
+    return FirebaseServices.saleShoesCollection.snapshots();
   }
 
   @override
@@ -19,13 +19,13 @@ class _NikeShoesScreenState extends State<NikeShoesScreen> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: StreamBuilder(
-        stream: FirebaseServices.nikeShoesCollection.snapshots(),
+        stream: FirebaseServices.saleShoesCollection.snapshots(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator.adaptive());
           } else if (snapshot.hasData) {
             return CustomGridView(
-              // Using Custom GridView
+              //! Using Custom GridView
               itemCount: snapshot.data?.docs.length,
               itemBuilder: (context, int index) {
                 // Map<String, dynamic> data = snapshot.data!.docs[index].data();
@@ -47,9 +47,9 @@ class _NikeShoesScreenState extends State<NikeShoesScreen> {
                       arguments: ProductShoesHomePageModel(
                         productImage: product.productImage.toString(),
                         productName: product.productName.toString(),
+                        fullPrice: product.fullPrice,
                         salePrice: product.salePrice,
                         isSale: product.isSale,
-                        fullPrice: product.fullPrice,
                       ),
                     );
                   },

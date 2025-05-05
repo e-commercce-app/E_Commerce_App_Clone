@@ -6,6 +6,7 @@ class UserDetails {
     this.emailAddress,
     this.password,
     this.phoneNumber,
+    this.createdOn,
     this.role = 'isUser', // Default 'isUser' role
     this.token,
     String? adminToken, // private field handle in constructor
@@ -20,6 +21,7 @@ class UserDetails {
       emailAddress: map['emailAddress'] as String?,
       password: map['password'] as String?,
       phoneNumber: map['phoneNumber'] as String?,
+      createdOn: map['createdOn'] as String?,
       role: role,
       token: map['token'] as String?,
       adminToken: role == 'isAdmin' ? map['adminToken'] as String? : null,
@@ -35,6 +37,7 @@ class UserDetails {
   String? role; // isUser, isAdmin, deliveryBoy, guest
   String? token;
   String? adminToken;
+  String? createdOn;
 
   //! ToJson / ToMap
   Map<String, dynamic> toJson() {
@@ -44,6 +47,7 @@ class UserDetails {
       'emailAddress': emailAddress,
       'password': password,
       'phoneNumber': phoneNumber,
+      'createdOn': createdOn,
       'role': role,
       'token': token,
     };
@@ -60,6 +64,7 @@ class UserDetails {
     String? emailAddress,
     String? password,
     String? phoneNumber,
+    String? createdOn,
     String? role,
     String? token,
     String? adminToken,
@@ -71,6 +76,7 @@ class UserDetails {
       emailAddress: emailAddress ?? this.emailAddress,
       password: password ?? this.password,
       phoneNumber: phoneNumber ?? this.phoneNumber,
+      createdOn: createdOn ?? this.createdOn,
       role: updatedRole,
       token: token ?? this.token,
       adminToken:

@@ -51,7 +51,7 @@ Future<dynamic> customDeleteCartBottomDialog({
               ),
               // ! Price Section
               AutoSizeText(
-                'Price : ${state.cartData[index].productPrice}',
+                'Price : ${state.cartData[index].fullPrice}',
                 presetFontSizes: const [20, 13, 9, 5],
                 style: GoogleFonts.alice(
                   textStyle: Theme.of(context)

@@ -8,7 +8,7 @@ class CustomShoesDetailsWidget extends StatelessWidget {
     required this.currentPrice,
     super.key,
   });
-  final ProductShoesHomePage productHomeScreen;
+  final ProductShoesHomePageModel productHomeScreen;
   final num currentPrice;
 
   @override

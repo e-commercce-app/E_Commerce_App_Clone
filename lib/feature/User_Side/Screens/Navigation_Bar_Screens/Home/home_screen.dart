@@ -5,6 +5,7 @@ import 'package:e_commerce/feature/User_Side/Screens/Home_Page_Tabs/Bata_Shoes/b
 import 'package:e_commerce/feature/User_Side/Screens/Home_Page_Tabs/Nike_Shoes/nike_shoes_main.dart';
 import 'package:e_commerce/feature/User_Side/Screens/Home_Page_Tabs/Puma_Shoes/puma_shoes_main.dart';
 import 'package:e_commerce/feature/User_Side/Screens/Home_Page_Tabs/Reebok_Shoes/reebok_shoes_main.dart';
+import 'package:e_commerce/feature/User_Side/Screens/Home_Page_Tabs/Sale_Product/sale_product.dart';
 import 'package:e_commerce/feature/User_Side/Screens/Navigation_Bar_Screens/Home/Components/custom_drawer_home_page.dart';
 import 'package:e_commerce/feature/User_Side/Screens/Navigation_Bar_Screens/Home/Components/home_page_app_bar.dart';
 import 'package:e_commerce/feature/User_Side/Screens/Navigation_Bar_Screens/Home/bloc/matrix4_rotation_bloc.dart';
@@ -175,7 +176,7 @@ class _HomeScreenState extends State<HomeScreen>
                       const CustomSizedBox(heightRatio: 0.02),
                       // ! TabBar Sections .
                       DefaultTabController(
-                        length: 4,
+                        length: 5,
                         child: Column(
                           children: [
                             Material(
@@ -201,6 +202,12 @@ class _HomeScreenState extends State<HomeScreen>
                                   ),
                                   // ! Tabs
                                   tabs: [
+                                    Tab(
+                                      child: _customTabBarItem(
+                                        tabBarImage:
+                                            Resources.imagePath.pumaShoes,
+                                      ),
+                                    ),
                                     Tab(
                                       child: _customTabBarItem(
                                         tabBarImage:
@@ -243,6 +250,7 @@ class _HomeScreenState extends State<HomeScreen>
                           controller: tabController,
                           // ! TabBar Screen List .
                           children: const [
+                            SaleShoesProductScreen(),
                             NikeShoesScreen(),
                             PumaShoesScreen(),
                             BataShoesScreen(),

@@ -46,6 +46,7 @@ class SignUpBloc extends Bloc<SignUpBlocEvent, SignUpState> {
             ..emailAddress = emailController.text
             ..password = passwordController.text
             ..phoneNumber = phoneController.text
+            ..createdOn = DateTime.now().toString()
             ..role = 'isUser' // Default 'isUser' role
             ..adminToken = token
             ..token = token;
