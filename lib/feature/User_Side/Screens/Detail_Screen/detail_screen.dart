@@ -34,9 +34,13 @@ class _DetailsScreenState extends State<DetailsScreen>
   void initState() {
     super.initState();
     initializeAnimation();
-    currentPrice = (widget.productHomeScreen.isSale == true &&
-            widget.productHomeScreen.salePrice!.isNotEmpty)
-        ? num.parse(widget.productHomeScreen.salePrice!.toString())
+    currentPrice = calculateValue;
+  }
+
+  num get calculateValue {
+    return (widget.productHomeScreen.isSale ?? false) == true &&
+            widget.productHomeScreen.salePrice!.isNotEmpty
+        ? num.parse(widget.productHomeScreen.salePrice!)
         : num.parse(widget.productHomeScreen.fullPrice?.toString() ?? '0');
   }
 
@@ -58,7 +62,7 @@ class _DetailsScreenState extends State<DetailsScreen>
       ..favoriteID = '$dateAndTime${FirebaseServices.currentUser!.uid}'
       ..favoriteImageUrl = widget.productHomeScreen.productImage
       ..favoriteName = widget.productHomeScreen.productName
-      ..favoritePrice = widget.productHomeScreen.fullPrice;
+      ..favoritePrice = calculateValue;
     await FirebaseServices.currentUserCollection
         .doc(current?.uid)
         .collection('addToFavorite')
@@ -78,7 +82,7 @@ class _DetailsScreenState extends State<DetailsScreen>
   void increment() {
     setState(() {
       quantity++;
-      currentPrice = widget.productHomeScreen.fullPrice! * quantity;
+      currentPrice = calculateValue * quantity;
     });
   }
 
@@ -87,7 +91,7 @@ class _DetailsScreenState extends State<DetailsScreen>
     setState(() {
       if (quantity >= 2 && quantity != 0) {
         quantity--;
-        currentPrice = currentPrice - widget.productHomeScreen.fullPrice!;
+        currentPrice = currentPrice - calculateValue;
       }
     });
   }
@@ -159,7 +163,7 @@ class _DetailsScreenState extends State<DetailsScreen>
               .collection('addToFavorite')
               .where(
                 'favoritePrice',
-                isEqualTo: widget.productHomeScreen.fullPrice,
+                isEqualTo: calculateValue,
               )
               .snapshots(),
           builder: (context, snapshot) {

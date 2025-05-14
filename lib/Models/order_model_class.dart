@@ -5,6 +5,8 @@ class OrderModelClass {
     this.orderName,
     this.orderEmail,
     this.orderPhone,
+    this.orderStatus,
+    this.createdAt,
   });
 
   factory OrderModelClass.fromJson(Map<String, dynamic> map) {
@@ -14,6 +16,8 @@ class OrderModelClass {
       orderName: map['orderName'] as String?,
       orderEmail: map['orderEmail'] as String?,
       orderPhone: map['orderPhone'] as String?,
+      orderStatus: map['orderStatus'] as String?,
+      createdAt: map['createdAt'] as String?,
     );
   }
   String? orderUid;
@@ -21,6 +25,8 @@ class OrderModelClass {
   String? orderName;
   String? orderEmail;
   String? orderPhone;
+  String? orderStatus;
+  String? createdAt;
 
   Map<String, dynamic> toJson() {
     final data = <String, dynamic>{};
@@ -29,6 +35,8 @@ class OrderModelClass {
     data['orderName'] = orderName;
     data['orderEmail'] = orderEmail;
     data['orderPhone'] = orderPhone;
+    data['orderStatus'] = orderStatus;
+    data['createdAt'] = createdAt;
     return data;
   }
 }

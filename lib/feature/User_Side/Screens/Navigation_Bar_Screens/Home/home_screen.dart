@@ -22,89 +22,100 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen>
     with SingleTickerProviderStateMixin {
-  // All Screen Size .
   late Size size;
   late TabController tabController;
 
-  //  store this current Location .
   String currentLocation = '';
-
-  // ! Using Internet Fetch This Current Location .
-  Future<Position> _determinePosition() async {
-    bool serviceEnabled;
-    LocationPermission permission;
-    serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!serviceEnabled) {
-      return Future.error(locationAreDisabled);
-    }
-    permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied) {
-        return Future.error(locationPermissionDenied);
-      }
-    }
-
-    if (permission == LocationPermission.deniedForever) {
-      return Future.error(locationPermissionPermanentlyDenied);
-    }
-
-    return Geolocator.getCurrentPosition(
-      desiredAccuracy: LocationAccuracy.high,
-    );
-  }
-
-  Future<void> getLatLong() async {
-    final data = _determinePosition();
-    await data.then((Position value) {
-      debugPrint('value $value');
-      setState(() {
-        value.latitude;
-        value.longitude;
-      });
-
-      getAddress(value.latitude, value.longitude);
-    }).catchError((dynamic error) {
-      debugPrint('Error $error');
-    });
-  }
-
-  /// ! For convert latitude longitude to address
-  /// !Using (GeoCoding) Package .
-  Future<void> getAddress(
-    double lat,
-    double long,
-  ) async {
-    final placemarks = await placemarkFromCoordinates(lat, long);
-    setState(() {
-      currentLocation =
-          '${placemarks[0].street!} ${placemarks[0].country!} ${placemarks[0].name} ${placemarks[0].locality}';
-    });
-
-    for (var i = 0; i < placemarks.length; i++) {
-      debugPrint('INDEX $i ${placemarks[i]}');
-    }
-  }
+  String newArrivalsText = 'Discount Shoes';
+  String seeAllText = seeAll;
 
   @override
   void initState() {
     super.initState();
-    tabController = TabController(length: 4, vsync: this, initialIndex: 0);
+    tabController = TabController(length: 5, vsync: this, initialIndex: 0);
+    tabController.addListener(_onTabChanged);
+    _initializeLocation();
   }
 
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    _determinePosition().then((value) {
-      currentLocation;
-      getLatLong();
+  void dispose() {
+    tabController
+      ..removeListener(_onTabChanged)
+      ..dispose();
+    super.dispose();
+  }
+
+  Future<void> _initializeLocation() async {
+    try {
+      final position = await _determinePosition();
+      await _updateCurrentLocation(position);
       CustomDialog.showCustomSnackBar(
         context: context,
         title: 'Location',
         message: 'Find This Current Locations',
         contentType: ContentType.success,
       );
-      // CustomDialog.toastMessage(message: findThisLocation);
+    } on Exception catch (error) {
+      debugPrint('Error initializing location: $error');
+    }
+  }
+
+  Future<Position> _determinePosition() async {
+    if (!await Geolocator.isLocationServiceEnabled()) {
+      throw Exception(locationAreDisabled);
+    }
+
+    var permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        throw Exception(locationPermissionDenied);
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      throw Exception(locationPermissionPermanentlyDenied);
+    }
+
+    return Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+  }
+
+  Future<void> _updateCurrentLocation(Position position) async {
+    try {
+      final placemarks = await placemarkFromCoordinates(
+        position.latitude,
+        position.longitude,
+      );
+      setState(() {
+        currentLocation =
+            '${placemarks[0].street!} ${placemarks[0].country!} ${placemarks[0].name} ${placemarks[0].locality}';
+      });
+    } catch (error) {
+      debugPrint('Error fetching address: $error');
+    }
+  }
+
+  void _onTabChanged() {
+    setState(() {
+      switch (tabController.index) {
+        case 0:
+          newArrivalsText = 'Discount Shoes';
+          seeAllText = seeAll;
+        case 1:
+          newArrivalsText = 'Nike Shoes';
+          seeAllText = 'Explore Nike';
+        case 2:
+          newArrivalsText = 'Puma Shoes';
+          seeAllText = 'Explore Puma';
+        case 3:
+          newArrivalsText = 'Bata Shoes';
+          seeAllText = 'Explore Bata';
+        case 4:
+          newArrivalsText = 'Reebok Shoes';
+          seeAllText = 'Explore Reebok';
+        default:
+      }
     });
   }
 
@@ -117,162 +128,111 @@ class _HomeScreenState extends State<HomeScreen>
         resizeToAvoidBottomInset: false,
         body: Stack(
           children: [
-            // ! Custom Drawer AppBar Section
             const CustomDrawer(),
-            // ! Home Screen Section
             BlocBuilder<Matrix4RotationBloc, Matrix4RotationState>(
               builder: (context, state) {
-                (state as RotationMatrixState);
-                return AnimatedContainer(
-                  color: Resources.colors.kAllAppColor,
-                  transform: Matrix4.translationValues(
-                    state.xOffset,
-                    state.yOffset,
-                    0,
-                  )
-                    ..scale(state.isDrawerOpen ? 0.85 : 1.0)
-                    ..rotateZ(state.isDrawerOpen ? -50 : 0.0),
-                  duration: const Duration(seconds: 1),
-                  curve: Curves.fastEaseInToSlowEaseOut,
-                  width: double.maxFinite,
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 15,
-                    vertical: 5,
-                  ),
-                  child: Column(
-                    children: [
-                      homePageAppBar(
-                        context,
-                        child: state.isDrawerOpen
-                            ? Icon(
-                                CupertinoIcons.arrow_left,
-                                color: Resources.colors.kBlack,
-                              )
-                            : CustomImageView(
-                                imagePath: Resources.imagePath.homeDrawer,
-                              ),
-                        onTap: () {
-                          developer.log('message');
-                          BlocProvider.of<Matrix4RotationBloc>(
-                            context,
-                            listen: false,
-                          ).add(RotationHomePageEvents());
-                        },
-                        size: size,
-                        currentLocation: currentLocation,
-                      ),
-                      // some Space .
-                      const CustomSizedBox(heightRatio: 0.02),
-                      // ! Search TextField Container Section .
-                      CustomSearchClickView(
-                        size: size,
-                        onTap: () {
-                          NavigatorService.pushNamed(
-                            RoutesName.searchHomeView,
-                          );
-                        },
-                      ),
-                      // some Space
-                      const CustomSizedBox(heightRatio: 0.02),
-                      // ! TabBar Sections .
-                      DefaultTabController(
-                        length: 5,
-                        child: Column(
-                          children: [
-                            Material(
-                              shadowColor: Colors.transparent,
-                              color: Colors.transparent,
-                              child: Container(
-                                height: 60,
-                                color: Colors.transparent,
-                                child: TabBar(
-                                  controller: tabController,
-                                  physics: const ClampingScrollPhysics(),
-                                  isScrollable: true,
-                                  tabAlignment: TabAlignment.center,
-                                  padding: const EdgeInsets.symmetric(
-                                    vertical: 10,
-                                  ),
-                                  unselectedLabelColor: Colors.black,
-                                  indicatorSize: TabBarIndicatorSize.label,
-                                  dividerColor: Colors.transparent,
-                                  indicator: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(30),
-                                    color: Resources.colors.kButtonColor,
-                                  ),
-                                  // ! Tabs
-                                  tabs: [
-                                    Tab(
-                                      child: _customTabBarItem(
-                                        tabBarImage:
-                                            Resources.imagePath.pumaShoes,
-                                      ),
-                                    ),
-                                    Tab(
-                                      child: _customTabBarItem(
-                                        tabBarImage:
-                                            Resources.imagePath.nikeShoes,
-                                      ),
-                                    ),
-                                    Tab(
-                                      child: _customTabBarItem(
-                                        tabBarImage:
-                                            Resources.imagePath.pumaShoes,
-                                      ),
-                                    ),
-                                    Tab(
-                                      child: _customTabBarItem(
-                                        tabBarImage:
-                                            Resources.imagePath.adidasShoes,
-                                      ),
-                                    ),
-                                    Tab(
-                                      child: _customTabBarItem(
-                                        tabBarImage:
-                                            Resources.imagePath.rebookShoes,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      //  ! _Build New Arrivals .
-                      _buildNewArrivals(
-                        context,
-                        newArrivalsText: popularShoes,
-                        seeAllText: seeAll,
-                      ),
-                      Expanded(
-                        child: TabBarView(
-                          controller: tabController,
-                          // ! TabBar Screen List .
-                          children: const [
-                            SaleShoesProductScreen(),
-                            NikeShoesScreen(),
-                            PumaShoesScreen(),
-                            BataShoesScreen(),
-                            ReebokShoesScreen(),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                );
+                return _buildHomeScreenContent(
+                    context, state as RotationMatrixState);
               },
             ),
           ],
         ),
-        //   },
-        // )
       ),
     );
   }
 
-  // ** TabBar itemView Image function !
-  Widget _customTabBarItem({required String tabBarImage}) {
+  Widget _buildHomeScreenContent(
+    BuildContext context,
+    RotationMatrixState state,
+  ) {
+    return AnimatedContainer(
+      color: Resources.colors.kAllAppColor,
+      transform: Matrix4.translationValues(
+        state.xOffset,
+        state.yOffset,
+        0,
+      )
+        ..scale(state.isDrawerOpen ? 0.85 : 1.0)
+        ..rotateZ(state.isDrawerOpen ? -50 : 0.0),
+      duration: const Duration(seconds: 1),
+      curve: Curves.fastEaseInToSlowEaseOut,
+      width: double.maxFinite,
+      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+      child: Column(
+        children: [
+          _buildAppBar(context, state),
+          const CustomSizedBox(heightRatio: 0.02),
+          _buildSearchBar(),
+          const CustomSizedBox(heightRatio: 0.02),
+          _buildTabBar(),
+          _buildNewArrivalsSection(),
+          _buildTabBarView(),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildAppBar(BuildContext context, RotationMatrixState state) {
+    return homePageAppBar(
+      context,
+      child: state.isDrawerOpen
+          ? Icon(CupertinoIcons.arrow_left, color: Resources.colors.kBlack)
+          : CustomImageView(imagePath: Resources.imagePath.homeDrawer),
+      onTap: () {
+        developer.log('message');
+        BlocProvider.of<Matrix4RotationBloc>(context, listen: false)
+            .add(RotationHomePageEvents());
+      },
+      size: size,
+      currentLocation: currentLocation,
+    );
+  }
+
+  Widget _buildSearchBar() {
+    return CustomSearchClickView(
+      size: size,
+      onTap: () {
+        NavigatorService.pushNamed(RoutesName.searchHomeView);
+      },
+    );
+  }
+
+  Widget _buildTabBar() {
+    return DefaultTabController(
+      length: 5,
+      child: Material(
+        shadowColor: Colors.transparent,
+        color: Colors.transparent,
+        child: Container(
+          height: 60,
+          color: Colors.transparent,
+          child: TabBar(
+            controller: tabController,
+            physics: const ClampingScrollPhysics(),
+            isScrollable: true,
+            tabAlignment: TabAlignment.center,
+            padding: const EdgeInsets.symmetric(vertical: 10),
+            unselectedLabelColor: Colors.black,
+            indicatorSize: TabBarIndicatorSize.label,
+            dividerColor: Colors.transparent,
+            indicator: BoxDecoration(
+              borderRadius: BorderRadius.circular(30),
+              color: Resources.colors.kButtonColor,
+            ),
+            tabs: [
+              _buildTabBarItem(Resources.imagePath.pumaShoes),
+              _buildTabBarItem(Resources.imagePath.nikeShoes),
+              _buildTabBarItem(Resources.imagePath.pumaShoes),
+              _buildTabBarItem(Resources.imagePath.adidasShoes),
+              _buildTabBarItem(Resources.imagePath.rebookShoes),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildTabBarItem(String tabBarImage) {
     return Container(
       height: 35,
       width: 70,
@@ -289,12 +249,7 @@ class _HomeScreenState extends State<HomeScreen>
     );
   }
 
-  /// ** Common Popular see all widget
-  Widget _buildNewArrivals(
-    BuildContext context, {
-    required String newArrivalsText,
-    required String seeAllText,
-  }) {
+  Widget _buildNewArrivalsSection() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -314,6 +269,21 @@ class _HomeScreenState extends State<HomeScreen>
               ?.copyWith(color: Resources.colors.kButtonColor, fontSize: 14),
         ),
       ],
+    );
+  }
+
+  Widget _buildTabBarView() {
+    return Expanded(
+      child: TabBarView(
+        controller: tabController,
+        children: const [
+          SaleShoesProductScreen(),
+          NikeShoesScreen(),
+          PumaShoesScreen(),
+          BataShoesScreen(),
+          ReebokShoesScreen(),
+        ],
+      ),
     );
   }
 }
