@@ -1,23 +1,33 @@
+import 'dart:developer';
+
 import 'package:e_commerce/Export/e_commerce_export.dart';
 import 'package:e_commerce/Models/shoes_product_home_page.dart';
 
 class PumaShoesScreen extends StatefulWidget {
-  const PumaShoesScreen({super.key});
-
+  const PumaShoesScreen({required this.categoryId, super.key});
+  final String categoryId;
   @override
   State<PumaShoesScreen> createState() => _PumaShoesScreenState();
 }
 
 class _PumaShoesScreenState extends State<PumaShoesScreen> {
-  Stream getPumaFetchData() {
-    return FirebaseServices.pumaShoesCollection.snapshots();
+  // Stream getPumaFetchData() {
+  //   return FirebaseServices.pumaShoesCollection.snapshots();
+  // }
+
+  @override
+  void initState() {
+    super.initState();
+    log('Current Ids : ${widget.categoryId}');
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: StreamBuilder(
-        stream: FirebaseServices.pumaShoesCollection.snapshots(),
+        stream: FirebaseServices.productsCollection
+            .where('categoryId', isEqualTo: widget.categoryId)
+            .snapshots(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator.adaptive());

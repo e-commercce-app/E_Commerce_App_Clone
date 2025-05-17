@@ -1,17 +1,25 @@
+import 'dart:developer';
+
 import 'package:e_commerce/Export/e_commerce_export.dart';
 
 import 'package:e_commerce/Models/shoes_product_home_page.dart';
 
 class SaleShoesProductScreen extends StatefulWidget {
-  const SaleShoesProductScreen({super.key});
-
+  const SaleShoesProductScreen({required this.categoryId, super.key});
+  final String categoryId;
   @override
   State<SaleShoesProductScreen> createState() => _SaleShoesProductScreenState();
 }
 
 class _SaleShoesProductScreenState extends State<SaleShoesProductScreen> {
-  Stream getNikeShoesData() {
-    return FirebaseServices.saleShoesCollection.snapshots();
+  // Stream getNikeShoesData() {
+  //   return FirebaseServices.saleShoesCollection.snapshots();
+  // }
+
+  @override
+  void initState() {
+    super.initState();
+    log('Current Ids : ${widget.categoryId}');
   }
 
   @override
@@ -19,7 +27,9 @@ class _SaleShoesProductScreenState extends State<SaleShoesProductScreen> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: StreamBuilder(
-        stream: FirebaseServices.saleShoesCollection.snapshots(),
+        stream: FirebaseServices.productsCollection
+            .where('categoryId', isEqualTo: widget.categoryId)
+            .snapshots(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator.adaptive());
@@ -50,6 +60,7 @@ class _SaleShoesProductScreenState extends State<SaleShoesProductScreen> {
                         fullPrice: product.fullPrice,
                         salePrice: product.salePrice,
                         isSale: product.isSale,
+                        categoryId: product.categoryId,
                       ),
                     );
                   },

@@ -15,8 +15,9 @@ class CartBottomBloc extends Bloc<CartBottomEvent, CartBottomState> {
       try {
         final getData = await fetchCartData.getAddToCartData();
         emit.call(LoadedBottomCartState(cartData: getData));
-      } on Exception catch (e) {
+      } on Exception catch (error) {
         emit.call(ErrorBottomCartState(errorMsg: 'No Found Cart Data.'));
+        throw Exception(error);
       }
     });
 

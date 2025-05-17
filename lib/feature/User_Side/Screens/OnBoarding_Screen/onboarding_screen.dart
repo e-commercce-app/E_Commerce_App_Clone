@@ -216,14 +216,28 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
           ),
           // ! Sneaker Nike Text .
           Padding(
-            padding: EdgeInsets.symmetric(vertical: size.height * 0.1),
+            padding: EdgeInsets.symmetric(
+              vertical: size.height != size.height * 0.2
+                  ? size.height * 0.13
+                  : size.height * 0.1,
+            ),
             child: SizedBox(
               height: size.height * 0.25,
               width: double.infinity,
               child: Center(
-                child: Text(
+                child: AutoSizeText(
                   'NIKE',
-                  style: Resources.textStyle.nikeTextStyleText(size),
+                  presetFontSizes: [
+                    size.height * 0.2,
+                    size.height * 0.18,
+                    size.height * 0.15,
+                  ],
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: size.height * 0.2,
+                    // overflow: TextOverflow.clip,
+                    color: Resources.colors.kBarrierColor.withAlpha(20),
+                  ),
                 ),
               ),
             ),

@@ -48,8 +48,8 @@ class CustomSearchView extends StatelessWidget {
   final Color? fillColor;
   final bool? filled;
   final FormFieldValidator<String>? validator;
-  final Function(String)? onChanged;
-  final Function(String)? onFieldSubmitted;
+  final void Function(String)? onChanged;
+  final void Function(String)? onFieldSubmitted;
   final bool? readOnly;
   @override
   Widget build(BuildContext context) {

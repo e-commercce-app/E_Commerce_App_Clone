@@ -6,7 +6,7 @@ Future<dynamic> customDeleteCartBottomDialog({
   LoadedBottomCartState? state,
   int? index,
   Size? size,
-  Function()? onPressedOky,
+  void Function()? onPressedOky,
 }) {
   return showDialog(
     context: context!,

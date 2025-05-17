@@ -1,23 +1,33 @@
+import 'dart:developer';
+
 import 'package:e_commerce/Export/e_commerce_export.dart';
 import 'package:e_commerce/Models/shoes_product_home_page.dart';
 
 class BataShoesScreen extends StatefulWidget {
-  const BataShoesScreen({super.key});
-
+  const BataShoesScreen({required this.categoryId, super.key});
+  final String categoryId;
   @override
   State<BataShoesScreen> createState() => _BataShoesScreenState();
 }
 
 class _BataShoesScreenState extends State<BataShoesScreen> {
-  Stream getBataShoesFetchData() {
-    return FirebaseServices.bataShoesCollection.snapshots();
+  // Stream getBataShoesFetchData() {
+  //   return FirebaseServices.bataShoesCollection.snapshots();
+  // }
+
+  @override
+  void initState() {
+    super.initState();
+    log('ID : ${widget.categoryId}');
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: StreamBuilder(
-        stream: FirebaseServices.bataShoesCollection.snapshots(),
+        stream: FirebaseServices.productsCollection
+            .where('categoryId', isEqualTo: widget.categoryId)
+            .snapshots(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator.adaptive());

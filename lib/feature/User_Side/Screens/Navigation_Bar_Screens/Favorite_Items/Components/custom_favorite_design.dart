@@ -15,7 +15,7 @@ class CustomFavoriteItemDesign extends StatefulWidget {
   final String productName;
   final num fullPrice;
   final int positionStaggeredList;
-  final Function()? deleteButton;
+  final void Function()? deleteButton;
   @override
   State<CustomFavoriteItemDesign> createState() => _CustomCartDesignState();
 }

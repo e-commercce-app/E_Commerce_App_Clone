@@ -17,7 +17,7 @@ class CustomCartDesign extends StatefulWidget {
   final num fullPrice;
   final int quantity;
   final int positionStaggeredList;
-  final Function()? deleteButton;
+  final void Function()? deleteButton;
   @override
   State<CustomCartDesign> createState() => _CustomCartDesignState();
 }

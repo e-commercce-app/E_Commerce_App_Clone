@@ -5,6 +5,7 @@ class ProductShoesHomePageModel {
     this.fullPrice,
     this.salePrice,
     this.isSale,
+    this.categoryId,
   });
 
   // ! FromJson / From Map
@@ -15,6 +16,7 @@ class ProductShoesHomePageModel {
       fullPrice: map['fullPrice'] as num?,
       salePrice: map['salePrice']?.toString(),
       isSale: map['isSale'] as bool?,
+      categoryId: map['categoryId'] as String?,
     );
   }
   String? productImage;
@@ -22,6 +24,7 @@ class ProductShoesHomePageModel {
   num? fullPrice;
   String? salePrice;
   bool? isSale;
+  String? categoryId;
   // ! ToJson / ToMap
   Map<String, dynamic> toJson() {
     final data = <String, dynamic>{};
@@ -30,6 +33,7 @@ class ProductShoesHomePageModel {
     data['fullPrice'] = fullPrice;
     data['salePrice'] = salePrice;
     data['isSale'] = isSale;
+    data['categoryId'] = categoryId;
     return data;
   }
 }

@@ -60,7 +60,7 @@ class AppTextStyle {
       fontSize: size.height * 0.020,
       overflow: TextOverflow.ellipsis,
       fontWeight: FontWeight.w500,
-      color: textColor ?? Resources.colors.kWhite,
+      color: textColor,
     );
   }
 
