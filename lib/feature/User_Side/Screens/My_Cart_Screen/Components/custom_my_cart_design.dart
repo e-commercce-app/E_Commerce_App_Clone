@@ -7,17 +7,17 @@ class CustomCartDesign extends StatefulWidget {
     required this.imagePath,
     required this.positionStaggeredList,
     required this.productName,
-    required this.productPrice,
+    required this.fullPrice,
     required this.quantity,
     required this.deleteButton,
     super.key,
   });
   final String imagePath;
   final String productName;
-  final num productPrice;
+  final num fullPrice;
   final int quantity;
   final int positionStaggeredList;
-  final Function()? deleteButton;
+  final void Function()? deleteButton;
   @override
   State<CustomCartDesign> createState() => _CustomCartDesignState();
 }
@@ -98,7 +98,7 @@ class _CustomCartDesignState extends State<CustomCartDesign> {
                         ),
                         Expanded(
                           child: AutoSizeText(
-                            'Price : ${widget.productPrice}',
+                            'Price : ${widget.fullPrice}',
                             presetFontSizes: const [20, 13, 9, 5],
                             style: GoogleFonts.alice(
                               textStyle: Theme.of(context)

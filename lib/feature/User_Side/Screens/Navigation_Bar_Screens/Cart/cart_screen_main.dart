@@ -51,8 +51,7 @@ class _CartBottomBarScreenState extends State<CartBottomBarScreen> {
                               positionStaggeredList: state.cartData.length,
                               productName:
                                   state.cartData[index].productName.toString(),
-                              productPrice:
-                                  state.cartData[index].productPrice ?? 0,
+                              fullPrice: state.cartData[index].fullPrice ?? 0,
                               quantity: state.cartData[index].quantity ?? 0,
                               deleteButton: () {
                                 // ! Show Delete Dialog .

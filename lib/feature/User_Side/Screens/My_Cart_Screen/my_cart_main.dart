@@ -23,7 +23,7 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
   @override
   void initState() {
     super.initState();
-    managePrice.fetchProductPrice();
+    managePrice.fetchfullPrice();
   }
 
   @override
@@ -67,8 +67,8 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
                                 positionStaggeredList: state.fetchData.length,
                                 productName: state.fetchData[index].productName
                                     .toString(),
-                                productPrice:
-                                    state.fetchData[index].productPrice ?? 0,
+                                fullPrice:
+                                    state.fetchData[index].fullPrice ?? 0,
                                 quantity: state.fetchData[index].quantity ?? 0,
                                 deleteButton: () {
                                   // ! Show Delete Dialog .

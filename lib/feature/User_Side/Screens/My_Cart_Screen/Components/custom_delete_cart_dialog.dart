@@ -6,7 +6,7 @@ Future<dynamic> customDeleteCartDialogWidget({
   CartFetchLoadedState? state,
   int? index,
   Size? size,
-  Function()? onPressedOky,
+  void Function()? onPressedOky,
 }) {
   return showDialog(
     context: context!,
@@ -51,7 +51,7 @@ Future<dynamic> customDeleteCartDialogWidget({
               ),
               // ! Price Section
               AutoSizeText(
-                'Price : ${state.fetchData[index].productPrice}',
+                'Price : ${state.fetchData[index].fullPrice}',
                 presetFontSizes: const [20, 13, 9, 5],
                 style: GoogleFonts.alice(
                   textStyle: Theme.of(context)

@@ -32,52 +32,94 @@ class _OrderScreenState extends State<OrderNowScreen> {
   @override
   Widget build(BuildContext context) {
     size = MediaQuery.sizeOf(context);
-    return Scaffold(
-      appBar: orderAppBar(size: size),
-      body: FutureBuilder(
-        future: orderNow.getOrderNowData(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          } else if (snapshot.hasError) {
-            return const Center(
-              child: AutoSizeText(
-                'No Found Favorite Page Data ',
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(color: Colors.white),
-              ),
-            );
-          } else if (snapshot.hasData) {
-            return snapshot.data!.isEmpty
-                ? const WishListNotFound()
-                : ListView.builder(
-                    itemCount: snapshot.data?.length ?? 0,
-                    itemBuilder: (context, index) {
-                      return OrderNowCustomWidget(
-                        orderCustomerName:
-                            snapshot.data![index].orderName.toString(),
-                        orderPhoneNo:
-                            snapshot.data![index].orderPhone.toString(),
-                        orderAddress:
-                            snapshot.data![index].orderLocation.toString(),
-                        positionStaggeredList: snapshot.data!.length,
-                        deleteOrderNow: () {
-                          deleteOrderNowFirebase(
-                            itemDeleteUid:
-                                snapshot.data![index].orderUid.toString(),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final isSmallScreen = constraints.maxWidth < 600;
+        return Scaffold(
+          appBar: orderAppBar(size: size),
+          body: StreamBuilder(
+            stream: orderNow.getOrderNowData(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(child: CircularProgressIndicator());
+              } else if (snapshot.hasError) {
+                return const Center(
+                  child: AutoSizeText(
+                    'No Found Favorite Page Data ',
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(color: Colors.white),
+                  ),
+                );
+              } else if (snapshot.hasData) {
+                return snapshot.data!.isEmpty
+                    ? const WishListNotFound()
+                    : ListView.builder(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: isSmallScreen ? 8 : 16,
+                          vertical: 8,
+                        ),
+                        itemCount: snapshot.data?.length ?? 0,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: EdgeInsets.symmetric(
+                              vertical: isSmallScreen ? 8 : 12,
+                            ),
+                            child: OrderNowCustomWidget(
+                              orderCustomerName:
+                                  snapshot.data![index].orderName.toString(),
+                              orderPhoneNo:
+                                  snapshot.data![index].orderPhone.toString(),
+                              orderAddress: snapshot.data![index].orderLocation
+                                  .toString(),
+                              positionStaggeredList: snapshot.data!.length,
+                              orderStatus:
+                                  snapshot.data![index].orderStatus.toString(),
+                              deleteOrderNow: () async {
+                                final confirmDelete = await showDialog<bool>(
+                                  context: context,
+                                  builder: (context) {
+                                    return AlertDialog(
+                                      title: const Text('Confirm Delete'),
+                                      content: const Text(
+                                          'Are you sure you want to delete this order?'),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () =>
+                                              Navigator.of(context).pop(false),
+                                          child: const Text('Cancel'),
+                                        ),
+                                        TextButton(
+                                          onPressed: () =>
+                                              Navigator.of(context).pop(true),
+                                          child: const Text('Delete'),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
+
+                                if (confirmDelete == true) {
+                                  await deleteOrderNowFirebase(
+                                    itemDeleteUid: snapshot
+                                        .data![index].orderUid
+                                        .toString(),
+                                  );
+                                }
+                              },
+                            ),
                           );
                         },
                       );
-                    },
-                  );
-          } else {
-            return Center(
-              child: Text(noFoundData),
-            );
-          }
-        },
-      ),
+              } else {
+                return Center(
+                  child: Text(noFoundData),
+                );
+              }
+            },
+          ),
+        );
+      },
     );
   }
 }

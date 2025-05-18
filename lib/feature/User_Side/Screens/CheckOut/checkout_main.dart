@@ -82,7 +82,9 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
       ..orderLocation = currentLocation
       ..orderName = nameController.text
       ..orderEmail = emailController.text
-      ..orderPhone = phoneController.text;
+      ..orderPhone = phoneController.text
+      ..createdAt = DateTime.now().toString()
+      ..orderStatus = 'Pending';
   }
 
   //! Save order to Firebase

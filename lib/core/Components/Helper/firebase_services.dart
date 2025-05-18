@@ -20,13 +20,12 @@ abstract class FirebaseServices {
       fireStore.collection('UserDetails'); //Todo=> Current User Collections .
   static CollectionReference<Map<String, dynamic>> get nikeShoesCollection =>
       fireStore.collection('NikeShoes'); //Todo=> NikeShoes .
-  static CollectionReference<Map<String, dynamic>> get pumaShoesCollection =>
-      fireStore.collection('PumaShoes'); //Todo=> AdidasShoes .
-  static CollectionReference<Map<String, dynamic>> get bataShoesCollection =>
-      fireStore.collection('BataShoes'); //Todo=> BataShoes .
-  static CollectionReference<Map<String, dynamic>> get reebokShoesCollection =>
-      fireStore.collection('ReebokShoes'); //Todo=> Rebook Shoes .
+  static CollectionReference<Map<String, dynamic>> get productsCollection =>
+      fireStore.collection('products'); //Todo=> Product  .
+
   // ! My Cart Collection .
   static CollectionReference<Map<String, dynamic>> get myCartCollection =>
       fireStore.collection('MyPersonalCart'); //Todo=> My Cart
+  static CollectionReference<Map<String, dynamic>> get categoryCollection =>
+      fireStore.collection('categories');
 }

@@ -8,7 +8,7 @@ class CustomSearchClickView extends StatelessWidget {
   });
 
   final Size size;
-  final Function()? onTap;
+  final void Function()? onTap;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(

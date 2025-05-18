@@ -13,7 +13,7 @@ import 'package:flutter/cupertino.dart';
 class DetailsScreen extends StatefulWidget {
   DetailsScreen({required this.productHomeScreen, super.key});
 
-  ProductShoesHomePage productHomeScreen = ProductShoesHomePage();
+  ProductShoesHomePageModel productHomeScreen = ProductShoesHomePageModel();
   @override
   State<DetailsScreen> createState() => _DetailsScreenState();
 }
@@ -34,7 +34,14 @@ class _DetailsScreenState extends State<DetailsScreen>
   void initState() {
     super.initState();
     initializeAnimation();
-    currentPrice = widget.productHomeScreen.productPrice!;
+    currentPrice = calculateValue;
+  }
+
+  num get calculateValue {
+    return (widget.productHomeScreen.isSale ?? false) == true &&
+            widget.productHomeScreen.salePrice!.isNotEmpty
+        ? num.parse(widget.productHomeScreen.salePrice!)
+        : num.parse(widget.productHomeScreen.fullPrice?.toString() ?? '0');
   }
 
   //! Initialize animation controller
@@ -55,7 +62,7 @@ class _DetailsScreenState extends State<DetailsScreen>
       ..favoriteID = '$dateAndTime${FirebaseServices.currentUser!.uid}'
       ..favoriteImageUrl = widget.productHomeScreen.productImage
       ..favoriteName = widget.productHomeScreen.productName
-      ..favoritePrice = widget.productHomeScreen.productPrice;
+      ..favoritePrice = calculateValue;
     await FirebaseServices.currentUserCollection
         .doc(current?.uid)
         .collection('addToFavorite')
@@ -75,7 +82,7 @@ class _DetailsScreenState extends State<DetailsScreen>
   void increment() {
     setState(() {
       quantity++;
-      currentPrice = widget.productHomeScreen.productPrice! * quantity;
+      currentPrice = calculateValue * quantity;
     });
   }
 
@@ -84,7 +91,7 @@ class _DetailsScreenState extends State<DetailsScreen>
     setState(() {
       if (quantity >= 2 && quantity != 0) {
         quantity--;
-        currentPrice = currentPrice - widget.productHomeScreen.productPrice!;
+        currentPrice = currentPrice - calculateValue;
       }
     });
   }
@@ -96,7 +103,7 @@ class _DetailsScreenState extends State<DetailsScreen>
       ..productUid = '$dateAndTime${FirebaseServices.currentUser?.uid}'
       ..productImage = widget.productHomeScreen.productImage.toString()
       ..productName = widget.productHomeScreen.productName.toString()
-      ..productPrice = currentPrice
+      ..fullPrice = currentPrice
       ..quantity = quantity;
     await FirebaseServices.currentUserCollection
         .doc(FirebaseServices.currentUser?.uid)
@@ -156,7 +163,7 @@ class _DetailsScreenState extends State<DetailsScreen>
               .collection('addToFavorite')
               .where(
                 'favoritePrice',
-                isEqualTo: widget.productHomeScreen.productPrice,
+                isEqualTo: calculateValue,
               )
               .snapshots(),
           builder: (context, snapshot) {

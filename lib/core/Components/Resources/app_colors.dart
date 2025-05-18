@@ -1,4 +1,4 @@
-import '../../../Export/e_commerce_export.dart';
+import 'package:e_commerce/Export/e_commerce_export.dart';
 
 class AppColors {
   // ! Background Screen Colors .

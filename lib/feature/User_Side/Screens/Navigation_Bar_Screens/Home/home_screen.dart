@@ -1,16 +1,20 @@
-import 'dart:developer' as developer;
+// ignore_for_file: flutter_style_todos
+
+import 'dart:developer';
 
 import 'package:e_commerce/Export/e_commerce_export.dart';
+import 'package:e_commerce/Models/category_model.dart';
+import 'package:e_commerce/core/Components/Helper/location_service.dart';
 import 'package:e_commerce/feature/User_Side/Screens/Home_Page_Tabs/Bata_Shoes/bata_shoes_main.dart';
 import 'package:e_commerce/feature/User_Side/Screens/Home_Page_Tabs/Nike_Shoes/nike_shoes_main.dart';
 import 'package:e_commerce/feature/User_Side/Screens/Home_Page_Tabs/Puma_Shoes/puma_shoes_main.dart';
 import 'package:e_commerce/feature/User_Side/Screens/Home_Page_Tabs/Reebok_Shoes/reebok_shoes_main.dart';
+import 'package:e_commerce/feature/User_Side/Screens/Home_Page_Tabs/Sale_Product/sale_product.dart';
 import 'package:e_commerce/feature/User_Side/Screens/Navigation_Bar_Screens/Home/Components/custom_drawer_home_page.dart';
 import 'package:e_commerce/feature/User_Side/Screens/Navigation_Bar_Screens/Home/Components/home_page_app_bar.dart';
 import 'package:e_commerce/feature/User_Side/Screens/Navigation_Bar_Screens/Home/bloc/matrix4_rotation_bloc.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:geocoding/geocoding.dart';
-import 'package:geolocator/geolocator.dart';
+import 'package:flutter/foundation.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -21,256 +25,301 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen>
     with SingleTickerProviderStateMixin {
-  // All Screen Size .
   late Size size;
-  late TabController tabController;
+  TabController? tabController; // * TabController for TabBar and TabBarView
+  List<CategoriesModel> categories = []; // * List to store fetched categories
+  bool isLoading = true; // * Loading state for category fetch
 
-  //  store this current Location .
   String currentLocation = '';
-
-  // ! Using Internet Fetch This Current Location .
-  Future<Position> _determinePosition() async {
-    bool serviceEnabled;
-    LocationPermission permission;
-    serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!serviceEnabled) {
-      return Future.error(locationAreDisabled);
-    }
-    permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied) {
-        return Future.error(locationPermissionDenied);
-      }
-    }
-
-    if (permission == LocationPermission.deniedForever) {
-      return Future.error(locationPermissionPermanentlyDenied);
-    }
-
-    return Geolocator.getCurrentPosition(
-      desiredAccuracy: LocationAccuracy.high,
-    );
-  }
-
-  Future<void> getLatLong() async {
-    final data = _determinePosition();
-    await data.then((Position value) {
-      debugPrint('value $value');
-      setState(() {
-        value.latitude;
-        value.longitude;
-      });
-
-      getAddress(value.latitude, value.longitude);
-    }).catchError((dynamic error) {
-      debugPrint('Error $error');
-    });
-  }
-
-  /// ! For convert latitude longitude to address
-  /// !Using (GeoCoding) Package .
-  Future<void> getAddress(
-    double lat,
-    double long,
-  ) async {
-    final placemarks = await placemarkFromCoordinates(lat, long);
-    setState(() {
-      currentLocation =
-          '${placemarks[0].street!} ${placemarks[0].country!} ${placemarks[0].name} ${placemarks[0].locality}';
-    });
-
-    for (var i = 0; i < placemarks.length; i++) {
-      debugPrint('INDEX $i ${placemarks[i]}');
-    }
-  }
+  String newArrivalsText = 'Puma Shoes';
+  String seeAllText = seeAll;
 
   @override
   void initState() {
     super.initState();
-    tabController = TabController(length: 4, vsync: this, initialIndex: 0);
+    _fetchCategories(); // ! Fetch categories from Firestore on startup
+  }
+
+  /// * Fetch categories from Firestore and initialize TabController
+  Future<void> _fetchCategories() async {
+    final snapshot = await FirebaseServices.categoryCollection
+        // .where('categoryId', isEqualTo: true)
+        .get();
+    categories = snapshot.docs
+        .map((doc) => CategoriesModel.fromMap(doc.data()))
+        .toList();
+    tabController = TabController(length: categories.length, vsync: this);
+    tabController!.addListener(_onTabChanged); // * Listen for tab changes
+    setState(() {
+      isLoading = false; // * Hide loader after fetching
+    });
   }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    _determinePosition().then((value) {
-      currentLocation;
-      getLatLong();
-      CustomDialog.showCustomSnackBar(
-        context: context,
-        title: 'Location',
-        message: 'Find This Current Locations',
-        contentType: ContentType.success,
-      );
-      // CustomDialog.toastMessage(message: findThisLocation);
-    });
+    fetchCurrentLocation(); // ! Get user location on startup
   }
 
   @override
+  void dispose() {
+    tabController?.removeListener(_onTabChanged); // * Remove listener
+    tabController?.dispose(); // * Dispose controller
+    super.dispose();
+  }
+
+  //! Fetch the current location using LocationService
+  Future<void> fetchCurrentLocation() async {
+    await LocationService.determinePosition().then((_) async {
+      await LocationService().fetchLatLong().then(
+            (onValue) => CustomDialog.showCustomSnackBar(
+              context: context,
+              title: 'Location',
+              message: 'Find This Current Locations',
+              contentType: ContentType.success,
+            ),
+          );
+    });
+
+    setState(() {
+      currentLocation = LocationData().currentLocation ?? '';
+    });
+  }
+
+  /// ! Get and update user location
+
+  // Future<void> _initializeLocation() async {
+  //   try {
+  //     final position = await _determinePosition();
+  //     await _updateCurrentLocation(position);
+  //     CustomDialog.showCustomSnackBar(
+  //       context: context,
+  //       title: 'Location',
+  //       message: 'Find This Current Locations',
+  //       contentType: ContentType.success,
+  //     );
+  //   } on Exception catch (error) {
+  //     debugPrint('Error initializing location: $error');
+  //   }
+  // }
+
+  /// * Determine device position using Geolocator
+  // Future<Position> _determinePosition() async {
+  //   if (!await Geolocator.isLocationServiceEnabled()) {
+  //     throw Exception(locationAreDisabled); // ? Location service disabled
+  //   }
+
+  //   var permission = await Geolocator.checkPermission();
+  //   if (permission == LocationPermission.denied) {
+  //     permission = await Geolocator.requestPermission();
+  //     if (permission == LocationPermission.denied) {
+  //       throw Exception(locationPermissionDenied); // ? Permission denied
+  //     }
+  //   }
+
+  //   if (permission == LocationPermission.deniedForever) {
+  //     throw Exception(
+  //         locationPermissionPermanentlyDenied); // ? Permission denied forever
+  //   }
+
+  //   return Geolocator.getCurrentPosition(
+  //     desiredAccuracy: LocationAccuracy.high,
+  //   );
+  // }
+
+  /// * Update currentLocation string using placemark data
+  // Future<void> _updateCurrentLocation(Position position) async {
+  //   try {
+  //     final placemarks = await placemarkFromCoordinates(
+  //       position.latitude,
+  //       position.longitude,
+  //     );
+  //     setState(() {
+  //       currentLocation =
+  //           '${placemarks[0].street!} ${placemarks[0].country!} ${placemarks[0].name} ${placemarks[0].locality}';
+  //     });
+  //   } on Exception catch (error) {
+  //     debugPrint('Error fetching address: $error');
+  //   }
+  // }
+
+  /// * Update UI text based on selected tab
+  void _onTabChanged() {
+    setState(() {
+      final category = categories[tabController!.index];
+      final cat = category.categoryName.toLowerCase();
+      if (cat == 'sale') {
+        newArrivalsText = 'Discount Shoes';
+        seeAllText = seeAll;
+      } else if (cat == 'nike') {
+        newArrivalsText = 'Nike Shoes';
+        seeAllText = 'Explore Nike';
+      } else if (cat == 'puma') {
+        newArrivalsText = 'Puma Shoes';
+        seeAllText = 'Explore Puma';
+      } else if (cat == 'adidas') {
+        newArrivalsText = 'Bata Shoes';
+        seeAllText = 'Explore Bata';
+      } else if (cat == 'reebok') {
+        newArrivalsText = 'Reebok Shoes';
+        seeAllText = 'Explore Reebok';
+      } else {
+        newArrivalsText = category.categoryName;
+        seeAllText = 'Explore $category.categoryName';
+      }
+    });
+  }
+
+// switch (category.categoryName.toLowerCase()) {
+//         case 0:
+//           newArrivalsText = 'Discount Shoes';
+//           seeAllText = seeAll;
+//         case 1:
+//           newArrivalsText = 'Nike Shoes';
+//           seeAllText = 'Explore Nike';
+//         case 2:
+//           newArrivalsText = 'Puma Shoes';
+//           seeAllText = 'Explore Puma';
+//         case 3:
+//           newArrivalsText = 'Bata Shoes';
+//           seeAllText = 'Explore Bata';
+//         case 4:
+//           newArrivalsText = 'Reebok Shoes';
+//           seeAllText = 'Explore Reebok';
+//         default:
+//       }
+  @override
   Widget build(BuildContext context) {
-    size = MediaQuery.sizeOf(context);
+    size = MediaQuery.sizeOf(context); // * Get screen size
     return BlocProvider(
       create: (context) => Matrix4RotationBloc(),
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         body: Stack(
           children: [
-            // ! Custom Drawer AppBar Section
-            const CustomDrawer(),
-            // ! Home Screen Section
+            const CustomDrawer(), // * Custom navigation drawer
             BlocBuilder<Matrix4RotationBloc, Matrix4RotationState>(
               builder: (context, state) {
-                (state as RotationMatrixState);
-                return AnimatedContainer(
-                  color: Resources.colors.kAllAppColor,
-                  transform: Matrix4.translationValues(
-                    state.xOffset,
-                    state.yOffset,
-                    0,
-                  )
-                    ..scale(state.isDrawerOpen ? 0.85 : 1.0)
-                    ..rotateZ(state.isDrawerOpen ? -50 : 0.0),
-                  duration: const Duration(seconds: 1),
-                  curve: Curves.fastEaseInToSlowEaseOut,
-                  width: double.maxFinite,
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 15,
-                    vertical: 5,
-                  ),
-                  child: Column(
-                    children: [
-                      homePageAppBar(
-                        context,
-                        child: state.isDrawerOpen
-                            ? Icon(
-                                CupertinoIcons.arrow_left,
-                                color: Resources.colors.kBlack,
-                              )
-                            : CustomImageView(
-                                imagePath: Resources.imagePath.homeDrawer,
-                              ),
-                        onTap: () {
-                          developer.log('message');
-                          BlocProvider.of<Matrix4RotationBloc>(
-                            context,
-                            listen: false,
-                          ).add(RotationHomePageEvents());
-                        },
-                        size: size,
-                        currentLocation: currentLocation,
-                      ),
-                      // some Space .
-                      const CustomSizedBox(heightRatio: 0.02),
-                      // ! Search TextField Container Section .
-                      CustomSearchClickView(
-                        size: size,
-                        onTap: () {
-                          NavigatorService.pushNamed(
-                            RoutesName.searchHomeView,
-                          );
-                        },
-                      ),
-                      // some Space
-                      const CustomSizedBox(heightRatio: 0.02),
-                      // ! TabBar Sections .
-                      DefaultTabController(
-                        length: 4,
-                        child: Column(
-                          children: [
-                            Material(
-                              shadowColor: Colors.transparent,
-                              color: Colors.transparent,
-                              child: Container(
-                                height: 60,
-                                color: Colors.transparent,
-                                child: TabBar(
-                                  controller: tabController,
-                                  physics: const ClampingScrollPhysics(),
-                                  isScrollable: true,
-                                  tabAlignment: TabAlignment.center,
-                                  padding: const EdgeInsets.symmetric(
-                                    vertical: 10,
-                                  ),
-                                  unselectedLabelColor: Colors.black,
-                                  indicatorSize: TabBarIndicatorSize.label,
-                                  dividerColor: Colors.transparent,
-                                  indicator: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(30),
-                                    color: Resources.colors.kButtonColor,
-                                  ),
-                                  // ! Tabs
-                                  tabs: [
-                                    Tab(
-                                      child: _customTabBarItem(
-                                        tabBarImage:
-                                            Resources.imagePath.nikeShoes,
-                                      ),
-                                    ),
-                                    Tab(
-                                      child: _customTabBarItem(
-                                        tabBarImage:
-                                            Resources.imagePath.pumaShoes,
-                                      ),
-                                    ),
-                                    Tab(
-                                      child: _customTabBarItem(
-                                        tabBarImage:
-                                            Resources.imagePath.adidasShoes,
-                                      ),
-                                    ),
-                                    Tab(
-                                      child: _customTabBarItem(
-                                        tabBarImage:
-                                            Resources.imagePath.rebookShoes,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      //  ! _Build New Arrivals .
-                      _buildNewArrivals(
-                        context,
-                        newArrivalsText: popularShoes,
-                        seeAllText: seeAll,
-                      ),
-                      Expanded(
-                        child: TabBarView(
-                          controller: tabController,
-                          // ! TabBar Screen List .
-                          children: const [
-                            NikeShoesScreen(),
-                            PumaShoesScreen(),
-                            BataShoesScreen(),
-                            ReebokShoesScreen(),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
+                return _buildHomeScreenContent(
+                  context,
+                  state as RotationMatrixState,
                 );
               },
             ),
           ],
         ),
-        //   },
-        // )
       ),
     );
   }
 
-  // ** TabBar itemView Image function !
-  Widget _customTabBarItem({required String tabBarImage}) {
+  /// * Main content with animated container and all widgets
+  Widget _buildHomeScreenContent(
+    BuildContext context,
+    RotationMatrixState state,
+  ) {
+    if (isLoading) {
+      // ! Show loader while fetching categories
+      return Center(
+        child: CircularProgressIndicator(
+          backgroundColor: Resources.colors.kWhite,
+        ),
+      );
+    }
+    if (categories.isEmpty) {
+      // ! Show message if no categories found
+      return const Center(child: Text('No categories found.'));
+    }
+    return AnimatedContainer(
+      color: Resources.colors.kAllAppColor,
+      transform: Matrix4.translationValues(
+        state.xOffset,
+        state.yOffset,
+        0,
+      )
+        ..scale(state.isDrawerOpen ? 0.85 : 1.0)
+        ..rotateZ(state.isDrawerOpen ? -50 : 0.0),
+      duration: const Duration(seconds: 1),
+      curve: Curves.fastEaseInToSlowEaseOut,
+      width: double.maxFinite,
+      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+      child: Column(
+        children: [
+          _buildAppBar(context, state), // * Custom AppBar
+          const CustomSizedBox(heightRatio: 0.02),
+          _buildSearchBar(), // * Search bar widget
+          const CustomSizedBox(heightRatio: 0.02),
+          _buildTabBar(), // * TabBar with category images
+          _buildNewArrivalsSection(), // * Section header
+          _buildTabBarView(), // * TabBarView for tab content
+        ],
+      ),
+    );
+  }
+
+  /// * Custom AppBar for HomeScreen
+  Widget _buildAppBar(BuildContext context, RotationMatrixState state) {
+    return homePageAppBar(
+      context,
+      child: state.isDrawerOpen
+          ? Icon(CupertinoIcons.arrow_left, color: Resources.colors.kBlack)
+          : CustomImageView(imagePath: Resources.imagePath.homeDrawer),
+      onTap: () {
+        if (kDebugMode) log('message');
+        BlocProvider.of<Matrix4RotationBloc>(context, listen: false)
+            .add(RotationHomePageEvents());
+      },
+      size: size,
+      currentLocation: currentLocation,
+    );
+  }
+
+  /// * Search bar widget
+  Widget _buildSearchBar() {
+    return CustomSearchClickView(
+      size: size,
+      onTap: () {
+        NavigatorService.pushNamed(RoutesName.searchHomeView);
+      },
+    );
+  }
+
+  /// * TabBar with category images
+  Widget _buildTabBar() {
+    return Material(
+      shadowColor: Colors.transparent,
+      color: Colors.transparent,
+      child: Container(
+        height: 60,
+        color: Colors.transparent,
+        child: TabBar(
+          controller: tabController,
+          physics: const ClampingScrollPhysics(),
+          isScrollable: true,
+          tabAlignment: TabAlignment.center,
+          padding: const EdgeInsets.symmetric(vertical: 10),
+          unselectedLabelColor: Colors.black,
+          indicatorSize: TabBarIndicatorSize.label,
+          dividerColor: Colors.transparent,
+          indicator: BoxDecoration(
+            borderRadius: BorderRadius.circular(30),
+            color: Resources.colors.kButtonColor,
+          ),
+          tabs: categories
+              .map((cat) => _buildTabBarItem(cat.categoryImg))
+              .toList(),
+        ),
+      ),
+    );
+  }
+
+  /// * Single tab item with category image
+  Widget _buildTabBarItem(String tabBarImage) {
     return Container(
       height: 35,
       width: 70,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30),
-        border: Border.all(color: Resources.colors.kButtonColor, width: 1),
+        border: Border.all(color: Resources.colors.kButtonColor, width: 0),
       ),
       child: Align(
         child: CustomImageView(
@@ -281,12 +330,8 @@ class _HomeScreenState extends State<HomeScreen>
     );
   }
 
-  /// ** Common Popular see all widget
-  Widget _buildNewArrivals(
-    BuildContext context, {
-    required String newArrivalsText,
-    required String seeAllText,
-  }) {
+  /// * Section header for new arrivals and see all
+  Widget _buildNewArrivalsSection() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -306,6 +351,33 @@ class _HomeScreenState extends State<HomeScreen>
               ?.copyWith(color: Resources.colors.kButtonColor, fontSize: 14),
         ),
       ],
+    );
+  }
+
+  /// * TabBarView for displaying tab content
+  Widget _buildTabBarView() {
+    return Expanded(
+      child: TabBarView(
+        controller: tabController,
+        children: categories.map((cat) {
+          // * Open the correct page based on categoryName or categoryId
+          switch (cat.categoryName.toLowerCase()) {
+            case 'sale':
+              return SaleShoesProductScreen(categoryId: cat.categoryId);
+            case 'nike':
+              return NikeShoesScreen(categoryId: cat.categoryId);
+            case 'puma':
+              return PumaShoesScreen(categoryId: cat.categoryId);
+            case 'adidas':
+              return BataShoesScreen(categoryId: cat.categoryId);
+            case 'reebok':
+              return ReebokShoesScreen(categoryId: cat.categoryId);
+            default:
+              // * Fallback: show category name if no match
+              return Center(child: Text(cat.categoryName));
+          }
+        }).toList(),
+      ),
     );
   }
 }

@@ -52,6 +52,7 @@ class GoogleSignInMethod {
         userInfo.emailAddress = FirebaseServices.currentUser?.email.toString();
         userInfo.password = '12464567';
         userInfo.phoneNumber = '+92032467346';
+        userInfo.createdOn = DateTime.now().toString();
         userInfo.role = 'isUser';
         userInfo.token = token;
         // !create user help of Using Google process store data fireStore Database .

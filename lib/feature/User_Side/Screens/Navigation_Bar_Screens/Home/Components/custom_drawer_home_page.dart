@@ -1,6 +1,6 @@
 import 'package:e_commerce/Export/e_commerce_export.dart';
 import 'package:e_commerce/core/Controller/Services/Controller/current_user_delete_account.dart';
-import 'package:e_commerce/feature/User_Side/Screens/Navigation_Bar_Screens/Favorite_Items/favorite_main_page.dart';
+import 'package:e_commerce/feature/User_Side/Screens/Navigation_Bar_Screens/bloc/bottom_navigation_bloc.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class CustomDrawer extends StatefulWidget {
@@ -61,7 +61,9 @@ class _CustomDrawerState extends State<CustomDrawer> {
                   icon: Icons.home_outlined,
                   title: 'Profile',
                   onTap: () {
-                    NavigatorService.pushNamed(RoutesName.profile);
+                    context.read<BottomNavigationBloc>().add(
+                          BottomNavigationEvent(currentIndex: 4),
+                        );
                   },
                 ),
                 // ! My Cart
@@ -76,11 +78,17 @@ class _CustomDrawerState extends State<CustomDrawer> {
                 listTile(
                   icon: Icons.favorite_border,
                   title: 'Favorite',
-                  onTap: () => NavigatorService.push(
-                    MaterialPageRoute(
-                      builder: (context) => const FavoriteScreen(),
-                    ),
-                  ),
+                  onTap: () {
+                    //   NavigatorService.push(
+                    //   MaterialPageRoute(
+                    //     builder: (context) => const FavoriteScreen(),
+                    //   ),
+                    // );
+
+                    context.read<BottomNavigationBloc>().add(
+                          BottomNavigationEvent(currentIndex: 1),
+                        );
+                  },
                 ),
                 // ! Delete Account
                 listTile(

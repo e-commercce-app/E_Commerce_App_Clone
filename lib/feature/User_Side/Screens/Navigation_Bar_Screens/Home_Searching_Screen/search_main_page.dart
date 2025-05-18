@@ -98,21 +98,23 @@ class _SearchingTextFieldState extends State<SearchingTextField> {
                                     ['productImage'] as String,
                                 productName: searchResults[index]['productName']
                                     as String,
-                                productPrice:
-                                    searchResults[index]['productPrice'] as num,
+                                fullPrice:
+                                    searchResults[index]['fullPrice'] as num,
                                 heroTag: searchResults[index]['productImage']
                                     as String,
                                 onTap: () {
                                   // ** Detail Page .
                                   NavigatorService.pushNamed(
                                     RoutesName.detailScreen,
-                                    arguments: ProductShoesHomePage(
+                                    arguments: ProductShoesHomePageModel(
                                       productImage: searchResults[index]
                                           ['productImage'] as String,
                                       productName: searchResults[index]
                                           ['productName'] as String,
-                                      productPrice: searchResults[index]
-                                          ['productPrice'] as num,
+                                      fullPrice: searchResults[index]
+                                          ['fullPrice'] as num,
+                                      isSale: searchResults[index]['isSale']
+                                          as bool,
                                     ),
                                   );
                                 },

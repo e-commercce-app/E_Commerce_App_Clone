@@ -60,7 +60,7 @@ class AppTextStyle {
       fontSize: size.height * 0.020,
       overflow: TextOverflow.ellipsis,
       fontWeight: FontWeight.w500,
-      color: textColor ?? Resources.colors.kWhite,
+      color: textColor,
     );
   }
 
@@ -108,14 +108,29 @@ class AppTextStyle {
 }
 
 // !  Product Name Text .
-Widget productNameText({required String name, double? fontSize}) {
+Widget productNameText({
+  required String name,
+  double? fontSize,
+  Color? color,
+  FontWeight? fontWeight,
+  TextAlign? textAlign,
+}) {
   return AutoSizeText(
     name,
+    textAlign: textAlign ?? TextAlign.start,
+    maxLines: 2,
     style: GoogleFonts.aBeeZee(
       textStyle: TextStyle(
         fontSize: fontSize ?? 25,
-        color: Resources.colors.kBlack,
-        fontWeight: FontWeight.bold,
+        color: color ?? Resources.colors.kBlack,
+        fontWeight: fontWeight ?? FontWeight.bold,
+        shadows: [
+          Shadow(
+            offset: Offset(0.5, 0.5),
+            blurRadius: 1,
+            color: Colors.grey.shade400,
+          ),
+        ],
       ),
     ),
     overflow: TextOverflow.ellipsis,
@@ -123,14 +138,28 @@ Widget productNameText({required String name, double? fontSize}) {
 }
 
 // ! Product Price Text .
-Widget productPriceText({required String price, double? fontSize}) {
+Widget fullPriceText({
+  required String price,
+  double? fontSize,
+  Color? color,
+  FontWeight? fontWeight,
+  TextAlign? textAlign,
+}) {
   return AutoSizeText(
     price,
+    textAlign: textAlign ?? TextAlign.start,
     style: GoogleFonts.aBeeZee(
       textStyle: TextStyle(
         fontSize: fontSize ?? 18,
-        color: Resources.colors.kBlack,
-        fontWeight: FontWeight.bold,
+        color: color ?? Resources.colors.kBlack,
+        fontWeight: fontWeight ?? FontWeight.bold,
+        shadows: [
+          Shadow(
+            offset: Offset(0.5, 0.5),
+            blurRadius: 1,
+            color: Colors.grey.shade400,
+          ),
+        ],
       ),
     ),
     overflow: TextOverflow.ellipsis,

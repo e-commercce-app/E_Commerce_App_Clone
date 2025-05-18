@@ -12,22 +12,24 @@ class OrderNowFetchDataMethod {
   List<OrderModelClass> orderNowList = [];
 
 // ** GetData Details Screen and Show OrderNow Screen .
-  Future<List<OrderModelClass>> getOrderNowData() async {
-    List<OrderModelClass> newList = [];
-    final getData = await firestore
-        .collection('UserDetails')
-        .doc(user!.uid)
-        .collection('MyOrder')
-        .get();
+  Stream<List<OrderModelClass>> getOrderNowData() {
+    return Stream.fromFuture(() async {
+      List<OrderModelClass> newList = [];
+      final getData = await firestore
+          .collection('UserDetails')
+          .doc(user!.uid)
+          .collection('MyOrder')
+          .get();
 
-    for (final element in getData.docs) {
-      orderNowModelClass = OrderModelClass.fromJson(element.data());
-      newList.add(orderNowModelClass);
-      debugPrint('>>>>>>>>>>>>>>>>>>>>>>>>>....  $newList');
-    }
-    orderNowList = newList;
-    debugPrint('....................${orderNowList.length}');
+      for (final element in getData.docs) {
+        orderNowModelClass = OrderModelClass.fromJson(element.data());
+        newList.add(orderNowModelClass);
+        debugPrint('>>>>>>>>>>>>>>>>>>>>>>>>>....  $newList');
+      }
+      orderNowList = newList;
+      debugPrint('....................${orderNowList.length}');
 
-    return orderNowList;
+      return orderNowList;
+    }());
   }
 }

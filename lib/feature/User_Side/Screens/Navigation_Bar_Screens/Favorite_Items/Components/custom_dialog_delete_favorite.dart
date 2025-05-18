@@ -6,7 +6,7 @@ Future<dynamic> customDeleteFavoriteDialog({
   required AsyncSnapshot<List<FavorIteItemModelClass>> snapshot,
   required int index,
   required Size size,
-  required Function()? onPressedOky,
+  required void Function()? onPressedOky,
 }) {
   return showDialog(
     context: context,

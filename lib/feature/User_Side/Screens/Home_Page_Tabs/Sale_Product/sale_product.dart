@@ -1,29 +1,31 @@
 import 'dart:developer';
 
 import 'package:e_commerce/Export/e_commerce_export.dart';
+
 import 'package:e_commerce/Models/shoes_product_home_page.dart';
 
-class BataShoesScreen extends StatefulWidget {
-  const BataShoesScreen({required this.categoryId, super.key});
+class SaleShoesProductScreen extends StatefulWidget {
+  const SaleShoesProductScreen({required this.categoryId, super.key});
   final String categoryId;
   @override
-  State<BataShoesScreen> createState() => _BataShoesScreenState();
+  State<SaleShoesProductScreen> createState() => _SaleShoesProductScreenState();
 }
 
-class _BataShoesScreenState extends State<BataShoesScreen> {
-  // Stream getBataShoesFetchData() {
-  //   return FirebaseServices.bataShoesCollection.snapshots();
+class _SaleShoesProductScreenState extends State<SaleShoesProductScreen> {
+  // Stream getNikeShoesData() {
+  //   return FirebaseServices.saleShoesCollection.snapshots();
   // }
 
   @override
   void initState() {
     super.initState();
-    log('ID : ${widget.categoryId}');
+    log('Current Ids : ${widget.categoryId}');
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: StreamBuilder(
         stream: FirebaseServices.productsCollection
             .where('categoryId', isEqualTo: widget.categoryId)
@@ -33,7 +35,7 @@ class _BataShoesScreenState extends State<BataShoesScreen> {
             return const Center(child: CircularProgressIndicator.adaptive());
           } else if (snapshot.hasData) {
             return CustomGridView(
-              // Using Custom GridView
+              //! Using Custom GridView
               itemCount: snapshot.data?.docs.length,
               itemBuilder: (context, int index) {
                 // Map<String, dynamic> data = snapshot.data!.docs[index].data();
@@ -45,8 +47,8 @@ class _BataShoesScreenState extends State<BataShoesScreen> {
                   productImage: product.productImage.toString(),
                   productName: product.productName.toString(),
                   fullPrice: product.fullPrice,
-                  isSale: product.isSale,
                   salePrice: product.salePrice,
+                  isSale: product.isSale,
                   heroTag: product.productImage.toString(),
                   onTap: () {
                     // ** Detail Page .
@@ -55,9 +57,10 @@ class _BataShoesScreenState extends State<BataShoesScreen> {
                       arguments: ProductShoesHomePageModel(
                         productImage: product.productImage.toString(),
                         productName: product.productName.toString(),
-                        salePrice: product.salePrice,
                         fullPrice: product.fullPrice,
+                        salePrice: product.salePrice,
                         isSale: product.isSale,
+                        categoryId: product.categoryId,
                       ),
                     );
                   },

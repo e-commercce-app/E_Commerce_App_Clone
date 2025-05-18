@@ -28,7 +28,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
               child: ListTile(
                 leading: const Icon(Icons.notifications_active),
                 title:
-                    Text(widget.message!.notification!.title.toString() ?? ''),
+                    Text(widget.message!.notification!.title.toString() ),
                 subtitle: Text(widget.message!.notification!.body.toString()),
                 trailing: Text(widget.message!.data['screen'].toString()),
               ),

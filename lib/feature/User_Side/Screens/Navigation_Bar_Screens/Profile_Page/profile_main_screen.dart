@@ -142,6 +142,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           phoneNumber: phone,
                           password: password,
                           id: FirebaseServices.currentUser!.uid,
+                          createdOn: userDetails.createdOn,
+                          role: userDetails.role,
                         ),
                         size: size,
                       ),

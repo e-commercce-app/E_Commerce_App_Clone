@@ -3,7 +3,7 @@ class MyCartModelClass {
     this.productUid,
     this.productImage,
     this.productName,
-    this.productPrice,
+    this.fullPrice,
     this.quantity,
   });
 
@@ -12,14 +12,14 @@ class MyCartModelClass {
       productUid: map['productUid'] as String?,
       productImage: map['productImage'] as String?,
       productName: map['productName'] as String?,
-      productPrice: map['productPrice'] as num?,
+      fullPrice: map['fullPrice'] as num?,
       quantity: map['quantity'] as int?,
     );
   }
   String? productUid;
   String? productImage;
   String? productName;
-  num? productPrice;
+  num? fullPrice;
   int? quantity;
 
   Map<String, dynamic> toJson() {
@@ -27,7 +27,7 @@ class MyCartModelClass {
     data['productUid'] = productUid;
     data['productImage'] = productImage;
     data['productName'] = productName;
-    data['productPrice'] = productPrice;
+    data['fullPrice'] = fullPrice;
     data['quantity'] = quantity;
     return data;
   }
