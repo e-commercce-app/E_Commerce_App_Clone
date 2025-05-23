@@ -10,6 +10,8 @@ class OrderNowCustomWidget extends StatelessWidget {
     required this.deleteOrderNow,
     required this.positionStaggeredList,
     required this.orderStatus,
+    required this.height,
+    required this.width,
     super.key,
   });
 
@@ -19,15 +21,56 @@ class OrderNowCustomWidget extends StatelessWidget {
   final void Function() deleteOrderNow;
   final int positionStaggeredList;
   final String? orderStatus;
+  final double height;
+  final double width;
+
+  static const Map<String, Map<String, dynamic>> statusMap = {
+    'pending': {
+      'label': 'Pending',
+      'icon': Icons.hourglass_empty,
+      'color': Colors.orange,
+    },
+    'processing': {
+      'label': 'Processing',
+      'icon': Icons.settings,
+      'color': Colors.blue,
+    },
+    'shipped': {
+      'label': 'Shipped',
+      'icon': Icons.local_shipping,
+      'color': Colors.purple,
+    },
+    'delivered': {
+      'label': 'Delivered',
+      'icon': Icons.check_circle,
+      'color': Colors.green,
+    },
+    'cancelled': {
+      'label': 'Cancelled',
+      'icon': Icons.cancel,
+      'color': Colors.red,
+    },
+  };
 
   @override
   Widget build(BuildContext context) {
-    final screenHeight = MediaQuery.of(context).size.height;
-    final screenWidth = MediaQuery.of(context).size.width;
+    // Use the provided height and width for responsiveness
+    final screenHeight = height;
+    final screenWidth = width;
+
+    // * Responsive paddings and font sizes based on provided width/height
+    final padding = screenWidth * 0.045;
+    final iconSize = screenWidth * 0.07;
+    final titleFont = screenWidth * 0.045;
+    final subFont = screenWidth * 0.041;
+
+    // * Get status info from map, fallback to pending
+    final statusKey = (orderStatus ?? 'pending').toLowerCase();
+    final statusInfo = statusMap[statusKey] ?? statusMap['pending'];
 
     return SizedBox(
-      height: screenHeight * 0.25,
-      width: screenWidth * 0.9,
+      height: screenHeight * 0.3,
+      width: screenWidth * 0.92,
       child: AnimationConfiguration.staggeredList(
         position: positionStaggeredList,
         duration: const Duration(milliseconds: 1000),
@@ -37,11 +80,11 @@ class OrderNowCustomWidget extends StatelessWidget {
           child: FadeInAnimation(
             child: Container(
               height: screenHeight * 0.2,
-              width: screenWidth * 0.9,
-              padding: const EdgeInsets.all(18),
+              width: screenWidth * 0.92,
+              padding: EdgeInsets.all(padding),
               decoration: BoxDecoration(
                 color: Resources.colors.kWhite,
-                borderRadius: BorderRadius.circular(15),
+                borderRadius: BorderRadius.circular(screenWidth * 0.04),
                 boxShadow: const [
                   BoxShadow(
                     blurRadius: 6,
@@ -54,9 +97,10 @@ class OrderNowCustomWidget extends StatelessWidget {
                 _buildRow(
                   icon: Icons.person,
                   iconColor: Resources.colors.kBlue,
+                  iconSize: iconSize,
                   text: 'User Name: $orderCustomerName',
-                  textStyle: const TextStyle(
-                    fontSize: 16,
+                  textStyle: TextStyle(
+                    fontSize: titleFont,
                     fontWeight: FontWeight.w600,
                     color: Colors.black87,
                   ),
@@ -65,42 +109,42 @@ class OrderNowCustomWidget extends StatelessWidget {
                     icon: Icon(
                       Icons.delete_forever,
                       color: Resources.colors.kRedColor.withOpacity(0.8),
+                      size: iconSize,
                     ),
                   ),
                 ),
-                const SizedBox(height: 10),
+                SizedBox(height: screenHeight * 0.012),
                 _buildRow(
                   icon: Icons.phone,
                   iconColor: Colors.green.shade600,
+                  iconSize: iconSize,
                   text: 'Phone No: $orderPhoneNo',
-                  textStyle: const TextStyle(
-                    fontSize: 15,
+                  textStyle: TextStyle(
+                    fontSize: subFont,
                     color: Colors.black54,
                   ),
                 ),
-                const SizedBox(height: 10),
+                SizedBox(height: screenHeight * 0.012),
                 _buildResponsiveRow(
                   icon: Icons.location_on,
                   iconColor: Colors.orange.shade600,
+                  iconSize: iconSize,
                   text: 'Address: $orderAddress',
-                  textStyle: const TextStyle(
-                    fontSize: 15,
+                  textStyle: TextStyle(
+                    fontSize: subFont,
                     color: Colors.black54,
                   ),
                 ),
-                const SizedBox(height: 10),
+                SizedBox(height: screenHeight * 0.012),
                 _buildRow(
-                  icon: Icons.info,
-                  iconColor: orderStatus == 'Delivered'
-                      ? Colors.green.shade600
-                      : Colors.red.shade600,
-                  text: 'Order Status: ${orderStatus ?? 'Pending'}',
+                  icon: statusInfo!['icon'] as IconData,
+                  iconColor: statusInfo['color'] as Color,
+                  iconSize: iconSize,
+                  text: 'Order Status: ${statusInfo['label']}',
                   textStyle: TextStyle(
-                    fontSize: 15,
+                    fontSize: subFont,
                     fontWeight: FontWeight.w600,
-                    color: orderStatus == 'Delivered'
-                        ? Colors.green.shade600
-                        : Colors.red.shade600,
+                    color: (statusInfo['color'] ?? Colors.orange) as Color,
                   ),
                 ),
               ].addColumn(
@@ -110,7 +154,7 @@ class OrderNowCustomWidget extends StatelessWidget {
           ),
         ),
       ),
-    ).paddingAll(8);
+    ).paddingAll(padding / 2);
   }
 
   Widget _buildRow({
@@ -118,17 +162,21 @@ class OrderNowCustomWidget extends StatelessWidget {
     required Color iconColor,
     required String text,
     required TextStyle textStyle,
+    double iconSize = 24,
     Widget? trailing,
   }) {
     return <Widget>[
       Expanded(
         child: <Widget>[
-          Icon(icon, color: iconColor),
-          const SizedBox(width: 8),
+          Icon(icon, color: iconColor, size: iconSize),
+          SizedBox(width: iconSize * 0.32),
           Expanded(
             child: AutoSizeText(
               text,
               style: textStyle,
+              minFontSize: 10,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
             ),
           ),
         ].addRow(
@@ -147,16 +195,18 @@ class OrderNowCustomWidget extends StatelessWidget {
     required Color iconColor,
     required String text,
     required TextStyle textStyle,
+    double iconSize = 24,
   }) {
     return <Widget>[
-      Icon(icon, color: iconColor),
-      const SizedBox(width: 8),
+      Icon(icon, color: iconColor, size: iconSize),
+      SizedBox(width: iconSize * 0.32),
       Expanded(
         child: AutoSizeText(
           text,
           style: textStyle,
           overflow: TextOverflow.ellipsis,
           maxLines: 2,
+          minFontSize: 10,
         ),
       ),
     ].addRow(

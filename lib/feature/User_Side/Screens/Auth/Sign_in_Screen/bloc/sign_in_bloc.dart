@@ -2,10 +2,12 @@
 
 import 'dart:developer';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_commerce/Export/e_commerce_export.dart';
 import 'package:e_commerce/core/Controller/Services/Controller/get_user_data_controller.dart';
 
 import 'package:e_commerce/feature/User_Side/Screens/Auth/Sign_Up_Screen/Components/google_authentication.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 part 'sign_in_event.dart';
 part 'sign_in_state.dart';
@@ -28,10 +30,23 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
             userUid: FirebaseServices.currentUser!.uid,
           );
           if (userData[0]['role'] == 'isUser') {
-            await CustomDialog.toastMessage(message: 'SignIn Successfully');
-            await NavigatorService.pushNamedAndRemoveUntil(
-              RoutesName.bottomBarScreen,
-            );
+            // ✅ Get new FCM token
+            final freshToken = await FirebaseMessaging.instance.getToken();
+            log('🔁 Updating token: $freshToken');
+
+            // ✅ Update token in Firestore
+            await FirebaseFirestore.instance
+                .collection('UserDetails')
+                .doc(FirebaseServices.currentUser!.uid)
+                .update({
+              'token': freshToken,
+            }).then((_) async {
+              await CustomDialog.toastMessage(message: 'SignIn Successfully');
+              await NavigatorService.pushNamedAndRemoveUntil(
+                RoutesName.bottomBarScreen,
+              );
+            });
+
             // clear TextEditingController .
             emailAddress.clear();
             password.clear();

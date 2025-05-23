@@ -4,7 +4,9 @@ import 'dart:developer';
 
 import 'package:e_commerce/Export/e_commerce_export.dart';
 import 'package:e_commerce/Models/category_model.dart';
+import 'package:e_commerce/core/Components/Helper/firebase_server_token.dart';
 import 'package:e_commerce/core/Components/Helper/location_service.dart';
+import 'package:e_commerce/core/Components/Helper/notification_server.dart';
 import 'package:e_commerce/feature/User_Side/Screens/Home_Page_Tabs/Bata_Shoes/bata_shoes_main.dart';
 import 'package:e_commerce/feature/User_Side/Screens/Home_Page_Tabs/Nike_Shoes/nike_shoes_main.dart';
 import 'package:e_commerce/feature/User_Side/Screens/Home_Page_Tabs/Puma_Shoes/puma_shoes_main.dart';
@@ -34,6 +36,7 @@ class _HomeScreenState extends State<HomeScreen>
   String newArrivalsText = 'Puma Shoes';
   String seeAllText = seeAll;
 
+  NotificationServer notificationServer = NotificationServer();
   @override
   void initState() {
     super.initState();
@@ -59,6 +62,14 @@ class _HomeScreenState extends State<HomeScreen>
   void didChangeDependencies() {
     super.didChangeDependencies();
     fetchCurrentLocation(); // ! Get user location on startup
+
+    notificationServer
+      ..requestNotification()
+      ..getEndUserToken()
+      ..firebaseInit(context: context)
+      ..setupInteractMessage(context: context);
+
+    FirebaseAccessToken.getToken();
   }
 
   @override

@@ -35,6 +35,9 @@ class _OrderScreenState extends State<OrderNowScreen> {
     return LayoutBuilder(
       builder: (context, constraints) {
         final isSmallScreen = constraints.maxWidth < 600;
+        final screenHeight = constraints.maxHeight;
+        final screenWidth = constraints.maxWidth;
+
         return Scaffold(
           appBar: orderAppBar(size: size),
           body: StreamBuilder(
@@ -75,6 +78,8 @@ class _OrderScreenState extends State<OrderNowScreen> {
                               positionStaggeredList: snapshot.data!.length,
                               orderStatus:
                                   snapshot.data![index].orderStatus.toString(),
+                              height: screenHeight,
+                              width: screenWidth,
                               deleteOrderNow: () async {
                                 final confirmDelete = await showDialog<bool>(
                                   context: context,

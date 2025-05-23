@@ -21,7 +21,6 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
   List<Widget>? _pages;
   // int _selectedPageIndex = 0;
 
-  NotificationServer notificationServer = NotificationServer();
 
   @override
   void initState() {
@@ -33,13 +32,6 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
       const ProfileScreen(),
     ];
 
-    notificationServer
-      ..requestNotification()
-      ..getEndUserToken()
-      ..firebaseInit(context: context)
-      ..setupInteractMessage(context: context);
-
-    FirebaseAccessToken.getToken();
     super.initState();
   }
 

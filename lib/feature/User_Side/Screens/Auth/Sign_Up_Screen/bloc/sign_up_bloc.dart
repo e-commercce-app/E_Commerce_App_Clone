@@ -18,14 +18,14 @@ class SignUpBloc extends Bloc<SignUpBlocEvent, SignUpState> {
     // ! Call this Initial Value .
     loadedState;
 
-    on<ImagePickerGalleryEvent>((event, emit) async {
-      // Pick image from gallery
-      final pickedFile = await imagePickerService.galleryImage();
-      if (pickedFile != null) {
-        log(pickedFile.path);
-        ImagePickerLoadedState(image: File(pickedFile.path));
-      }
-    });
+    // on<ImagePickerGalleryEvent>((event, emit) async {
+    //   // Pick image from gallery
+    //   final pickedFile = await imagePickerService.galleryImage();
+    //   if (pickedFile != null) {
+    //     log(pickedFile.path);
+    //     ImagePickerLoadedState(image: File(pickedFile.path));
+    //   }
+    // });
 
     //  Process this button Click and TextEditingController.
     on<SignUpClickEvent>((event, emit) {
@@ -106,7 +106,7 @@ class SignUpBloc extends Bloc<SignUpBlocEvent, SignUpState> {
   // !UserDetails Model Class
   UserDetails userInfo = UserDetails();
   // ! Gallery Picker Services
-  ImagePickerService imagePickerService = ImagePickerService();
+  // ImagePickerService imagePickerService = ImagePickerService();
   // ! Notification Server
   final NotificationServer _notificationServer = NotificationServer();
   //

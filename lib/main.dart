@@ -1,14 +1,20 @@
-import 'dart:developer';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_commerce/Export/e_commerce_export.dart';
-import 'package:e_commerce/Models/category_model.dart';
 import 'package:e_commerce/feature/User_Side/Screens/OnBoarding_Screen/Bloc/page_view_bloc.dart';
+import 'package:e_commerce/firebase_options.dart';
 import 'package:e_commerce/init.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+
+@pragma('vm:entry-point')
+Future<void> _firebaseBackgroundHandler(RemoteMessage message) async {
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  FirebaseMessaging.onBackgroundMessage(_firebaseBackgroundHandler);
+}
 
 void main() async {
   //! On Create initial Data Load .
   await initDataLoad();
+  FirebaseMessaging.onBackgroundMessage(_firebaseBackgroundHandler);
   // Set this PreferredOrientations .
   await Future.wait([
     SystemChrome.setPreferredOrientations(
@@ -40,74 +46,5 @@ class ECommerce extends StatelessWidget {
         // home: const CategoriesTab(),
       ),
     );
-  }
-}
-
-class CategoriesTab extends StatefulWidget {
-  const CategoriesTab({super.key});
-
-  @override
-  State<CategoriesTab> createState() => _CategoriesTabState();
-}
-
-class _CategoriesTabState extends State<CategoriesTab> {
-  // late Future<List<CategoriesModel>> categoriesFuture;
-
-  @override
-  void initState() {
-    super.initState();
-    // categoriesFuture = FirebaseService().fetchCategories();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: StreamBuilder(
-        stream: FirebaseServices.categoryCollection
-            .orderBy('createdAt', descending: true)
-            .snapshots(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          } else if (snapshot.hasError) {
-            return const Center(child: Text('Something went wrong'));
-          } else if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-            return const Center(child: Text('No categories found'));
-          } else {
-            final categories = snapshot.data!;
-            return ListView.builder(
-              itemCount: categories.docs.length,
-              itemBuilder: (context, index) {
-                final cat = categories.docs[index];
-                return ListTile(
-                  leading: Image.network(cat['categoryImg'].toString()),
-                  title: Text(cat['categoryName'].toString()),
-                  subtitle: Text('ID: ${cat['categoryId']}'),
-                );
-              },
-            );
-          }
-        },
-      ),
-    );
-  }
-}
-
-class FirebaseService {
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-
-  Future<List<CategoriesModel>> fetchCategories() async {
-    try {
-      QuerySnapshot snapshot = await _firestore.collection('category').get();
-
-      final categories = snapshot.docs.map((doc) {
-        return CategoriesModel.fromMap(doc.data() as Map<String, dynamic>);
-      }).toList();
-
-      return categories;
-    } catch (e) {
-      log('Error fetching categories: $e');
-      return [];
-    }
   }
 }

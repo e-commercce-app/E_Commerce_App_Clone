@@ -10,7 +10,7 @@ class MyCartFetchDataMethod {
 
   // ** GetData Details Screen and Show AddToCart Screen .
   Future<List<MyCartModelClass>> getAddToCartData() async {
-    List<MyCartModelClass> newList = [];
+    final newList = <MyCartModelClass>[];
     final getData = await fireStore
         .collection('UserDetails')
         .doc(FirebaseServices.currentUser!.uid)

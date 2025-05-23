@@ -14,7 +14,7 @@ class OrderNowFetchDataMethod {
 // ** GetData Details Screen and Show OrderNow Screen .
   Stream<List<OrderModelClass>> getOrderNowData() {
     return Stream.fromFuture(() async {
-      List<OrderModelClass> newList = [];
+      final newList = <OrderModelClass>[];
       final getData = await firestore
           .collection('UserDetails')
           .doc(user!.uid)

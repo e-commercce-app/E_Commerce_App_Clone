@@ -27,7 +27,7 @@ class _UpdateUserInfoState extends State<UpdateUserInfo> {
   Future<void> updateUserInfo() async {
     final userColl = FirebaseServices.currentUserCollection;
     final userDoc = userColl.doc(FirebaseServices.currentUser!.uid);
-
+    final token = await _notificationServer.getEndUserToken();
     final updateData = UserDetails(
       id: FirebaseServices.currentUser!.uid,
       emailAddress: emailController.text,
@@ -36,7 +36,7 @@ class _UpdateUserInfoState extends State<UpdateUserInfo> {
       password: passwordController.text,
       createdOn: DateTime.now().toString(),
       role: 'isUser',
-      token: _notificationServer.getEndUserToken().toString(),
+      token: token,
     );
 
     await userDoc.update(updateData.toJson());
