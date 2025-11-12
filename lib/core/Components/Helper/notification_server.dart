@@ -5,7 +5,9 @@ import 'dart:io';
 
 import 'package:app_settings/app_settings.dart';
 import 'package:e_commerce/Export/e_commerce_export.dart';
+import 'package:e_commerce/feature/User_Side/Screens/Navigation_Bar_Screens/Home/home_screen.dart';
 import 'package:e_commerce/feature/User_Side/Screens/Notification/notification_screen.dart';
+import 'package:e_commerce/feature/User_Side/Screens/Order_Final_Page/order_main_page.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -153,23 +155,26 @@ class NotificationServer {
   ) async {
     log('Navigating to home screen. Message data: ${message.data}');
 
-    // if (message.data['screen'] == 'notification') {
-    await Navigator.push(
-      context,
-      MaterialPageRoute<dynamic>(
-        builder: (context) => NotificationScreen(
-          message: message,
+    final screen = message.data['screen'];
+    final orderId = message.data['orderDocId'];
+
+    if (screen == 'orderDetails' && orderId != null) {
+      await Navigator.push(
+        context,
+        MaterialPageRoute<dynamic>(
+          builder: (context) => const OrderNowScreen(
+              // message: message,
+              ),
         ),
-      ),
-    );
-    // } else {
-    //   await Navigator.push(
-    //     context,
-    //     MaterialPageRoute<dynamic>(
-    //       builder: (context) => const HomeScreen(),
-    //     ),
-    //   );
-    // }
+      );
+    } else {
+      await Navigator.push(
+        context,
+        MaterialPageRoute<dynamic>(
+          builder: (context) => const HomeScreen(),
+        ),
+      );
+    }
   }
 
   //! Handle foreground messages for iOS

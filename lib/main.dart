@@ -15,6 +15,7 @@ void main() async {
   //! On Create initial Data Load .
   await initDataLoad();
   FirebaseMessaging.onBackgroundMessage(_firebaseBackgroundHandler);
+
   // Set this PreferredOrientations .
   await Future.wait([
     SystemChrome.setPreferredOrientations(

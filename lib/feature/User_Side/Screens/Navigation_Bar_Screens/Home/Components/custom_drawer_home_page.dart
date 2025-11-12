@@ -132,7 +132,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                   title: 'LogOut',
                   onTap: () {
                     FirebaseServices.auth.signOut().then((value) {
-                      GoogleSignIn().signOut();
+                      GoogleSignIn.instance.signOut();
                       CustomDialog.showCustomSnackBar(
                         context: context,
                         title: 'LogOut',
